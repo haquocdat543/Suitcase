@@ -53,6 +53,6 @@ if [ -d ~/Suitcase ]
 then
 	rm -rf ~/Suitcase
 fi
-## Clear all alias
 
+## Clear all alias
 exec bash

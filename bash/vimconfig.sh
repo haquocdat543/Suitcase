@@ -106,12 +106,15 @@ Plug 'nsf/gocode', { 'tag': 'v.20150303', 'rtp': 'vim' }
 " Unmanaged plugin (manually installed and updated)
 Plug '~/my-prototype-plugin'
 
+Plug 'dracula/vim', { 'as': 'dracula' }
 " Initialize plugin system
 " - Automatically executes `filetype plugin indent on` and `syntax enable`.
 call plug#end()
 " You can revert the settings after the call like so:
 "   filetype indent off   " Disable file-type-specific indentation
 "   syntax off            " Disable syntax highlighting
+
+colorscheme dracula
 
 map ,t :ter<CR>
 map <C-b> :set backup<CR>

@@ -113,7 +113,7 @@ call plug#end()
 "   filetype indent off   " Disable file-type-specific indentation
 "   syntax off            " Disable syntax highlighting
 
-map <C-T> :ter<CR>
+map ,t :ter<CR>
 map <C-b> :set backup<CR>
 map <C-h> :noh<CR>
 map <C-q> :q!<CR>

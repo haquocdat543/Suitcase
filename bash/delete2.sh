@@ -43,4 +43,9 @@ then
 	rm -rf ~/AgoCD
 fi
 
+## If Suitcase folder exist. Delete it
+if [ -d ~/Suitcase ]
+then
+	rm -rf ~/Suitcase
+fi
 exec bash

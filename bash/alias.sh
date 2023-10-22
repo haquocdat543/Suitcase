@@ -171,7 +171,7 @@ alias cb2='cd ../..'
 alias cb3='cd ../../..'
 alias vi="vi"
 alias vinv="vi ~/.config/nvim/init.vim"
-alias vimplug="curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+alias vplg="curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
 alias val='vi ~/.bashrc'
 alias vicp='vi ./docker-compose.yaml'

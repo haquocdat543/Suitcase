@@ -9,7 +9,7 @@ then
 	sudo rm -f ~/.vimrc
 fi
 
-if [ -f ~/.bashrcb ]
+if [ -f ~/.bashrc ]
 then
 	sudo rm -f ~/.bashrc
 fi

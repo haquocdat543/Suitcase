@@ -75,10 +75,8 @@ Plug 'https://github.com/terryma/vim-multiple-cursors' " CTRL + N for multiple c
 
 Plug 'voldikss/vim-floaterm'
 " Use release branch (recommended)
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " Or build from source code by using npm
-Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'npm ci'}
 
 " Make sure you use single quotes
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
@@ -121,6 +119,7 @@ map <C-h> :noh<CR>
 map <C-q> :q!<CR>
 map <C-c> :%s/
 map <C-i> :PlugInstall<CR>
+map <C-p> :Files<CR>
 
 nnoremap <leader>n :NERDTreeFocus<CR>
 nnoremap <C-n> :NERDTree<CR>

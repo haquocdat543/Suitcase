@@ -54,4 +54,5 @@ then
 	rm -rf ~/Suitcase
 fi
 ## Clear all alias
+
 exec bash

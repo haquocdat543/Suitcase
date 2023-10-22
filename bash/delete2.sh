@@ -48,4 +48,5 @@ if [ -d ~/Suitcase ]
 then
 	rm -rf ~/Suitcase
 fi
+
 exec bash

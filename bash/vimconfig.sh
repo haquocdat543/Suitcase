@@ -69,6 +69,17 @@ Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
 Plug 'dracula/vim', { 'as': 'dracula' }
 call plug#end()
 
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+Plugin 'SirVer/ultisnips'
+Plugin 'honza/vim-snippets'
+call vundle#end()
+
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+let g:UltiSnipsEditSplit="vertical"
+
 colorscheme dracula
 
 map ,t :ter<CR>

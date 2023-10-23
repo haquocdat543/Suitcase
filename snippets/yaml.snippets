@@ -33,3 +33,16 @@ spec:
         ports:
         - containerPort: ${8:containerPort}
 endsnippet
+snippet svc "Test" b
+apiVersion: v1
+kind: Service
+metadata:
+  name: ${1:Name}
+spec:
+  selector:
+    app.kubernetes.io/name: MyApp
+  ports:
+    - protocol: ${2:protocol}
+      port: ${3:Port}
+      targetPort: ${1:targetPort}
+endsnippet

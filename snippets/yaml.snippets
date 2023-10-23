@@ -10,3 +10,26 @@ spec:
     ports:
     - containerPort: ${4:Port}
 endsnippet
+snippet deploy "Test" b
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ${1:deployName}
+  labels:
+    app: ${2:deployAppName}
+spec:
+  replicas: ${3:amountOfReplica}
+  selector:
+    matchLabels:
+      app: ${4:matchePodLabels}
+  template:
+    metadata:
+      labels:
+        app: ${5:podLabels}
+    spec:
+      containers:
+      - name: ${6:containerName}
+        image: ${7:image}
+        ports:
+        - containerPort: ${8:containerPort}
+endsnippet

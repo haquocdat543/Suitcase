@@ -81,6 +81,8 @@ colorscheme dracula
 
 map ,t :ter<CR>
 map ,i :PluginInstall<CR>
+map ,n :set nopaste<CR>
+map ,p :set paste<CR>
 map <C-b> :set backup<CR>
 map <C-h> :noh<CR>
 map <C-q> :q!<CR>

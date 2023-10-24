@@ -1,0 +1,24 @@
+snippet nd "Test" b
+if [ ! -d ${1:folderPath} ]
+then
+	${2:mkdir}	
+fi
+endsnippet
+snippet d "Test" b
+if [ -d ${1:folderPath} ]
+then
+	${2:mkdir}	
+fi
+endsnippet
+snippet nf "Test" b
+if [ ! -f ${1:filePath} ]
+then
+	${2:mkdir}	
+fi
+endsnippet
+snippet f "Test" b
+if [ -f ${1:filePath} ]
+then
+	${2:mkdir}	
+fi
+endsnippet

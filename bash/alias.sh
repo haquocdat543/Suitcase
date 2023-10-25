@@ -188,6 +188,7 @@ alias ild='. ~/preconfig/commands/lazydocker.sh'
 alias ik9s='. ~/preconfig/commands/k9s.sh'
 alias ikubectl='. ~/preconfig/commands/kubectl.sh'
 alias irg='. ~/preconfig/commands/ripgrep.sh'
+alias icargo='curl https://sh.rustup.rs -sSf | sh'
 
 alias lg='lazygit'
 alias ldk='lazydocker'

@@ -50,23 +50,6 @@ if [ ! -d ~/preconfig/vimconfig ]
 then
 	mkdir ~/preconfig/vimconfig
 fi
-## If preconfig/commands/snippets.sh file exist. Delete and recreate it 
-if [ ! -d ~/preconfig/commands/snippets.sh ]
-then
-	rm -f ~/preconfig/commands/snippets.sh && touch ~/preconfig/commands/snippets.sh && curl -s https://raw.githubusercontent.com/haquocdat543/Suitcase/main/bash/snippets.sh | sudo tee -a ~/preconfig/commands/snippets.sh 
-fi
-
-## If preconfig/commands/lazygit.sh file exist. Delete and recreate it 
-if [ ! -f ~/preconfig/commands/lazygit.sh ]
-then
-	touch ~/preconfig/commands/lazygit.sh && curl -s https://raw.githubusercontent.com/haquocdat543/Suitcase/main/bash/lazygit.sh | sudo tee -a ~/preconfig/commands/lazygit.sh 
-fi
-## If preconfig/commands/goInstall.sh file exist. Delete and recreate it 
-if [ ! -f ~/preconfig/commands/goInstall.sh ]
-then
-	touch ~/preconfig/commands/goInstall.sh && curl -s https://raw.githubusercontent.com/haquocdat543/Suitcase/main/bash/goInstall.sh | sudo tee -a ~/preconfig/commands/goInstall.sh 
-fi
-
 ## If preconfig/gitconfig folder does not exist. Create it 
 if [ ! -d ~/preconfig/gitconfig ]
 then
@@ -99,44 +82,6 @@ then
 	rm -f ~/.bashrc.backup 
 fi
 
-## If preconfig/gitconfig/gitPushOriginMain.sh file does not exist. Create it 
-if [ ! -f ~/preconfig/gitconfig/gitPushOriginMain.sh ]
-then
-	touch  ~/preconfig/gitconfig/gitPushOriginMain.sh && curl -s https://raw.githubusercontent.com/haquocdat543/Suitcase/main/bash/gitPushOriginMain.sh | sudo tee -a ~/preconfig/gitconfig/gitPushOriginMain.sh  
-fi
-
-## If preconfig/servicePatch/nodePort.sh file does not exist. Create it 
-if [ ! -f ~/preconfig/servicePatch/nodePort.sh ]
-then
-	touch  ~/preconfig/servicePatch/nodePort.sh && curl -s https://raw.githubusercontent.com/haquocdat543/Suitcase/main/bash/servicePatch/nodePort.sh | sudo tee -a ~/preconfig/servicePatch/nodePort.sh  
-fi
-
-## If preconfig/servicePatch/loadBalancer.sh file does not exist. Create it 
-if [ ! -f ~/preconfig/servicePatch/loadBalancer.sh ]
-then
-	touch  ~/preconfig/servicePatch/loadBalancer.sh && curl -s https://raw.githubusercontent.com/haquocdat543/Suitcase/main/bash/servicePatch/loadBalancer.sh | sudo tee -a ~/preconfig/servicePatch/loadBalancer.sh  
-fi
-
-## If preconfig/servicePatch/clusterIP.sh file does not exist. Create it 
-if [ ! -f ~/preconfig/servicePatch/clusterIP.sh ]
-then
-	touch  ~/preconfig/servicePatch/clusterIP.sh && curl -s https://raw.githubusercontent.com/haquocdat543/Suitcase/main/bash/servicePatch/clusterIP.sh | sudo tee -a ~/preconfig/servicePatch/clusterIP.sh  
-fi
-
-if [ ! -f ~/preconfig/controlplaneCertificate/controlplaneCertificate.sh ]
-then
-	touch  ~/preconfig/controlplaneCertificate/controlplaneCertificate.sh && curl -s https://raw.githubusercontent.com/haquocdat543/Suitcase/main/bash/controlplaneCertificate/controlplaneCertificate.sh | sudo tee -a ~/preconfig/controlplaneCertificate/controlplaneCertificate.sh  
-fi
-
-if [ ! -f ~/preconfig/vimconfig/nvimen.sh ]
-then
-	touch  ~/preconfig/vimconfig/nvimen.sh && curl -s https://raw.githubusercontent.com/haquocdat543/Suitcase/main/bash/vimconfig/nvimen.sh | sudo tee -a ~/preconfig/vimconfig/nvimen.sh  
-fi
-
-if [ ! -f ~/preconfig/vimconfig/vimen.sh ]
-then
-	touch  ~/preconfig/vimconfig/vimen.sh && curl -s https://raw.githubusercontent.com/haquocdat543/Suitcase/main/bash/vimconfig/vimen.sh | sudo tee -a ~/preconfig/vimconfig/vimen.sh  
-fi
 cat << EOF | sudo tee -a ~/.bashrc
 
 ### User specific aliases and functions
@@ -154,6 +99,7 @@ alias lr='ll ~ '
 alias lll='ll /'
 alias lbk='ll ~/preconfig/backup'
 alias cdl='cd / '
+alias cdcm='cd ~/Suitcase/bash/commands '
 alias cdsb='cd ~/Suitcase/bash '
 alias cdsn='cd ~/Suitcase/snippets '
 alias lh='ll /home'
@@ -201,7 +147,7 @@ alias vrcu='vi ~/preconfig/.vimrc'
 alias vrco='vi ~/preconfig/previmrc'
 alias viid='vi ~/.ssh/id_ed25519'
 alias visu='vi /etc/sudoers'
-alias visn='vi ~/Suitcase/bash/snippets.sh'
+alias visn='vi ~/Suitcase/bash/commands/snippets.sh'
 alias ed400='c400 ~/.ssh/id_ed25519'
 alias eb='exec bash '
 alias cos='cat /etc/os-release '
@@ -230,6 +176,7 @@ alias c100='chmod 100 '
 alias c777='chmod 777 '
 alias up1='bash <(curl -s https://raw.githubusercontent.com/haquocdat543/Suitcase/main/bash/alias.sh ) '
 alias up2='bash <(curl -s https://raw.githubusercontent.com/haquocdat543/Suitcase/main/bash/vimconfig.sh) '
+alias cm='bash <(curl -s https://raw.githubusercontent.com/haquocdat543/Suitcase/main/bash/commands/commands.sh) '
 alias dall='bash <(curl -s https://raw.githubusercontent.com/haquocdat543/Suitcase/main/bash/delete.sh) '
 alias dall2='bash <(curl -s https://raw.githubusercontent.com/haquocdat543/Suitcase/main/bash/delete2.sh) '
 alias dall3='bash <(curl -s https://raw.githubusercontent.com/haquocdat543/Suitcase/main/bash/delete3.sh) '

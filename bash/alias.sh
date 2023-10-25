@@ -182,6 +182,9 @@ alias mnode='bash <(curl -s https://raw.githubusercontent.com/haquocdat543/Suitc
 ### Installation
 alias igo='. ~/preconfig/commands/goInstall.sh'
 alias ilg='. ~/preconfig/commands/lazygit.sh'
+alias ilk='. ~/preconfig/commands/lazykubernetes.sh'
+alias ild='. ~/preconfig/commands/lazydocker.sh'
+alias ik9s='. ~/preconfig/commands/k9s.sh'
 
 ### Git command
 

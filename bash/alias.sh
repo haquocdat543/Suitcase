@@ -185,6 +185,7 @@ alias ilg='. ~/preconfig/commands/lazygit.sh'
 alias ilk='. ~/preconfig/commands/lazykubernetes.sh'
 alias ild='. ~/preconfig/commands/lazydocker.sh'
 alias ik9s='. ~/preconfig/commands/k9s.sh'
+alias ikubectl='. ~/preconfig/commands/kubectl.sh'
 
 alias lg='lazygit'
 alias ldk='lazydocker'

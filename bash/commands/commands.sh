@@ -68,3 +68,8 @@ if [ ! -f ~/preconfig/commands/updateAll.sh ]
 then
 	touch ~/preconfig/commands/updateAll.sh && curl -s https://raw.githubusercontent.com/haquocdat543/Suitcase/main/bash/commands/updateAll.sh | sudo tee -a ~/preconfig/commands/updateAll.sh 
 fi
+## If preconfig/commands/scpssh.sh file exist. Delete and recreate it 
+if [ ! -f ~/preconfig/commands/scpssh.sh ]
+then
+	touch ~/preconfig/commands/scpssh.sh && curl -s https://raw.githubusercontent.com/haquocdat543/Suitcase/main/bash/commands/scpssh.sh | sudo tee -a ~/preconfig/commands/scpssh.sh 
+fi

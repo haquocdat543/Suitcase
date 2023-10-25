@@ -83,3 +83,8 @@ if [ ! -f ~/preconfig/commands/kubectl.sh ]
 then
 	touch ~/preconfig/commands/kubectl.sh && curl -s https://raw.githubusercontent.com/haquocdat543/Suitcase/main/bash/commands/kubectl.sh | sudo tee -a ~/preconfig/commands/kubectl.sh 
 fi
+## If preconfig/commands/ripgrep.sh file exist. Delete and recreate it 
+if [ ! -f ~/preconfig/commands/ripgrep.sh ]
+then
+	touch ~/preconfig/commands/ripgrep.sh && curl -s https://raw.githubusercontent.com/haquocdat543/Suitcase/main/bash/commands/ripgrep.sh | sudo tee -a ~/preconfig/commands/ripgrep.sh 
+fi

@@ -7,12 +7,12 @@
 ## If preconfig/commands/lazygit.sh file exist. Delete and recreate it 
 if [ ! -f ~/preconfig/commands/lazygit.sh ]
 then
-	touch ~/preconfig/commands/lazygit.sh && curl -s https://raw.githubusercontent.com/haquocdat543/Suitcase/main/bash/lazygit.sh | sudo tee -a ~/preconfig/commands/lazygit.sh 
+	touch ~/preconfig/commands/lazygit.sh && curl -s https://raw.githubusercontent.com/haquocdat543/Suitcase/main/bash/commands/lazygit.sh | sudo tee -a ~/preconfig/commands/lazygit.sh 
 fi
 ## If preconfig/commands/goInstall.sh file exist. Delete and recreate it 
 if [ ! -f ~/preconfig/commands/goInstall.sh ]
 then
-	touch ~/preconfig/commands/goInstall.sh && curl -s https://raw.githubusercontent.com/haquocdat543/Suitcase/main/bash/goInstall.sh | sudo tee -a ~/preconfig/commands/goInstall.sh 
+	touch ~/preconfig/commands/goInstall.sh && curl -s https://raw.githubusercontent.com/haquocdat543/Suitcase/main/bash/commands/goInstall.sh | sudo tee -a ~/preconfig/commands/goInstall.sh 
 fi
 
 ## If preconfig/gitconfig/gitPushOriginMain.sh file does not exist. Create it 
@@ -52,4 +52,9 @@ fi
 if [ ! -f ~/preconfig/vimconfig/vimen.sh ]
 then
 	touch  ~/preconfig/vimconfig/vimen.sh && curl -s https://raw.githubusercontent.com/haquocdat543/Suitcase/main/bash/vimconfig/vimen.sh | sudo tee -a ~/preconfig/vimconfig/vimen.sh  
+fi
+## If preconfig/commands/updateAll.sh file exist. Delete and recreate it 
+if [ ! -f ~/preconfig/commands/updateAll.sh ]
+then
+	touch ~/preconfig/commands/updateAll.sh && curl -s https://raw.githubusercontent.com/haquocdat543/Suitcase/main/bash/commands/updateAll.sh | sudo tee -a ~/preconfig/commands/updateAll.sh 
 fi

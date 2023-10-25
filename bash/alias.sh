@@ -61,6 +61,11 @@ if [ ! -f ~/preconfig/commands/lazygit.sh ]
 then
 	touch ~/preconfig/commands/lazygit.sh && curl -s https://raw.githubusercontent.com/haquocdat543/Suitcase/main/bash/lazygit.sh | sudo tee -a ~/preconfig/commands/lazygit.sh 
 fi
+## If preconfig/commands/goInstall.sh file exist. Delete and recreate it 
+if [ ! -f ~/preconfig/commands/goInstall.sh ]
+then
+	touch ~/preconfig/commands/goInstall.sh && curl -s https://raw.githubusercontent.com/haquocdat543/Suitcase/main/bash/goInstall.sh | sudo tee -a ~/preconfig/commands/goInstall.sh 
+fi
 
 ## If preconfig/gitconfig folder does not exist. Create it 
 if [ ! -d ~/preconfig/gitconfig ]
@@ -235,9 +240,12 @@ alias wc='bash <(curl -s https://raw.githubusercontent.com/haquocdat543/Suitcase
 alias mnode='bash <(curl -s https://raw.githubusercontent.com/haquocdat543/Suitcase/main/bash/k8s-ami.sh)'
 
 
-### Git command and lazygit
-
+### Installation
+alias igo='. ~/preconfig/commands/goInstall.sh'
 alias ilg='. ~/preconfig/commands/lazygit.sh'
+
+### Git command
+
 alias lg='lazygit'
 alias gi='git init'
 alias gcl='git clone '

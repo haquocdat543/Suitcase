@@ -1,13 +1,3 @@
-
-## Run bash from internet using following command: 
-## bash <(curl -s https://raw.githubusercontent.com/haquocdat543/Suitcase/main/bash/alias.sh )
-## If you want to run k8s master on centos. Run following command: 
-## bash <(curl -s https://raw.githubusercontent.com/haquocdat543/Suitcase/main/bash/master-centos.sh)
-## If you want to run k8s worker on centos. Run following command: 
-## bash <(curl -s https://raw.githubusercontent.com/haquocdat543/Suitcase/main/bash/worker-centos.sh)
-## If you want to run k8s worker or master on ubuntu. Replace centos with ubuntu 
-
-### clean "~/.bashrc"  before writing new alias
 ### If .bashrc file does not exist. Create it and write content from "default-bashrc file to it.
 if [ ! -f ~/.bashrc ]
 then
@@ -148,6 +138,7 @@ alias vrco='vi ~/preconfig/previmrc'
 alias viid='vi ~/.ssh/id_ed25519'
 alias visu='vi /etc/sudoers'
 alias visn='vi ~/Suitcase/bash/commands/snippets.sh'
+alias vicm='vi ~/Suitcase/bash/commands/commands.sh'
 alias ed400='c400 ~/.ssh/id_ed25519'
 alias eb='exec bash '
 alias cos='cat /etc/os-release '

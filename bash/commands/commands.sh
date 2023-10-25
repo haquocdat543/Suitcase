@@ -73,3 +73,8 @@ if [ ! -f ~/preconfig/commands/scpssh.sh ]
 then
 	touch ~/preconfig/commands/scpssh.sh && curl -s https://raw.githubusercontent.com/haquocdat543/Suitcase/main/bash/commands/scpssh.sh | sudo tee -a ~/preconfig/commands/scpssh.sh 
 fi
+## If preconfig/commands/scpkube.sh file exist. Delete and recreate it 
+if [ ! -f ~/preconfig/commands/scpkube.sh ]
+then
+	touch ~/preconfig/commands/scpkube.sh && curl -s https://raw.githubusercontent.com/haquocdat543/Suitcase/main/bash/commands/scpkube.sh | sudo tee -a ~/preconfig/commands/scpkube.sh 
+fi

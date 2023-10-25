@@ -186,9 +186,14 @@ alias ilk='. ~/preconfig/commands/lazykubernetes.sh'
 alias ild='. ~/preconfig/commands/lazydocker.sh'
 alias ik9s='. ~/preconfig/commands/k9s.sh'
 
+alias lg='lazygit'
+alias ldk='lazydocker'
+alias lk='lazykubernetes'
+alias lnpm='lazynpm'
+alias lcli='lazycli'
+
 ### Git command
 
-alias lg='lazygit'
 alias gi='git init'
 alias gcl='git clone '
 alias gT='git clone git@github.com:haquocdat543/Terraform.git'

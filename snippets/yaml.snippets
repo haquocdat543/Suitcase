@@ -15,6 +15,9 @@ spec:
     - name: ${5:volumeName}# The volume called html is mounted at /usr/share/nginx/html in the container
       mountPath: ${6:mountPath(container)}
       ${1:ReadOnly}: ${7:true}
+      env: # pass env to container
+        - name: #${8:PORT} env name
+          value: ${9:"5000"}# env value
 volumes: # define volumes
   - name: $5 # name of the volumes
     ${8:emptyDir}: ${1:{}}# define type is emptyDir
@@ -43,9 +46,12 @@ spec:
     	- name: ${10:volumeName}# The volume called html is mounted at /usr/share/nginx/html in the container
       	mountPath: ${11:mountPath(container)}
       	${1:ReadOnly}: ${12:true}
+      	env: # pass env to container
+        - name: #${13:PORT} env name
+          value: ${14:"5000"}# env value
     volumes: # define volumes
   	- name: $10 # name of the volumes
-    	${13:emptyDir}: ${14:{}}# define type is emptyDir
+    	${15:emptyDir}: ${16:{}}# define type is emptyDir
 endsnippet
 snippet rs "Test" b
 apiVersion: apps/v1 # change version API
@@ -67,6 +73,9 @@ spec:
         name:${8:containerName} 
         ports:
           - containerPort: ${9:8080}
+      	env: # pass env to container
+        - name: #${9:PORT} env name
+          value: ${10:"5000"}# env value
 endsnippet
 snippet dms "Test" b
 apiVersion: apps/v1
@@ -87,6 +96,9 @@ spec:
       containers:
         - name: ${8:containerName}
           image: ${9:containerImage}
+      	env: # pass env to container
+        - name: #${10:PORT} env name
+          value: ${11:"5000"}# env value
 endsnippet
 snippet dpl "Test" b
 apiVersion: apps/v1
@@ -113,6 +125,9 @@ spec:
         image: ${9:image}
         ports:
         - containerPort: ${10:containerPort}
+      	env: # pass env to container
+        - name: #${11:PORT} env name
+          value: ${12:"5000"}# env value
 endsnippet
 ## SERVICE
 snippet svc "Test" b

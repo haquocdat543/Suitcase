@@ -40,9 +40,38 @@ metadata:
   name: ${1:Name}
 spec:
   selector:
-    app.kubernetes.io/name: MyApp
+      ${2:app} : ${3:myAppName}
   ports:
-    - protocol: ${2:protocol}
-      port: ${3:Port}
-      targetPort: ${4:targetPort}
+    - protocol: ${4:protocol}
+      port: ${5:Port}
+      targetPort: ${6:targetPort}
+endsnippet
+snippet svcn "Test" b
+apiVersion: v1
+kind: Service
+metadata:
+  name: ${1:Name}
+spec:
+  type: NodePort
+  selector:
+      ${2:app} : ${3:myAppName}
+  ports:
+    - protocol: ${4:protocol}
+      port: ${5:Port}
+      targetPort: ${6:targetPort}
+      nodePort: ${7:NodePort}
+endsnippet
+snippet pv "Test" b
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: ${1:my-pvc}
+spec:
+  capacity:
+    storage: ${2:5Gi}
+  volumeMode: ${3:Filesystem}
+  accessModes:
+    - ${4:ReadWriteOnce}
+  persistentVolumeReclaimPolicy: ${5:Recycle}
+  storageClassName: ${6:myStorageClass} 
 endsnippet

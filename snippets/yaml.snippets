@@ -238,7 +238,15 @@ snippet aws "Test" b
           ${3:ReadOnly}: ${4:true}
   volumes: # define volumes
     - name: $2 name of the volumes
-      awsElasticBlockStore: # google cloud disk volume
-        volumeID: ${2:volumeID}# name of the persistent disk on google cloud
+      awsElasticBlockStore: # amazon web service volume
+        volumeID: ${2:volumeID}# volume of the aws ebs
         fsType: ext4
+endsnippet
+snippet map "Test" b
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ${2:configMapName}
+data:
+  ${2:DB}: ${2:postgre}
 endsnippet

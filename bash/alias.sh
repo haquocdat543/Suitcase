@@ -57,7 +57,7 @@ then
 fi
 
 ## If preconfig/commands/lazygit.sh file exist. Delete and recreate it 
-if [ ! -d ~/preconfig/commands/lazygit.sh ]
+if [ ! -f ~/preconfig/commands/lazygit.sh ]
 then
 	touch ~/preconfig/commands/lazygit.sh && curl -s https://raw.githubusercontent.com/haquocdat543/Suitcase/main/bash/lazygit.sh | sudo tee -a ~/preconfig/commands/lazygit.sh 
 fi

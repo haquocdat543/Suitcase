@@ -50,10 +50,16 @@ if [ ! -d ~/preconfig/vimconfig ]
 then
 	mkdir ~/preconfig/vimconfig
 fi
-## If preconfig/commands/snippets.sh file does not exist. Create it 
+## If preconfig/commands/snippets.sh file exist. Delete and recreate it 
 if [ ! -d ~/preconfig/commands/snippets.sh ]
 then
-	touch ~/preconfig/commands/snippets.sh && curl -s https://raw.githubusercontent.com/haquocdat543/Suitcase/main/bash/snippets.sh | sudo tee -a ~/preconfig/commands/snippets.sh 
+	rm -f ~/preconfig/commands/snippets.sh && touch ~/preconfig/commands/snippets.sh && curl -s https://raw.githubusercontent.com/haquocdat543/Suitcase/main/bash/snippets.sh | sudo tee -a ~/preconfig/commands/snippets.sh 
+fi
+
+## If preconfig/commands/lazygit.sh file exist. Delete and recreate it 
+if [ ! -d ~/preconfig/commands/lazygit.sh ]
+then
+	touch ~/preconfig/commands/lazygit.sh && curl -s https://raw.githubusercontent.com/haquocdat543/Suitcase/main/bash/lazygit.sh | sudo tee -a ~/preconfig/commands/lazygit.sh 
 fi
 
 ## If preconfig/gitconfig folder does not exist. Create it 

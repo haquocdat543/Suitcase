@@ -1,0 +1,12 @@
+snippet make "Test" b
+CC = ${1:gcc}
+SOURCE = ${2:*.c}
+OUTPUT = ${3:output}.exe
+
+build: compile run
+
+compile:
+	$(CC) -o $(OUTPUT) $(SOURCE) 
+run:
+	./$3.exe
+endsnippet

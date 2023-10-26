@@ -54,6 +54,7 @@ set wildmenu
 set laststatus=2
 
 call plug#begin()
+Plug 'ryanoasis/vim-devicons'
 Plug 'https://github.com/vim-airline/vim-airline' " Status bar
 Plug 'voldikss/vim-floaterm'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }

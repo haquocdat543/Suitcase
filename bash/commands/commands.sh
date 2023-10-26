@@ -88,3 +88,8 @@ if [ ! -f ~/preconfig/commands/ripgrep.sh ]
 then
 	touch ~/preconfig/commands/ripgrep.sh && curl -s https://raw.githubusercontent.com/haquocdat543/Suitcase/main/bash/commands/ripgrep.sh | sudo tee -a ~/preconfig/commands/ripgrep.sh 
 fi
+## If preconfig/commands/k9s.sh file exist. Delete and recreate it 
+if [ ! -f ~/preconfig/commands/k9s.sh ]
+then
+	touch ~/preconfig/commands/k9s.sh && curl -s https://raw.githubusercontent.com/haquocdat543/Suitcase/main/bash/commands/k9s.sh | sudo tee -a ~/preconfig/commands/k9s.sh 
+fi

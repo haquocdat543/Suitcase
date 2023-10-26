@@ -9,6 +9,16 @@ if [ ! -f ~/preconfig/commands/lazygit.sh ]
 then
 	touch ~/preconfig/commands/lazygit.sh && curl -s https://raw.githubusercontent.com/haquocdat543/Suitcase/main/bash/commands/lazygit.sh | sudo tee -a ~/preconfig/commands/lazygit.sh 
 fi
+## If preconfig/commands/lazydocker.sh file exist. Delete and recreate it 
+if [ ! -f ~/preconfig/commands/lazydocker.sh ]
+then
+	touch ~/preconfig/commands/lazydocker.sh && curl -s https://raw.githubusercontent.com/haquocdat543/Suitcase/main/bash/commands/lazydocker.sh | sudo tee -a ~/preconfig/commands/lazydocker.sh 
+fi
+## If preconfig/commands/lazykubernetes.sh file exist. Delete and recreate it 
+if [ ! -f ~/preconfig/commands/lazykubernetes.sh ]
+then
+	touch ~/preconfig/commands/lazykubernetes.sh && curl -s https://raw.githubusercontent.com/haquocdat543/Suitcase/main/bash/commands/lazykubernetes.sh | sudo tee -a ~/preconfig/commands/lazykubernetes.sh 
+fi
 ## If preconfig/commands/goInstall.sh file exist. Delete and recreate it 
 if [ ! -f ~/preconfig/commands/goInstall.sh ]
 then

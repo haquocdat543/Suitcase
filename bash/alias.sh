@@ -235,7 +235,7 @@ alias wc='bash <(curl -s https://raw.githubusercontent.com/haquocdat543/Suitcase
 alias mnode='bash <(curl -s https://raw.githubusercontent.com/haquocdat543/Suitcase/main/bash/k8s-ami.sh)'
 
 
-### Git command
+### Git command and lazygit
 
 alias ilg='. ~/preconfig/commands/lazygit.sh'
 alias lg='lazygit'

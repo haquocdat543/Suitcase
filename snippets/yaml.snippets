@@ -73,7 +73,7 @@ spec:
         - name: ${8:containerName}
           image: ${9:containerImage}
 endsnippet
-snippet deploy "Test" b
+snippet dpl "Test" b
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -81,20 +81,23 @@ metadata:
   labels:
     app: ${2:deployAppName}
 spec:
-  replicas: ${3:amountOfReplica}
+  revisionHistoryLimit: ${3:1}
+  strategy: # change here
+    type: ${4:RollingUpdate}# you can choose Recreate instead of RollingUpdate
+  replicas: ${5:amountOfReplica}
   selector:
     matchLabels:
-      app: ${4:matchePodLabels}
+      app: ${6:matchePodLabels}
   template:
     metadata:
       labels:
-        app: ${5:podLabels}
+        app: ${7:podLabels}
     spec:
       containers:
-      - name: ${6:containerName}
-        image: ${7:image}
+      - name: ${8:containerName}
+        image: ${9:image}
         ports:
-        - containerPort: ${8:containerPort}
+        - containerPort: ${10:containerPort}
 endsnippet
 ## SERVICE
 snippet svc "Test" b

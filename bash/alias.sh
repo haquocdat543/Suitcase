@@ -90,6 +90,7 @@ alias lll='ll /'
 alias lbk='ll ~/preconfig/backup'
 alias cdl='cd / '
 alias cdcm='cd ~/Suitcase/bash/commands '
+alias cddoc='cd ~/Suitcase/bash/docs'
 alias cdsb='cd ~/Suitcase/bash '
 alias cdsn='cd ~/Suitcase/snippets '
 alias lh='ll /home'
@@ -139,6 +140,7 @@ alias vrco='vi ~/preconfig/previmrc'
 alias viid='vi ~/.ssh/id_ed25519'
 alias visu='vi /etc/sudoers'
 alias visn='vi ~/Suitcase/bash/commands/snippets.sh'
+alias vidoc='vi ~/Suitcase/bash/docs/docs.sh'
 alias vicm='vi ~/Suitcase/bash/commands/commands.sh'
 alias ed400='c400 ~/.ssh/id_ed25519'
 alias eb='exec bash '
@@ -179,6 +181,9 @@ alias mc='bash <(curl -s https://raw.githubusercontent.com/haquocdat543/Suitcase
 alias wc='bash <(curl -s https://raw.githubusercontent.com/haquocdat543/Suitcase/main/bash/worker-centos.sh)'
 alias mnode='bash <(curl -s https://raw.githubusercontent.com/haquocdat543/Suitcase/main/bash/k8s-ami.sh)'
 
+
+### Installation
+alias dock8s='vi -r ~/preconfig/docs/dock8s.txt'
 
 ### Installation
 alias igo='. ~/preconfig/commands/goInstall.sh'

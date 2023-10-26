@@ -1,4 +1,4 @@
 # K8S DOCUMENTATION BY HAQUOCDAT
 ## COMMANDS
 ## 1 GET PODS
-kubctl get pod
+kubectl get pod

@@ -10,6 +10,47 @@ spec:
     ports:
     - containerPort: ${4:Port}
 endsnippet
+snippet rc "Test" b
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: ${1:my-rc}
+spec:
+  replicas:  ${1:3} # number of the pod
+  selector: # The pod selector determining what pods the RC is operating on
+    ${1:app}: ${1:appName} #label value
+  template: # pod template
+    metadata:
+      labels:
+        ${1:podLabel}: ${1:podLabelValue}# label value
+    spec:
+      containers:
+      - image: ${1:image}# image used to run container
+        name: ${1:containerName}# name of the container
+        ports:
+          - containerPort: ${1:8080}# pod of the container
+endsnippet
+snippet rs "Test" b
+apiVersion: apps/v1 # change version API
+kind: ReplicaSet # change resource name
+metadata:
+  name: ${1:myReplicaSet}
+spec:
+  replicas: ${2:amount}
+  selector:
+    matchLabels: # change here 
+      ${3:app}: ${4:appName}
+  template:
+    metadata:
+      labels:
+        ${5:podLabel}: ${6:podLabelValue}
+    spec:
+      containers:
+      - image: ${7:imageName}
+        name:${8:containerName} 
+        ports:
+          - containerPort: ${9:8080}
+endsnippet
 snippet deploy "Test" b
 apiVersion: apps/v1
 kind: Deployment

@@ -129,6 +129,38 @@ spec:
         - name: #${11:PORT} env name
           value: ${12:"5000"} # env value
 endsnippet
+snippet sts "Test" b
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: ${1:statefulSetName}
+spec:
+  serviceName: ${2:serverName}# the name of service
+  replicas: ${3:amount}
+  template: # pod template
+    metadata:
+      labels:
+        ${4:podLabelName}: ${5:podLabelValue}
+    spec:
+      containers:
+        - name: ${6:containerName}
+          image: ${7:containerImage}
+          ports:
+            - name: ${8:http}
+              containerPort: ${9:8080}
+      volumeMounts:
+        - name: ${10:volumeName}
+          mountPath: ${11:containerPath}
+  volumeClaimTemplates: # pvc template
+    - metadata:
+        name: $10
+      spec:
+        resources:
+          requests:
+            storage: ${12:5Gi}
+        accessModes:
+          - ${13:ReadWriteOne}
+endsnippet
 ## SERVICE
 snippet svc "Test" b
 apiVersion: v1

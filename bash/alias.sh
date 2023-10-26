@@ -183,7 +183,7 @@ alias mnode='bash <(curl -s https://raw.githubusercontent.com/haquocdat543/Suitc
 
 
 ### Installation
-alias dock8s='vi -r ~/preconfig/docs/dock8s.txt'
+alias dock8s='vi -r ~/preconfig/docs/dock8s.md'
 
 ### Installation
 alias igo='. ~/preconfig/commands/goInstall.sh'

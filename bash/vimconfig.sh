@@ -63,17 +63,17 @@ Plug 'junegunn/vim-github-dashboard'
 Plug 'preservim/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
 Plug 'dracula/vim', { 'as': 'dracula' }
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
 call plug#end()
 
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-Plugin 'SirVer/ultisnips'
-Plugin 'honza/vim-snippets'
-call vundle#end()
+" set rtp+=~/.vim/bundle/Vundle.vim
+" call vundle#begin()
+" call vundle#end()
 
 let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<c-b>"
-let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+let g:UltiSnipsJumpForwardTrigger="<c-m>"
+let g:UltiSnipsJumpBackwardTrigger="<c-n>"
 let g:UltiSnipsEditSplit="vertical"
 
 colorscheme dracula

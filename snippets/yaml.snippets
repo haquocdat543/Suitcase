@@ -12,15 +12,15 @@ spec:
     ports:
     - containerPort: ${4:Port}
     volumeMounts:
-    - name: ${5:volumeName}# The volume called html is mounted at /usr/share/nginx/html in the container
+    - name: ${5:volumeName} # The volume called html is mounted at /usr/share/nginx/html in the container
       mountPath: ${6:mountPath(container)}
       ${1:ReadOnly}: ${7:true}
       env: # pass env to container
         - name: #${8:PORT} env name
-          value: ${9:"5000"}# env value
+          value: ${9:"5000"} # env value
 volumes: # define volumes
   - name: $5 # name of the volumes
-    ${8:emptyDir}: ${1:{}}# define type is emptyDir
+    ${8:emptyDir}: ${1:{}} # define type is emptyDir
 endsnippet
 ## SET
 snippet rc "Test" b
@@ -35,23 +35,23 @@ spec:
   template: # pod template
     metadata:
       labels:
-        ${5:podLabel}: ${6:podLabelValue}# label value
+        ${5:podLabel}: ${6:podLabelValue} # label value
     spec:
       containers:
-      - image: ${7:image}# image used to run container
-        name: ${8:containerName}# name of the container
+      - image: ${7:image} # image used to run container
+        name: ${8:containerName} # name of the container
         ports:
-          - containerPort: ${9:8080}# pod of the container
+          - containerPort: ${9:8080} # pod of the container
     	volumeMounts:
-    	- name: ${10:volumeName}# The volume called html is mounted at /usr/share/nginx/html in the container
+    	- name: ${10:volumeName} # The volume called html is mounted at /usr/share/nginx/html in the container
       	mountPath: ${11:mountPath(container)}
       	${1:ReadOnly}: ${12:true}
       	env: # pass env to container
         - name: #${13:PORT} env name
-          value: ${14:"5000"}# env value
+          value: ${14:"5000"} # env value
     volumes: # define volumes
   	- name: $10 # name of the volumes
-    	${15:emptyDir}: ${16:{}}# define type is emptyDir
+    	${15:emptyDir}: ${16:{}} # define type is emptyDir
 endsnippet
 snippet rs "Test" b
 apiVersion: apps/v1 # change version API
@@ -75,7 +75,7 @@ spec:
           - containerPort: ${9:8080}
       	env: # pass env to container
         - name: #${9:PORT} env name
-          value: ${10:"5000"}# env value
+          value: ${10:"5000"} # env value
 endsnippet
 snippet dms "Test" b
 apiVersion: apps/v1
@@ -98,7 +98,7 @@ spec:
           image: ${9:containerImage}
       	env: # pass env to container
         - name: #${10:PORT} env name
-          value: ${11:"5000"}# env value
+          value: ${11:"5000"} # env value
 endsnippet
 snippet dpl "Test" b
 apiVersion: apps/v1
@@ -110,7 +110,7 @@ metadata:
 spec:
   revisionHistoryLimit: ${3:1}
   strategy: # change here
-    type: ${4:RollingUpdate}# you can choose Recreate instead of RollingUpdate
+    type: ${4:RollingUpdate} # you can choose Recreate instead of RollingUpdate
   replicas: ${5:amountOfReplica}
   selector:
     matchLabels:
@@ -127,7 +127,7 @@ spec:
         - containerPort: ${10:containerPort}
       	env: # pass env to container
         - name: #${11:PORT} env name
-          value: ${12:"5000"}# env value
+          value: ${12:"5000"} # env value
 endsnippet
 ## SERVICE
 snippet svc "Test" b
@@ -179,12 +179,12 @@ metadata:
   name: ${1:myIngressName}
 spec:
   rules:
-    - host: ${2:replicaSet.example.com}# domain name
+    - host: ${2:replicaSet.example.com} # domain name
   http:
     paths:
       - path: ${3:/}
         backend:
-          serviceName: ${4:serviceName}# name of the service inside cluster
+          serviceName: ${4:serviceName} # name of the service inside cluster
           servicePort: ${5:serverPort}
 endsnippet
 snippet pv "Test" b
@@ -203,43 +203,43 @@ spec:
 endsnippet
 snippet emptyDir "Test" b
       volumeMounts:
-        - name: ${1:volueName}# The volume called html is mounted at /usr/share/nginx/html in the container
+        - name: ${1:volueName} # The volume called html is mounted at /usr/share/nginx/html in the container
           mountPath:${2:mountPath(container)} 
           ${3:ReadOnly}: ${4:true}
   volumes: # define volumes
     - name: $2 name of the volumes
-      ${6:emptyDir}: ${7:{}}# define type is emptyDir
+      ${6:emptyDir}: ${7:{}} # define type is emptyDir
 endsnippet
 snippet hostPath "Test" b
       volumeMounts:
-        - name: ${1:volueName}# The volume called html is mounted at /usr/share/nginx/html in the container
+        - name: ${1:volueName} # The volume called html is mounted at /usr/share/nginx/html in the container
           mountPath:${2:mountPath(container)} 
           ${3:ReadOnly}: ${4:true}
   volumes: # define volumes
     - name: $2 name of the volumes
       hostPath: # hostPath volume
-      	${6:path}: ${7:path}# define type is emptyDir
+      	${6:path}: ${7:path} # define type is emptyDir
 endsnippet
 snippet gce "Test" b
       volumeMounts:
-        - name: ${1:volueName}# The volume called html is mounted at /usr/share/nginx/html in the container
+        - name: ${1:volueName} # The volume called html is mounted at /usr/share/nginx/html in the container
           mountPath:${2:mountPath(container)} 
           ${3:ReadOnly}: ${4:true}
   volumes: # define volumes
     - name: $2 name of the volumes
       gcePersistentDisk: # google cloud disk volume
-        pdName: ${2:persistentVolumeName}# name of the persistent disk on google cloud
+        pdName: ${2:persistentVolumeName} # name of the persistent disk on google cloud
         fsType: ext4
 endsnippet
 snippet aws "Test" b
       volumeMounts:
-        - name: ${1:volueName}# The volume called html is mounted at /usr/share/nginx/html in the container
+        - name: ${1:volueName} # The volume called html is mounted at /usr/share/nginx/html in the container
           mountPath:${2:mountPath(container)} 
           ${3:ReadOnly}: ${4:true}
   volumes: # define volumes
     - name: $2 name of the volumes
       awsElasticBlockStore: # amazon web service volume
-        volumeID: ${2:volumeID}# volume of the aws ebs
+        volumeID: ${2:volumeID} # volume of the aws ebs
         fsType: ext4
 endsnippet
 snippet map "Test" b

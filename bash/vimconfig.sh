@@ -90,6 +90,7 @@ map <C-c> :%s/
 map <C-i> :PlugInstall<CR>
 map <C-p> :Files<CR>
 map <C-s> :UltiSnipsEdit<CR>
+map <F9> :FloatermNew<CR>
 
 nnoremap <leader>n :NERDTreeFocus<CR>
 nnoremap <C-n> :NERDTree<CR>

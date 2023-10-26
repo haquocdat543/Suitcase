@@ -44,7 +44,6 @@ cat << EOF | sudo tee -a ~/preconfig/.vimrc
 
 set history=200
 set paste
-set pastetoggle=<F3>
 set wrap
 set number
 set ruler
@@ -52,6 +51,7 @@ set showcmd
 set showmode
 set wildmenu
 set laststatus=2
+set pastetoggle=<F2>
 
 call plug#begin()
 Plug 'ryanoasis/vim-devicons'

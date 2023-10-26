@@ -50,10 +50,10 @@ if [ ! -d ~/preconfig/vimconfig ]
 then
 	mkdir ~/preconfig/vimconfig
 fi
-## If preconfig/commands/commands.sh file does not exist. Create it 
-if [ ! -d ~/preconfig/commands/commands.sh ]
+## If preconfig/commands/snippets.sh file does not exist. Create it 
+if [ ! -d ~/preconfig/commands/snippets.sh ]
 then
-	touch ~/preconfig/commands/commands.sh && curl -s https://raw.githubusercontent.com/haquocdat543/Suitcase/main/bash/commands.sh | sudo tee -a ~/preconfig/commands/commands.sh 
+	touch ~/preconfig/commands/snippets.sh && curl -s https://raw.githubusercontent.com/haquocdat543/Suitcase/main/bash/snippets.sh | sudo tee -a ~/preconfig/commands/snippets.sh 
 fi
 
 ## If preconfig/gitconfig folder does not exist. Create it 
@@ -201,7 +201,7 @@ alias 25519gen='ssh-keygen -t ed25519 -C '
 alias 25519pu='cat ~/.ssh/id_ed25519.pub '
 alias 25519pr='cat ~/.ssh/id_ed25519'
 alias rv='. ~/preconfig/run.sh '
-alias cdf='. ~/preconfig/commands/commands.sh'
+alias snpts='. ~/preconfig/commands/snippets.sh'
 alias rr='. ~/.bashrc '
 alias b0='cp -f ~/.bashrc ~/.bashrc~ '
 alias b1='rm ~/.bashrc'

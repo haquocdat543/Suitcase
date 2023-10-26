@@ -88,6 +88,7 @@ map <C-h> :noh<CR>
 map <C-q> :q!<CR>
 map <C-c> :%s/
 map <C-i> :PlugInstall<CR>
+map <M-i> :PluginInstall<CR>
 map <C-p> :Files<CR>
 
 nnoremap <leader>n :NERDTreeFocus<CR>

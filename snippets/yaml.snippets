@@ -1,3 +1,4 @@
+## POD
 snippet pod "Test" b
 apiVersion: v1
 kind: Pod
@@ -10,6 +11,7 @@ spec:
     ports:
     - containerPort: ${4:Port}
 endsnippet
+## SET
 snippet rc "Test" b
 apiVersion: v1
 kind: ReplicationController
@@ -51,6 +53,26 @@ spec:
         ports:
           - containerPort: ${9:8080}
 endsnippet
+snippet dms "Test" b
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: ${1:myDaemonSet}
+spec:
+  selector:
+    matchLabels:
+      ${2:daemonSetLabel}: ${3:daemonSetLabelValue}
+  template:
+    metadata:
+      labels:
+        ${4:podLabel}: ${5:podLabelValue}
+    spec:
+      nodeSelector:
+        ${6:nodeLabelName}: ${7:nodeLabelNameValue} 
+      containers:
+        - name: ${8:containerName}
+          image: ${9:containerImage}
+endsnippet
 snippet deploy "Test" b
 apiVersion: apps/v1
 kind: Deployment
@@ -74,6 +96,7 @@ spec:
         ports:
         - containerPort: ${8:containerPort}
 endsnippet
+## SERVICE
 snippet svc "Test" b
 apiVersion: v1
 kind: Service
@@ -97,10 +120,24 @@ spec:
   selector:
       ${2:app} : ${3:myAppName}
   ports:
-    - protocol: ${4:protocol}
-      port: ${5:Port}
-      targetPort: ${6:targetPort}
-      nodePort: ${7:NodePort}
+    - protocol: ${4:TCP}
+      port: ${5:80}
+      targetPort: ${6:8080}
+      nodePort: ${7:31000}
+endsnippet
+snippet lb "Test" b
+apiVersion: v1
+kind: Service
+metadata:
+  name: ${1:serverName}
+spec:
+  selector:
+    ${1:podLabelName}: ${1:podLabelNameValue}
+  type: LoadBalancer
+  ports:
+    - protocol: ${4:TCP}
+      port: ${1:80}
+      targetPort: ${1:8080}
 endsnippet
 snippet pv "Test" b
 apiVersion: v1

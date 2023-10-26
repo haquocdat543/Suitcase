@@ -44,6 +44,7 @@ cat << EOF | sudo tee -a ~/preconfig/.vimrc
 
 set history=200
 set paste
+set pastetoggle=<F3>
 set wrap
 set number
 set ruler
@@ -53,11 +54,6 @@ set wildmenu
 set laststatus=2
 
 call plug#begin()
-" The default plugin directory will be as follows:
-"   - Vim (Linux/macOS): '~/.vim/plugged'
-"   - Vim (Windows): '~/vimfiles/plugged'
-"   - Neovim (Linux/macOS/Windows): stdpath('data') . '/plugged'
-
 Plug 'https://github.com/vim-airline/vim-airline' " Status bar
 Plug 'voldikss/vim-floaterm'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
@@ -83,12 +79,12 @@ let g:UltiSnipsEditSplit="vertical"
 colorscheme dracula
 
 map ,t :ter<CR>
+map ,i :PluginInstall<CR>
 map <C-b> :set backup<CR>
 map <C-h> :noh<CR>
 map <C-q> :q!<CR>
 map <C-c> :%s/
 map <C-i> :PlugInstall<CR>
-map <M-i> :PluginInstall<CR>
 map <C-p> :Files<CR>
 
 nnoremap <leader>n :NERDTreeFocus<CR>

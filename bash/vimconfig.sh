@@ -86,6 +86,7 @@ map <C-q> :q!<CR>
 map <C-c> :%s/
 map <C-i> :PlugInstall<CR>
 map <C-p> :Files<CR>
+map <C-s> :UltiSnipsEdit<CR>
 
 nnoremap <leader>n :NERDTreeFocus<CR>
 nnoremap <C-n> :NERDTree<CR>

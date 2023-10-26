@@ -205,3 +205,25 @@ snippet hostPath "Test" b
       hostPath: # hostPath volume
       	${6:path}: ${7:path}# define type is emptyDir
 endsnippet
+snippet gce "Test" b
+      volumeMounts:
+        - name: ${1:volueName}# The volume called html is mounted at /usr/share/nginx/html in the container
+          mountPath:${2:mountPath(container)} 
+          ${3:ReadOnly}: ${4:true}
+  volumes: # define volumes
+    - name: $2 name of the volumes
+      gcePersistentDisk: # google cloud disk volume
+        pdName: ${2:persistentVolumeName}# name of the persistent disk on google cloud
+        fsType: ext4
+endsnippet
+snippet aws "Test" b
+      volumeMounts:
+        - name: ${1:volueName}# The volume called html is mounted at /usr/share/nginx/html in the container
+          mountPath:${2:mountPath(container)} 
+          ${3:ReadOnly}: ${4:true}
+  volumes: # define volumes
+    - name: $2 name of the volumes
+      awsElasticBlockStore: # google cloud disk volume
+        volumeID: ${2:volumeID}# name of the persistent disk on google cloud
+        fsType: ext4
+endsnippet

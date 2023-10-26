@@ -238,6 +238,7 @@ alias mnode='bash <(curl -s https://raw.githubusercontent.com/haquocdat543/Suitc
 ### Git command
 
 alias ilg='. ~/preconfig/commands/lazygit.sh'
+alias lg='lazygit'
 alias gi='git init'
 alias gcl='git clone '
 alias gT='git clone git@github.com:haquocdat543/Terraform.git'

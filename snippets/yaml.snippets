@@ -110,7 +110,7 @@ spec:
       port: ${5:Port}
       targetPort: ${6:targetPort}
 endsnippet
-snippet svcn "Test" b
+snippet np "Test" b
 apiVersion: v1
 kind: Service
 metadata:
@@ -138,6 +138,21 @@ spec:
     - protocol: ${4:TCP}
       port: ${1:80}
       targetPort: ${1:8080}
+endsnippet
+snippet in "Test" b
+piVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: ${1:myIngressName}
+spec:
+  rules:
+    - host: ${2:replicaSet.example.com}# domain name
+  http:
+    paths:
+      - path: ${3:/}
+        backend:
+          serviceName: ${4:serviceName}# name of the service inside cluster
+          servicePort: ${5:serverPort}
 endsnippet
 snippet pv "Test" b
 apiVersion: v1

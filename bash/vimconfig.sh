@@ -64,7 +64,7 @@ Plug 'preservim/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
 Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'SirVer/ultisnips'
-Plug 'honza/vim-snippets'
+" Plug 'honza/vim-snippets'
 call plug#end()
 
 " set rtp+=~/.vim/bundle/Vundle.vim

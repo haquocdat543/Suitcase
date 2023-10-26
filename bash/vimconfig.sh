@@ -46,6 +46,7 @@ set history=200
 set paste
 set wrap
 set number
+set relativenumber
 set ruler
 set showcmd
 set showmode

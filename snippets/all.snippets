@@ -10,3 +10,12 @@ compile:
 run:
 	./$3.exe
 endsnippet
+### DOCKER
+snippet dockerfile "Test" b
+FROM ${1:node:18-alpine}
+WORKDIR ${2:/app}
+COPY ${3:. .}
+RUN ${4:yarn install --production}
+CMD ${5:["node", "src/index.js"]}
+EXPOSE ${6:3000}
+endsnippet

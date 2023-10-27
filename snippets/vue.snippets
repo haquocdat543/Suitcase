@@ -1,2 +1,31 @@
 snippet tpl "Test" b
+<template>
+  ${1:
+  <img alt="Vue logo" src="./assets/logo.png">
+  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  }
+</template>
+
+<script>
+import ${2:HelloWorld} from '${3:./components/HelloWorld.vue}'
+
+export default {
+  name: '${4:App}',
+  components: {
+    ${5:HelloWorld}
+  }
+}
+</script>
+
+<style>
+${6:#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  margin-top: 60px;
+}
+</style>
+}
 endsnippet

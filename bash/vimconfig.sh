@@ -92,6 +92,7 @@ map <C-q> :q!<CR>
 map <C-c> :%s/
 map <C-i> :PlugInstall<CR>
 map <C-p> :Files<CR>
+map <C-k> :Rg<CR>
 map <C-s> :UltiSnipsEdit<CR>
 map <F9> :FloatermNew<CR>
 

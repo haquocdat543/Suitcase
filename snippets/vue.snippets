@@ -1,5 +1,39 @@
 extends html, js, css
-snippet tpl "Test" b
+
+snippet im "Import vue" b
+import ${1:Header} from "./components/${2:Header}"
+endsnippet
+
+snippet com "Components vue" b
+components: {${1:Header}},
+endsnippet
+
+snippet # "id" b
+#$1{ 
+	$2
+}
+endsnippet
+
+snippet < "tag" b
+<$1/>
+endsnippet
+
+snippet . "class" b
+.$1{ 
+	$2
+}
+endsnippet
+
+snippet id "tag id" b
+id=$1
+endsnippet
+
+snippet class "tag class" b
+class=$1
+endsnippet
+
+
+snippet tpl "Vue Template" b
 <template>
   ${1:
   <img alt="Vue logo" src="./assets/logo.png">

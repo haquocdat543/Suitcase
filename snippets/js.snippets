@@ -221,5 +221,15 @@ endsnippet
 snippet clstr "console.log stringified"
 console.log(JSON.stringify(${0}, null, 2))`!p snip.rv = semi(snip)`
 endsnippet
+snippet lf  "lambda-function" b
+const $1 = ($2) => {
+	$3
+}
+endsnippet
+snippet setup "setup function" b
+setup($1) {
+	$2
+}
+endsnippet
 
 # vim:ft=snippets:

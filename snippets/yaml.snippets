@@ -1,4 +1,5 @@
 ## K8S
+
 ## POD
 snippet pod "Test" b
 apiVersion: v1
@@ -14,13 +15,13 @@ spec:
     volumeMounts:
     - name: ${5:volumeName} # The volume called html is mounted at /usr/share/nginx/html in the container
       mountPath: ${6:mountPath(container)}
-      ${1:ReadOnly}: ${7:true}
+      ${7:ReadOnly}: ${8:true}
       env: # pass env to container
-        - name: #${8:PORT} env name
-          value: ${9:"5000"} # env value
+        - name: #${9:PORT} env name
+          value: ${10:"5000"} # env value
 volumes: # define volumes
   - name: $5 # name of the volumes
-    ${8:emptyDir}: ${1:{}} # define type is emptyDir
+    ${11:emptyDir}: ${12:{}} # define type is emptyDir
 endsnippet
 ## SET
 snippet rc "Test" b
@@ -45,14 +46,15 @@ spec:
     	volumeMounts:
     	- name: ${10:volumeName} # The volume called html is mounted at /usr/share/nginx/html in the container
       	mountPath: ${11:mountPath(container)}
-      	${1:ReadOnly}: ${12:true}
+      	${12:ReadOnly}: ${13:true}
       	env: # pass env to container
-        - name: #${13:PORT} env name
-          value: ${14:"5000"} # env value
+        - name: #${14:PORT} env name
+          value: ${15:"5000"} # env value
     volumes: # define volumes
   	- name: $10 # name of the volumes
-    	${15:emptyDir}: ${16:{}} # define type is emptyDir
+    	${16:emptyDir}: ${17:{}} # define type is emptyDir
 endsnippet
+
 snippet rs "Test" b
 apiVersion: apps/v1 # change version API
 kind: ReplicaSet # change resource name
@@ -74,9 +76,10 @@ spec:
         ports:
           - containerPort: ${9:8080}
       	env: # pass env to container
-        - name: #${9:PORT} env name
-          value: ${10:"5000"} # env value
+        - name: #${10:PORT} env name
+          value: ${11:"5000"} # env value
 endsnippet
+
 snippet dms "Test" b
 apiVersion: apps/v1
 kind: DaemonSet
@@ -100,6 +103,7 @@ spec:
         - name: #${10:PORT} env name
           value: ${11:"5000"} # env value
 endsnippet
+
 snippet dpl "Test" b
 apiVersion: apps/v1
 kind: Deployment
@@ -129,6 +133,7 @@ spec:
         - name: #${11:PORT} env name
           value: ${12:"5000"} # env value
 endsnippet
+
 snippet sts "Test" b
 apiVersion: apps/v1
 kind: StatefulSet
@@ -175,6 +180,7 @@ spec:
       port: ${5:Port}
       targetPort: ${6:targetPort}
 endsnippet
+
 snippet np "Test" b
 apiVersion: v1
 kind: Service
@@ -190,6 +196,7 @@ spec:
       targetPort: ${6:8080}
       nodePort: ${7:31000}
 endsnippet
+
 snippet lb "Test" b
 apiVersion: v1
 kind: Service
@@ -197,13 +204,14 @@ metadata:
   name: ${1:serverName}
 spec:
   selector:
-    ${1:podLabelName}: ${1:podLabelNameValue}
+    ${2:podLabelName}: ${3:podLabelNameValue}
   type: LoadBalancer
   ports:
     - protocol: ${4:TCP}
-      port: ${1:80}
-      targetPort: ${1:8080}
+      port: ${5:80}
+      targetPort: ${6:8080}
 endsnippet
+
 snippet in "Test" b
 piVersion: extensions/v1beta1
 kind: Ingress
@@ -219,6 +227,7 @@ spec:
           serviceName: ${4:serviceName} # name of the service inside cluster
           servicePort: ${5:serverPort}
 endsnippet
+
 snippet pv "Test" b
 apiVersion: v1
 kind: PersistentVolume
@@ -233,55 +242,61 @@ spec:
   persistentVolumeReclaimPolicy: ${5:Recycle}
   storageClassName: ${6:myStorageClass} 
 endsnippet
+
 snippet emptyDir "Test" b
       volumeMounts:
         - name: ${1:volueName} # The volume called html is mounted at /usr/share/nginx/html in the container
           mountPath:${2:mountPath(container)} 
           ${3:ReadOnly}: ${4:true}
   volumes: # define volumes
-    - name: $2 name of the volumes
+    - name: $1 name of the volumes
       ${6:emptyDir}: ${7:{}} # define type is emptyDir
 endsnippet
+
 snippet hostPath "Test" b
       volumeMounts:
         - name: ${1:volueName} # The volume called html is mounted at /usr/share/nginx/html in the container
           mountPath:${2:mountPath(container)} 
           ${3:ReadOnly}: ${4:true}
   volumes: # define volumes
-    - name: $2 name of the volumes
+    - name: $1 name of the volumes
       hostPath: # hostPath volume
       	${6:path}: ${7:path} # define type is emptyDir
 endsnippet
+
 snippet gce "Test" b
       volumeMounts:
         - name: ${1:volueName} # The volume called html is mounted at /usr/share/nginx/html in the container
           mountPath:${2:mountPath(container)} 
           ${3:ReadOnly}: ${4:true}
   volumes: # define volumes
-    - name: $2 name of the volumes
+    - name: $1 name of the volumes
       gcePersistentDisk: # google cloud disk volume
         pdName: ${2:persistentVolumeName} # name of the persistent disk on google cloud
         fsType: ext4
 endsnippet
+
 snippet aws "Test" b
       volumeMounts:
         - name: ${1:volueName} # The volume called html is mounted at /usr/share/nginx/html in the container
           mountPath:${2:mountPath(container)} 
           ${3:ReadOnly}: ${4:true}
   volumes: # define volumes
-    - name: $2 name of the volumes
+    - name: $1 name of the volumes
       awsElasticBlockStore: # amazon web service volume
         volumeID: ${2:volumeID} # volume of the aws ebs
         fsType: ext4
 endsnippet
+
 snippet map "Test" b
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: ${2:configMapName}
+  name: ${1:configMapName}
 data:
-  ${2:DB}: ${2:postgre}
+  ${2:DB}: ${3:postgre}
 endsnippet
+
 snippet netpo "Test" b
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy

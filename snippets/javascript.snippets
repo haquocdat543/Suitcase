@@ -234,6 +234,7 @@ endsnippet
 
 snippet express "Express Sample" b
 const express = require('express')
+const connectDB= require('./config/db.js')
 const app = express()
 const port = ${1:3000}
 

@@ -256,4 +256,19 @@ async function main() {
 
 }
 endsnippet
+snippet appget "App get Express" b
+app.get('${1:/}', (req, res) => {
+  res.send(${2:'Hello World!'})
+})
+endsnippet
+snippet apppost "App post Express" b
+app.post('${1:/}', (req, res) => {
+  res.send(${2:'Hello World!'})
+})
+endsnippet
+snippet appdelete "App get Express" b
+app.delete('${1:/}', (req, res) => {
+  res.send(${2:'Hello World!'})
+})
+endsnippet
 # vim:ft=snippets:

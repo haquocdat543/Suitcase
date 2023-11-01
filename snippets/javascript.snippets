@@ -248,13 +248,21 @@ endsnippet
 
 snippet mongoose "Mongoose sample" b
 const mongoose = require('mongoose');
+const config = require('config');
+const db = config.get('mongoURI');
 
-main().catch(err => console.log(err));
+const connectDB = async () => {
+	try {
+		await mongoose.connect(db, {
 
-async function main() {
-  await mongoose.connect('${1:mongodb://127.0.0.1:27017/test}');
-
+		})
+	} catch (error) {
+		console.log(error.message)
+		process.exit(1)
+	}
 }
+
+module.exports = connectDB
 endsnippet
 snippet appget "App get Express" b
 app.get('${1:/}', (req, res) => {
@@ -275,5 +283,8 @@ snippet applisten "App listen Express" b
 app.listen(${1:3000}, () => {
   console.log(${2:"Example app listening on port ${port}"})
 })
+endsnippet
+snippet appuse "App use Express" b
+app.use(${1:express.json()})
 endsnippet
 # vim:ft=snippets:

@@ -272,6 +272,13 @@ app.get('${1:/}', (req, res) => {
   res.send(${2:'Hello World!'})
 })
 endsnippet
+snippet appget1 "App get Express" b
+app.get('/', (req, res) => {
+  res.header('Access-Control-Allowed-Origin',"*");
+  res.header('Access-Control-Allowed-Methods',"GET,HEAD,OPTIONS,POST,PUT,DELETE");
+  res.header('Access-Control-Allowed-Headers',"auth-token,Origin,X-Requested-With,Content-type,Accept"); 
+})
+endsnippet
 snippet apppost "App post Express" b
 app.post('${1:/}', (req, res) => {
   res.send(${2:'Hello World!'})

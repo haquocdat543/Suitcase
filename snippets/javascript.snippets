@@ -255,11 +255,10 @@ const db = config.get('mongoURI');
 const connectDB = async () => {
 	try {
 		await mongoose.connect(db, {
-			useCreateIndex: true,
 			useNewUrlParser: true,
 			useUnifiedTopology: true,
-			useFindAndModify: false
 		})
+			console.log("mongodb connected")
 	} catch (error) {
 		console.log(error.message)
 		process.exit(1)

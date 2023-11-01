@@ -271,4 +271,9 @@ app.delete('${1:/}', (req, res) => {
   res.send(${2:'Hello World!'})
 })
 endsnippet
+snippet applisten "App listen Express" b
+app.listen(${1:3000}, () => {
+  console.log(${2:"Example app listening on port ${port}"})
+})
+endsnippet
 # vim:ft=snippets:

@@ -97,6 +97,7 @@ map <C-c>2 :.s/
 map <C-i> :PlugInstall<CR>
 map <C-p>1 :Files<CR>
 map <C-p>2 :Rg<CR>
+map <C-v> :<C-p><CR>
 map <C-s> :UltiSnipsEdit<CR>
 map <F9> :FloatermNew<CR>
 

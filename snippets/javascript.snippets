@@ -247,7 +247,7 @@ app.listen(port, () => {
 })
 endsnippet
 
-snippet mongoose "Mongoose sample" b
+snippet mg "Mongoose sample" b
 const mongoose = require('mongoose');
 const config = require('config');
 const db = config.get('mongoURI');
@@ -303,4 +303,12 @@ snippet rqr "require" b
 const ${1:express} = require("${2:express}")
 endsnippet
 
+snippet schema "Mongoose Schema" b
+const mongoose = require("mongoose")
+const ${1:TodoSchema} = new mongoose.Schema({
+	todo: String,
+	author: String
+})
+module.exports = mongoose.mode('${2:todo}',$1)
+endsnippet
 # vim:ft=snippets:

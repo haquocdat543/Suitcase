@@ -53,8 +53,7 @@ set showmode
 set wildmenu
 set laststatus=2
 set pastetoggle=<F2>
-set pastetoggle=<M-x>
-set pastetoggle=<A-x>
+set pastetoggle=<C-w>
 
 call plug#begin()
 Plug 'ryanoasis/vim-devicons'
@@ -91,11 +90,13 @@ map ,p :set paste<CR>
 map ,l :!lazygit<CR>
 map <C-b> :set backup<CR>
 map <C-h> :noh<CR>
-map <C-q> :q!<CR>
-map <C-c> :%s/
+map <C-q>1 :q!<CR>
+map <C-q>2 :wq!<CR>
+map <C-c>1 :%s/
+map <C-c>2 :.s/
 map <C-i> :PlugInstall<CR>
-map <C-p> :Files<CR>
-map <C-k> :Rg<CR>
+map <C-p>1 :Files<CR>
+map <C-p>2 :Rg<CR>
 map <C-s> :UltiSnipsEdit<CR>
 map <F9> :FloatermNew<CR>
 

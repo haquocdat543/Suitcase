@@ -53,6 +53,8 @@ set showmode
 set wildmenu
 set laststatus=2
 set pastetoggle=<F2>
+set pastetoggle=<M-x>
+set pastetoggle=<A-x>
 
 call plug#begin()
 Plug 'ryanoasis/vim-devicons'

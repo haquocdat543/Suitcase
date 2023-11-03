@@ -311,4 +311,44 @@ const ${1:TodoSchema} = new mongoose.Schema({
 })
 module.exports = mongoose.mode('${2:todo}',$1)
 endsnippet
+snippet mg "Mongoose api" b
+const express = require('express')
+const router = express.Router()
+const ${1:Todo} = require('${2:../models/Todos.js}')
+
+router.get('${3:/}', async (req, res) => {
+	const todos = await Todo.find();
+	res.json(todos);
+})
+
+router.post('${4:/new}', async (req, res) => {
+	const newTodo = new Todo(
+	{
+		receiver: "Shuji Nakamura",
+		contry: "Japan"
+	});
+	const savedTodo = await newTodo.save()
+	res.json(savedTodo)
+})
+
+router.get('${5:/get/:id}', async (req, res) => {
+	const todoId = await Todo.findById( req.params.id );
+	res.json(todoId);
+})
+
+router.delete('${6:/delete/:id}', async (req, res) => {
+	const todoDeleteById = await Todo.findByIdAndDelete( req.params.id );
+	res.json(todoDeleteById);
+})
+
+router.put('${7:/update/:id}', async (req, res) => {
+	const todoUpdateById = await Todo.updateOne( {
+	${8:receiver}: "${9:Leo Esaki}",
+	${10:country}: "${11:Japan}"
+})
+	res.json(todoUpdateById)
+})
+
+module.exports = router
+endsnippet
 # vim:ft=snippets:

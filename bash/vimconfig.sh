@@ -89,8 +89,8 @@ map ,p :set paste<CR>
 map ,l :!lazygit<CR>
 map <C-b> :set backup<CR>
 map <C-h> :noh<CR>
-map <C-z>1 :q!<CR>
-map <C-z>2 :wq!<CR>
+map <C-q>1 :q!<CR>
+map <C-q>2 :wq!<CR>
 map <C-c>a :%s/
 map <C-c>1 :%s/
 map <C-c>2 :.s/

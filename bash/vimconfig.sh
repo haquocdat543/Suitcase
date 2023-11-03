@@ -112,7 +112,8 @@ map <C-x> :<C-p><CR>
 map <C-s> :UltiSnipsEdit<CR>
 
 nnoremap <C-f> :NERDTreeToggle<CR>
-nnoremap <C-t>t :tabnew 
+nnoremap <C-t>1 :tabnew 
+nnoremap <C-t>2 :tabo<CR>
 
 nnoremap <Left> :echoe 'use h key instead'<CR>
 nnoremap <Right> :echoe 'use l key instead'<CR>

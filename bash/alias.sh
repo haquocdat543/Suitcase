@@ -552,4 +552,4 @@ EOF
 
 clear
 
-source ~/.bashrc
+exec bash

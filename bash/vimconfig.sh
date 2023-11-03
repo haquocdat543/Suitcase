@@ -84,20 +84,25 @@ let g:UltiSnipsSnippetDirectories=['~/preconfig/snippets']
 colorscheme dracula
 
 map ,t :ter<CR>
-map ,i :PluginInstall<CR>
 map ,n :set nopaste<CR>
 map ,p :set paste<CR>
 map ,l :!lazygit<CR>
 map <C-b> :set backup<CR>
 map <C-h> :noh<CR>
-map <C-q>1 :q!<CR>
-map <C-q>2 :wq!<CR>
+map <C-z>1 :q!<CR>
+map <C-z>2 :wq!<CR>
+map <C-c>a :%s/
 map <C-c>1 :%s/
 map <C-c>2 :.s/
-map <C-i> :PlugInstall<CR>
+map <C-c>3 :.,0s/
+map <C-c>4 :.,$s/
+map <C-c>5 :.,.-
+map <C-c>6 :.,.+
+map <C-i>1 :PlugInstall<CR>
+map <C-i>2 :PluginInstall<CR>
 map <C-p>1 :Files<CR>
 map <C-p>2 :Rg<CR>
-map <C-v> :<C-p><CR>
+map <C-x> :<C-p><CR>
 map <C-s> :UltiSnipsEdit<CR>
 map <F9> :FloatermNew<CR>
 

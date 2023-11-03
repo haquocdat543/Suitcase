@@ -303,14 +303,6 @@ snippet rqr "require" b
 const ${1:express} = require("${2:express}")
 endsnippet
 
-snippet schema "Mongoose Schema" b
-const mongoose = require("mongoose")
-const ${1:TodoSchema} = new mongoose.Schema({
-	todo: String,
-	author: String
-})
-module.exports = mongoose.mode('${2:todo}',$1)
-endsnippet
 snippet mgapi "Mongoose api" b
 const express = require('express')
 const router = express.Router()

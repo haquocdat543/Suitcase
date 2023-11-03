@@ -360,7 +360,7 @@ export default {
   }
 }
 endsnippet
-snippet Name "Test" b
+snippet router "Router" b
 import Vue from 'vue'
 import Router from 'vue-router'
 import ${1:Hello} from '@/components/$1'
@@ -382,7 +382,24 @@ export default new Router({
     }
   ]
 })
+endsnippet
+snippet axios "Axios" b
+import axios from 'axios'
 
+export default() => {
+  return axios.create({
+    baseURL: "${1:http://localhost:3000}"
+  })
+}
 
+endsnippet
+snippet model "Model" b
+const mongoose = require("mongoose")
+const ${1:TodoSchema} = new mongoose.Schema({
+	${2:receiver}: ${3:String},
+	${4:country}: ${5:String},
+	${6:year}: ${7:String}
+})
+module.exports = mongoose.model('${8:todo}',$1)
 endsnippet
 # vim:ft=snippets:

@@ -65,3 +65,41 @@ ${6:#app {
 </style>
 
 endsnippet
+snippet posts "Posts" b
+<template>
+  <div class="${1:posts}">
+    <h1>${2:Posts}</h1>
+    ${3:This file will list all the posts.}
+
+    <div v-for="${4:post} in $4s" :key=" $4.${5:id}>
+      <p>
+        <span><b>{{ $4.${5:id} }}</b></span><br />
+        <span>{{ $4.${6:receiver} }}</span>
+        <span>{{ $4.${7:country} }}</span>
+      </p>
+    </div>
+
+  </div>
+</template>
+
+<script>
+import ${8:PostsService} from '@/services/$8'
+export default {
+  name: '$8',
+  data () {
+    return {
+      ${9:post}s: []
+    }
+  },
+  mounted () {
+    this.${10:getPosts}()
+  },
+  methods: {
+    async $10 () {
+      const response = await ${11:PostsService}.${12:fetchPosts}()
+      this.${13:post}s = response.data
+    }
+  }
+}
+</script>
+endsnippet

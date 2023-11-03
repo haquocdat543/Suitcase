@@ -83,7 +83,7 @@ alias mv='mv -f'
 ### Linux command
 
 alias mb='make build'
-alias up3='up2 ; rv ; plug ; yg ; yn ; gceh ; gcnh ; cm ; sn '
+alias up3='up2 && rv &&  plug && yg && yn && gceh && gcnh && cm && sn '
 alias m='make'
 alias ll='ls -la '
 alias lr='ll ~ '

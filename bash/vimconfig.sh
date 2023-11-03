@@ -53,7 +53,7 @@ set showmode
 set wildmenu
 set laststatus=2
 set pastetoggle=<F2>
-set pastetoggle=<C-w>
+set pastetoggle=<C-e>
 
 call plug#begin()
 Plug 'ryanoasis/vim-devicons'
@@ -106,14 +106,13 @@ map <C-i>1 :PlugInstall<CR>
 map <C-i>2 :PluginInstall<CR>
 map <C-p>1 :Files<CR>
 map <C-p>2 :Rg<CR>
+map <C-p>3 :Buffer<CR>
+map <C-p>4 :FloatermNew<CR>
 map <C-x> :<C-p><CR>
 map <C-s> :UltiSnipsEdit<CR>
-map <F9> :FloatermNew<CR>
 
-nnoremap ,n :NERDTreeFocus<CR>
-nnoremap <C-n> :NERDTree<CR>
-nnoremap <C-t> :NERDTreeToggle<CR>
-nnoremap <C-f> :NERDTreeFind<CR>
+nnoremap <C-f> :NERDTreeToggle<CR>
+nnoremap <C-t>t :tabnew 
 
 nnoremap <Left> :echoe 'use h key instead'<CR>
 nnoremap <Right> :echoe 'use l key instead'<CR>

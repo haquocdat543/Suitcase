@@ -351,4 +351,38 @@ router.put('${7:/update/:id}', async (req, res) => {
 
 module.exports = router
 endsnippet
+snippet api "Api" b
+import Api from '@/services/Api'
+
+export default {
+  fetchPosts () {
+    return Api().get('posts')
+  }
+}
+endsnippet
+snippet Name "Test" b
+import Vue from 'vue'
+import Router from 'vue-router'
+import ${1:Hello} from '@/components/$1'
+import ${2:Posts} from '@/components/$2'
+
+Vue.use(Router)
+
+export default new Router({
+  routes: [
+    {
+      path: '${3:/}',
+      name: '$1',
+      component: $1
+    },
+    {
+      path: '${4:/posts}',
+      name: '$2',
+      component: $2
+    }
+  ]
+})
+
+
+endsnippet
 # vim:ft=snippets:

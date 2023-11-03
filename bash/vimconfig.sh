@@ -67,6 +67,12 @@ Plug 'preservim/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
 Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'SirVer/ultisnips'
+Plug 'prettier/vim-prettier', {
+  \ 'do': 'yarn install --frozen-lockfile --production',
+  \ 'branch': 'release/0.x'
+  \ }
+Plug 'dinhhuy258/git.nvim'
+Plug 'tpope/vim-fugitive'
 " Plug 'honza/vim-snippets'
 call plug#end()
 
@@ -84,9 +90,7 @@ let g:UltiSnipsSnippetDirectories=['~/preconfig/snippets']
 colorscheme dracula
 
 map ,t :ter<CR>
-map ,n :set nopaste<CR>
-map ,p :set paste<CR>
-map ,l :!lazygit<CR>
+map ,gb :Git blame<CR>
 map <C-b> :set backup<CR>
 map <C-h> :noh<CR>
 map <C-q>1 :q!<CR>
@@ -106,7 +110,7 @@ map <C-x> :<C-p><CR>
 map <C-s> :UltiSnipsEdit<CR>
 map <F9> :FloatermNew<CR>
 
-nnoremap <leader>n :NERDTreeFocus<CR>
+nnoremap ,n :NERDTreeFocus<CR>
 nnoremap <C-n> :NERDTree<CR>
 nnoremap <C-t> :NERDTreeToggle<CR>
 nnoremap <C-f> :NERDTreeFind<CR>

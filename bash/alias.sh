@@ -481,7 +481,6 @@ alias ktn='kubectl taint node '
 
 alias klg='kubectl logs '
 alias kn='kubectl config set-context --current --namespace '
-alias kgcc='cat ~/.kube/config | grep current | awk '{ print \$2 }''
 alias kgns='kubectl get namespace '
 alias kgct='kubectl config get-contexts '
 alias kr='kubectl run --dry-run=client -oyaml --image '

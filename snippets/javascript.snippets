@@ -346,8 +346,8 @@ const router = express.Router()
 const ${1:Winner} = require('${2:../models/winners.js}')
 
 router.get('${3:/}', async (req, res) => {
-	const nobelprizerWinners = await $1.find();
-	res.json(nobelprizeWinners);
+	const $1s = await $1.find();
+	res.json($1s);
 })
 
 router.post('${4:/new}', async (req, res) => {

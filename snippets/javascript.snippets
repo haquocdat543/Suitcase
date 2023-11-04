@@ -431,6 +431,26 @@ export default {
   }
 }
 endsnippet
+snippet apipost "Api Post" b
+  add${1:Winners} (${2:params}) {
+    return Api().post('${3:winners}', ${4:params})
+  },
+endsnippet
+snippet apiup "Api Update" b
+  update${1:Winners} (${2:params}) {
+    return Api().put('${3:winners/}' + ${4:params.id}, ${5:params})
+  },
+endsnippet
+snippet apidel "Api Delete" b
+  delete${1:Winners} (${2:params}) {
+    return Api().get('${3:winners/}' + ${4:params.id})
+  },
+endsnippet
+snippet apiget "Api Get" b
+  delete${1:Winners} (${2:id}) {
+    return Api().get('${3:winners/}' + ${4:id})
+  },
+endsnippet
 snippet router "Router" b
 import Vue from 'vue'
 import Router from 'vue-router'

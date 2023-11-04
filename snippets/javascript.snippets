@@ -253,8 +253,8 @@ app.use(cors())
 app.use(bodyParser.json())
 
 // Router
-const ${3:nobelprizeRoute }= require('./routes/${4:nobelprize}.js')
-app.use('/${5:nobelprize}',$3)
+const ${3:nobelprizeRoute}= require('./routes/${4:nobelprizeWinners}.js')
+app.use('/${5:Winners}',$3)
 
 //MongoDD Connect
 const connectDB = async () => {
@@ -343,15 +343,15 @@ endsnippet
 snippet mgapi "Mongoose api" b
 const express = require('express')
 const router = express.Router()
-const ${1:Todo} = require('${2:../models/Todos.js}')
+const ${1:nobelPrizeWinner} = require('${2:../models/nobelPrizeWinners.js}')
 
 router.get('${3:/}', async (req, res) => {
-	const todos = await Todo.find();
-	res.json(todos);
+	const nobelprizerWinners = await $1.find();
+	res.json(nobelprizeWinners);
 })
 
 router.post('${4:/new}', async (req, res) => {
-	const new$1 = new Todo(
+	const new$1 = new $1(
 	{
 		receiver: "Shuji Nakamura",
 		country: "Japan",
@@ -387,7 +387,7 @@ import Api from '@/services/Api'
 
 export default {
   fetchPosts () {
-    return Api().get('posts')
+    return Api().get(' ${1:Winners}')
   }
 }
 endsnippet
@@ -395,7 +395,7 @@ snippet router "Router" b
 import Vue from 'vue'
 import Router from 'vue-router'
 import ${1:Hello} from '@/components/$1'
-import ${2:Posts} from '@/components/$2'
+import ${2:nobelPrizeWinners} from '@/components/$2'
 
 Vue.use(Router)
 
@@ -407,7 +407,7 @@ export default new Router({
       component: $1
     },
     {
-      path: '${4:/posts}',
+      path: '${4:/nobelPrizeWinners}',
       name: '$2',
       component: $2
     }
@@ -422,15 +422,17 @@ export default() => {
     baseURL: "${1:http://localhost:3000}"
   })
 }
-
 endsnippet
 snippet model "Model" b
 const mongoose = require("mongoose")
-const ${1:TodoSchema} = new mongoose.Schema({
-	${2:receiver}: ${3:String},
-	${4:country}: ${5:String},
-	${6:year}: ${7:String}
+const ${1:nobelprizeWinnersSchema} = new mongoose.Schema({
+	${2:receiver}: ${3:{
+		type: ${4:String},
+		require: ${5:true}
+	}},
+	${6:country}: ${7:String},
+	${7:year}: ${8:Number}
 })
-module.exports = mongoose.model('${8:todo}',$1)
+module.exports = mongoose.model('${9:todo}',$1)
 endsnippet
 # vim:ft=snippets:

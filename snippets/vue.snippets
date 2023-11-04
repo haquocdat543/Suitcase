@@ -65,17 +65,18 @@ ${6:#app {
 </style>
 
 endsnippet
-snippet posts "Posts" b
+snippet cpnt "Component" b
 <template>
   <div class="${1:posts}">
     <h1>${2:Posts}</h1>
     ${3:This file will list all the posts.}
 
-    <div v-for="${4:post} in $4s" :key=" $4.${5:id}>
+    <div v-for="$1 in $1s" :key="$1.${5:id}">
       <p>
-        <span><b>{{ $4.${5:id} }}</b></span><br />
-        <span>{{ $4.${6:receiver} }}</span>
-        <span>{{ $4.${7:country} }}</span>
+        <span><b>{{ $1.${5:id} }}</b></span><br />
+        <span>{{ $1.${6:receiver} }}</span>
+        <span>{{ $1.${7:country} }}</span>
+        <span>{{ $1.${8:year} }}</span>
       </p>
     </div>
 
@@ -88,7 +89,7 @@ export default {
   name: '$8',
   data () {
     return {
-      ${9:post}s: []
+      $1s: []
     }
   },
   mounted () {
@@ -96,8 +97,8 @@ export default {
   },
   methods: {
     async $10 () {
-      const response = await ${11:PostsService}.${12:fetchPosts}()
-      this.${13:post}s = response.data
+      const response = await ${8:PostsService}.${12:fetchPosts}()
+      this.$1s = response.data
     }
   }
 }

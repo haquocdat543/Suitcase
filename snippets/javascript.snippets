@@ -442,13 +442,13 @@ snippet apiup "Api Update" b
   },
 endsnippet
 snippet apiget "Api Get" b
-  delete${1:Winners} (${2:params}) {
+  get${1:Winners} (${2:params}) {
     return Api().get('${3:winners/}' + ${4:params.id})
   },
 endsnippet
 snippet apidel "Api Del" b
   delete${1:Winners} (${2:id}) {
-    return Api().get('${3:winners/}' + ${4:id})
+    return Api().delete('${3:winners/}' + ${4:id})
   },
 endsnippet
 snippet router "Router" b

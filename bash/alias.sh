@@ -84,7 +84,7 @@ alias mv='mv -f'
 
 alias mb='make build'
 alias up3='up2 && rv &&  plug && yg && yn && gceh && gcnh && cm && sn '
-alias proj='md server ; md server/src ; md server/src/models md server/src/routes ; cd server ; npmi ; cd - ; vue create frontend ; md frontend/src/services ; md frontend/src/routes '
+alias proj='nigv ; vue create frontend ; cd frontend ; axios ; md src/services ; md src/routes ; mv src/components/HelloWorld.vue src/components/winners.vue ; cd - ; md server ; md server/src ; md server/src/models ; md server/src/routes ; cd server ; npmi ; cd - ; vue create frontend ; md frontend/src/services ; md frontend/src/routes '
 alias m='make'
 alias ll='ls -la '
 alias lr='ll ~ '

@@ -93,12 +93,28 @@ export default {
     }
   },
   mounted () {
-    this.${10:getWinners}()
+    this.get${10:Winners}()
   },
   methods: {
-    async $10 () {
-      const response = await $8.${11:fetchWinners}()
+    async get$10 () {
+      const response = await $8.get${10:Winners}()
       this.$1s = response.data
+    },
+    async add$10 () {
+      await NobelPrizeWinners.add$10()
+      this.get$10()
+    },
+    async delete$10 (id) {
+      await NobelPrizeWinners.delete$10(id)
+      this.get$10()
+    },
+    async update$10 (params) {
+      await NobelPrizeWinners.update$10(params)
+      this.get$10()
+    },
+    async get$10 (params) {
+      await NobelPrizeWinners.get$10(params)
+      this.get$10()
     }
   }
 }

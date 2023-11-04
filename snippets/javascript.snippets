@@ -253,7 +253,7 @@ app.use(cors())
 app.use(bodyParser.json())
 
 // Router
-const ${3:winnersRoute}= require('./routes/${4:winners}.js')
+const ${3:winnersRoute} = require('./routes/${4:winners}.js')
 app.use('/${5:winners}',$3)
 
 //MongoDD Connect
@@ -433,22 +433,22 @@ export default {
 endsnippet
 snippet apipost "Api Post" b
   add${1:Winners} (${2:params}) {
-    return Api().post('${3:winners}', ${4:params})
+    return Api().post('${3:winners/new}', ${4:params})
   },
 endsnippet
 snippet apiup "Api Update" b
   update${1:Winners} (${2:params}) {
-    return Api().put('${3:winners/}' + ${4:params.id}, ${5:params})
+    return Api().put('${3:winners/update/}' + ${4:params.id}, ${5:params})
   },
 endsnippet
 snippet apiget "Api Get" b
   get${1:Winners} (${2:params}) {
-    return Api().get('${3:winners/}' + ${4:params.id})
+    return Api().get('${3:winners/get/}' + ${4:params.id})
   },
 endsnippet
 snippet apidel "Api Del" b
   delete${1:Winners} (${2:id}) {
-    return Api().delete('${3:winners/}' + ${4:id})
+    return Api().delete('${3:winners/delete/}' + ${4:id})
   },
 endsnippet
 snippet router "Router" b

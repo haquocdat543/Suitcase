@@ -351,31 +351,33 @@ router.get('${3:/}', async (req, res) => {
 })
 
 router.post('${4:/new}', async (req, res) => {
-	const newTodo = new Todo(
+	const new$1 = new Todo(
 	{
 		receiver: "Shuji Nakamura",
-		contry: "Japan"
+		country: "Japan",
+		year: 2014
 	});
-	const savedTodo = await newTodo.save()
-	res.json(savedTodo)
+	const saved$1 = await new$1.save()
+	res.json(saved$1)
 })
 
 router.get('${5:/get/:id}', async (req, res) => {
-	const todoId = await Todo.findById( req.params.id );
-	res.json(todoId);
+	const $1Id = await $1.findById( req.params.id );
+	res.json($1Id);
 })
 
 router.delete('${6:/delete/:id}', async (req, res) => {
-	const todoDeleteById = await Todo.findByIdAndDelete( req.params.id );
-	res.json(todoDeleteById);
+	const $1DeleteById = await $1.findByIdAndDelete( req.params.id );
+	res.json($1DeleteById);
 })
 
 router.put('${7:/update/:id}', async (req, res) => {
-	const todoUpdateById = await Todo.updateOne( {
+	const $1UpdateById = await $1.updateOne( {
 	${8:receiver}: "${9:Leo Esaki}",
-	${10:country}: "${11:Japan}"
+	${10:country}: "${11:Japan}",
+	${12:year}: ${13:1973}
 })
-	res.json(todoUpdateById)
+	res.json($1UpdateById)
 })
 
 module.exports = router

@@ -441,12 +441,12 @@ snippet apiup "Api Update" b
     return Api().put('${3:winners/}' + ${4:params.id}, ${5:params})
   },
 endsnippet
-snippet apidel "Api Delete" b
+snippet apiget "Api Get" b
   delete${1:Winners} (${2:params}) {
     return Api().get('${3:winners/}' + ${4:params.id})
   },
 endsnippet
-snippet apiget "Api Get" b
+snippet apidel "Api Del" b
   delete${1:Winners} (${2:id}) {
     return Api().get('${3:winners/}' + ${4:id})
   },

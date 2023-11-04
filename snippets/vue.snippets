@@ -67,9 +67,9 @@ ${6:#app {
 endsnippet
 snippet cpnt "Component" b
 <template>
-  <div class="${1:posts}">
-    <h1>${2:Posts}</h1>
-    ${3:This file will list all the posts.}
+  <div class="${1:winners}">
+    <h1>${2:Winners}</h1>
+    ${3:This file will list all nobel prize winners.}
 
     <div v-for="$1 in $1s" :key="$1.${5:id}">
       <p>
@@ -84,7 +84,7 @@ snippet cpnt "Component" b
 </template>
 
 <script>
-import ${8:PostsService} from '@/services/$8'
+import ${8:NobelPrizeWinners} from '@/services/${9:winners}'
 export default {
   name: '$8',
   data () {
@@ -93,11 +93,11 @@ export default {
     }
   },
   mounted () {
-    this.${10:getPosts}()
+    this.${10:getWinners}()
   },
   methods: {
     async $10 () {
-      const response = await ${8:PostsService}.${12:fetchPosts}()
+      const response = await $8.${11:fetchWinners}()
       this.$1s = response.data
     }
   }

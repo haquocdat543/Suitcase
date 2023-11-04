@@ -253,8 +253,8 @@ app.use(cors())
 app.use(bodyParser.json())
 
 // Router
-const ${3:nobelprizeRoute}= require('./routes/${4:nobelprizeWinners}.js')
-app.use('/${5:Winners}',$3)
+const ${3:winnersRoute}= require('./routes/${4:winners}.js')
+app.use('/${5:winners}',$3)
 
 //MongoDD Connect
 const connectDB = async () => {
@@ -343,7 +343,7 @@ endsnippet
 snippet mgapi "Mongoose api" b
 const express = require('express')
 const router = express.Router()
-const ${1:nobelPrizeWinner} = require('${2:../models/nobelPrizeWinners.js}')
+const ${1:Winner} = require('${2:../models/winners.js}')
 
 router.get('${3:/}', async (req, res) => {
 	const nobelprizerWinners = await $1.find();
@@ -386,8 +386,8 @@ snippet api "Api" b
 import Api from '@/services/Api'
 
 export default {
-  fetchPosts () {
-    return Api().get(' ${1:Winners}')
+  ${1:fetchWinners} () {
+    return Api().get(' ${1:winners}')
   }
 }
 endsnippet
@@ -395,7 +395,7 @@ snippet router "Router" b
 import Vue from 'vue'
 import Router from 'vue-router'
 import ${1:Hello} from '@/components/$1'
-import ${2:nobelPrizeWinners} from '@/components/$2'
+import ${2:winners} from '@/components/$2'
 
 Vue.use(Router)
 
@@ -407,7 +407,7 @@ export default new Router({
       component: $1
     },
     {
-      path: '${4:/nobelPrizeWinners}',
+      path: '${4:/winners}',
       name: '$2',
       component: $2
     }
@@ -425,7 +425,7 @@ export default() => {
 endsnippet
 snippet model "Model" b
 const mongoose = require("mongoose")
-const ${1:nobelprizeWinnersSchema} = new mongoose.Schema({
+const ${1:winnersSchema} = new mongoose.Schema({
 	${2:receiver}: ${3:{
 		type: ${4:String},
 		require: ${5:true}

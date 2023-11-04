@@ -382,6 +382,46 @@ router.put('${7:/update/:id}', async (req, res) => {
 
 module.exports = router
 endsnippet
+snippet rtget "Router.get" b
+router.get('${1:/}', async (req, res) => {
+	const ${2:Winner}s = await $2.find();
+	res.json($2s);
+})
+endsnippet
+snippet rtposts "router.post" b
+router.post('${1:/new}', async (req, res) => {
+	const new${2:Winner} = new $2(
+	{
+		receiver: "Shuji Nakamura",
+		country: "Japan",
+		year: 2014
+	});
+	const saved$2 = await new$2.save()
+	res.json(saved$2)
+})
+endsnippet
+snippet rtdelete "router.delete" b
+router.delete('${1:/delete/:id}', async (req, res) => {
+	const ${2:Winner}DeleteById = await $2.findByIdAndDelete( req.params.id );
+	res.json($2DeleteById);
+})
+endsnippet
+snippet rtgetid "router.getById" b
+router.get('${1:/get/:id}', async (req, res) => {
+	const ${2:Winner}Id = await $2.findById( req.params.id );
+	res.json($2Id);
+})
+endsnippet
+snippet rtup "router.update" b
+router.put('${1:/update/:id}', async (req, res) => {
+	const $${2:Winner}UpdateById = await $2.updateOne( {
+	${3:receiver}: "${4:Leo Esaki}",
+	${5:country}: "${6:Japan}",
+	${7:year}: ${8:1973}
+})
+	res.json($2UpdateById)
+})
+endsnippet
 snippet api "Api" b
 import Api from '@/services/Api'
 

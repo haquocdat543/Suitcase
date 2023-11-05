@@ -65,7 +65,7 @@ bind-key l select-pane -R
 bind-key k select-pane -U
 bind-key j select-pane -D
 
-set -g @plugin 'tmux-plug/tpm'
+set -g @plugin 'tmux-plugins/tpm'
 set -g @plugin 'christoomey/vim-tmux-navigator'
 set -g @plugin 'dracula/tmux'
 

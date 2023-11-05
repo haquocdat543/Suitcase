@@ -109,7 +109,7 @@ map <C-p>2 :Rg<CR>
 map <C-p>3 :Buffer<CR>
 map <C-p>4 :FloatermNew<CR>
 map <C-x> :<C-p><CR>
-map <C-s> :UltiSnipsEdit<CR>
+map <C-a> :UltiSnipsEdit<CR>
 
 nnoremap <C-f> :NERDTreeToggle<CR>
 nnoremap <C-t>1 :tabnew 

@@ -80,10 +80,17 @@ alias rm='rm -f'
 alias cp='cp -rf'
 alias mv='mv -f'
 
+### Tmux command
+alias tml='tmux ls'
+alias tma='tmux attach -t'
+alias tmr='tmux rename-session -t'
+alias tmn='tmux new -s'
+alias tmk='tmux kill-session -t'
+
 ### Linux command
 
 alias mb='make build'
-alias up3='up2 && rv &&  plug && yg && yn && gceh && gcnh && cm && sn '
+alias up3='plug ; yg ; yn ; gceh ; gcnh ; cm ; sn '
 alias proj='nigv ; vue create frontend ; cd frontend ; axios ; md src/services ; md src/routes ; mv src/components/HelloWorld.vue src/components/winners.vue ; touch src/routes/index.js ; touch src/services/Api.js ; touch src/services/winners.js ; cd - ; md server ; md server/src ; md server/src/models ; md server/src/routes ; cd server ; touch src/app.js ; touch src/models/winners.js ; touch src/routes/winners.js ; npmi ; mevn ; cd - '
 alias proj2='nigv ; vue create frontend ; cd frontend ; axios ; md src/services ; md src/routes ; mv src/components/HelloWorld.vue src/components/winners.vue ; touch src/routes/index.js ; touch src/services/Api.js ; touch src/services/winners.js ; cd - ; md server ; md server/src ; md server/src/models ; md server/src/routes ; cd server ; touch src/app.js ; touch src/models/winners.js ; touch src/routes/winners.js ; npmi ; gevn ; cd - '
 alias m='make'

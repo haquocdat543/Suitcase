@@ -390,12 +390,7 @@ router.get('${1:/}', async (req, res) => {
 endsnippet
 snippet rtpo "router.post" b
 router.post('${1:/new}', async (req, res) => {
-	const new${2:Winner} = new $2(
-	{
-		receiver: "Shuji Nakamura",
-		country: "Japan",
-		year: 2014
-	});
+	const new${2:Winner} = new $2(req.body);
 	const saved$2 = await new$2.save()
 	res.json(saved$2)
 })
@@ -501,7 +496,202 @@ const ${1:winnersSchema} = new mongoose.Schema({
 })
 module.exports = mongoose.model('${9:todo}',$1)
 endsnippet
-snippet @c "Click" b
+snippet cl "Click" b
 @click="${1:addWinners}"
+endsnippet
+snippet mainjs "Main JS ( Vue )" b
+import { createApp } from 'vue'
+import App from './App.vue'
+// import router from './routes'
+
+const app = createApp(App)
+
+// import Vue from 'vue'
+import { createRouter, createWebHistory } from 'vue-router'
+import ${1:winners} from '@/components/$1.vue'
+import ${2:NewWinner} from '@/components/$2.vue'
+import ${3:EditWinner} from '@/components/$3.vue'
+
+// Vue.use(Router)
+
+const router = createRouter({
+history: createWebHistory(),
+  routes: [
+    {
+      path: '${4:/winners}',
+      name: '$1',
+      component: $1
+    },
+    {
+      path: '${5:/winners/new}',
+      name: '$2',
+      component: $2
+    },
+    {
+      path: '${6:/winners/update/:id}',
+      name: '$3',
+      component: $3
+    }
+  ]
+})
+
+app.use(router)
+app.mount('#app')
+endsnippet
+snippet winnersvue "winners.vue" b
+<template>
+  <div class="posts">
+    <h1>Posts</h1>
+    <div v-if=" winners && winners.length > 0" class="table-wrap">
+      <div class="router">
+        <router-link  :to="{ name: 'NewWinner' }" class="">Add</router-link>
+      </div>
+      <table>
+        <tr>
+          <td>Receiver</td>
+          <td>Country</td>
+          <td>Year</td>
+          <td width="100" align="center">Action</td>
+        </tr>
+        <tr v-for="winner in winners" :key="winner._id">
+          <td>{{ winner.receiver }}</td>
+          <td>{{ winner.country }}</td>
+          <td>{{ winner.year }}</td>
+          <td align="center">
+            <router-link :to="{ name: 'EditWinner', params: { id: winner._id } }">Edit</router-link> |
+            <a href="#" @click="deleteWinners(winner._id)">Delete</a>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div v-else>
+      There are no winner .. Lets add one now <br /><br />
+      <router-link :to="{ name: 'NewWinner' }" class="add_post_link">Add Winner</router-link>
+    </div>
+  </div>
+</template>
+
+<script>
+import NobelPrizeWinners from '@/services/winners.js'
+export default {
+  name: 'NobelPrizeWinners',
+  data () {
+    return {
+      winners: []
+    }
+  },
+  mounted () {
+    this.fetchWinners()
+  },
+  methods: {
+    async fetchWinners () {
+      const response = await NobelPrizeWinners.fetchWinners()
+      this.winners = response.data
+    },
+    async deleteWinners (id) {
+endsnippet
+snippet newwinner "NewWinner.vue" b
+<template>
+  <div class="posts">
+    <h1>Add Winners</h1>
+      <div class="form">
+        <div>
+          <input type="text" name="title" placeholder="RECEIVER" v-model="receiver">
+        </div>
+        <div>
+          <input type="text" name="title" placeholder="COUNTRY" v-model="country">
+        </div>
+	<div>
+          <input type="number" name="title" placeholder="YEAR" v-model="year">
+	</div>
+        <div>
+          <button class="app_post_btn" @click="addWinners">Add</button>
+        </div>
+      </div>
+  </div>
+</template>
+
+<script>
+import NobelPrizeWinners from '@/services/winners.js'
+// import winnersVue from '@/components/winners.vue'
+export default {
+  name: 'NewWinner',
+  data () {
+    return {
+      receiver: '',
+      country: '',
+      year: ''
+    }
+  },
+  methods: {
+    async addWinners () {
+      await NobelPrizeWinners.addWinners({
+        receiver: this.receiver,
+        country: this.country,
+        year: this.year
+      })
+      this.$router.push({ name: 'winners' })
+//      winnersVue.fetchWinners()
+    },
+  }
+}
+</script>
+
+<style type="text/css">
+.form input, .form textarea {
+  width: 500px;
+  padding: 10px;
+endsnippet
+snippet editwinner "EditWinner.vue" b
+<template>
+  <div class="posts">
+    <h1>Edit Post</h1>
+      <div class="form">
+        <div>
+          <input type="text" name="title" placeholder="RECEIVER" v-model="receiver">
+        </div>
+        <div>
+          <input type="text" name="title" placeholder="COUNTRY" v-model="country">
+        </div>
+	<div>
+          <input type="number" name="title" placeholder="YEAR" v-model="year">
+	</div>
+        <div>
+          <button class="app_post_btn" @click="updateWinners()">Update</button>
+        </div>
+      </div>
+  </div>
+</template>
+
+<script>
+import NobelPrizeWinners from '@/services/winners.js'
+export default {
+  name: 'EditWinner',
+  data () {
+    return {
+      receiver: '',
+      country: '',
+      year: ''
+    }
+  },
+  mounted () {
+    this.fetchWinners()
+  },
+  methods: {
+    async fetchWinners () {
+      const response = await NobelPrizeWinners.fetchWinners({
+        id: this.$route.params.id
+      })
+      this.receiver = response.data.receiver
+      this.country = response.data.country
+      this.year = response.data.year
+    },
+    async updateWinners () {
+      await NobelPrizeWinners.updateWinners({
+        id: this.$route.params.id,
+        receiver: this.receiver,
+        country: this.country,
+        year: this.year
+      })
 endsnippet
 # vim:ft=snippets:

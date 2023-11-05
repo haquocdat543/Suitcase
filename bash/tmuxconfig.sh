@@ -1,6 +1,14 @@
 #!/bin/bash
 ytm
 ai tmux
+if [ ! -d ~/.tmux ]
+then
+	mkdir ~/.tmux
+fi
+if [ ! -d ~/.tmux/plugins ]
+then
+	mkdir ~/.tmux/plugins
+fi
 if [ ! -f ~/.tmux/plugins/tpm ]
 then
 	git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm

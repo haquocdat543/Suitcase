@@ -70,14 +70,16 @@ snippet cpnt "Component" b
   <div class="${1:winner}">
     <h1>${2:Winners}</h1>
     ${3:This file will list all nobel prize winners.}
+      <button @click="add$10()">Add</button>
 
-    <div v-for="$1 in $1s" :key="$1.${5:id}">
+    <div v-for="$1 in $1s" :key="$1.${5:_id}">
       <p>
-        <span><b>{{ $1.${5:id} }}</b></span><br />
+        <span><b>{{ $1.$5} }}</b></span><br />
         <span>{{ $1.${6:receiver} }}</span>
         <span>{{ $1.${7:country} }}</span>
         <span>{{ $1.${8:year} }}</span>
       </p>
+      <button @click="delete$10($1.$5)">Delete</button>
     </div>
 
   </div>
@@ -93,28 +95,28 @@ export default {
     }
   },
   mounted () {
-    this.get${10:Winners}()
+    this.fetch${10:Winners}()
   },
   methods: {
-    async get$10 () {
-      const response = await $8.get${10:Winners}()
+    async fetch$10 () {
+      const response = await $8.fetch$10()
       this.$1s = response.data
     },
-    async add$10 () {
-      await NobelPrizeWinners.add$10()
-      this.get$10()
+    async add$10 (params) {
+      await NobelPrizeWinners.add$10(params)
+      this.fetch$10()
     },
     async delete$10 (id) {
       await NobelPrizeWinners.delete$10(id)
-      this.get$10()
+      this.fetch$10()
     },
     async update$10 (params) {
       await NobelPrizeWinners.update$10(params)
-      this.get$10()
+      this.fetch$10()
     },
     async get$10 (params) {
       await NobelPrizeWinners.get$10(params)
-      this.get$10()
+//      this.fetch$10()
     }
   }
 }

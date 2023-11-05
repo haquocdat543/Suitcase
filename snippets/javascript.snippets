@@ -694,4 +694,17 @@ export default {
         year: this.year
       })
 endsnippet
+snippet pool "PostgreSQL pool" b
+import { Pool } from 'pg'
+
+const pool = new Pool({
+	host: '${1:mypostgresql.c6c8dntfzzhgv0.ap-northeast-1.rds.amazonaws.com}',
+	port: '${2:5432}',
+	user: '${3:haquocdat}',
+	password: '${4:password}',
+	database: '${5:account}'
+});
+
+module.exports = pool;
+endsnippet
 # vim:ft=snippets:

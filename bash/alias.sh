@@ -91,7 +91,8 @@ alias tms='tmux source ~/.tmux.conf'
 ### Linux command
 
 alias mb='make build'
-alias up4='plug ; yg ; yn ; gceh ; gcnh ; cm ; sn '
+alias up4='plug ; yg ; yn ; cm ; sn '
+alias up5='plug ; yg ; yn ; gceh ; gcnh ; cm ; sn ; ed400'
 alias proj='nigv ; vue create frontend ; cd frontend ; axios ; md src/services ; md src/routes ; mv src/components/HelloWorld.vue src/components/winners.vue ; touch src/routes/index.js ; touch src/services/Api.js ; touch src/services/winners.js ; cd - ; md server ; md server/src ; md server/src/models ; md server/src/routes ; cd server ; touch src/app.js ; touch src/models/winners.js ; touch src/routes/winners.js ; npmi ; mevn ; cd - '
 alias proj2='nigv ; vue create frontend ; cd frontend ; axios ; md src/services ; md src/routes ; mv src/components/HelloWorld.vue src/components/winners.vue ; touch src/routes/index.js ; touch src/services/Api.js ; touch src/services/winners.js ; cd - ; md server ; md server/src ; md server/src/models ; md server/src/routes ; cd server ; touch src/app.js ; touch src/models/winners.js ; touch src/routes/winners.js ; npmi ; gevn ; cd - '
 alias m='make'

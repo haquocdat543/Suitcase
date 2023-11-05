@@ -122,3 +122,33 @@ export default {
 }
 </script>
 endsnippet
+snippet vuefet "Vue Fetch" b
+    async fetch$1 () {
+      const response = await $2.fetch$1()
+      this.${3:winners} = response.data
+    },
+endsnippet
+snippet vuepo "Vue Posts" b
+    async add$1 (params) {
+      await ${2:NobelPrizeWinners}.add$1(params)
+      this.fetch${3:Winners}()
+    },
+endsnippet
+snippet vueup "Vue Update" b
+    async delete$1 (id) {
+      await ${2:NobelPrizeWinners}.delete$1(id)
+      this.fetch${3:Winners}()
+    },
+endsnippet
+snippet vuedel "Vue Delete" b
+    async update$1 (params) {
+      await ${2:NobelPrizeWinners}.update$1(params)
+      this.fetch${3:Winnere}()
+    },
+endsnippet
+snippet vueget "Vue Get" b
+    async get$1 (params) {
+      await ${2:NobelPrizeWinners}.get$1(params)
+//      this.fetch${3:Winners}()
+    }
+endsnippet

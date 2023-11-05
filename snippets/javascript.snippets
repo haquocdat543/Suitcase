@@ -382,13 +382,13 @@ router.put('${7:/update/:id}', async (req, res) => {
 
 module.exports = router
 endsnippet
-snippet rtget "Router.get" b
+snippet rtfet "Router.get" b
 router.get('${1:/}', async (req, res) => {
 	const ${2:Winner}s = await $2.find();
 	res.json($2s);
 })
 endsnippet
-snippet rtposts "router.post" b
+snippet rtpo "router.post" b
 router.post('${1:/new}', async (req, res) => {
 	const new${2:Winner} = new $2(
 	{
@@ -400,13 +400,13 @@ router.post('${1:/new}', async (req, res) => {
 	res.json(saved$2)
 })
 endsnippet
-snippet rtdelete "router.delete" b
+snippet rtdel "router.delete" b
 router.delete('${1:/delete/:id}', async (req, res) => {
 	const ${2:Winner}DeleteById = await $2.findByIdAndDelete( req.params.id );
 	res.json($2DeleteById);
 })
 endsnippet
-snippet rtgetid "router.getById" b
+snippet rtget "router.getById" b
 router.get('${1:/get/:id}', async (req, res) => {
 	const ${2:Winner}Id = await $2.findById( req.params.id );
 	res.json($2Id);
@@ -426,12 +426,17 @@ snippet api "Api" b
 import Api from '@/services/Api'
 
 export default {
-  ${1:fetchWinners} () {
+  fetch${1:Winners} () {
     return Api().get('${1:winners}')
-  }
+  },
 }
 endsnippet
-snippet apipost "Api Post" b
+snippet apifet "Api fetch" b
+  fetch${1:Winners} () {
+    return Api().get('${2:winners}')
+  },
+endsnippet
+snippet apipo "Api Post" b
   add${1:Winners} (${2:params}) {
     return Api().post('${3:winners/new}', ${4:params})
   },
@@ -458,6 +463,7 @@ import ${1:Hello} from '@/components/$1'
 import ${2:winners} from '@/components/$2'
 
 Vue.use(Router)
+
 
 export default new Router({
   routes: [

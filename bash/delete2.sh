@@ -9,6 +9,11 @@ then
 	sudo rm -f ~/.vimrc
 fi
 
+if [ -f ~/.tmux.conf ]
+then
+	sudo rm -f ~/.tmux.conf
+fi
+
 if [ -f ~/.bashrc ]
 then
 	sudo rm -f ~/.bashrc
@@ -18,6 +23,11 @@ fi
 if [ ! -f ~/.vimrc ] && [ -f ~/preconfig/backup/.vimrc.backup ]
 then
 	mv ~/preconfig/backup/.vimrc.backup ~/.vimrc
+fi
+
+if [ ! -f ~/.tmux.conf ] && [ -f ~/preconfig/backup/.tmux.conf.backup ]
+then
+	mv ~/preconfig/backup/.tmux.conf.backup ~/.tmux.conf
 fi
 
 ## If .bashrc in root folder does not exist. mv it from preconfig/backup folder

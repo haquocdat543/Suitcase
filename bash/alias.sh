@@ -86,6 +86,7 @@ alias tma='tmux attach -t'
 alias tmr='tmux rename-session -t'
 alias tmn='tmux new -s'
 alias tmk='tmux kill-session -t'
+alias tms='tmux source ~/.tmux.conf'
 
 ### Linux command
 

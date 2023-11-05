@@ -59,8 +59,6 @@ cat << EOF | sudo tee -a ~/preconfig/.tmux.conf
 unbind r
 bind r source-file ~/.tmux.conf
 
-set -g prefix C-s
-
 setw -g mode-keys vi
 bind-key h select-pane -L
 bind-key l select-pane -R
@@ -76,7 +74,6 @@ set -g @dracula-fixed-location "SaiGon"
 set -g @dracula-plugins "weather"
 set -g @dracula-show-flags true
 set -g @dracula-show-left-icon session
-set -g status-position top
 
 run '~/.tmux/plugins/tpm/tpm'
 

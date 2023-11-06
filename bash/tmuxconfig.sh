@@ -71,6 +71,7 @@ set -g @plugin 'tmux-plugins/tpm'
 set -g @plugin 'christoomey/vim-tmux-navigator'
 set -g @plugin 'dracula/tmux'
 set -g @plugin 'tmux-plugins/tmux-resurrect'
+set -g @plugin 'tmux-plugins/tmux-yank'
 
 set -g @dracula-show-powerline true
 set -g @dracula-fixed-location "SaiGon"

@@ -223,6 +223,7 @@ alias ikubectl='. ~/preconfig/commands/kubectl.sh'
 alias irg='. ~/preconfig/commands/ripgrep.sh'
 alias icargo='curl https://sh.rustup.rs -sSf | sh'
 alias izellij='cargo install --locked zellij'
+alias ikitty='curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin'
 
 alias lg='lazygit'
 alias ldk='lazydocker'

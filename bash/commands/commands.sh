@@ -93,3 +93,7 @@ if [ ! -f ~/preconfig/commands/k9s.sh ]
 then
 	touch ~/preconfig/commands/k9s.sh && curl -s https://raw.githubusercontent.com/haquocdat543/Suitcase/main/bash/commands/k9s.sh | sudo tee -a ~/preconfig/commands/k9s.sh 
 fi
+if [ ! -f ~/preconfig/commands/zellijInstall.sh ]
+then
+	touch ~/preconfig/commands/zellijInstall.sh && curl -s https://raw.githubusercontent.com/haquocdat543/Suitcase/main/bash/commands/zellijInstall.sh | sudo tee -a ~/preconfig/commands/zellijInstall.sh 
+fi

@@ -12,6 +12,10 @@ DOSKEY add_python33=set PATH=%PATH%;"C:\Python33\"
 :: Commands
 
 DOSKEY ls=dir /B $*
+DOSKEY gi=git init
+DOSKEY gaa=git add .
+DOSKEY gs=git status
+DOSKEY gc=git commit -m
 DOSKEY sublime=sublime_text $*  
     ::sublime_text.exe is name of the executable. By adding a temporary entry to system path, we don't have to write the whole directory anymore.
 DOSKEY gsp="C:\Program Files (x86)\Sketchpad5\GSP505en.exe"

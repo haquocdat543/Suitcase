@@ -55,6 +55,7 @@ mv ~/preconfig/.tmux.conf ~/.tmux.conf
 EOF
 ## Write content to .tmux file in preconfig folder
 cat << EOF | sudo tee -a ~/preconfig/.tmux.conf
+set -g default-terminal 'screen-256color'
 
 unbind r
 bind r source-file ~/.tmux.conf

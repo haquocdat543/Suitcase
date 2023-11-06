@@ -1,6 +1,6 @@
 #!/bin/bash
-ytm
-ai tmux
+yum install -y tmux
+apt install -y tmux
 if [ ! -d ~/.tmux ]
 then
 	mkdir ~/.tmux

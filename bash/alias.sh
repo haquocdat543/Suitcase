@@ -92,8 +92,7 @@ alias tms='tmux source ~/.tmux.conf'
 
 alias mb='make build'
 alias ps11='export PS1="\e[0;36m\u@\h \W\$\e[0m"'
-alias ps12='export PS1="\u@\H >"  \u: haquocdat, \H: aws, @: $
-'
+alias ps12='export PS1="\u@\H >"  \u: haquocdat, \H: aws, @: $'
 alias up4='plug ; yg ; yn ; cm ; sn '
 alias up5='plug ; yg ; yn ; gceh ; gcnh ; cm ; sn ; ed400'
 alias proj='nigv ; vue create frontend ; cd frontend ; axios ; md src/services ; md src/routes ; mv src/components/HelloWorld.vue src/components/winners.vue ; touch src/routes/index.js ; touch src/services/Api.js ; touch src/services/winners.js ; cd - ; md server ; md server/src ; md server/src/models ; md server/src/routes ; cd server ; touch src/app.js ; touch src/models/winners.js ; touch src/routes/winners.js ; npmi ; mevn ; cd - '

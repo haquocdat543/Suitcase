@@ -57,6 +57,7 @@ EOF
 cat << EOF | sudo tee -a ~/preconfig/.tmux.conf
 bind-key a command-prompt -p "window name:" "new-window; rename-window '%%'"
 set -g default-terminal 'screen-256color'
+set -g base-index 1
 
 unbind r
 bind r source-file ~/.tmux.conf
@@ -72,6 +73,7 @@ set -g @plugin 'christoomey/vim-tmux-navigator'
 set -g @plugin 'dracula/tmux'
 set -g @plugin 'tmux-plugins/tmux-resurrect'
 set -g @plugin 'tmux-plugins/tmux-yank'
+## set -g @plugin "janoamaral/tokyo-night-tmux"
 
 set -g @dracula-show-powerline true
 set -g @dracula-fixed-location "SaiGon"

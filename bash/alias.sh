@@ -220,7 +220,7 @@ alias ild='. ~/preconfig/commands/lazydocker.sh'
 alias ik9s='. ~/preconfig/commands/k9s.sh'
 alias ikubectl='. ~/preconfig/commands/kubectl.sh'
 alias irg='. ~/preconfig/commands/ripgrep.sh'
-alias icargo='curl https://sh.rustup.rs -sSf | sh'
+alias icargo='curl https://sh.rustup.rs -sSf | sh ; source "\$HOME/.cargo/env"'
 alias izellij='cargo install --locked zellij'
 alias ikitty='curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin'
 

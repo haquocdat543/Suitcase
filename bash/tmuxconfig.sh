@@ -56,6 +56,7 @@ EOF
 ## Write content to .tmux file in preconfig folder
 cat << EOF | sudo tee -a ~/preconfig/.tmux.conf
 bind-key a command-prompt -p "window name:" "new-window; rename-window '%%'"
+bind-key v command-prompt -p "session name:" "new-session; rename-session '%%'"
 set -g default-terminal 'screen-256color'
 set -g base-index 1
 

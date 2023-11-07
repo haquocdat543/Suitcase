@@ -75,6 +75,7 @@ set -g detach-on-destroy off
 set -g set-clipboard on
 
 set -g @plugin 'tmux-plugins/tpm'
+set -g @plugin 'tmux-plugins/tmux-continuum'
 set -g @plugin 'christoomey/vim-tmux-navigator'
 set -g @plugin 'dracula/tmux'
 set -g @plugin 'sainnhe/tmux-fzf'

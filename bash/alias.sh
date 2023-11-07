@@ -81,12 +81,18 @@ alias cp='cp -rf'
 alias mv='mv -f'
 
 ### Tmux command
+
 alias tml='tmux ls'
 alias tma='tmux attach -t'
 alias tmr='tmux rename-session -t'
 alias tmn='tmux new -s'
 alias tmk='tmux kill-session -t'
 alias tms='tmux source ~/.tmux.conf'
+
+### Emacs command
+alias em='emacs'
+alias emq='emacs -q'
+alias emel='emacs -q ~/init.el'
 
 ### Linux command
 
@@ -557,6 +563,7 @@ alias darp='dnf config-manager --add-repo'
 alias ynv='yum install -y neovim'
 alias yt='yum install terraform -y'
 alias ytm='yum install tmux -y'
+alias yem='yum install emacs -y'
 alias yd='yum install docker -y'
 alias yn='yum install nodejs -y'
 alias ynpm='yum install npm -y' 

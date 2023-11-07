@@ -110,6 +110,7 @@ map <C-p>3 :Buffer<CR>
 map <C-p>4 :FloatermNew<CR>
 map <C-x> :<C-p><CR>
 map <C-a> :UltiSnipsEdit<CR>
+map <A-a> :UltiSnipsEdit<CR>
 
 nnoremap <C-f> :NERDTreeToggle<CR>
 nnoremap <C-t>1 :tabnew 
@@ -119,6 +120,15 @@ nnoremap <Left> :echoe 'use h key instead'<CR>
 nnoremap <Right> :echoe 'use l key instead'<CR>
 nnoremap <Up> :echoe 'use k key instead'<CR>
 nnoremap <Down> :echoe 'use j key instead'<CR>
+
+let c='a'
+while c <= 'z'
+  exec "set <A-".c.">=\e".c
+  exec "imap \e".c." <A-".c.">"
+  let c = nr2char(1+char2nr(c))
+endw
+
+set timeout ttimeoutlen=50
 
 EOF
 

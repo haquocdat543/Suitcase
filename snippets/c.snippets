@@ -1,8 +1,64 @@
-snippet main "Test" b
+snippet main "Main Function" b
+#include <stdio.h>
+
+int main(int argc, char *argv[])
+{
+	${0}
+}
+endsnippet
+snippet mainn "Test" b
 #include <stdio.h>
 
 int main(){
 	printf("${1:Haquocdat}");
 	return 0;
 }
+endsnippet
+snippet fn "Function" b
+${1:void} ${2:function_name}(${3})
+{
+	${4}
+}
+endsnippet
+snippet for "For Loop" 
+for (int ${1:i} = ${2:0}; ${3:$1 < 10}; $1${4:++}) {
+	${5}
+}
+endsnippet
+snippet wh "While" b
+while (${1:1}) {
+	${2:Logic}
+}
+endsnippet
+snippet do "Do" b
+do {
+	${2:Logic}
+} while ($1);
+endsnippet
+snippet fn0 "Function without parameter" b
+${1:void} ${2:function_name}()
+{
+	${3}
+}
+endsnippet
+snippet fn1 "Function" b
+${1:void} ${2:function_name}(${3:Type} ${4:Parameter})
+{
+	${5}
+}
+endsnippet
+snippet if "If statement" b
+if (${1:true}) {
+	${0:${VISUAL}}
+}
+endsnippet
+snippet ife "If else" b
+if (${1:true}) {
+	${2:${VISUAL}}
+} else {
+	${0}
+}
+endsnippet
+snippet inc "Include" b
+#include <${1:stdio}.h>
 endsnippet

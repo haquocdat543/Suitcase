@@ -1,5 +1,6 @@
 #!/bin/bash
-
+yum install emacs -y
+apt install emacs -y
 ### This is configuration for init.el file
 ## If the emacs.sh file in preconfig folder exist. Delete
 if [ -f ~/preconfig/emacs.sh ]

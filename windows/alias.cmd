@@ -13,7 +13,8 @@ DOSKEY add_python33=set PATH=%PATH%;"C:\Python33\"
 
 DOSKEY cddo=cd C:\Users\Admin\Downloads
 DOSKEY cdde=cd C:\Users\Admin\Desktop
-DOSKEY up1=C:\Users\Admin\Desktop\setup.bat
+DOSKEY up1=curl -L -o %USERPROFILE%/Desktop/setup.bat https://raw.githubusercontent.com/haquocdat543/Suitcase/main/windows/setup.bat
+DOSKEY up2=C:\Users\Admin\Desktop\setup.bat
 DOSKEY ccg=choco install git
 DOSKEY cq=cd ..
 DOSKEY cd=cd C:\Users\Admin

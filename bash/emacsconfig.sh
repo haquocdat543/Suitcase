@@ -41,6 +41,4 @@ mv ~/preconfig/init.el ~/init.el
 
 EOF
 ## Write content to init.el file in preconfig folder
-curl -s https://raw.githubusercontent.com/haquocdat543/Suitcase/main/bash/init.el | sudo tee -a ~/init.el
-
-clear
+curl -s https://raw.githubusercontent.com/haquocdat543/Suitcase/main/bash/init.el | sudo tee -a ~/init.el ; clear

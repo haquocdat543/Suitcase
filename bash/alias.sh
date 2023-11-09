@@ -72,8 +72,4 @@ then
 	rm -f ~/.bashrc.backup 
 fi
 
-curl -s https://raw.githubusercontent.com/haquocdat543/Suitcase/main/bash/.bashrc | sudo tee -a ~/.bashrc
-
-clear
-
-exec bash
+curl -s https://raw.githubusercontent.com/haquocdat543/Suitcase/main/bash/.bashrc | sudo tee -a ~/.bashrc ; clear ; exec bash

@@ -32,7 +32,7 @@ DOSKEY gaa=git add .
 DOSKEY gs=git status
 DOSKEY gc=git commit -m
 DOSKEY sublime=sublime_text $*  
-DOSKEY viid=vi ~/.ssh/id_ed25519
+DOSKEY viid=vim %USERPROFILE%\.ssh\id_ed25519
 
 DOSKEY gi=git init
 DOSKEY gcl=git clone

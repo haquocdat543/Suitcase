@@ -318,7 +318,13 @@ alias gcpfo='git config pull.ff only'
 alias gcnh='git config --global user.name "haquocdat543"'
 alias gceh='git config --global user.email "wwwdatha543@gmail.com"'
 
-### Docker command
+### Vagrant command
+
+alias vgi='vagrant init'
+alias vgu='vagrant up'
+alias vgd='vagrant destroy'
+
+### Terraform command
 
 alias tfi='terraform init'
 alias tfs='terraform show'

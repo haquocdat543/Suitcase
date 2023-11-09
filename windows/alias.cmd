@@ -13,6 +13,7 @@ DOSKEY add_python33=set PATH=%PATH%;"C:\Python33\"
 
 DOSKEY cddo=cd C:\Users\Admin\Downloads
 DOSKEY cdde=cd C:\Users\Admin\Desktop
+DOSKEY up1=C:\Users\Admin\Desktop\setup.bat
 DOSKEY md=mkdir
 DOSKEY rm=rmdir
 DOSKEY cl=cls

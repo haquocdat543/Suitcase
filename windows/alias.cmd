@@ -13,6 +13,9 @@ DOSKEY add_python33=set PATH=%PATH%;"C:\Python33\"
 
 DOSKEY cddo=cd C:\Users\Admin\Downloads
 DOSKEY cdde=cd C:\Users\Admin\Desktop
+DOSKEY md=mkdir
+DOSKEY rm=rmdir
+DOSKEY cl=cls
 DOSKEY ls=dir /B $*
 DOSKEY gi=git init
 DOSKEY gaa=git add .

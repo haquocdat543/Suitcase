@@ -1,6 +1,3 @@
-
-cat << EOF | sudo tee -a ~/preconfig/.vimrc
-
 set history=200
 set paste
 set wrap

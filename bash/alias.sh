@@ -152,6 +152,8 @@ alias plug="curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
 alias plugin='git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim'
 alias val='vi ~/.bashrc'
+alias vac='vi ~/Suitcase/windows/alias.cmd'
+alias vws='vi ~/Suitcase/windows/setup.bat'
 alias vicp='vi ./docker-compose.yaml'
 alias vidk='vi ./Dockerfile'
 alias vbbk='vi ~/preconfig/backup/.bashrc.backup'

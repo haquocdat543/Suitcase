@@ -54,43 +54,6 @@ mv ~/preconfig/.tmux.conf ~/.tmux.conf
 
 EOF
 ## Write content to .tmux file in preconfig folder
-cat << EOF | sudo tee -a ~/preconfig/.tmux.conf
-bind-key v command-prompt -p "window name:" "new-window; rename-window '%%'"
-bind-key a command-prompt -p "session name:" "new-session; rename-session '%%'"
-set -g default-terminal 'screen-256color'
-set -g base-index 1
-
-unbind r
-bind r source-file ~/.tmux.conf
-
-setw -g mode-keys vi
-bind-key h select-pane -L
-bind-key l select-pane -R
-bind-key k select-pane -U
-bind-key j select-pane -D
-
-set -g history-limit 1000000
-set -g renumber-windows on
-set -g detach-on-destroy off
-set -g set-clipboard on
-
-set -g @plugin 'tmux-plugins/tpm'
-set -g @plugin 'tmux-plugins/tmux-continuum'
-set -g @plugin 'christoomey/vim-tmux-navigator'
-set -g @plugin 'dracula/tmux'
-set -g @plugin 'sainnhe/tmux-fzf'
-set -g @plugin 'tmux-plugins/tmux-resurrect'
-set -g @plugin 'tmux-plugins/tmux-yank'
-# set -g @plugin "janoamaral/tokyo-night-tmux"
-
-set -g @dracula-show-powerline true
-set -g @dracula-fixed-location "SaiGon"
-set -g @dracula-plugins "weather"
-set -g @dracula-show-flags true
-set -g @dracula-show-left-icon session
-
-run '~/.tmux/plugins/tpm/tpm'
-
-EOF
+curl -s https://raw.githubusercontent.com/haquocdat543/Suitcase/main/bash/.tmux.config | sudo tee -a ~/.tmux.config
 
 clear

@@ -15,6 +15,10 @@ DOSKEY cddo=cd C:\Users\Admin\Downloads
 DOSKEY cdde=cd C:\Users\Admin\Desktop
 DOSKEY up1=curl -L -o %USERPROFILE%/Desktop/setup.bat https://raw.githubusercontent.com/haquocdat543/Suitcase/main/windows/setup.bat
 DOSKEY up2=C:\Users\Admin\Desktop\setup.bat
+DOSKEY ups=up1 && up2 && plug
+DOSKEY plug=curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+DOSKEY cnt=C:\Users\Admin\Desktop\connect.bat
 DOSKEY val=vim %USERPROFILE%\alias.cmd
 DOSKEY vrc=vim %USERPROFILE%\.vimrc
 DOSKEY vtm=vim %USERPROFILE%\.tmux.conf

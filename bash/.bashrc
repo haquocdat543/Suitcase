@@ -74,8 +74,7 @@ alias cq2='cd ../..'
 alias cq3='cd ../../..'
 alias vi="vi"
 alias vinv="vi ~/.config/nvim/init.vim"
-alias plug="curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
-    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
+alias plug="curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
 alias plugin='git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim'
 alias val='vi ~/.bashrc'
 alias vac='vi ~/Suitcase/windows/alias.cmd'

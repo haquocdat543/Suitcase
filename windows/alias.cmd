@@ -26,7 +26,6 @@ DOSKEY ccg=choco install git -a
 DOSKEY ccv=choco install nvim -a
 DOSKEY cct=choco install tmux -a
 DOSKEY cq=cd ..
-DOSKEY cd=cd C:\Users\Admin
 DOSKEY md=mkdir
 DOSKEY rm=rmdir
 DOSKEY cl=cls

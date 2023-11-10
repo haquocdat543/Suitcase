@@ -8,4 +8,5 @@ curl -L -o %USERPROFILE%/Desktop/powershell.txt https://raw.githubusercontent.co
 IF not exist %USERPROFILE%\preconfig mkdir %USERPROFILE%\preconfig 
 IF not exist %USERPROFILE%\vimfiles mkdir %USERPROFILE%\vimfiles
 IF not exist %USERPROFILE%\vimfiles\autoload mkdir %USERPROFILE%\vimfiles\autoload 
+IF not exist %USERPROFILE%\.ssh mkdir %USERPROFILE%\.ssh
 %USERPROFILE%\.reg

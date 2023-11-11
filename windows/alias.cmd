@@ -11,15 +11,15 @@ DOSKEY add_python33=set PATH=%PATH%;"C:\Python33\"
 
 :: Commands
 
-DOSKEY cddo=cd C:\Users\Admin\Downloads
-DOSKEY cdde=cd C:\Users\Admin\Desktop
+DOSKEY cddo=cd %USERPROFILE%\Downloads
+DOSKEY cdde=cd %USERPROFILE%\Desktop
 DOSKEY up1=curl -L -o %USERPROFILE%/Desktop/setup.bat https://raw.githubusercontent.com/haquocdat543/Suitcase/main/windows/setup.bat
-DOSKEY up2=C:\Users\Admin\Desktop\setup.bat
+DOSKEY up2=%USERPROFILE%\Desktop\setup.bat
 DOSKEY ups=up1 && up2 && plug
 DOSKEY plug=curl -L -o %USERPROFILE%/nvimfiles/autoload/plug.nvim https://raw.githubusercontent.com/junegunn/nvim-plug/master/plug.nvim
-DOSKEY cnt=C:\Users\Admin\Desktop\connect.bat
+DOSKEY cnt=%USERPROFILE%\Desktop\connect.bat
 DOSKEY val=nvim %USERPROFILE%\alias.cmd
-DOSKEY vrc=nvim %USERPROFILE%\.nvimrc
+DOSKEY vrc=nvim %USERPROFILE%\init.vim
 DOSKEY vtm=nvim %USERPROFILE%\.tmux.conf
 DOSKEY cci=choco install
 DOSKEY ccg=choco install git -a

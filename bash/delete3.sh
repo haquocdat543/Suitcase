@@ -52,6 +52,12 @@ then
 	rm -rf ~/Terraform
 fi
 
+## If Suitcase folder exist. Delete it
+if [ -d ~/Suitcase ]
+then
+	rm -rf ~/Suitcase
+fi
+
 ## If ArgoCD folder exist. Delete it
 if [ -d ~/ArgoCD ]
 then

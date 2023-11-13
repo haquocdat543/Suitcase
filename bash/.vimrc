@@ -56,7 +56,7 @@ map <C-c>a :%s/
 map <C-c>1 :%s/
 map <C-c>2 :.s/
 map <C-c>3 :.,0s/
-map <C-c>4 :.,\$s/
+map <C-c>4 :.,$s/
 map <C-c>5 :.,.-
 map <C-c>6 :.,.+
 map <C-i>1 :PlugInstall<CR>

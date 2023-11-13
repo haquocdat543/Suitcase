@@ -15,26 +15,31 @@ DOSKEY add_python26=set PATH=%PATH%;"C:\Python26\"
 DOSKEY add_python33=set PATH=%PATH%;"C:\Python33\"
 
 :: Commands
+DOSKEY a2c=aws configure
+DOSKEY a2cl=aws configure list
 
 DOSKEY cddo=cd %USERPROFILE%\Downloads
 DOSKEY cdde=cd %USERPROFILE%\Desktop
 DOSKEY up1=curl -L -o %USERPROFILE%/Desktop/setup.bat https://raw.githubusercontent.com/haquocdat543/Suitcase/main/windows/setup.bat
 DOSKEY up2=%USERPROFILE%\Desktop\setup.bat
 DOSKEY ups=up1 && up2 && plug
-DOSKEY plug=curl -L -o %USERPROFILE%/nvimfiles/autoload/plug.nvim https://raw.githubusercontent.com/junegunn/nvim-plug/master/plug.nvim
+DOSKEY plug=curl -L -o %USERPROFILE%/vimfiles/autoload/plug.vim https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 DOSKEY cnt=%USERPROFILE%\Desktop\connect.bat
 DOSKEY val=nvim %USERPROFILE%\alias.cmd
 DOSKEY vrc=nvim %USERPROFILE%\init.vim
 DOSKEY vtm=nvim %USERPROFILE%\.tmux.conf
-DOSKEY cci=choco install
+DOSKEY cci=choco install 
 DOSKEY ccg=choco install git -a
-DOSKEY ccv=choco install nvim -a
+DOSKEY ccv=choco install neovim -a
 DOSKEY cct=choco install tmux -a
 DOSKEY cq=cd ..
 DOSKEY md=mkdir
 DOSKEY rm=rmdir
 DOSKEY cl=cls
 DOSKEY ls=dir /B $*
+DOSKEY ll=dir 
+DOSKEY atr=attrib -r
+DOSKEY att=attrib
 DOSKEY sublime=sublime_text $*
 DOSKEY viid=nvim %USERPROFILE%\.ssh\id_ed25519
 

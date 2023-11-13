@@ -97,3 +97,7 @@ if [ ! -f ~/preconfig/commands/zellijInstall.sh ]
 then
 	touch ~/preconfig/commands/zellijInstall.sh && curl -s https://raw.githubusercontent.com/haquocdat543/Suitcase/main/bash/commands/zellijInstall.sh | sudo tee -a ~/preconfig/commands/zellijInstall.sh 
 fi
+if [ ! -f ~/preconfig/commands/connect.sh ]
+then
+	touch ~/preconfig/commands/connect.sh && curl -s https://raw.githubusercontent.com/haquocdat543/Suitcase/main/bash/commands/connect.sh | sudo tee -a ~/preconfig/commands/connect.sh 
+fi

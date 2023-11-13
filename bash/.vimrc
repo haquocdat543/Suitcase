@@ -43,6 +43,7 @@ let g:UltiSnipsJumpBackwardTrigger="<c-n>"
 let g:UltiSnipsEditSplit="vertical"
 let g:UltiSnipsSnippetDirectories=['~/preconfig/snippets']
 
+let g:dracula_italic = 0
 colorscheme dracula
 
 map ,t :ter<CR>

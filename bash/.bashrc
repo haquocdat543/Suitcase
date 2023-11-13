@@ -178,6 +178,10 @@ alias lk='lazykubernetes'
 alias lnpm='lazynpm'
 alias lcli='lazycli'
 
+### AWS command
+alias a2c='aws configure'
+alias a2cl='aws configure list'
+
 ### Git command
 
 alias gi='git init'

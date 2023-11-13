@@ -3,6 +3,10 @@ echo "$1"
 read $2
 $3
 endsnippet
+snippet rd "Read with default" b
+read -p "$1 [$2]:" $3
+$3=${$3:-$4}
+endsnippet
 snippet #! "Test" b
 #!/bin/bash
 $1

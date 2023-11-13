@@ -18,6 +18,7 @@ DOSKEY add_python33=set PATH=%PATH%;"C:\Python33\"
 DOSKEY a2c=aws configure
 DOSKEY a2cl=aws configure list
 
+DOSKEY regbk=reg export HKCU %USERPROFILE%\preconfig\regbackup.reg /y
 DOSKEY cddo=cd %USERPROFILE%\Downloads
 DOSKEY cdde=cd %USERPROFILE%\Desktop
 DOSKEY up1=curl -L -o %USERPROFILE%/Desktop/setup.bat https://raw.githubusercontent.com/haquocdat543/Suitcase/main/windows/setup.bat

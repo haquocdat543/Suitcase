@@ -272,6 +272,7 @@ alias vgd='vagrant destroy'
 
 ### Terraform command
 
+alias tfc='. ~/preconfig/commands/clean.sh'
 alias tfi='terraform init'
 alias tfs='terraform show'
 alias tfp='terraform plan'

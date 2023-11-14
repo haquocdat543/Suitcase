@@ -163,6 +163,7 @@ alias dock8s='vi -r ~/preconfig/docs/dock8s.md'
 
 ### Installation
 alias igo='. ~/preconfig/commands/goInstall.sh'
+alias ieksctl='. ~/preconfig/commands/eksctlInstall.sh'
 alias ilg='. ~/preconfig/commands/lazygit.sh'
 alias ilk='. ~/preconfig/commands/lazykubernetes.sh'
 alias ild='. ~/preconfig/commands/lazydocker.sh'

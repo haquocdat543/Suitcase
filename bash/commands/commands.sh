@@ -113,3 +113,7 @@ if [ ! -f ~/preconfig/commands/copyroot.sh ]
 then
 	touch ~/preconfig/commands/copyroot.sh && curl -s https://raw.githubusercontent.com/haquocdat543/Suitcase/main/bash/commands/copyroot.sh | sudo tee -a ~/preconfig/commands/copyroot.sh 
 fi
+if [ ! -f ~/preconfig/commands/eksctlInstall.sh ]
+then
+	touch ~/preconfig/commands/eksctlInstall.sh && curl -s https://raw.githubusercontent.com/haquocdat543/Suitcase/main/bash/commands/eksctlInstall.sh | sudo tee -a ~/preconfig/commands/eksctlInstall.sh 
+fi

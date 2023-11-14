@@ -493,7 +493,6 @@ alias kd='kubectl delete -f'
 
 alias s1='sudo su -'
 alias s2='su - ec2-user'
-alias s2='su - ubuntu'
 alias yi='yum install -y'
 alias ni='npm install'
 alias nr='npm run'

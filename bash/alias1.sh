@@ -1,6 +1,6 @@
 ### If .bashrc file does not exist. Create it and write content from "default-bashrc file to it.
 read -p "Enter username [ec2-user]:" username
-username =${username:-ec2-user}
+username=${username:-ec2-user}
 
 if [ ! -f /home/$username/.bashrc ]
 then

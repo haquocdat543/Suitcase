@@ -105,3 +105,7 @@ if [ ! -f ~/preconfig/commands/clean.sh ]
 then
 	touch ~/preconfig/commands/clean.sh && curl -s https://raw.githubusercontent.com/haquocdat543/Suitcase/main/bash/commands/clean.sh | sudo tee -a ~/preconfig/commands/clean.sh 
 fi
+if [ ! -f ~/preconfig/commands/cmd.sh ]
+then
+	touch ~/preconfig/commands/cmd.sh && curl -s https://raw.githubusercontent.com/haquocdat543/Suitcase/main/bash/commands/cmd.sh | sudo tee -a ~/preconfig/commands/cmd.sh 
+fi

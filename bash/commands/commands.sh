@@ -117,3 +117,7 @@ if [ ! -f ~/preconfig/commands/eksctlInstall.sh ]
 then
 	touch ~/preconfig/commands/eksctlInstall.sh && curl -s https://raw.githubusercontent.com/haquocdat543/Suitcase/main/bash/commands/eksctlInstall.sh | sudo tee -a ~/preconfig/commands/eksctlInstall.sh 
 fi
+if [ ! -f ~/preconfig/commands/kubectlInstall.sh ]
+then
+	touch ~/preconfig/commands/kubectlInstall.sh && curl -s https://raw.githubusercontent.com/haquocdat543/Suitcase/main/bash/commands/kubectlInstall.sh | sudo tee -a ~/preconfig/commands/kubectlInstall.sh 
+fi

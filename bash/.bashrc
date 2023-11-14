@@ -183,6 +183,7 @@ alias lcli='lazycli'
 ### AWS command
 alias a2c='aws configure'
 alias a2cl='aws configure list'
+alias a2ec2ti='aws ec2 terminate-instances --instance-ids'
 alias a2ec2di='aws ec2 describe-instances'
 alias a2s3lb='aws s3api list-buckets'
 alias a2s3cb='aws s3api create-bucket --bucket'

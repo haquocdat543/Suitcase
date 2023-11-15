@@ -122,3 +122,6 @@ then
 	touch ~/preconfig/commands/kubectlInstall.sh && curl -s https://raw.githubusercontent.com/haquocdat543/Suitcase/main/bash/commands/kubectlInstall.sh | sudo tee -a ~/preconfig/commands/kubectlInstall.sh 
 fi
 if [ ! -f ~/preconfig/commands/clmDeploy.sh ]
+then
+	touch ~/preconfig/commands/clmDeploy.sh && curl -s https://raw.githubusercontent.com/haquocdat543/Suitcase/main/bash/commands/clmDeploy.sh | sudo tee -a ~/preconfig/commands/clmDeploy.sh 
+fi

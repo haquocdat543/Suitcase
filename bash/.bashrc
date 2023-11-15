@@ -499,9 +499,9 @@ alias ka='kubectl apply -f'
 alias kd='kubectl delete -f'
 
 ### Cron command
-alias cre='cromtab -e'
-alias crl='cromtab -l'
-alias crr='cromtab -r'
+alias cre='crontab -e'
+alias crl='crontab -l'
+alias crr='crontab -r'
 
 ### Other command
 

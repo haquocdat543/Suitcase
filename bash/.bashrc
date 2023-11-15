@@ -197,6 +197,7 @@ alias a2clmdes='aws cloudformation describe-stacks'
 
 ### Git command
 
+alias gd='git diff'
 alias gi='git init'
 alias gcl='git clone'
 alias gT='git clone git@github.com:haquocdat543/Terraform.git ~/Terraform'

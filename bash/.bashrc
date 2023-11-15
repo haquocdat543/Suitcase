@@ -87,6 +87,7 @@ alias vvbk='vi ~/preconfig/backup/.vimrc.backup'
 alias vtbk='vi ~/preconfig/backup/.tmux.conf.backup'
 alias vrc='vi ~/.vimrc'
 alias vtm='vi ~/.tmux.conf'
+alias viy='vi *.yaml'
 alias vee='vi ~/init.el'
 alias va='vi ~/Suitcase/bash/.bashrc'
 alias vipj='vi package.json'
@@ -194,6 +195,7 @@ alias a2s3db='aws s3api delete-bucket --bucket'
 alias a2clmd='. ~/preconfig/commands/clmDeploy.sh'
 alias a2clmds='aws cloudformation delete-stack --stack-name'
 alias a2clmdes='aws cloudformation describe-stacks'
+alias a2clmo='aws cloudformation describe-stacks --query Stacks[].Outputs[*].[OutputKey,OutputValue] --output text'
 
 ### Git command
 

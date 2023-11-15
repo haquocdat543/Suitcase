@@ -191,6 +191,7 @@ alias a2ec2di='aws ec2 describe-instances'
 alias a2s3lb='aws s3api list-buckets'
 alias a2s3cb='aws s3api create-bucket --bucket'
 alias a2s3db='aws s3api delete-bucket --bucket'
+alias a2clmd='. ~/preconfig/commands/clmDeploy.sh'
 
 ### Git command
 

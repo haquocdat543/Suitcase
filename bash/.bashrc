@@ -498,6 +498,11 @@ alias kr='kubectl run --dry-run=client -oyaml --image'
 alias ka='kubectl apply -f'
 alias kd='kubectl delete -f'
 
+### Cron command
+alias cre='cromtab -e'
+alias crl='cromtab -l'
+alias crr='cromtab -r'
+
 ### Other command
 
 alias s1='sudo su -'

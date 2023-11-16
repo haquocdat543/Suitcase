@@ -202,6 +202,7 @@ alias a2eksuk='aws eks update-kubeconfig --name'
 
 ### Git command
 
+alias vd='vimdiff'
 alias gd='git diff'
 alias gi='git init'
 alias gcl='git clone'

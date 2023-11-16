@@ -197,6 +197,7 @@ alias a2clmd='. ~/preconfig/commands/clmDeploy.sh'
 alias a2clmds='aws cloudformation delete-stack --stack-name'
 alias a2clmdes='aws cloudformation describe-stacks'
 alias a2clmo='aws cloudformation describe-stacks --query Stacks[].Outputs[*].[OutputKey,OutputValue] --output text'
+alias a2clmuk='aws eks update-kubeconfig --name'
 
 ### Git command
 
@@ -230,6 +231,7 @@ alias gca='git rev-list --count --all'
 alias gco='git count-objects'
 alias gcov='git count-objects -v'
 alias gb='git branch'
+alias gba='git branch -a'
 alias gbm='git branch -M'
 alias gbd='git branch -D'
 alias gsw='git switch'

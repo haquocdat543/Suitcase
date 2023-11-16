@@ -197,7 +197,7 @@ alias a2clmd='. ~/preconfig/commands/clmDeploy.sh'
 alias a2clmds='aws cloudformation delete-stack --stack-name'
 alias a2clmdes='aws cloudformation describe-stacks'
 alias a2clmo='aws cloudformation describe-stacks --query Stacks[].Outputs[*].[OutputKey,OutputValue] --output text'
-alias a2clmuk='aws eks update-kubeconfig --name'
+alias a2eksuk='aws eks update-kubeconfig --name'
 
 ### Git command
 

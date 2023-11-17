@@ -31,7 +31,6 @@ Plug 'dinhhuy258/git.nvim'
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 Plug 'morhetz/gruvbox'
-Plug 'jiangmiao/auto-pairs'
 " Plug 'honza/vim-snippets'
 call plug#end()
 

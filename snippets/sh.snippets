@@ -6,9 +6,11 @@ endsnippet
 snippet rd "Read with default" b
 read -p "$1 [$2]:" $3
 $3=${$3:-$2}
+$4
 endsnippet
 snippet #! "Test" b
 #!/bin/bash
+
 $1
 endsnippet
 snippet nd "Test" b
@@ -16,22 +18,30 @@ if [ ! -d ${1:folderPath} ]
 then
 	${2:mkdir}	
 fi
+
+$3
 endsnippet
 snippet d "Test" b
 if [ -d ${1:folderPath} ]
 then
 	${2:mkdir}	
 fi
+
+$3
 endsnippet
 snippet nf "Test" b
 if [ ! -f ${1:filePath} ]
 then
 	${2:mkdir}	
 fi
+
+$3
 endsnippet
 snippet f "Test" b
 if [ -f ${1:filePath} ]
 then
 	${2:mkdir}	
 fi
+
+$3
 endsnippet

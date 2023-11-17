@@ -119,6 +119,11 @@ DOSKEY gcprf=git config pull.rebase false
 DOSKEY gcpfo=git config pull.ff only
 DOSKEY gcnh=git config --global user.name "haquocdat543"
 DOSKEY gceh=git config --global user.email "wwwdatha543@gmail.com"
+
+DOSKEY vgi=vagrant init
+DOSKEY vgu=vagrant up
+DOSKEY vgd=vagrant destroy
+
     ::sublime_text.exe is name of the executable. By adding a temporary entry to system path, we dont have to write the whole directory anymore.
 DOSKEY gsp="C:\Program Files (x86)\Sketchpad5\GSP505en.exe"
 DOSKEY DOSKEY=notepad %USERPROFILE%\Dropbox\DOSKEY.cmd

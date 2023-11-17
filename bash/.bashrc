@@ -208,7 +208,10 @@ alias a2clmo='aws cloudformation describe-stacks --query Stacks[].Outputs[*].[Ou
 alias a2eksuk='aws eks update-kubeconfig --name'
 alias a2rdsci='. ~/preconfig/commands/rds.sh'
 alias a2rdsdi='aws rds delete-db-instance --db-instance-identifier'
-alias a2rdsdi='aws rds describe-db-instances'
+alias a2rdsdes='aws rds describe-db-instances'
+alias a2eccc='. ~/preconfig/commands/elasticache.sh'
+alias a2ecdes='aws rds describe-db-instances'
+alias a2ecdc='aws elasticache delete-cache-cluster --cache-cluster-id'
 
 ### Git command
 

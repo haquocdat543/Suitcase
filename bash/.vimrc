@@ -78,6 +78,8 @@ nnoremap <C-f> :NERDTreeToggle<CR>
 nnoremap <C-t>1 :tabnew 
 nnoremap <C-t>2 :tabo<CR>
 
+vnoremap // y/\V<C-R>=escape(@",'/\')<CR><CR>
+
 nnoremap <Left> :echoe 'use h key instead'<CR>
 nnoremap <Right> :echoe 'use l key instead'<CR>
 nnoremap <Up> :echoe 'use k key instead'<CR>

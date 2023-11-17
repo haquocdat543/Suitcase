@@ -164,6 +164,7 @@ alias dock8s='vi -r ~/preconfig/docs/dock8s.md'
 
 ### Installation
 alias igo='. ~/preconfig/commands/goInstall.sh'
+alias ifzf='git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf ;~/.fzf/install'
 alias ieksctl='. ~/preconfig/commands/eksctlInstall.sh'
 alias ikubectl='. ~/preconfig/commands/kubectlInstall.sh'
 alias ilg='. ~/preconfig/commands/lazygit.sh'

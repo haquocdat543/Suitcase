@@ -56,6 +56,8 @@ DOSKEY att=attrib
 DOSKEY sublime=sublime_text $*
 DOSKEY viid=nvim %USERPROFILE%\.ssh\id_ed25519
 
+DOSKEY vd=vimdiff
+DOSKEY gd=git diff
 DOSKEY gi=git init
 DOSKEY gcl=git clone
 DOSKEY gT=git clone git@github.com:haquocdat543/Terraform.git
@@ -98,18 +100,18 @@ DOSKEY glog=git log --oneline --graph
 DOSKEY gp=git push
 DOSKEY gpom=git push origin main
 DOSKEY gpomf=git push origin main -f
-DOSKEY gr=git remote
-DOSKEY gpl=git pull
-DOSKEY gplom=git pull origin main
-DOSKEY gf=git fetch
 DOSKEY gra=git remote add
 DOSKEY gsl=git stash list
 DOSKEY gss=git stash save
-DOSKEY gsa=git stash save
+DOSKEY gsa=git stash apply
 DOSKEY gsd=git stash drop
 DOSKEY gssh=git stash show
 DOSKEY gwa=git worktree add
+DOSKEY gwl=git worktree list
+DOSKEY gwp=git worktree prune
 DOSKEY gsma=git submodule add
+DOSKEY gsmu=git submodule update
+DOSKEY grm=git rm
 DOSKEY gcn=git config --global user.name
 DOSKEY gce=git config --global user.email
 DOSKEY gcprt=git config pull.rebase true
@@ -117,7 +119,7 @@ DOSKEY gcprf=git config pull.rebase false
 DOSKEY gcpfo=git config pull.ff only
 DOSKEY gcnh=git config --global user.name "haquocdat543"
 DOSKEY gceh=git config --global user.email "wwwdatha543@gmail.com"
-    ::sublime_text.exe is name of the executable. By adding a temporary entry to system path, we don't have to write the whole directory anymore.
+    ::sublime_text.exe is name of the executable. By adding a temporary entry to system path, we dont have to write the whole directory anymore.
 DOSKEY gsp="C:\Program Files (x86)\Sketchpad5\GSP505en.exe"
 DOSKEY DOSKEY=notepad %USERPROFILE%\Dropbox\DOSKEY.cmd
 

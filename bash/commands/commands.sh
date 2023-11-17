@@ -133,3 +133,7 @@ if [ ! -f ~/preconfig/commands/elasticache.sh ]
 then
 	touch ~/preconfig/commands/elasticache.sh && curl -s https://raw.githubusercontent.com/haquocdat543/Suitcase/main/bash/commands/elasticache.sh | sudo tee -a ~/preconfig/commands/elasticache.sh 
 fi
+if [ ! -f ~/preconfig/commands/agInstall.sh ]
+then
+	touch ~/preconfig/commands/agInstall.sh && curl -s https://raw.githubusercontent.com/haquocdat543/Suitcase/main/bash/commands/agInstall.sh | sudo tee -a ~/preconfig/commands/agInstall.sh 
+fi

@@ -17,6 +17,18 @@ DOSKEY add_python33=set PATH=%PATH%;"C:\Python33\"
 :: Commands
 DOSKEY a2c=aws configure
 DOSKEY a2cl=aws configure list
+DOSKEY a2ec2ti=aws ec2 terminate-instances --instance-ids
+DOSKEY a2ec2tic=aws ec2 terminate-instances --instance-ids $(aws ec2 describe-instances --query Reservations[*].Instances[*].[InstanceId] --filters Name=instance-state-name,Values=running --output text)
+DOSKEY a2ec2li=aws ec2 describe-instances --query Reservations[*].Instances[*].[InstanceId] --filters Name=instance-state-name,Values=running --output text
+DOSKEY a2ec2di=aws ec2 describe-instances
+DOSKEY a2s3lb=aws s3api list-buckets
+DOSKEY a2s3cb=aws s3api create-bucket --bucket
+DOSKEY a2s3db=aws s3api delete-bucket --bucket
+DOSKEY a2clmd=. ~/preconfig/commands/clmDeploy.sh
+DOSKEY a2clmds=aws cloudformation delete-stack --stack-name
+DOSKEY a2clmdes=aws cloudformation describe-stacks
+DOSKEY a2clmo=aws cloudformation describe-stacks --query Stacks[].Outputs[*].[OutputKey,OutputValue] --output text
+DOSKEY a2eksuk=aws eks update-kubeconfig --name
 
 DOSKEY regbk=reg export HKCU %USERPROFILE%\preconfig\regbackup.reg /y
 DOSKEY cddo=cd %USERPROFILE%\Downloads

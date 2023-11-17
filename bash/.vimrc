@@ -13,7 +13,7 @@ set pastetoggle=<C-e>
 
 call plug#begin()
 Plug 'ryanoasis/vim-devicons'
-Plug 'https://github.com/vim-airline/vim-airline' " Status bar
+Plug 'vim-airline/vim-airline' " Status bar
 Plug 'voldikss/vim-floaterm'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
@@ -29,6 +29,9 @@ Plug 'prettier/vim-prettier', {
   \ }
 Plug 'dinhhuy258/git.nvim'
 Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
+Plug 'morhetz/gruvbox'
+Plug 'jiangmiao/auto-pairs'
 " Plug 'honza/vim-snippets'
 call plug#end()
 

@@ -129,6 +129,7 @@ if [ ! -f ~/preconfig/commands/rds.sh ]
 then
 	touch ~/preconfig/commands/rds.sh && curl -s https://raw.githubusercontent.com/haquocdat543/Suitcase/main/bash/commands/rds.sh | sudo tee -a ~/preconfig/commands/rds.sh 
 fi
+if [ ! -f ~/preconfig/commands/elasticache.sh ]
 then
 	touch ~/preconfig/commands/elasticache.sh && curl -s https://raw.githubusercontent.com/haquocdat543/Suitcase/main/bash/commands/elasticache.sh | sudo tee -a ~/preconfig/commands/elasticache.sh 
 fi

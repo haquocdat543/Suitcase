@@ -75,8 +75,8 @@ map <A-w> :w!<CR>
 map <A-n> :n<CR>
 map <A-p> :p<CR>
 map <A-s> :
-map <leader>e :set nopaste<CR>
-map <leader>n :set paste<CR>
+map <leader>n :set nopaste<CR>
+map <leader>m :set paste<CR>
 
 nnoremap <C-f> :NERDTreeToggle<CR>
 nnoremap <C-t>1 :tabnew 

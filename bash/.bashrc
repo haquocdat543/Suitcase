@@ -528,6 +528,10 @@ alias kr='kubectl run --dry-run=client -oyaml --image'
 alias ka='kubectl apply -f'
 alias kd='kubectl delete -f'
 
+### Link command
+alias lns='ln -s'
+alias lnfs='ln -f -s'
+
 ### Cron command
 alias cre='crontab -e'
 alias crl='crontab -l'

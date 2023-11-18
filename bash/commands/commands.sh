@@ -137,3 +137,7 @@ if [ ! -f ~/preconfig/commands/agInstall.sh ]
 then
 	touch ~/preconfig/commands/agInstall.sh && curl -s https://raw.githubusercontent.com/haquocdat543/Suitcase/main/bash/commands/agInstall.sh | sudo tee -a ~/preconfig/commands/agInstall.sh 
 fi
+if [ ! -f ~/preconfig/commands/nvimInstall.sh ]
+then
+	touch ~/preconfig/commands/nvimInstall.sh && curl -s https://raw.githubusercontent.com/haquocdat543/Suitcase/main/bash/commands/nvimInstall.sh | sudo tee -a ~/preconfig/commands/nvimInstall.sh 
+fi

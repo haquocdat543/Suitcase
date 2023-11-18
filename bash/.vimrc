@@ -85,6 +85,11 @@ nnoremap <Right> :echoe 'use l key instead'<CR>
 nnoremap <Up> :echoe 'use k key instead'<CR>
 nnoremap <Down> :echoe 'use j key instead'<CR>
 
+nnoremap <leader>ff :Files<CR>
+nnoremap <leader>fg :Rg<CR>
+nnoremap <leader>fb :Buffer<CR> 
+nnoremap <leader>fh :Floaterm<CR> 
+
 let c='a'
 while c <= 'z'
   exec "set <A-".c.">=\e".c

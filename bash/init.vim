@@ -89,7 +89,7 @@ nnoremap <Down> :echoe 'use j key instead'<CR>
 nnoremap <leader>ff :Files<CR>
 nnoremap <leader>fg :Rg<CR>
 nnoremap <leader>fb :Buffer<CR> 
-nnoremap <leader>fh :Floaterm<CR> 
+nnoremap <leader>fh :FloatermNew<CR> 
 
 
 " May need for Vim (not Neovim) since coc.nvim calculates byte offset by count

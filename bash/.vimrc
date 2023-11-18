@@ -1,3 +1,4 @@
+let mapleader = " "
 set history=200
 set paste
 set wrap

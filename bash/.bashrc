@@ -153,6 +153,7 @@ alias up11='bash <(curl -s https://raw.githubusercontent.com/haquocdat543/Suitca
 alias up2='bash <(curl -s https://raw.githubusercontent.com/haquocdat543/Suitcase/main/bash/vimconfig.sh)'
 alias up3='bash <(curl -s https://raw.githubusercontent.com/haquocdat543/Suitcase/main/bash/tmuxconfig.sh)'
 alias up4='bash <(curl -s https://raw.githubusercontent.com/haquocdat543/Suitcase/main/bash/emacsconfig.sh)'
+alias up5='bash <(curl -s https://raw.githubusercontent.com/haquocdat543/Suitcase/main/bash/nvimconfig.sh)'
 alias cm='bash <(curl -s https://raw.githubusercontent.com/haquocdat543/Suitcase/main/bash/commands/commands.sh)'
 alias docs='bash <(curl -s https://raw.githubusercontent.com/haquocdat543/Suitcase/main/bash/docs/docs.sh)'
 alias dall='bash <(curl -s https://raw.githubusercontent.com/haquocdat543/Suitcase/main/bash/delete.sh)'

@@ -48,10 +48,10 @@ let g:UltiSnipsSnippetDirectories=['~/preconfig/snippets']
 let g:dracula_italic = 0
 colorscheme dracula
 
-map ,t :ter<CR>
+map ,tt :ter<CR>
 map ,gb :Git blame<CR>
-map <C-b> :set backup<CR>
-map <C-h> :noh<CR>
+map <C-b>b :set backup<CR>
+map <C-h>h :noh<CR>
 map <C-q>1 :q!<CR>
 map <C-q>2 :wq!<CR>
 map <C-c>a :%s/
@@ -67,14 +67,14 @@ map <C-p>1 :Files<CR>
 map <C-p>2 :Rg<CR>
 map <C-p>3 :Buffer<CR>
 map <C-p>4 :FloatermNew<CR>
-map <C-x> :<C-p><CR>
-map <A-a> :UltiSnipsEdit<CR>
-map <A-w> :w!<CR>
-map <A-n> :n<CR>
-map <A-p> :p<CR>
-map <A-e> :e
+map <C-x>1 :<C-p><CR>
+map <A-a>a :UltiSnipsEdit<CR>
+map <A-w>w :w!<CR>
+map <A-n>n :n<CR>
+map <A-p>p :p<CR>
+map <A-e>e :e
 
-nnoremap <A-f> :NERDTreeToggle<CR>
+nnoremap <A-f>f :NERDTreeToggle<CR>
 nnoremap <C-t>1 :tabnew 
 nnoremap <C-t>2 :tabo<CR>
 

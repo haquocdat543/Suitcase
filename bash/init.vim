@@ -46,6 +46,13 @@ let g:UltiSnipsJumpBackwardTrigger="<c-n>"
 let g:UltiSnipsEditSplit="vertical"
 let g:UltiSnipsSnippetDirectories=['~/preconfig/snippets']
 
+let g:floaterm_position = 'topright'
+let g:floaterm_width = 0.6
+let g:floaterm_height = 0.8
+let g:floaterm_title = 'Terminal $1/$2'
+let g:floaterm_wintype = 'float'
+let g:floaterm_rootmarkers = ['.pro']
+
 let g:dracula_italic = 0
 colorscheme gruvbox
 

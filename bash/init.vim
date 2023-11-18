@@ -10,7 +10,7 @@ set showmode
 set wildmenu
 set laststatus=2
 set pastetoggle=<F2>
-set pastetoggle=<C-e>
+set pastetoggle=<A-s>
 
 call plug#begin()
 Plug 'ryanoasis/vim-devicons'
@@ -73,7 +73,7 @@ map <C-a> :UltiSnipsEdit<CR>
 map <A-w> :w!<CR>
 map <A-n> :n<CR>
 map <A-p> :p<CR>
-map <A-e> :e
+map <A-s> :
 
 nnoremap <C-f> :NERDTreeToggle<CR>
 nnoremap <C-t>1 :tabnew 

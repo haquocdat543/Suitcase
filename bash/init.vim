@@ -84,12 +84,3 @@ nnoremap <Left> :echoe 'use h key instead'<CR>
 nnoremap <Right> :echoe 'use l key instead'<CR>
 nnoremap <Up> :echoe 'use k key instead'<CR>
 nnoremap <Down> :echoe 'use j key instead'<CR>
-
-let c='a'
-while c <= 'z'
-  exec "set <A-".c.">=\e".c
-  exec "imap \e".c." <A-".c.">"
-  let c = nr2char(1+char2nr(c))
-endw
-
-set timeout ttimeoutlen=50

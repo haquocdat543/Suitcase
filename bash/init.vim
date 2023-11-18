@@ -1,4 +1,5 @@
 set history=200
+set bg=dark
 set paste
 set wrap
 set number
@@ -46,7 +47,7 @@ let g:UltiSnipsEditSplit="vertical"
 let g:UltiSnipsSnippetDirectories=['~/preconfig/snippets']
 
 let g:dracula_italic = 0
-colorscheme dracula
+colorscheme gruvbox
 
 map ,t :ter<CR>
 map ,gb :Git blame<CR>

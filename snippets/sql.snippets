@@ -7,3 +7,28 @@ snippet sl "Select" b
 SELECT ${1:*} FROM ${2:Table}
 $3
 endsnippet
+
+snippet slw "Select From Where" b
+SELECT ${1:*} 
+FROM ${2:Table}
+WHERE ${3:Condition};
+$3
+endsnippet
+
+snippet ct "Create Table" b
+CREATE TABLE ${1:TableName}(
+	${2:Column} ${3:type} ${4:,}
+	$5
+);
+$6
+endsnippet
+
+snippet int "Integer" b
+${1:ColumnName} ${2:int} ${3:,}
+$4
+endsnippet
+
+snippet vc "Varchar" b
+${1:ColumnName} ${2:varchar( ${3:500})} ${4:,}
+$5
+endsnippet

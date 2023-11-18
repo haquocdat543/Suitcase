@@ -72,11 +72,10 @@ map <C-a> :UltiSnipsEdit<CR>
 map <A-w> :w!<CR>
 map <A-n> :n<CR>
 map <A-p> :p<CR>
-map <A-s> :
 map <leader>n :set nopaste<CR>
 map <leader>m :set paste<CR>
 
-nnoremap <C-f> :NERDTreeToggle<CR>
+nnoremap <A-f> :NERDTreeToggle<CR>
 nnoremap <C-t>1 :tabnew 
 nnoremap <C-t>2 :tabo<CR>
 

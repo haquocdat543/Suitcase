@@ -16,6 +16,7 @@ set pastetoggle=<A-s>
 call plug#begin()
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'ryanoasis/vim-devicons'
+Plug 'easymotion/vim-easymotion'
 Plug 'vim-airline/vim-airline' " Status bar
 Plug 'voldikss/vim-floaterm'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }

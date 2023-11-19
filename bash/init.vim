@@ -1,4 +1,4 @@
-let mapleader = "5 "
+let mapleader = " "
 set history=200
 set bg=dark
 set paste

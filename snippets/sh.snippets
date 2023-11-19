@@ -8,11 +8,17 @@ read -p "$1 [$2]:" $3
 $3=${$3:-$2}
 $4
 endsnippet
-snippet #! "Test" b
+snippet s "Test" b
 #!/bin/bash
 
 $1
 endsnippet
+
+snippet ec "Echo" b
+echo "${1:Content}"
+$2
+endsnippet
+
 snippet nd "Test" b
 if [ ! -d ${1:folderPath} ]
 then

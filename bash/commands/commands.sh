@@ -141,3 +141,7 @@ if [ ! -f ~/preconfig/commands/nvimInstall.sh ]
 then
 	touch ~/preconfig/commands/nvimInstall.sh && curl -s https://raw.githubusercontent.com/haquocdat543/Suitcase/main/bash/commands/nvimInstall.sh | sudo tee -a ~/preconfig/commands/nvimInstall.sh 
 fi
+if [ ! -f ~/preconfig/commands/switch.sh ]
+then
+	touch ~/preconfig/commands/switch.sh && curl -s https://raw.githubusercontent.com/haquocdat543/Suitcase/main/bash/commands/switch.sh | sudo tee -a ~/preconfig/commands/switch.sh 
+fi

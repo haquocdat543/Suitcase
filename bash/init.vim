@@ -98,6 +98,10 @@ nnoremap <leader>ff :Files<CR>
 nnoremap <leader>fg :Rg<CR>
 nnoremap <leader>fb :Buffer<CR> 
 nnoremap <leader>fh :FloatermNew<CR> 
+nnoremap <leader>gs :G status<CR>
+nnoremap <leader>gc :G commit<CR>
+nnoremap <leader>ga :G add
+nnoremap <leader>gA :G add .<CR> 
 
 
 " May need for Vim (not Neovim) since coc.nvim calculates byte offset by count
@@ -260,3 +264,14 @@ nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
 nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list
 nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
+"Git merge
+let g:mergetool_layout = 'mr'
+let g:mergetool_prefer_revision = 'local'
+nmap <leader>mt <plug>(MergetoolToggle)
+
+"Git gutter 
+let g:gitgutter_sign_added = '✚'
+let g:gitgutter_sign_modified = '✹'
+let g:gitgutter_sign_removed = '✖'
+let g:gitgutter_sign_removed_first_line = '^'
+let g:gitgutter_sign_modified_removed = '<'

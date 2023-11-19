@@ -102,6 +102,7 @@ nnoremap <leader>gb :G branch<CR>
 nnoremap <leader>gB :G branch 
 nnoremap <leader>gs :G status<CR>
 nnoremap <leader>gc :G commit<CR>
+nnoremap <leader>gl :G log<CR>
 nnoremap <leader>gC :G checkout 
 nnoremap <leader>gm :G merge 
 nnoremap <leader>ga :G add 

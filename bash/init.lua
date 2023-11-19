@@ -122,14 +122,8 @@ packer.startup(function(use)
    use 'williamboman/mason-lspconfig.nvim' 
    use 'neovim/nvim-lspconfig' 
    use 'hrsh7th/cmp-nvim-lsp' 
-   use {
-    'glepnir/lspsaga.nvim',
-    branch = 'main',
-    requires = {
-      { 'nvim-tree/nvim-web-devicons' },
-      { 'nvim-treesitter/nvim-treesitter' },
-     },
-   }
+   use 'glepnir/lspsaga.nvim'
+   use 'nvim-treesitter/nvim-treesitter'
    use 'jose-elias-alvarez/typescript.nvim' 
    use 'onsails/lspkind.nvim' 
    use 'jose-elias-alvarez/null-ls.nvim' 
@@ -214,6 +208,70 @@ cmp.setup({
   }),
 })
 
+-- import mason plugin safely
+local mason_status, mason = pcall(require, "mason")
+if not mason_status then
+  return
+end
+
+-- import mason-lspconfig plugin safely
+local mason_lspconfig_status, mason_lspconfig = pcall(require, "mason-lspconfig")
+if not mason_lspconfig_status then
+  return
+end
+
+-- import mason-null-ls plugin safely
+local mason_null_ls_status, mason_null_ls = pcall(require, "mason-null-ls")
+if not mason_null_ls_status then
+  return
+end
+
+-- enable mason
+mason.setup()
+
+mason_lspconfig.setup({
+  -- list of servers for mason to install
+  ensure_installed = {
+    "tsserver",
+    "html",
+    "cssls",
+    "tailwindcss",
+    "lua_ls",
+    "emmet_ls",
+  },
+  -- auto-install configured servers (with lspconfig)
+  automatic_installation = true, -- not the same as ensure_installed
+})
+
+mason_null_ls.setup({
+  -- list of formatters & linters for mason to install
+  ensure_installed = {
+    "prettier", -- ts/js formatter
+    "stylua", -- lua formatter
+    "eslint_d", -- ts/js linter
+  },
+  -- auto-install configured formatters & linters (with null-ls)
+  automatic_installation = true,
+})
+-- import lspsaga safely
+local saga_status, saga = pcall(require, "lspsaga")
+if not saga_status then
+  return
+end
+
+saga.setup({
+  -- keybinds for navigation in lspsaga window
+  scroll_preview = { scroll_down = "<C-f>", scroll_up = "<C-b>" },
+  -- use enter to open file with definition preview
+  definition = {
+    edit = "<CR>",
+  },
+  ui = {
+    colors = {
+      normal_bg = "#022746",
+    },
+  },
+})
 -- import lspconfig plugin safely
 local lspconfig_status, lspconfig = pcall(require, "lspconfig")
 if not lspconfig_status then
@@ -233,6 +291,7 @@ if not typescript_setup then
 end
 
 local keymap = vim.keymap -- for conciseness
+
 -- enable keybinds only for when lsp server available
 local on_attach = function(client, bufnr)
   -- keybind options
@@ -324,122 +383,6 @@ lspconfig["lua_ls"].setup({
     },
   },
 })
-
--- import lspsaga safely
-local saga_status, saga = pcall(require, "lspsaga")
-if not saga_status then
-  return
-end
-
-saga.setup({
-  -- keybinds for navigation in lspsaga window
-  scroll_preview = { scroll_down = "<C-f>", scroll_up = "<C-b>" },
-  -- use enter to open file with definition preview
-  definition = {
-    edit = "<CR>",
-  },
-  ui = {
-    colors = {
-      normal_bg = "#022746",
-    },
-  },
-})
-
--- import mason plugin safely
-local mason_status, mason = pcall(require, "mason")
-if not mason_status then
-  return
-end
-
--- import mason-lspconfig plugin safely
-local mason_lspconfig_status, mason_lspconfig = pcall(require, "mason-lspconfig")
-if not mason_lspconfig_status then
-  return
-end
-
--- import mason-null-ls plugin safely
-local mason_null_ls_status, mason_null_ls = pcall(require, "mason-null-ls")
-if not mason_null_ls_status then
-  return
-end
-
--- enable mason
-mason.setup()
-
-mason_lspconfig.setup({
-  -- list of servers for mason to install
-  ensure_installed = {
-    "tsserver",
-    "html",
-    "cssls",
-    "tailwindcss",
-    "lua_ls",
-    "emmet_ls",
-  },
-  -- auto-install configured servers (with lspconfig)
-  automatic_installation = true, -- not the same as ensure_installed
-})
-
-mason_null_ls.setup({
-  -- list of formatters & linters for mason to install
-  ensure_installed = {
-    "prettier", -- ts/js formatter
-    "stylua", -- lua formatter
-    "eslint_d", -- ts/js linter
-  },
-  -- auto-install configured formatters & linters (with null-ls)
-  automatic_installation = true,
-})
-
--- import null-ls plugin safely
-local setup, null_ls = pcall(require, "null-ls")
-if not setup then
-  return
-end
-
--- for conciseness
-local formatting = null_ls.builtins.formatting -- to setup formatters
-local diagnostics = null_ls.builtins.diagnostics -- to setup linters
-
--- to setup format on save
-local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
-
--- configure null_ls
-null_ls.setup({
-  -- setup formatters & linters
-  sources = {
-    --  to disable file types use
-    --  "formatting.prettier.with({disabled_filetypes = {}})" (see null-ls docs)
-    formatting.prettier, -- js/ts formatter
-    formatting.stylua, -- lua formatter
-    diagnostics.eslint_d.with({ -- js/ts linter
-      -- only enable eslint if root has .eslintrc.js (not in youtube nvim video)
-      condition = function(utils)
-        return utils.root_has_file(".eslintrc.js") -- change file extension if you use something else
-      end,
-    }),
-  },
-  -- configure format on save
-  on_attach = function(current_client, bufnr)
-    if current_client.supports_method("textDocument/formatting") then
-      vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
-      vim.api.nvim_create_autocmd("BufWritePre", {
-        group = augroup,
-        buffer = bufnr,
-        callback = function()
-          vim.lsp.buf.format({
-            filter = function(client)
-              --  only use null-ls for formatting instead of lsp server
-              return client.name == "null-ls"
-            end,
-            bufnr = bufnr,
-          })
-        end,
-      })
-    end
-  end,
-})
-
 vim.o.background = "dark" -- or "light" for light mode
 vim.cmd([[colorscheme gruvbox]])
 vim.cmd([[let g:UltiSnipsExpandTrigger="<tab>"]])

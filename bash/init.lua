@@ -56,6 +56,9 @@ keymap.set('n','<A-w>w',':w!<CR>')
 keymap.set('n','<A-n>n',':n<CR>')
 keymap.set('n','<A-p>p',':p<CR>')
 keymap.set('v','//','y/\V<C-R>=escape(@",'/\')<CR><CR>')
+keymap.set('n','<A-f>f',':NERDTreeToggle<CR>')
+keymap.set('n','<C-t>1',':tabnew ')
+keymap.set('n','<C-t>2',':tabo<CR>')
 
 keymap.set('n','te',':tabedit ')
 keymap.set('n','ss',':split<CR><C-w>w')
@@ -75,6 +78,7 @@ vim.cmd [[packadd packer.nvim]]
 
 packer.startup(function(use)
    use 'wbthomason/packer.nvim'
+   use 'ryanoasis/vim-devicons'
    use 'ellisonleao/gruvbox.nvim'
    use { 'junegunn/fzf', run = ":call fzf#install()" }
    use { 'junegunn/fzf.vim' }
@@ -107,3 +111,4 @@ vim.cmf([[let g:floaterm_height = 0.8]])
 vim.cmf([[let g:floaterm_title = 'Terminal $1/$2']])
 vim.cmf([[let g:floaterm_wintype = 'float']])
 vim.cmf([[let g:floaterm_rootmarkers = ['.pro'] ]])
+vim.cmd([[let g:airline_theme='gruvbox']])

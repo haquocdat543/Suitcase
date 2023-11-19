@@ -1,3 +1,16 @@
+-- auto install packer if not installed
+local ensure_packer = function()
+  local fn = vim.fn
+  local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
+  if fn.empty(fn.glob(install_path)) > 0 then
+    fn.system({ "git", "clone", "--depth", "1", "https://github.com/wbthomason/packer.nvim", install_path })
+    vim.cmd([[packadd packer.nvim]])
+    return true
+  end
+  return false
+end
+local packer_bootstrap = ensure_packer() -- true if packer was just installed
+ 
 vim.cmd('autocmd!')
 vim.g.mapleader = ' '
 vim.opt.title = true
@@ -169,6 +182,14 @@ if not luasnip_status then
   return
 end
 
+-- import lspkind plugin safely
+local lspkind_status, lspkind = pcall(require, "lspkind")
+if not lspkind_status then
+  return
+end
+
+-- load vs-code like snippets from plugins (e.g. friendly-
+
 cmp.setup({
   snippet = {
     expand = function(args)
@@ -212,7 +233,6 @@ if not typescript_setup then
 end
 
 local keymap = vim.keymap -- for conciseness
-
 -- enable keybinds only for when lsp server available
 local on_attach = function(client, bufnr)
   -- keybind options

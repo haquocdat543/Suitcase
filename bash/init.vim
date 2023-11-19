@@ -1,4 +1,4 @@
-let mapleader = " "
+let mapleader = "5 "
 set history=200
 set bg=dark
 set paste
@@ -98,8 +98,12 @@ nnoremap <leader>ff :Files<CR>
 nnoremap <leader>fg :Rg<CR>
 nnoremap <leader>fb :Buffer<CR> 
 nnoremap <leader>fh :FloatermNew<CR> 
+nnoremap <leader>gb :G branch<CR>
+nnoremap <leader>gB :G branch
 nnoremap <leader>gs :G status<CR>
 nnoremap <leader>gc :G commit<CR>
+nnoremap <leader>gC :G checkout
+nnoremap <leader>gm :G merge
 nnoremap <leader>ga :G add
 nnoremap <leader>gA :G add .<CR> 
 

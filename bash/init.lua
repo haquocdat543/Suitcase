@@ -21,6 +21,7 @@ local keymap = vim.keymap
 keymap.set('n','+','<C-a>')
 keymap.set('n','-','<C-x>')
 keymap.set('n','<C-a>','gg<M-v>G')
+keymap.set('n','<leader>ii',':PackerInstall<CR>')
 
 keymap.set('n','te',':tabedit ')
 keymap.set('n','ss',':split<CR><C-w>w')
@@ -40,5 +41,9 @@ vim.cmd [[packadd packer.nvim]]
 
 packer.startup(function(use)
    use 'wbthomason/packer.nvim'
+   use 'ellisonleao/gruvbox.nvim'
 end)
+
+vim.o.background = "dark" -- or "light" for light mode
+vim.cmd([[colorscheme gruvbox]])
 

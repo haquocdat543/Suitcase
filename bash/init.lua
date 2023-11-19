@@ -94,6 +94,7 @@ packer.startup(function(use)
    use 'dinhhuy258/git.nvim'
    use 'tpope/vim-fugitive'
    use 'airblade/vim-gitgutter'
+   use 'preservim/nerdtree'
 end)
 
 vim.o.background = "dark" -- or "light" for light mode
@@ -110,4 +111,3 @@ vim.cmd([[let g:floaterm_height = 0.8]])
 vim.cmd([[let g:floaterm_title = 'Terminal $1/$2']])
 vim.cmd([[let g:floaterm_wintype = 'float']])
 vim.cmd([[let g:floaterm_rootmarkers = ['.pro'] ]])
-vim.cmd([[let g:airline_theme='gruvbox']])

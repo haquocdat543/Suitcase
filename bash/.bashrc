@@ -90,7 +90,6 @@ alias plug="curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubu
 alias packer="git clone --depth 1 https://github.com/wbthomason/packer.nvim  ~/.local/share/nvim/site/pack/packer/start/packer.nvim"
 alias plugin2='git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim'
 alias plugin='git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim'
-alias eag='export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -g ""''
 alias ag='ag --hidden'
 alias val='vi ~/.bashrc'
 alias vac='vi ~/Suitcase/windows/alias.cmd'

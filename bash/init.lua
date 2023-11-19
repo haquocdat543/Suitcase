@@ -1,5 +1,4 @@
 vim.cmd('autocmd!')
-
 vim.g.mapleader = ' '
 vim.opt.title = true
 vim.opt.hlsearch = true
@@ -57,12 +56,15 @@ keymap.set('n','<A-w>w',':w!<CR>')
 keymap.set('n','<A-n>n',':n<CR>')
 keymap.set('n','<A-p>p',':p<CR>')
 keymap.set('n','<A-f>f',':NERDTreeToggle<CR>')
-keymap.set('n','<C-t>1',':tabnew ')
-keymap.set('n','<C-t>2',':tabo<CR>')
+keymap.set('n','<leader>to',':tabnew ')
+keymap.set('n','<leader>tx',':tabclose<CR>')
+keymap.set('n','<leader>tn',':tabn<CR>')
+keymap.set('n','<leader>tp',':tabp<CR>')
 
 keymap.set('n','te',':tabedit ')
 keymap.set('n','ss',':split<CR><C-w>w')
 keymap.set('n','sv',':vsplit<CR><C-w>w')
+keymap.set('n','sx',':close<CR>')
 keymap.set('n','sh','<C-w>h')
 keymap.set('n','sj','<C-w>j')
 keymap.set('n','sk','<C-w>k')
@@ -95,8 +97,84 @@ packer.startup(function(use)
    use 'tpope/vim-fugitive'
    use 'airblade/vim-gitgutter'
    use 'preservim/nerdtree'
-   use 'itchyny/lightline.vim'
+   use 'hrsh7th/nvim-cmp'
+   use 'hrsh7th/cmp-buffer'
+   use 'hrsh7th/cmp-path'
+   use 'L3MON4D3/LuaSnip'
+   use 'saadparwaiz1/cmp_luasnip'
+   use 'rafamadriz/friendly-snippets'
+   use 'nvim-lualine/lualine.nvim'
 end)
+local status, lualine = pcall(require, "lualine")
+if not status then
+  return
+end
+
+-- get lualine nightfly theme
+local lualine_nightfly = require("lualine.themes.nightfly")
+
+-- new colors for theme
+local new_colors = {
+  blue = "#65D1FF",
+  green = "#3EFFDC",
+  violet = "#FF61EF",
+  yellow = "#FFDA7B",
+  black = "#000000",
+}
+
+-- change nightlfy theme colors
+lualine_nightfly.normal.a.bg = new_colors.blue
+lualine_nightfly.insert.a.bg = new_colors.green
+lualine_nightfly.visual.a.bg = new_colors.violet
+lualine_nightfly.command = {
+  a = {
+    gui = "bold",
+    bg = new_colors.yellow,
+    fg = new_colors.black, -- black
+  },
+}
+
+-- configure lualine with modified theme
+lualine.setup({
+  options = {
+    theme = lualine_nightfly,
+  },
+})
+-- import nvim-cmp plugin safely
+local cmp_status, cmp = pcall(require, "cmp")
+if not cmp_status then
+  return
+end
+
+-- import luasnip plugin safely
+local luasnip_status, luasnip = pcall(require, "luasnip")
+if not luasnip_status then
+  return
+end
+
+cmp.setup({
+  snippet = {
+    expand = function(args)
+      luasnip.lsp_expand(args.body)
+    end,
+  },
+  mapping = cmp.mapping.preset.insert({
+    ["<C-k>"] = cmp.mapping.select_prev_item(), -- previous suggestion
+    ["<C-j>"] = cmp.mapping.select_next_item(), -- next suggestion
+    ["<C-b>"] = cmp.mapping.scroll_docs(-4),
+    ["<C-f>"] = cmp.mapping.scroll_docs(4),
+    ["<C-Space>"] = cmp.mapping.complete(), -- show completion suggestions
+    ["<C-e>"] = cmp.mapping.abort(), -- close completion window
+    ["<CR>"] = cmp.mapping.confirm({ select = false }),
+  }),
+  -- sources for autocompletion
+  sources = cmp.config.sources({
+    { name = "nvim_lsp" }, -- lsp
+    { name = "luasnip" }, -- snippets
+    { name = "buffer" }, -- text within current buffer
+    { name = "path" }, -- file system paths
+  }),
+})
 
 vim.o.background = "dark" -- or "light" for light mode
 vim.cmd([[colorscheme gruvbox]])

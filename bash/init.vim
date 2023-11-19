@@ -106,7 +106,8 @@ nnoremap <leader>gC :G checkout
 nnoremap <leader>gm :G merge 
 nnoremap <leader>ga :G add 
 nnoremap <leader>gA :G add .<CR> 
-
+nnoremap <leader>gp :G pull<CR> 
+nnoremap <leader>gP :G push<CR> 
 
 " May need for Vim (not Neovim) since coc.nvim calculates byte offset by count
 " utf-8 byte sequence

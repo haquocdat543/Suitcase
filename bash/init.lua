@@ -22,6 +22,7 @@ keymap.set('n','+','<C-a>')
 keymap.set('n','-','<C-x>')
 keymap.set('n','<C-a>','gg<M-v>G')
 keymap.set('n','<leader>ii',':PackerInstall<CR>')
+keymap.set('n','<leader>is',':PackerSync<CR>')
 keymap.set('n','<leader>ff',':Files<CR>')
 keymap.set('n','<leader>fg',':Rg<CR>')
 keymap.set('n','<leader>fb',':Buffers<CR>')
@@ -88,13 +89,13 @@ packer.startup(function(use)
     'nvim-tree/nvim-web-devicons', -- optional
      },
    }
-   use 'vim-airline/vim-airline' 
    use 'voldikss/vim-floaterm'
    use 'SirVer/ultisnips'
    use 'dinhhuy258/git.nvim'
    use 'tpope/vim-fugitive'
    use 'airblade/vim-gitgutter'
    use 'preservim/nerdtree'
+   use 'itchyny/lightline.vim'
 end)
 
 vim.o.background = "dark" -- or "light" for light mode
@@ -111,3 +112,8 @@ vim.cmd([[let g:floaterm_height = 0.8]])
 vim.cmd([[let g:floaterm_title = 'Terminal $1/$2']])
 vim.cmd([[let g:floaterm_wintype = 'float']])
 vim.cmd([[let g:floaterm_rootmarkers = ['.pro'] ]])
+vim.cmd([[let g:gitgutter_sign_added = '+' ]])
+vim.cmd([[let g:gitgutter_sign_modified = '*' ]])
+vim.cmd([[let g:gitgutter_sign_removed = 'x' ]])
+vim.cmd([[let g:gitgutter_sign_removed_first_line = '^' ]])
+vim.cmd([[let g:gitgutter_sign_modified_removed = '<' ]])

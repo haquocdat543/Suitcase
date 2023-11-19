@@ -22,21 +22,21 @@ then
 fi
 
 ## If init.lua in root foleder does not exist. Create it
-if [ ! -f ~/init.lua ]
+if [ ! -f ~/.config/nvim/init.lua ]
 then
-	touch ~/init.lua
+	touch ~/.config/nvim/init.lua
 fi
 
 ## If init.lua.backup does not exist. Create it
 if [ ! -f ~/preconfig/backup/init.lua.backup ]
 then
-	cp ~/init.lua ~/preconfig/backup/init.lua.backup 
+	cp ~/.config/nvim/init.lua ~/preconfig/backup/init.lua.backup 
 fi
 ## move init.lua to preinit.lua file in preconfig folder
-mv ~/init.lua ~/preconfig/preinit.lua
+mv ~/.config/nvim/init.lua ~/preconfig/preinit.lua
 
 ## move init.lua in preconfig folder to root folder
-mv ~/preconfig/init.lua ~/init.lua
+mv ~/preconfig/init.lua ~/.config/nvim/init.lua
 
 EOF
 ## Write content to init.lua file in preconfig folder

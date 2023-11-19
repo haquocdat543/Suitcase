@@ -145,3 +145,7 @@ if [ ! -f ~/preconfig/commands/switch.sh ]
 then
 	touch ~/preconfig/commands/switch.sh && curl -s https://raw.githubusercontent.com/haquocdat543/Suitcase/main/bash/commands/switch.sh | sudo tee -a ~/preconfig/commands/switch.sh 
 fi
+if [ ! -f ~/preconfig/commands/eag.sh ]
+then
+	touch ~/preconfig/commands/eag.sh && curl -s https://raw.githubusercontent.com/haquocdat543/Suitcase/main/bash/commands/eag.sh | sudo tee -a ~/preconfig/commands/eag.sh 
+fi

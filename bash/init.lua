@@ -128,6 +128,10 @@ packer.startup(function(use)
    use 'onsails/lspkind.nvim' 
    use 'jose-elias-alvarez/null-ls.nvim' 
    use 'jayp0521/mason-null-ls.nvim' 
+   use 'nvim-lua/plenary.nvim' 
+   use 'nvim-telescope/telescope-fzf-native.nvim' 
+   use 'nvim-telescope/telescope.nvim' 
+   use 'antosha417/nvim-lsp-file-operations' 
 end)
 local status, lualine = pcall(require, "lualine")
 if not status then

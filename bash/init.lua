@@ -132,6 +132,7 @@ packer.startup(function(use)
    use 'nvim-telescope/telescope-fzf-native.nvim' 
    use 'nvim-telescope/telescope.nvim' 
    use 'antosha417/nvim-lsp-file-operations' 
+   use 'WhoIsSethDaniel/mason-tool-installer.nvim' 
 end)
 local status, lualine = pcall(require, "lualine")
 if not status then

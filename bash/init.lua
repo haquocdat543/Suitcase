@@ -96,6 +96,7 @@ vim.cmd [[packadd packer.nvim]]
 packer.startup(function(use)
    use 'wbthomason/packer.nvim'
    use 'ryanoasis/vim-devicons'
+   use 'Yggdroot/indentLine'
    use 'ellisonleao/gruvbox.nvim'
    use { 'junegunn/fzf', run = ":call fzf#install()" }
    use { 'junegunn/fzf.vim' }
@@ -231,6 +232,11 @@ cmp.setup({
       opts.buffer = bufnr
 
       -- set keybinds
+      keymap.set("n", "ca", "<cmd>Lspsaga code_action<CR>", opts) -- show definition, references
+      keymap.set("n", "gn", "<Cmd>Lspsaga diagnostic_jump_next<CR>", opts) -- show definition, references
+      keymap.set("n", "gp", "<Cmd>Lspsaga diagnostic_jump_prev<CR>", opts) -- show definition, references
+      keymap.set("n", "gP", "<Cmd>Lspsaga peek_definition<CR>", opts) -- show definition, references
+      keymap.set("n", "gf", "<cmd>Lspsaga finder<CR>", opts) -- show definition, references
       opts.desc = "Show LSP references"
       keymap.set("n", "gR", "<cmd>Telescope lsp_references<CR>", opts) -- show definition, references
 

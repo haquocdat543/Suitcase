@@ -20,7 +20,9 @@ alias emel='emacs -q ~/init.el'
 
 ### Linux command
 
+alias mn='cd neovim && make CMAKE_BUILD_TYPE=RelWithDebInfo'
 alias mb='make build'
+alias mi='sudo make install'
 alias ps11='export PS1="\e[0;36m\u@\h \W\$\e[0m"'
 alias ps12='export PS1="\u@\H >"  \u: haquocdat, \H: aws, @: $'
 alias upn='plug ; yg ; yn ; cm ; sn'
@@ -627,6 +629,7 @@ alias yt='yum install terraform -y'
 alias ytm='yum install tmux -y'
 alias yem='yum install emacs -y'
 alias yd='yum install docker -y'
+alias ylib2='sudo dnf -y install ninja-build cmake gcc make unzip gettext curl'
 alias ylib='yum -y install pkgconfig automake gcc zlib-devel pcre-devel xz-devel'
 alias ytool='yum -y groupinstall "Development Tools"'
 alias yn='yum install nodejs -y'

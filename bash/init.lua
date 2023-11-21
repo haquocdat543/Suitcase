@@ -1,16 +1,16 @@
--- auto install packer if not installed
-local ensure_packer = function()
-  local fn = vim.fn
-  local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
-  if fn.empty(fn.glob(install_path)) > 0 then
-    fn.system({ "git", "clone", "--depth", "1", "https://github.com/wbthomason/packer.nvim", install_path })
-    vim.cmd([[packadd packer.nvim]])
-    return true
-  end
-  return false
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable", -- latest stable release
+    lazypath,
+  })
 end
-local packer_bootstrap = ensure_packer() -- true if packer was just installed
- 
+vim.opt.rtp:prepend(lazypath)
+
 vim.cmd('autocmd!')
 vim.g.mapleader = ' '
 vim.opt.title = true
@@ -42,6 +42,7 @@ keymap.set('n','<leader>ft',':FloatermNew<CR>')
 keymap.set('n','<leader>nn',':set nopaste<CR>')
 keymap.set('n','<leader>nm',':set paste<CR>')
 keymap.set('n','<leader>mm',':Mason<CR>')
+keymap.set('n','<leader>ll',':Lazy<CR>')
 keymap.set('n','<leader>mi',':MasonInstall ')
 keymap.set('n','<leader>gs',':G status<CR>')
 keymap.set('n','<leader>ga',':G add ')
@@ -86,57 +87,49 @@ keymap.set('n','sj','<C-w>j')
 keymap.set('n','sk','<C-w>k')
 keymap.set('n','sl','<C-w>l')
 
-local status, packer = pcall(require, 'packer')
-if (not status) then
-   print('Packer is not installed')
-   return
-end
+local plugins = {
+ 'wbthomason/packer.nvim',
+ 'ryanoasis/vim-devicons',
+ 'Yggdroot/indentLine',
+ 'ellisonleao/gruvbox.nvim',
+ { 'junegunn/fzf', run = ":call fzf#install()" },
+ { 'junegunn/fzf.vim' },
+ 'easymotion/vim-easymotion',
+ 'nvim-tree/nvim-tree.lua',
+ 'nvim-tree/nvim-web-devicons', -- optional,
+ 'voldikss/vim-floaterm',
+ 'SirVer/ultisnips',
+ 'dinhhuy258/git.nvim',
+ 'tpope/vim-fugitive',
+ 'airblade/vim-gitgutter',
+ 'preservim/nerdtree',
+ 'hrsh7th/nvim-cmp',
+ 'hrsh7th/cmp-buffer',
+ 'hrsh7th/cmp-path',
+ 'L3MON4D3/LuaSnip',
+ 'saadparwaiz1/cmp_luasnip',
+ 'rafamadriz/friendly-snippets',
+ 'nvim-lualine/lualine.nvim',
+ 'williamboman/mason.nvim',
+ 'williamboman/mason-lspconfig.nvim',
+ 'neovim/nvim-lspconfig',
+ 'hrsh7th/cmp-nvim-lsp',
+ 'glepnir/lspsaga.nvim',
+ 'nvim-treesitter/nvim-treesitter',
+ 'jose-elias-alvarez/typescript.nvim',
+ 'onsails/lspkind.nvim',
+ 'jose-elias-alvarez/null-ls.nvim',
+ 'jayp0521/mason-null-ls.nvim',
+ 'nvim-lua/plenary.nvim',
+ 'nvim-telescope/telescope-fzf-native.nvim',
+ 'nvim-telescope/telescope.nvim',
+ 'antosha417/nvim-lsp-file-operations',
+ 'WhoIsSethDaniel/mason-tool-installer.nvim'
+}
 
-vim.cmd [[packadd packer.nvim]]
+local opts = {}
 
-packer.startup(function(use)
-   use 'wbthomason/packer.nvim'
-   use 'ryanoasis/vim-devicons'
-   use 'Yggdroot/indentLine'
-   use 'ellisonleao/gruvbox.nvim'
-   use { 'junegunn/fzf', run = ":call fzf#install()" }
-   use { 'junegunn/fzf.vim' }
-   use 'easymotion/vim-easymotion'
-   use {
-   'nvim-tree/nvim-tree.lua',
-   requires = {
-    'nvim-tree/nvim-web-devicons', -- optional
-     },
-   }
-   use 'voldikss/vim-floaterm'
-   use 'SirVer/ultisnips'
-   use 'dinhhuy258/git.nvim'
-   use 'tpope/vim-fugitive'
-   use 'airblade/vim-gitgutter'
-   use 'preservim/nerdtree'
-   use 'hrsh7th/nvim-cmp'
-   use 'hrsh7th/cmp-buffer'
-   use 'hrsh7th/cmp-path'
-   use 'L3MON4D3/LuaSnip'
-   use 'saadparwaiz1/cmp_luasnip'
-   use 'rafamadriz/friendly-snippets'
-   use 'nvim-lualine/lualine.nvim'
-   use 'williamboman/mason.nvim' 
-   use 'williamboman/mason-lspconfig.nvim' 
-   use 'neovim/nvim-lspconfig' 
-   use 'hrsh7th/cmp-nvim-lsp' 
-   use 'glepnir/lspsaga.nvim'
-   use 'nvim-treesitter/nvim-treesitter'
-   use 'jose-elias-alvarez/typescript.nvim' 
-   use 'onsails/lspkind.nvim' 
-   use 'jose-elias-alvarez/null-ls.nvim' 
-   use 'jayp0521/mason-null-ls.nvim' 
-   use 'nvim-lua/plenary.nvim' 
-   use 'nvim-telescope/telescope-fzf-native.nvim' 
-   use 'nvim-telescope/telescope.nvim' 
-   use 'antosha417/nvim-lsp-file-operations' 
-   use 'WhoIsSethDaniel/mason-tool-installer.nvim' 
-end)
+require("lazy").setup(plugins, opts)
 local status, lualine = pcall(require, "lualine")
 if not status then
   return
@@ -191,7 +184,6 @@ if not lspkind_status then
 end
 
 -- load vs-code like snippets from plugins (e.g. friendly-
-
 cmp.setup({
   snippet = {
     expand = function(args)
@@ -220,65 +212,45 @@ cmp.setup({
   }),
 })
 
-    -- import lspconfig plugin
 local lspconfig = require("lspconfig")
-
--- import cmp-nvim-lsp plugin
 local cmp_nvim_lsp = require("cmp_nvim_lsp")
-
-local keymap = vim.keymap -- for conciseness
-
 local opts = { noremap = true, silent = true }
 local on_attach = function(client, bufnr)
   opts.buffer = bufnr
-
-  -- set keybinds
-  keymap.set("n", "ca", "<cmd>Lspsaga code_action<CR>", opts) -- show definition, references
-  keymap.set("n", "gn", "<Cmd>Lspsaga diagnostic_jump_next<CR>", opts) -- show definition, references
-  keymap.set("n", "gp", "<Cmd>Lspsaga diagnostic_jump_prev<CR>", opts) -- show definition, references
-  keymap.set("n", "gP", "<Cmd>Lspsaga peek_definition<CR>", opts) -- show definition, references
-  keymap.set("n", "gf", "<cmd>Lspsaga finder<CR>", opts) -- show definition, references
+  keymap.set("n", "gs", "<cmd>Lspsaga show_workspace_diagnostics<CR>", opts)
+  keymap.set("n", "ca", "<cmd>Lspsaga code_action<CR>", opts)
+  keymap.set("n", "gn", "<Cmd>Lspsaga diagnostic_jump_next<CR>", opts)
+  keymap.set("n", "gp", "<Cmd>Lspsaga diagnostic_jump_prev<CR>", opts)
+  keymap.set("n", "gP", "<Cmd>Lspsaga peek_definition<CR>", opts)
+  keymap.set("n", "gf", "<cmd>Lspsaga finder<CR>", opts)
   opts.desc = "Show LSP references"
-  keymap.set("n", "gR", "<cmd>Telescope lsp_references<CR>", opts) -- show definition, references
-
+  keymap.set("n", "gR", "<cmd>Telescope lsp_references<CR>", opts)
   opts.desc = "Go to declaration"
-  keymap.set("n", "gD", vim.lsp.buf.declaration, opts) -- go to declaration
-
+  keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
   opts.desc = "Show LSP definitions"
-  keymap.set("n", "gd", "<cmd>Telescope lsp_definitions<CR>", opts) -- show lsp definitions
-
+  keymap.set("n", "gd", "<cmd>Telescope lsp_definitions<CR>", opts)
   opts.desc = "Show LSP implementations"
-  keymap.set("n", "gi", "<cmd>Telescope lsp_implementations<CR>", opts) -- show lsp implementations
-
+  keymap.set("n", "gi", "<cmd>Telescope lsp_implementations<CR>", opts)
   opts.desc = "Show LSP type definitions"
-  keymap.set("n", "gt", "<cmd>Telescope lsp_type_definitions<CR>", opts) -- show lsp type definitions
-
+  keymap.set("n", "gt", "<cmd>Telescope lsp_type_definitions<CR>", opts)
   opts.desc = "See available code actions"
-  keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts) -- see available code actions, in visual mode will apply to selection
-
+  keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts)
   opts.desc = "Smart rename"
-  keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts) -- smart rename
-
+  keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
   opts.desc = "Show buffer diagnostics"
-  keymap.set("n", "<leader>D", "<cmd>Telescope diagnostics bufnr=0<CR>", opts) -- show  diagnostics for file
-
+  keymap.set("n", "<leader>D", "<cmd>Telescope diagnostics bufnr=0<CR>", opts)
   opts.desc = "Show line diagnostics"
-  keymap.set("n", "<leader>d", vim.diagnostic.open_float, opts) -- show diagnostics for line
-
+  keymap.set("n", "<leader>d", vim.diagnostic.open_float, opts)
   opts.desc = "Go to previous diagnostic"
-  keymap.set("n", "[d", vim.diagnostic.goto_prev, opts) -- jump to previous diagnostic in buffer
-
+  keymap.set("n", "[d", vim.diagnostic.goto_prev, opts)
   opts.desc = "Go to next diagnostic"
-  keymap.set("n", "]d", vim.diagnostic.goto_next, opts) -- jump to next diagnostic in buffer
-
+  keymap.set("n", "]d", vim.diagnostic.goto_next, opts)
   opts.desc = "Show documentation for what is under cursor"
-  keymap.set("n", "K", vim.lsp.buf.hover, opts) -- show documentation for what is under cursor
-
+  keymap.set("n", "K", vim.lsp.buf.hover, opts)
   opts.desc = "Restart LSP"
-  keymap.set("n", "<leader>rs", ":LspRestart<CR>", opts) -- mapping to restart lsp if necessary
+  keymap.set("n", "<leader>rs", ":LspRestart<CR>", opts)
 end
 
--- used to enable autocompletion (assign to every lsp server config)
 local capabilities = cmp_nvim_lsp.default_capabilities()
 
 -- Change the Diagnostic symbols in the sign column (gutter)

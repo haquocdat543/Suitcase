@@ -90,6 +90,7 @@ alias .6='cd ../../../../..'
 alias vi="vi"
 alias vnv="vi ~/.config/nvim/init.vim"
 alias vil="vi ~/.config/nvim/init.lua"
+alias vilk="vi ~/Suitcase/bash/link.txt"
 alias plug2="sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'"
 alias plug="curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
 alias packer="git clone --depth 1 https://github.com/wbthomason/packer.nvim  ~/.local/share/nvim/site/pack/packer/start/packer.nvim"

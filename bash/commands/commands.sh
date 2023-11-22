@@ -149,3 +149,7 @@ if [ ! -f ~/preconfig/commands/eag.sh ]
 then
 	touch ~/preconfig/commands/eag.sh && curl -s https://raw.githubusercontent.com/haquocdat543/Suitcase/main/bash/commands/eag.sh | sudo tee -a ~/preconfig/commands/eag.sh 
 fi
+if [ ! -f ~/preconfig/commands/helmInstall.sh ]
+then
+	touch ~/preconfig/commands/helmInstall.sh && curl -s https://raw.githubusercontent.com/haquocdat543/Suitcase/main/bash/commands/helmInstall.sh | sudo tee -a ~/preconfig/commands/helmInstall.sh 
+fi

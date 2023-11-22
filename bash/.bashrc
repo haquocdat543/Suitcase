@@ -577,7 +577,14 @@ alias kd='kubectl delete -f'
 alias lns='ln -s'
 alias lnfs='ln -f -s'
 
+### Helm command
+alias hmra='helm repo add'
+alias hmru='helm repo update'
+alias hmi='helm install'
+alias hmu='helm upgrade'
+
 ### Cron command
+
 alias cre='crontab -e'
 alias crl='crontab -l'
 alias crr='crontab -r'

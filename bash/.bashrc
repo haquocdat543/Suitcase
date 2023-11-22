@@ -359,6 +359,9 @@ alias gceh='git config --global user.email "wwwdatha543@gmail.com"'
 alias vgi='vagrant init'
 alias vgu='vagrant up'
 alias vgd='vagrant destroy'
+alias vgss='vagrant ssh'
+alias vgsc='vagrant ssh-config'
+alias vgs='vagrant status'
 
 ### Terraform command
 

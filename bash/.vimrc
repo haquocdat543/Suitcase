@@ -44,7 +44,7 @@ let g:UltiSnipsListSnippets="<c-y>"
 let g:UltiSnipsJumpForwardTrigger="<c-m>"
 let g:UltiSnipsJumpBackwardTrigger="<c-n>"
 let g:UltiSnipsEditSplit="vertical"
-let g:UltiSnipsSnippetDirectories=['~/preconfig/snippets']
+let g:UltiSnipsSnippetDirectories=['~/preconfig/Suitcase/snippets']
 
 let g:dracula_italic = 0
 colorscheme dracula

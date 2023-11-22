@@ -44,8 +44,7 @@ let g:UltiSnipsListSnippets="<c-y>"
 let g:UltiSnipsJumpForwardTrigger="<c-m>"
 let g:UltiSnipsJumpBackwardTrigger="<c-n>"
 let g:UltiSnipsEditSplit="vertical"
-let g:UltiSnipsSnippetDirectories=['~/preconfig/snippets']
-
+let g:UltiSnipsSnippetDirectories=['~/preconfig/Suitcase/snippets']
 let g:floaterm_position = 'topright'
 let g:floaterm_width = 0.6
 let g:floaterm_height = 0.8

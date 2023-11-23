@@ -260,6 +260,7 @@ alias ghal='gh auth login'
 alias ghrl='gh repo list'
 alias ghrc='gh repo create'
 alias ghrv='gh repo view'
+alias ghre='gh repo edit'
 
 ### Git command
 

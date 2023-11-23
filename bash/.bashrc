@@ -182,7 +182,7 @@ alias wc='. ~/preconfig/Suitcase/bash/master-ubuntu.sh'
 alias mnode='. ~/preconfig/Suitcase/bash/k8s-ami.sh'
 
 
-### Installation
+### Documentation
 alias dock8s='vi -r ~/preconfig/Suitcase/bash/docs/dock8s.md'
 
 ### Installation

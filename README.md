@@ -37,9 +37,5 @@ You can view my [init.el](https://github.com/haquocdat543/Suitcase/blob/main/bas
 curl -L -o %USERPROFILE%/Desktop/setup.bat https://raw.githubusercontent.com/haquocdat543/Suitcase/main/windows/setup.bat
 ```
 ## 3. Snippets
-```
-alias up4='bash <(curl -s https://raw.githubusercontent.com/haquocdat543/Suitcase/main/bash/emacsconfig.sh )'
-up4
-```
 You can view my [Snippets](https://github.com/haquocdat543/Suitcase/blob/main/snippets)
 

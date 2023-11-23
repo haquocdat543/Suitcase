@@ -259,6 +259,7 @@ alias a2cpldp='aws codepipeline delete-pipeline --name'
 alias ghal='gh auth login'
 alias ghrl='gh repo list'
 alias ghrc='gh repo create'
+alias ghrv='gh repo view'
 
 ### Git command
 

@@ -1,7 +1,10 @@
 yum install -y git
 apt install -y git
 git clone https://github.com/haquocdat543/Suitcase.git ~/preconfig/Suitcase
-cd ~/preconfig/Suitcase ; g0 ; g0 ; g0
+cd ~/preconfig/Suitcase
+git reset --hard HEAD~1
+git reset --hard HEAD~1
+git reset --hard HEAD~1
 git pull origin main -f
 cd -
 ### If .bashrc file does not exist. Create it and write content from "default-bashrc file to it.

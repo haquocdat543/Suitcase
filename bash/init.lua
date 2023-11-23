@@ -96,6 +96,7 @@ local plugins = {
  'wbthomason/packer.nvim',
  'kdheepak/lazygit.nvim',
  'ryanoasis/vim-devicons',
+ 'phaazon/hop.nvim',
  'Yggdroot/indentLine',
  'ellisonleao/gruvbox.nvim',
  { 'junegunn/fzf', run = ":call fzf#install()" },
@@ -140,6 +141,8 @@ local status, lualine = pcall(require, "lualine")
 if not status then
   return
 end
+
+require'hop'.setup()
 
 -- get lualine nightfly theme
 local lualine_nightfly = require("lualine.themes.nightfly")

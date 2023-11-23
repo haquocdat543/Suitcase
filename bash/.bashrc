@@ -255,6 +255,11 @@ alias a2cdda='aws codedeploy delete-application --application-name'
 alias a2cpllp='aws codepipeline list-pipelines'
 alias a2cpldp='aws codepipeline delete-pipeline --name'
 
+### Github  command
+alias ghal='gh auth login'
+alias ghrl='gh repo list'
+alias ghrc='gh repo create'
+
 ### Git command
 
 alias vd='vimdiff'

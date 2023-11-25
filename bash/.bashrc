@@ -1,11 +1,9 @@
 ### User specific aliases and functions
-
 alias rm='rm -f'
 alias cp='cp -rf'
 alias mv='mv -f'
 
 ### Tmux command
-
 alias tml='tmux ls'
 alias tma='tmux attach -t'
 alias tmr='tmux rename-session -t'
@@ -19,7 +17,6 @@ alias emq='emacs -q'
 alias emel='emacs -q ~/init.el'
 
 ### Linux command
-
 alias mn='cd neovim && make CMAKE_BUILD_TYPE=RelWithDebInfo'
 alias mb='make build'
 alias mi='sudo make install'
@@ -363,7 +360,6 @@ alias gcnh='git config --global user.name "haquocdat543"'
 alias gceh='git config --global user.email "wwwdatha543@gmail.com"'
 
 ### Vagrant command
-
 alias vgi='vagrant init'
 alias vgu='vagrant up'
 alias vgd='vagrant destroy'
@@ -372,7 +368,6 @@ alias vgsc='vagrant ssh-config'
 alias vgs='vagrant status'
 
 ### Terraform command
-
 alias tfc='. ~/preconfig/Suitcase/bash/commands/clean.sh'
 alias tfi='terraform init'
 alias tfs='terraform show'
@@ -436,7 +431,6 @@ alias djm='docker swarm join-token manager'
 alias djw='docker swarm join-token worker'
 
 ### Kubectl command
-
 alias k='kubectl'
 alias kp='kubectl proxy'
 alias kl='kubectl label'
@@ -597,13 +591,15 @@ alias hmi='helm install'
 alias hmu='helm upgrade'
 
 ### Cron command
-
 alias cre='crontab -e'
 alias crl='crontab -l'
 alias crr='crontab -r'
 
-### Other command
+### Pip command
+alias pi='pip install'
+alias pians='pip install ansible'
 
+### Other command
 alias s1='sudo su -'
 alias s2='su - ec2-user'
 alias yi='yum install -y'

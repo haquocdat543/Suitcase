@@ -74,6 +74,7 @@ map <A-w>w :w!<CR>
 map <A-n>n :n<CR>
 map <A-p>p :p<CR>
 map <A-e>e :e
+map <C-s>s :sav
 
 nnoremap <A-f>f :NERDTreeToggle<CR>
 nnoremap <C-t>1 :tabnew 

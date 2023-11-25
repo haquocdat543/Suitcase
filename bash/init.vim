@@ -79,6 +79,7 @@ map <C-a>a :UltiSnipsEdit<CR>
 map <A-w>w :w!<CR>
 map <A-n>n :n<CR>
 map <A-p>p :p<CR>
+map <C-s>s :sav
 map <leader>nn :set nopaste<CR>
 map <leader>nm :set paste<CR>
 

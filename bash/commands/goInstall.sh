@@ -1,7 +1,8 @@
 #!/bin/bash
 
-wget https://go.dev/dl/go1.21.3.linux-amd64.tar.gz
-rm -rf /usr/local/go && tar -C /usr/local -xzf go1.21.3.linux-amd64.tar.gz
+export VER="1.21.3"
+wget https://go.dev/dl/go${VER}.linux-amd64.tar.gz
+rm -rf /usr/local/go && tar -C /usr/local -xzf go${VER}.linux-amd64.tar.gz
 export PATH=$PATH:/usr/local/go/bin
-rm -f go1.21.3.linux-amd64
+rm -f go${VER}.linux-amd64
 go version

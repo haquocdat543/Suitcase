@@ -91,6 +91,8 @@ nnoremap <leader>ff :Files<CR>
 nnoremap <leader>fg :Rg<CR>
 nnoremap <leader>fb :Buffer<CR> 
 nnoremap <leader>fh :FloatermNew<CR> 
+nnoremap <leader>nn :set nopaste<CR> 
+nnoremap <leader>nm :set paste<CR> 
 
 let c='a'
 while c <= 'z'

@@ -201,6 +201,7 @@ alias ipip='cd ; wget https://bootstrap.pypa.io/get-pip.py ; python3 get-pip.py 
 alias ipynvim='python3 -m pip install --upgrade pynvim'
 alias ikubectl='. ~/preconfig/Suitcase/bash/commands/kubectl.sh'
 alias irg='. ~/preconfig/Suitcase/bash/commands/ripgrep.sh'
+alias ibrew='/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"'
 alias icargo='curl https://sh.rustup.rs -sSf | sh ; source "\$HOME/.cargo/env"'
 alias icabal='. ~/preconfig/Suitcase/bash/commands/cabalInstall.sh'
 alias izellij='. ~/preconfig/Suitcase/bash/commands/zellijInstall.sh'

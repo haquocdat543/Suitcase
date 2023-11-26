@@ -7,6 +7,7 @@
 alias up1='bash <(curl -s https://raw.githubusercontent.com/haquocdat543/Suitcase/main/bash/alias.sh )'
 up1
 ```
+You can view all of my [bash scripts](https://github.com/haquocdat543/Suitcase/blob/main/bash/commands)
 
 You can view my [aliases](https://github.com/haquocdat543/Suitcase/blob/main/bash/.bashrc)
 ### 2. Vim

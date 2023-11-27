@@ -631,6 +631,8 @@ alias ua='useradd'
 alias pw='passwd'
 
 ### Other command
+alias setzsh='chsh -s $(which zsh)'
+alias setbash='chsh -s $(which bash)'
 alias s1='sudo su -'
 alias s2='su - ec2-user'
 alias yi='yum install -y'

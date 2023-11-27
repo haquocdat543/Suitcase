@@ -13,6 +13,7 @@ vim.opt.rtp:prepend(lazypath)
 
 vim.cmd('autocmd!')
 vim.g.mapleader = ' '
+vim.opt.viminfo = '100,<1000,s100,h'
 vim.opt.title = true
 vim.opt.hlsearch = true
 vim.opt.history = 200

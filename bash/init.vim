@@ -1,4 +1,5 @@
 let mapleader = " "
+set viminfo='100,<1000,s100,h
 set history=200
 set bg=dark
 set paste

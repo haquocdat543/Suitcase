@@ -338,6 +338,7 @@ alias glo='git log --oneline'
 alias glo10='git log -n 10 --oneline'
 alias gl10='git log -n 10'
 alias glog='git log --oneline --graph'
+alias glop="git log --graph --abbrev-commit --decorate --color --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%ai%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%n'"
 alias gp='git push'
 alias gpu='git push -u'
 alias gpod='git push origin --delete'

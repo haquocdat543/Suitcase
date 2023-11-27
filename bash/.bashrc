@@ -367,6 +367,10 @@ alias gcpfo='git config pull.ff only'
 alias gcnh='git config --global user.name "haquocdat543"'
 alias gceh='git config --global user.email "wwwdatha543@gmail.com"'
 
+### Ansible command
+alias a1='ansible'
+alias ans='ansible'
+
 ### Vagrant command
 alias vgi='vagrant init'
 alias vgu='vagrant up'

@@ -34,6 +34,12 @@ tuan-nng
 doidev
 xinqingjiao
 omerxx/dotfiles
+songhanpoo
+https://github.com/nduytg
+https://github.com/nulldoot2k?tab=repositories
+https://github.com/vncloudsco
+https://github.com/leductoan3082004/web-infrastructure-terraform-aws-cloud
+https://github.com/ULTIMATE-Mystery/Software-Engineering-HCMUT-Semester-222
 https://github.com/trietphm/dotfiles/blob/master/.vimrc
 https://github.com/huytd/vim-config
 https://github.com/longntt98/vim-dotfiles

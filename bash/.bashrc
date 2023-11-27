@@ -632,6 +632,7 @@ alias ua='useradd'
 alias pw='passwd'
 
 ### Other command
+alias addzsh='. ~/preconfig/Suitcase/bash/commands/addZshSource.sh'
 alias setzsh='chsh -s $(which zsh)'
 alias setbash='chsh -s $(which bash)'
 alias s1='sudo su -'

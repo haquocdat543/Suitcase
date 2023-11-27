@@ -633,6 +633,7 @@ alias ua='useradd'
 alias pw='passwd'
 
 ### Other command
+alias addas='. ~/preconfig/Suitcase/bash/commands/addAutoSuggest.sh'
 alias addzsh='. ~/preconfig/Suitcase/bash/commands/addZshSource.sh'
 alias setzsh='chsh -s $(which zsh)'
 alias setbash='chsh -s $(which bash)'

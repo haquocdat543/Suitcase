@@ -2,4 +2,6 @@
 
 read -p "Enter username to add to sudoers [ec2-user]: " username
 username=${username:-ec2-user}
-sudo sed "/root	ALL/a $username	ALL=(ALL) 	ALL" /etc/sudoers | sudo tee /etc/sudoers
+sudo sed "/root\t/a$username\tALL=(ALL)\tALL" /etc/sudoers | sudo tee /etc/sudoers
+
+

@@ -10,6 +10,7 @@ compile:
 run:
 	./$3.exe
 endsnippet
+
 ### DOCKER
 snippet dockerfile "Test" b
 FROM ${1:node:18-alpine}
@@ -19,6 +20,7 @@ RUN ${4:yarn install --production}
 CMD ${5:["node", "src/index.js"]}
 EXPOSE ${6:3000}
 endsnippet
+
 snippet vue "Test" b
 FROM node:lts-alpine
 

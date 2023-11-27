@@ -138,6 +138,7 @@ alias viva='vi variables.tf'
 alias ed400='c400 ~/.ssh/id_ed25519'
 alias eb='exec bash'
 alias cos='cat /etc/os-release'
+alias catak='cat ~/.ssh/authorized_keys'
 alias cpass='cat /etc/passwd'
 alias lssh='ll /root/.ssh'
 alias rn='route -n'
@@ -147,6 +148,8 @@ alias 25519del='rm -f  ~/.ssh/id_ed25519*'
 alias 25519gen='ssh-keygen -t ed25519 -C'
 alias 25519pu='cat ~/.ssh/id_ed25519.pub'
 alias 25519pr='cat ~/.ssh/id_ed25519'
+alias kg='ssh-keygen'
+alias sshci='ssh-copy-id'
 alias rv='. ~/preconfig/run.sh'
 alias rnv='. ~/preconfig/nvim.sh'
 alias rnl='. ~/preconfig/lua.sh'
@@ -603,6 +606,13 @@ alias crr='crontab -r'
 ### Pip command
 alias pi='pip install'
 alias pians='pip install ansible'
+
+### brew command
+alias bi='brew install'
+
+### user and group
+alias ua='useradd'
+alias pw='passwd'
 
 ### Other command
 alias s1='sudo su -'

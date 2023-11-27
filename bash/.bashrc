@@ -100,6 +100,7 @@ alias plugin2='git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bund
 alias plugin='git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim'
 alias eag='. ~/preconfig/Suitcase/bash/commands/eag.sh'
 alias ag='ag --hidden'
+alias viz='vi ~/.zshrc'
 alias val='vi ~/.bashrc'
 alias vac='vi ~/Suitcase/windows/alias.cmd'
 alias vws='vi ~/Suitcase/windows/setup.bat'

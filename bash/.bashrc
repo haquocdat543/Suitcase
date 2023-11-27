@@ -373,7 +373,13 @@ alias gceh='git config --global user.email "wwwdatha543@gmail.com"'
 
 ### Ansible command
 alias a1='ansible'
-alias ans='ansible'
+alias a1p='ansible-playbook'
+alias a1cf='ansible-config'
+alias a1cs='ansible-console'
+alias an='ansible'
+alias anp='ansible-playbook'
+alias ancf='ansible-config'
+alias ancs='ansible-console'
 
 ### Vagrant command
 alias vgi='vagrant init'

@@ -381,10 +381,12 @@ alias gceh='git config --global user.email "wwwdatha543@gmail.com"'
 ### Ansible command
 alias a1='ansible'
 alias a1p='ansible-playbook'
+alias a1pi='ansible-playbook -i'
 alias a1cf='ansible-config'
 alias a1cs='ansible-console'
 alias an='ansible'
 alias anp='ansible-playbook'
+alias anpi='ansible-playbook -i'
 alias ancf='ansible-config'
 alias ancs='ansible-console'
 

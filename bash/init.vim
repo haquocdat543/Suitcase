@@ -109,6 +109,8 @@ nnoremap <leader>ga :G add
 nnoremap <leader>gA :G add .<CR> 
 nnoremap <leader>gp :G pull<CR> 
 nnoremap <leader>gP :G push<CR> 
+nnoremap ZZ :wq!<CR> 
+nnoremap ZQ :q!<CR> 
 
 " May need for Vim (not Neovim) since coc.nvim calculates byte offset by count
 " utf-8 byte sequence

@@ -93,6 +93,8 @@ nnoremap <leader>fb :Buffer<CR>
 nnoremap <leader>fh :FloatermNew<CR> 
 nnoremap <leader>nn :set nopaste<CR> 
 nnoremap <leader>nm :set paste<CR> 
+nnoremap ZZ :wq!<CR> 
+nnoremap ZQ :q!<CR> 
 
 let c='a'
 while c <= 'z'

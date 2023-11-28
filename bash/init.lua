@@ -13,7 +13,6 @@ vim.opt.rtp:prepend(lazypath)
 
 vim.cmd('autocmd!')
 vim.g.mapleader = ' '
-vim.opt.viminfo = '100,<1000,s100,h'
 vim.opt.title = true
 vim.opt.hlsearch = true
 vim.opt.history = 200
@@ -461,3 +460,4 @@ vim.cmd([[let g:lazygit_use_neovim_remote = 1 " fallback to 0 if neovim-remote i
 
 vim.cmd([[let g:lazygit_use_custom_config_file_path = 0 " config file path is evaluated if this value is 1 ]])
 vim.cmd([[let g:lazygit_config_file_path = '' " custom config file path ]])
+vim.cmd([[set viminfo='100,<1000,s100,h]])

@@ -1,4 +1,12 @@
 ## Ansible
+snippet hv "Ansible host variables" b
+$1=$2 
+endsnippet
+
+snippet av "Ansible variables" b
+{{ ${1:Content} }}
+endsnippet
+
 snippet l1 "Line in file" b
 lineinfile:
   path: $1
@@ -6,9 +14,16 @@ lineinfile:
   line: $3
 endsnippet
 
-
 snippet r1 "Ansible register" b
 register: $1
+endsnippet
+snippet r2 "Ansible roles" b
+roles:
+  - $1
+endsnippet
+
+snippet n1 "Ansible notify" b
+notify: ${1:restart_apache}
 endsnippet
 
 snippet s1 "Ansible service" b
@@ -34,6 +49,9 @@ copy:
   group: $4
   mode: $5
 endsnippet
+snippet c2 "Ansible change when" b
+chnaged_when: ${1:false}
+endsnippet
 
 snippet u1 "Ansible unarchive" b
 unarchive:
@@ -43,6 +61,20 @@ unarchive:
   owner: $4
   group: $5
   mode: $6
+endsnippet
+
+snippet u2 "Ansible user" b
+user:
+  name: $1
+  group: $2
+endsnippet
+
+snippet k1 "Ansible authorized_key" b
+authorized_key:
+  user: $1
+  key: "$2"
+endsnippet
+
 
 snippet t1 "Ansible tags" b
 tags: ${1:ubuntu,centos}

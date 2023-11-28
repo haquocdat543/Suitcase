@@ -63,8 +63,8 @@ map <C-c>3 :.,0s/
 map <C-c>4 :.,$s/
 map <C-c>5 :.,.-
 map <C-c>6 :.,.+
-map <C-i>1 :PlugInstall<CR>
-map <C-i>2 :PluginInstall<CR>
+map <leader>ii :PlugInstall<CR>
+map <leader>in :PluginInstall<CR>
 map <C-p>1 :Files<CR>
 map <C-p>2 :Rg<CR>
 map <C-p>3 :Buffer<CR>
@@ -96,6 +96,8 @@ nnoremap <leader>nn :set nopaste<CR>
 nnoremap <leader>nm :set paste<CR> 
 nnoremap ZZ :wq!<CR> 
 nnoremap ZQ :q!<CR> 
+nmap <Leader>hr :%!xxd<CR> :set filetype=xxd<CR>
+nmap <Leader>hw :%!xxd -r<CR> :set binary<CR> :set filetype=<CR>
 
 let c='a'
 while c <= 'z'

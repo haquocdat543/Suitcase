@@ -1,17 +1,78 @@
 ## Ansible
-snippet fpl "Playbook" b
+snippet l1 "Line in file" b
+lineinfile:
+  path: $1
+  regexp: $2
+  line: $3
+endsnippet
+
+
+snippet r1 "Ansible register" b
+register: $1
+endsnippet
+
+snippet s1 "Ansible service" b
+service:
+  name: ${1:docker}
+  state: ${2:started}
+$3
+endsnippet
+
+snippet s2 "Ansible service with enable" b
+service:
+  name: ${1:docker}
+  state: ${2:started}
+  enabled: ${3:true}
+$4
+endsnippet
+
+snippet c1 "Ansible copy" b
+copy:
+  src: $1
+  dest: $2
+  owner: $3
+  group: $4
+  mode: $5
+endsnippet
+
+snippet u1 "Ansible unarchive" b
+unarchive:
+  src: $1
+  dest: $2
+  remote_src: $3
+  owner: $4
+  group: $5
+  mode: $6
+
+snippet t1 "Ansible tags" b
+tags: ${1:ubuntu,centos}
+endsnippet
+
+snippet fpl "First playbook" b
 ---
 
 - hosts: ${1:all}
   become: ${2:true}
-  task:
+  ${3:tasks}:
 
-  - name: ${3:Name}
-    ${4:yum}
-      name: ${5:tmux}
-    $6
-  $7
-$8
+  - name: ${4:Name}
+    ${5:yum}
+      name: ${6:tmux}
+    $7
+  $8
+$9
+endsnippet
+
+snippet pl "Playbook" b
+- hosts: ${1:all}
+  become: ${2:true}
+  ${3:tasks}:
+
+  - name: ${4:Name}
+    ${5:yum}
+      name: ${6:tmux}
+    $7
+  $8
 endsnippet
 
 snippet ts "Ansible task" b
@@ -20,6 +81,11 @@ snippet ts "Ansible task" b
     name: ${3:docker}
   $4
 $5
+endsnippet
+
+snippet w1 "Ansible when condition" b
+when: ${1:ansible_distribution} ${2:==} ${3:"Ubuntu"}
+$4
 endsnippet
 
 ## K8S

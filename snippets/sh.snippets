@@ -7,11 +7,18 @@ echo "$1"
 read $2
 $3
 endsnippet
+
+snippet rr "Read without default" b
+read -p "$1 [$2]: " $3
+$4
+endsnippet
+
 snippet rd "Read with default" b
 read -p "$1 [$2]: " $3
 $3=${$3:-$2}
 $4
 endsnippet
+
 snippet s "Test" b
 #!/bin/bash
 

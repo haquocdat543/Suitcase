@@ -5,6 +5,13 @@ cd ~/preconfig/Suitcase
 git reset --hard HEAD~1
 git reset --hard HEAD~1
 git reset --hard HEAD~1
+git reset --hard HEAD~1
+git reset --hard HEAD~1
+git reset --hard HEAD~1
+git reset --hard HEAD~1
+git reset --hard HEAD~1
+git reset --hard HEAD~1
+git reset --hard HEAD~1
 git pull origin main -f
 cd -
 ### If .bashrc file does not exist. Create it and write content from "default-bashrc file to it.

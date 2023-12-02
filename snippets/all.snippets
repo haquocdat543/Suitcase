@@ -1,3 +1,64 @@
+
+snippet jk "Jenkin" b
+pipeline {
+    agent { label "${1:Jenkins-Agent}" }
+    environment {
+              APP_NAME = "${2:Pipeline}"
+    }
+
+    stages {
+        stage("${3:Clean up}") {
+            steps {
+                cleanWs()
+            }
+        }
+
+        stage("${4:Checkout from SCM}") {
+               steps {
+                   git branch: '${5:main}', credentialsId: '${6:github}', url: '${7:https://github.com/${8:haquocdat543}/${9:repoName}}'
+               }
+        }
+
+        stage("${10:Update Deployment Tags}") {
+            steps {
+                sh """
+                   ${11:cat deployment.yaml
+                   sed -i 's/${APP_NAME}.*/${APP_NAME}:${IMAGE_TAG}/g' deployment.yaml
+                   cat deployment.yaml}
+                """
+            }
+        }
+
+        stage("${12:Push the changed deployment file to Git}") {
+            steps {
+                sh """
+                   ${13:git config --global user.name "${14:haquodat543}"
+                   git config --global user.email "${15:wwwdatha543@gmail.com}"
+                   git add deployment.yaml
+                   git commit -m "${16:Update Deployment Manifest}"}
+                """
+                withCredentials([gitUsernamePassword(credentialsId: 'github', gitToolName: 'Default')]) {
+                  sh "git push https://github.com/${17:haquocdat543}/${18:repoName} ${19:main}"
+                }
+            }
+        }
+      
+    }
+}
+endsnippet
+
+snippet jkst "Jenkin stage" b
+        stage("${1:Stage Name}") {
+            steps {
+                sh """
+                   ${2:cat deployment.yaml
+                   sed -i 's/${APP_NAME}.*/${APP_NAME}:${IMAGE_TAG}/g' deployment.yaml
+                   cat deployment.yaml}
+                """
+            }
+endsnippet
+
+
 snippet gr "Group" b
 [${1:groupName}]
 $2

@@ -1,3 +1,21 @@
+snippet s1 "Sed type 1" b
+sudo sed -i 's/${1:firstString}/${2:secondString}/g' ${3:Path}
+endsnippet
+
+snippet s2 "Sed type 2" b
+sed -i "1s/^/${1:String}/" ${2:Path}
+endsnippet
+
+snippet s3 "Sed type 3" b
+sudo sed '/^${1:String}/d' ${2:Path}
+endsnippet
+
+snippet s4 "Sed type 4" b
+cat << EOF | sudo tee -a ${1:Path}
+${2:Content}
+EOF
+endsnippet
+
 snippet hn "Set hostname" b
 hostnamectl set-hostname ${1:Sonarqube}
 endsnippet

@@ -76,6 +76,15 @@ map <A-n>n :n<CR>
 map <A-p>p :p<CR>
 map <A-e>e :e
 map <C-s>s :sav
+nmap te :tabedit
+nmap ss :split<CR><C-w>w
+nmap sv :vsplit<CR><C-w>w
+nmap sx :close<CR>
+nmap sw <C-w>w
+nmap sh <C-w>h
+nmap sj <C-w>j
+nmap sk <C-w>k
+nmap sl <C-w>l
 
 nnoremap <A-f>f :NERDTreeToggle<CR>
 nnoremap <C-t>1 :tabnew 
@@ -88,10 +97,10 @@ nnoremap <Right> :echoe 'use l key instead'<CR>
 nnoremap <Up> :echoe 'use k key instead'<CR>
 nnoremap <Down> :echoe 'use j key instead'<CR>
 
-nnoremap <leader>ff :Files<CR>
+nnoremap <leader>fh :Files<CR>
 nnoremap <leader>fg :Rg<CR>
 nnoremap <leader>fb :Buffer<CR> 
-nnoremap <leader>fh :FloatermNew<CR> 
+nnoremap <leader>ft :FloatermNew<CR> 
 nnoremap <leader>nn :set nopaste<CR> 
 nnoremap <leader>nm :set paste<CR> 
 nnoremap ZZ :wq!<CR> 

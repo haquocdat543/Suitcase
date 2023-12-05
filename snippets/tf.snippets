@@ -1,0 +1,45 @@
+snippet v2 "Terraform variables v2" b
+variable "${1:variableName}" {
+  default = "${2:defaultValue}"
+  type = ${3:valueType}
+}
+
+$4
+endsnippet
+
+snippet v1 "Terraform variables v1" b
+variable "${1:variableName}" {
+  type = ${2:valueType}
+}
+
+$3
+endsnippet
+
+snippet p "Profile" b
+# Profile configuration
+provider "aws" {
+  shared_config_files      = ["~/.aws/config"]
+  shared_credentials_files = ["~/.aws/credentials"]
+  profile                  = var.${1:profile}
+}
+
+$2
+endsnippet
+
+snippet b "Backend" b
+# Backend configuration
+terraform {
+  backend "s3" {
+    bucket         = "${1:bucketName}"
+    key            = "${2:key}"
+    region         = "${3:ap-northeast-1}"
+    encrypt        = "${4:true}"
+    role_arn       = "${5:roleArn}"
+    dynamodb_table = "${6:table}"
+  }
+}
+
+$7
+endsnippet
+
+

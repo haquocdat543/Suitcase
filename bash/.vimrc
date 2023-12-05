@@ -76,6 +76,7 @@ map <A-n>n :n<CR>
 map <A-p>p :p<CR>
 map <A-e>e :e
 map <C-s>s :sav
+map <C-a>a :Snippets<CR>
 nmap te :tabedit
 nmap ss :split<CR><C-w>w
 nmap sv :vsplit<CR><C-w>w

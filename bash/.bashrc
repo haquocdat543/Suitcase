@@ -714,6 +714,12 @@ alias bi='brew install'
 alias ua='useradd'
 alias pw='passwd'
 
+### GPG key
+alias gpglk='gpg --list-keys'
+alias gpgfgk='gpg --full-generate-key'
+alias gpgpw='gpg --passwd'
+alias gpgim='gpg --import'
+
 ### Other command
 alias duh='sudo df -H'
 alias fdl='sudo fdisk -l'

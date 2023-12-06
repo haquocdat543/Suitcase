@@ -217,7 +217,8 @@ alias mnode='. ~/preconfig/Suitcase/bash/k8s-ami.sh'
 
 
 ### Documentation
-alias dock8s='vi -r ~/preconfig/Suitcase/bash/docs/dock8s.md'
+alias dock8s='vi -m ~/preconfig/Suitcase/bash/docs/dock8s.md'
+alias docfzf='vi -m ~/preconfig/Suitcase/bash/docs/fzf.md'
 
 ### Installation
 alias igo='. ~/preconfig/Suitcase/bash/commands/goInstall.sh'

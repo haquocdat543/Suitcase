@@ -108,6 +108,11 @@ nnoremap ZZ :wq!<CR>
 nnoremap ZQ :q!<CR> 
 nmap <Leader>hr :%!xxd<CR> :set filetype=xxd<CR>
 nmap <Leader>hw :%!xxd -r<CR> :set binary<CR> :set filetype=<CR>
+noremap x "_x
+noremap X "_x
+noremap <Del> "_x
+map <Leader>ev :tabnew $MYVIMRC<CR>
+nnoremap <Leader>rc :%s///g<Left><Left>
 
 let c='a'
 while c <= 'z'

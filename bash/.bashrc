@@ -322,6 +322,10 @@ alias ghrcl='gh repo clone'
 alias ghsa='gh ssh-key add'
 alias ghrl='gh repo list'
 alias ghrc='gh repo create'
+alias ghrd='gh repo delete' # You must inside to that repo
+alias ghev='gh repo edit --visibility' # You must inside to that repo
+alias ghevpu='gh repo edit --visibility public' # You must inside to that repo
+alias ghevpr='gh repo edit --visibility private' # You must inside to that repo
 alias ghrv='gh repo view'
 alias ghre='gh repo edit'
 

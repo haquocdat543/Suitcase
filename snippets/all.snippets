@@ -3,49 +3,82 @@ ${1:/dev/sbd1}	${2:/home/user/disk}	${3:ext4}	${4:defaults}	${5:0}       ${6:0}
 endsnippet
 
 snippet jk "Jenkin" b
-pipeline {
-    agent { label "${1:Jenkins-Agent}" }
-    environment {
-              APP_NAME = "${2:Pipeline}"
+pipeline{
+    agent { label 'Jenkin-Agent' }
+    tools{
+        jdk 'jdk17'
+        nodejs 'node16'
     }
-
+    environment {
+        SCANNER_HOME=tool 'sonar'
+        GIT_REPO_NAME = "argocd-test"
+        GIT_USER_NAME = "haquocdat543"
+    }
     stages {
-        stage("${3:Clean up}") {
-            steps {
+        stage('clean workspace'){
+            steps{
                 cleanWs()
             }
         }
-
-        stage("${4:Checkout from SCM}") {
-               steps {
-                   git branch: '${5:main}', credentialsId: '${6:github}', url: '${7:https://github.com/${8:haquocdat543}/${9:repoName}}'
-               }
-        }
-
-        stage("${10:Update Deployment Tags}") {
-            steps {
-                sh """
-                   ${11:cat deployment.yaml
-                   sed -i 's/${APP_NAME}.*/${APP_NAME}:${IMAGE_TAG}/g' deployment.yaml
-                   cat deployment.yaml}
-                """
+        stage('Checkout from Git'){
+            steps{
+                git branch: 'main', credentialsId: 'github', url: 'https://github.com/haquocdat543/draft3.git'
             }
         }
-
-        stage("${12:Push the changed deployment file to Git}") {
-            steps {
-                sh """
-                   ${13:git config --global user.name "${14:haquodat543}"
-                   git config --global user.email "${15:wwwdatha543@gmail.com}"
-                   git add deployment.yaml
-                   git commit -m "${16:Update Deployment Manifest}"}
-                """
-                withCredentials([gitUsernamePassword(credentialsId: 'github', gitToolName: 'Default')]) {
-                  sh "git push https://github.com/${17:haquocdat543}/${18:repoName} ${19:main}"
+        stage("Sonarqube Analysis "){
+            steps{
+                withSonarQubeEnv('sonar-server') {
+                    sh ''' $SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName=Vue1.0 \
+                    -Dsonar.projectKey=Vue1.0 '''
                 }
             }
         }
-      
+        stage("quality gate"){
+           steps {
+                script {
+                    waitForQualityGate abortPipeline: false, credentialsId: 'sonar' 
+                }
+            } 
+        }
+        stage('TRIVY FS SCAN') {
+            steps {
+                sh "trivy fs . > trivyfs.txt"
+            }
+        }
+        stage("Docker Build & Push"){
+            steps{
+                script{
+                   withDockerRegistry(credentialsId: 'docker', toolName: 'docker'){   
+                       sh "docker build -t vuev2 ."
+                       sh "docker tag vuev2 haquocdat543/vuev2:latest "
+                       sh "docker push haquocdat543/vuev2:latest "
+                    }
+                }
+            }
+        }
+        stage("TRIVY"){
+            steps{
+                sh "trivy image haquocdat543/vuev2:latest > trivyimage.txt" 
+            }
+        }
+	stage('Checkout Code') {
+            steps {
+                git branch: 'main', url: 'https://github.com/haquocdat543/ArgoCD.git'
+            }
+        }
+        stage('Update Deployment File') {
+            steps {
+                script {
+                    withCredentials([string(credentialsId: 'github')]) {
+                       NEW_IMAGE_NAME = "haquocdat543/vuev2:latest"
+                       sh "sed -i 's|image: .*|image: $NEW_IMAGE_NAME|' deployment.yml"
+                       sh 'git add deployment.yml'
+                       sh "git commit -m 'Update deployment image to $NEW_IMAGE_NAME'"
+                       sh "git push https://${GITHUB_TOKEN}@github.com/${GIT_USER_NAME}/${GIT_REPO_NAME} HEAD:main"
+                    }
+                }
+            }
+        }
     }
 }
 endsnippet

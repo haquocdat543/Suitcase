@@ -1,6 +1,6 @@
 #!/bin/bash
 
-VER="1.8.4"
+VER="1.17.0"
 wget https://releases.hashicorp.com/consul/${VER}/consul_${VER}_linux_amd64.zip
 unzip consul_${VER}_linux_amd64.zip
 mv consul /usr/local/bin/

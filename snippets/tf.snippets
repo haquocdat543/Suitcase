@@ -42,4 +42,9 @@ terraform {
 $7
 endsnippet
 
-
+snippet tag "AWS Tag" b
+  tags = {
+    Name = "${1:Name}"
+    Env = "${2:Dev}"
+  }
+endsnippet

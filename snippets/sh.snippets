@@ -10,7 +10,6 @@ sudo systemctl enable jenkins
 sudo systemctl start jenkins
 endsnippet
 
-
 snippet ujk "Test" b
 # Install Openjdk and Jenkins
 sudo apt update -y
@@ -72,6 +71,12 @@ docker run -d --name sonar -p 9000:9000 sonarqube:lts-community
 
 $1
 endsnippet
+
+snippet var "Variable" b
+${1:CONTAINERD_VERSION}="${2:1.7.3}"
+endsnippet
+
+
 
 snippet s1 "Sed type 1" b
 sudo sed -i 's/${1:firstString}/${2:secondString}/g' ${3:Path}

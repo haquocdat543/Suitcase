@@ -324,7 +324,13 @@ alias a2cpllp='aws codepipeline list-pipelines'
 alias a2cpllp='aws codepipeline create-pipeline --pipeline'
 alias a2cpldp='aws codepipeline delete-pipeline --name'
 
-### Github  command
+### Gitlab command
+alias glal='glab auth login'
+alias glrl='glab repo list'
+alias glrc='glab repo create'
+alias glrd='glab repo delete'
+
+### Github command
 alias ghal='gh auth login'
 alias ghrcl='gh repo clone'
 alias ghsa='gh ssh-key add'

@@ -127,6 +127,7 @@ alias vrc='vi ~/.vimrc'
 alias vtm='vi ~/.tmux.conf'
 alias viy='vi *.yaml'
 alias vish='vi *.sh'
+alias viwf='vi ./.github/workflows/*'
 alias viinv='vi inventory'
 alias vee='vi ~/init.el'
 alias va='vi ~/Suitcase/bash/.bashrc'
@@ -334,6 +335,11 @@ alias ghevpu='gh repo edit --visibility public' # You must inside to that repo
 alias ghevpr='gh repo edit --visibility private' # You must inside to that repo
 alias ghrv='gh repo view'
 alias ghre='gh repo edit'
+alias ghss='gh secret set'
+alias ghsl='gh secret list'
+alias ghsl='gh secret list'
+alias ghsde='gh secret delete -e'
+alias ghsd='gh secret delete'
 
 ### Git command
 
@@ -416,6 +422,7 @@ alias ven='. ~/preconfig/Suitcase/bash/vimconfig/vimen.sh'
 alias gr='git remote'
 alias gpl='git pull'
 alias gplom='git pull origin main'
+alias grp='git request-pull'
 alias gf='git fetch'
 alias gra='git remote add'
 alias gsl='git stash list'

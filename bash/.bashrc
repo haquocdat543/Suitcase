@@ -328,7 +328,8 @@ alias a2cpldp='aws codepipeline delete-pipeline --name'
 alias a2ecrcr='aws ecr create-repository --repository-name'
 alias a2ecrdr='aws ecr delete-repository --repository-name'
 alias a2ecrlr='aws ecr describe-repositories'
-alias a2iamlssh='aws iam list-ssh-public-keys'
+alias a2iamlk='aws iam list-ssh-public-keys'
+alias a2iamulk='. ~/preconfig/Suitcase/bash/commands/iamUploadKey.sh'
 
 ### Gitlab command
 alias glal='glab auth login'

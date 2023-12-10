@@ -746,6 +746,9 @@ alias pians='pip install ansible'
 ### brew command
 alias bi='brew install'
 
+### cargo command
+alias cga='cargo add'
+
 ### user and group
 alias ua='useradd'
 alias pw='passwd'

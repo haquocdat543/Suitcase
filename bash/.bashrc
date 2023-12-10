@@ -748,6 +748,14 @@ alias bi='brew install'
 
 ### cargo command
 alias cga='cargo add'
+alias cgn='cargo new'
+alias cgb='cargo build'
+alias cgr='cargo run'
+alias cgrc='cargo run --'
+alias cgbc='cargo build --'
+alias vicgt='vi Cargo.toml'
+alias vicgl='vi Cargo.lock'
+alias virs='vi *.rs'
 
 ### user and group
 alias ua='useradd'

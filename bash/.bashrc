@@ -331,6 +331,7 @@ alias a2ecrdr='aws ecr delete-repository --repository-name'
 alias a2ecrlr='aws ecr describe-repositories'
 alias a2iamlk='aws iam list-ssh-public-keys'
 alias a2iamulk='. ~/preconfig/Suitcase/bash/commands/iamUploadKey.sh'
+alias a2iamdk='. ~/preconfig/Suitcase/bash/commands/iamDeleteKey.sh'
 
 ### Gitlab command
 alias glal='glab auth login'

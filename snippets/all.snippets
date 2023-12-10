@@ -149,3 +149,9 @@ RUN npm run build
 EXPOSE 8080
 CMD [ "http-server", "dist" ]
 endsnippet
+
+snippet ccm "CodeCommit host config" b
+Host git-codecommit.*.amazonaws.com
+  User ${1:APKARMNDORPRYA4G76KM}
+    IdentityFile ~/.ssh/codecommit_rsa $2
+endsnippet

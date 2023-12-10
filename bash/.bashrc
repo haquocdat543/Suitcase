@@ -347,6 +347,7 @@ alias glrd='glab repo delete'
 alias glvs='glab variable set'
 alias glvd='glab variable delete'
 alias glvl='glab variable list'
+alias glvu='glab variable update'
 
 ### Github command
 alias ghal='gh auth login'

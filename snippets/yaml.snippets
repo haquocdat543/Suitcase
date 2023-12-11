@@ -447,3 +447,27 @@ spec:
             ${8:role}: ${9:database} # Adjust the label to match the allowed pods
 endsnippet
 ### DOCKER
+
+### AWS
+snippet bs "Buildspec.yml" b
+version: 0.2
+
+phases:
+  install:
+    commands:
+      - $1
+  pre_build:
+    commands:
+      - $2
+  build:
+    commands:
+      - $3
+  post_build:
+    commands:
+      - $4
+artifacts:
+  files:
+    - $5
+endsnippet
+
+

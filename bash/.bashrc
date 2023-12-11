@@ -366,6 +366,9 @@ alias ghsl='gh secret list'
 alias ghsl='gh secret list'
 alias ghsde='gh secret delete -e'
 alias ghsd='gh secret delete'
+alias ghwl='gh workflow list'
+alias ghwv='gh workflow view'
+alias ghrr='gh repo rename'
 
 ### Git command
 

@@ -112,6 +112,7 @@ noremap x "_x
 noremap X "_x
 noremap <Del> "_x
 map <Leader>ev :tabnew $MYVIMRC<CR>
+map <Leader>ea :tabnew ~/.bashrc<CR>
 nnoremap <Leader>rc :%s///g<Left><Left>
 
 let c='a'

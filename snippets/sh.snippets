@@ -281,6 +281,12 @@ $3=${$3:-$2}
 $4
 endsnippet
 
+snippet rdc "Read with default" b
+read -p "$(echo -e "$1 [$2$3$4]: ")" $5
+$5=${$5:-$3}
+$6
+endsnippet
+
 snippet s "Test" b
 #!/bin/bash
 

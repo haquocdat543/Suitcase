@@ -18,7 +18,7 @@ cyan2='\033[1;36m'
 white='\033[1;37m'
 nc='\033[0m' # No Color
 
-read -p "$(echo -e "Enter your generic ${yellow}registry name [${green2}my-registry-key${nc}]: ")" secretName
+read -p "$(echo -e "Enter your generic ${yellow}registry name ${nc}[${green2}my-registry-key${nc}]: ")" secretName
 secretName=${secretName:-my-registry-key}
 
 kubectl create secret generic $secretName --from-file=.dockerconfigjson=.docker/config.json --type=kubernetes.io/dockerconfigjson

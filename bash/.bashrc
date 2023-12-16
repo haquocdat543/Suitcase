@@ -735,6 +735,11 @@ alias hmra='helm repo add'
 alias hmru='helm repo update'
 alias hmi='helm install'
 alias hmu='helm upgrade'
+alias hiels='helm repo add elastic https://helm.elastic.co ; helm install elasticsearch elastic/elasticsearch'
+alias hifb='helm repo add elastic https://helm.elastic.co ; helm install filebeat elastic/filebeat'
+alias hikb='helm repo add elastic https://helm.elastic.co ; helm install kibana elastic/kibana'
+alias hilt='helm repo add elastic https://helm.elastic.co ; helm install logstash elastic/logstash'
+alias himb='helm repo add elastic https://helm.elastic.co ; helm repo add prometheus-community https://prometheus-community.github.io/helm-charts ; helm install metricbeat elastic/metricbeat'
 
 ### Trivy command
 alias t1='trivy'

@@ -17,9 +17,9 @@ purple2='\033[1;35m'
 cyan2='\033[1;36m'
 white='\033[1;37m'
 nc='\033[0m' # No Color
-read -p "$(echo -e "Enter your ${yellow}stack-name${nc} to ${purple}create${nc}[${green2}default${nc}]: ")" stackname
+read -p "$(echo -e "Enter your ${yellow}stack-name${nc} to ${purple}update${nc}[${green2}default${nc}]: ")" stackname
 stackname=${stackname:-default}
 read -p "$(echo -e "Enter your ${yellow}template-file path${nc} [${green2}k8s.yaml${nc}]: ")" templatefile
 templatefile=${templatefile:-k8s.yaml}
-aws cloudformation deploy --stack-name $stackname --template-file $templatefile
+aws cloudformation update-stack --stack-name $stackname --template-file $templatefile
 

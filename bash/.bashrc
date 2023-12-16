@@ -103,6 +103,7 @@ alias plug="curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubu
 alias packernvim="git clone --depth 1 https://github.com/wbthomason/packer.nvim  ~/.local/share/nvim/site/pack/packer/start/packer.nvim"
 alias plugin2='git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim'
 alias plugin='git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim'
+alias cob='ls | wc'
 alias aw='. ~/preconfig/Suitcase/bash/commands/awk.sh'
 alias eag='. ~/preconfig/Suitcase/bash/commands/eag.sh'
 alias ag='ag --hidden'

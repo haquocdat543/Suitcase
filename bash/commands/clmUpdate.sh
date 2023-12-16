@@ -21,5 +21,5 @@ read -p "$(echo -e "Enter your ${yellow}stack-name${nc} to ${purple}update${nc}[
 stackname=${stackname:-default}
 read -p "$(echo -e "Enter your ${yellow}template-file path${nc} [${green2}k8s.yaml${nc}]: ")" templatefile
 templatefile=${templatefile:-k8s.yaml}
-aws cloudformation update-stack --stack-name $stackname --template-file $templatefile
+aws cloudformation update-stack --stack-name $stackname --template-body $templatefile
 

@@ -578,6 +578,7 @@ alias djm='docker swarm join-token manager'
 alias djw='docker swarm join-token worker'
 
 ### Kubectl command
+alias oidc='. ~/preconfig/Suitcase/bash/commands/oidc.sh'
 alias k='kubectl'
 alias kp='kubectl proxy'
 alias kl='kubectl label'

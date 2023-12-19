@@ -123,7 +123,40 @@ endsnippet
 ## K8S
 
 ## POD
-snippet pod "Test" b
+snippet pod "K8s normal pod" b
+apiVersion: v1
+kind: Pod
+metadata:
+  name: ${1:podName}
+spec:
+  containers:
+  - name: ${2:containerName}
+    image: ${3:image}
+    ports:
+    - containerPort: ${4:Port}
+endsnippet
+
+snippet pod2 "Test" b
+apiVersion: v1
+kind: Pod
+metadata:
+  name: ${1:podName}
+spec:
+  containers:
+  - name: ${2:containerName}
+    image: ${3:image}
+    ports:
+    - containerPort: ${4:Port}
+    volumeMounts:
+    - name: ${5:volumeName} # The volume called html is mounted at /usr/share/nginx/html in the container
+      mountPath: ${6:mountPath(container)}
+      ${7:ReadOnly}: ${8:true}
+volumes: # define volumes
+  - name: $5 # name of the volumes
+    ${9:emptyDir}: ${10:{}} # define type is emptyDir
+endsnippet
+
+snippet pod3 "K8s pod with env and mount" b
 apiVersion: v1
 kind: Pod
 metadata:
@@ -146,7 +179,56 @@ volumes: # define volumes
     ${11:emptyDir}: ${12:{}} # define type is emptyDir
 endsnippet
 ## SET
-snippet rc "Test" b
+snippet rc "K8s normal replication" b
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: ${1:my-rc}
+spec:
+  replicas:  ${2:3} # number of the pod
+  selector: # The pod selector determining what pods the RC is operating on
+    ${3:app}: ${4:appName} #label value
+  template: # pod template
+    metadata:
+      labels:
+        ${5:podLabel}: ${6:podLabelValue} # label value
+    spec:
+      containers:
+      - image: ${7:image} # image used to run container
+        name: ${8:containerName} # name of the container
+        ports:
+          - containerPort: ${9:8080} # pod of the container
+endsnippet
+
+snippet rc2 "k8s replication with mount" b
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: ${1:my-rc}
+spec:
+  replicas:  ${2:3} # number of the pod
+  selector: # The pod selector determining what pods the RC is operating on
+    ${3:app}: ${4:appName} #label value
+  template: # pod template
+    metadata:
+      labels:
+        ${5:podLabel}: ${6:podLabelValue} # label value
+    spec:
+      containers:
+      - image: ${7:image} # image used to run container
+        name: ${8:containerName} # name of the container
+        ports:
+          - containerPort: ${9:8080} # pod of the container
+    	volumeMounts:
+    	- name: ${10:volumeName} # The volume called html is mounted at /usr/share/nginx/html in the container
+      	mountPath: ${11:mountPath(container)}
+      	${12:ReadOnly}: ${13:true}
+    volumes: # define volumes
+  	- name: $10 # name of the volumes
+    	${16:emptyDir}: ${17:{}} # define type is emptyDir
+endsnippet
+
+snippet rc3 "k8s replication with env and mount" b
 apiVersion: v1
 kind: ReplicationController
 metadata:
@@ -177,7 +259,61 @@ spec:
     	${16:emptyDir}: ${17:{}} # define type is emptyDir
 endsnippet
 
-snippet rs "Test" b
+snippet rs "k8s normal replicaSet" b
+apiVersion: apps/v1 # change version API
+kind: ReplicaSet # change resource name
+metadata:
+  name: ${1:myReplicaSet}
+spec:
+  replicas: ${2:amount}
+  selector:
+    matchLabels: # change here 
+      ${3:app}: ${4:appName}
+  template:
+    metadata:
+      labels:
+        ${5:podLabel}: ${6:podLabelValue}
+    spec:
+      containers:
+      - image: ${7:imageName}
+        name:${8:containerName} 
+        ports:
+          - containerPort: ${9:8080}
+endsnippet
+
+snippet rs2 "k8s replicaSet with mount" b
+apiVersion: apps/v1 # change version API
+kind: ReplicaSet # change resource name
+metadata:
+  name: ${1:myReplicaSet}
+spec:
+  replicas: ${2:amount}
+  selector:
+    matchLabels: # change here 
+      ${3:app}: ${4:appName}
+  template:
+    metadata:
+      labels:
+        ${5:podLabel}: ${6:podLabelValue}
+    spec:
+      containers:
+      - image: ${7:imageName}
+        name:${8:containerName} 
+        ports:
+          - containerPort: ${9:8080}
+    	volumeMounts:
+    	- name: ${10:volumeName} # The volume called html is mounted at /usr/share/nginx/html in the container
+      	mountPath: ${11:mountPath(container)}
+      	${12:ReadOnly}: ${13:true}
+      	env: # pass env to container
+        - name: #${14:PORT} env name
+          value: ${15:"5000"} # env value
+    volumes: # define volumes
+  	- name: $10 # name of the volumes
+    	${16:emptyDir}: ${17:{}} # define type is emptyDir
+endsnippet
+
+snippet rs "k8s replicaSet with env and mount" b
 apiVersion: apps/v1 # change version API
 kind: ReplicaSet # change resource name
 metadata:
@@ -200,9 +336,19 @@ spec:
       	env: # pass env to container
         - name: #${10:PORT} env name
           value: ${11:"5000"} # env value
+    	volumeMounts:
+    	- name: ${12:volumeName} # The volume called html is mounted at /usr/share/nginx/html in the container
+      	mountPath: ${13:mountPath(container)}
+      	${14:ReadOnly}: ${14:true}
+      	env: # pass env to container
+        - name: #${16:PORT} env name
+          value: ${17:"5000"} # env value
+    volumes: # define volumes
+  	- name: $18 # name of the volumes
+    	${19:emptyDir}: ${20:{}} # define type is emptyDir
 endsnippet
 
-snippet dms "Test" b
+snippet dms "k8s normal daemonSet" b
 apiVersion: apps/v1
 kind: DaemonSet
 metadata:
@@ -226,7 +372,66 @@ spec:
           value: ${11:"5000"} # env value
 endsnippet
 
-snippet dpl "Test" b
+snippet dms2 "k8s daemonSet with mount" b
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: ${1:myDaemonSet}
+spec:
+  selector:
+    matchLabels:
+      ${2:daemonSetLabel}: ${3:daemonSetLabelValue}
+  template:
+    metadata:
+      labels:
+        ${4:podLabel}: ${5:podLabelValue}
+    spec:
+      nodeSelector:
+        ${6:nodeLabelName}: ${7:nodeLabelNameValue} 
+      containers:
+        - name: ${8:containerName}
+          image: ${9:containerImage}
+      volumeMounts:
+      - name: ${10:volumeName} # The volume called html is mounted at /usr/share/nginx/html in the container
+        mountPath: ${11:mountPath(container)}
+        ${12:ReadOnly}: ${13:true}
+     volumes: # define volumes
+    - name: $10 # name of the volumes
+      ${14:emptyDir}: ${15:{}} # define type is emptyDir
+endsnippet
+	
+snippet dms3 "k8s daemonSet with env and mount" b
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: ${1:myDaemonSet}
+spec:
+  selector:
+    matchLabels:
+      ${2:daemonSetLabel}: ${3:daemonSetLabelValue}
+  template:
+    metadata:
+      labels:
+        ${4:podLabel}: ${5:podLabelValue}
+    spec:
+      nodeSelector:
+        ${6:nodeLabelName}: ${7:nodeLabelNameValue} 
+      containers:
+        - name: ${8:containerName}
+          image: ${9:containerImage}
+      volumeMounts:
+      - name: ${10:volumeName} # The volume called html is mounted at /usr/share/nginx/html in the container
+        mountPath: ${11:mountPath(container)}
+        ${12:ReadOnly}: ${13:true}
+        env: # pass env to container
+         - name: #${14:PORT} env name
+           value: ${15:"5000"} # env value
+     volumes: # define volumes
+    - name: $10 # name of the volumes
+      ${16:emptyDir}: ${17:{}} # define type is emptyDir
+endsnippet
+
+snippet dpl "k8s normal deployment" b
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -256,7 +461,81 @@ spec:
           value: ${12:"5000"} # env value
 endsnippet
 
-snippet sts "Test" b
+snippet dpl2 "k8s normal deployment with mount" b
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ${1:deployName}
+  labels:
+    app: ${2:deployAppName}
+spec:
+  revisionHistoryLimit: ${3:1}
+  strategy: # change here
+    type: ${4:RollingUpdate} # you can choose Recreate instead of RollingUpdate
+  replicas: ${5:amountOfReplica}
+  selector:
+    matchLabels:
+      app: ${6:matchePodLabels}
+  template:
+    metadata:
+      labels:
+        app: ${7:podLabels}
+    spec:
+      containers:
+      - name: ${8:containerName}
+        image: ${9:image}
+        ports:
+        - containerPort: ${10:containerPort}
+    	volumeMounts:
+    	- name: ${11:volumeName} # The volume called html is mounted at /usr/share/nginx/html in the container
+      	mountPath: ${12:mountPath(container)}
+      	${13:ReadOnly}: ${14:true}
+    volumes: # define volumes
+  	- name: $11 # name of the volumes
+    	${15:emptyDir}: ${16:{}} # define type is emptyDir
+endsnippet
+
+snippet dpl3 "k8s normal deployment with env and mount" b
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ${1:deployName}
+  labels:
+    app: ${2:deployAppName}
+spec:
+  revisionHistoryLimit: ${3:1}
+  strategy: # change here
+    type: ${4:RollingUpdate} # you can choose Recreate instead of RollingUpdate
+  replicas: ${5:amountOfReplica}
+  selector:
+    matchLabels:
+      app: ${6:matchePodLabels}
+  template:
+    metadata:
+      labels:
+        app: ${7:podLabels}
+    spec:
+      containers:
+      - name: ${8:containerName}
+        image: ${9:image}
+        ports:
+        - containerPort: ${10:containerPort}
+      	env: # pass env to container
+        - name: #${11:PORT} env name
+          value: ${12:"5000"} # env value
+    	volumeMounts:
+    	- name: ${13:volumeName} # The volume called html is mounted at /usr/share/nginx/html in the container
+      	mountPath: ${14:mountPath(container)}
+      	${15:ReadOnly}: ${16:true}
+      	env: # pass env to container
+        - name: #${17:PORT} env name
+          value: ${18:"5000"} # env value
+    volumes: # define volumes
+  	- name: $13 # name of the volumes
+    	${19:emptyDir}: ${20:{}} # define type is emptyDir
+endsnippet
+
+snippet sts "k8s normal statefulSet" b
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
@@ -275,19 +554,67 @@ spec:
           ports:
             - name: ${8:http}
               containerPort: ${9:8080}
-      volumeMounts:
-        - name: ${10:volumeName}
-          mountPath: ${11:containerPath}
-  volumeClaimTemplates: # pvc template
-    - metadata:
-        name: $10
-      spec:
-        resources:
-          requests:
-            storage: ${12:5Gi}
-        accessModes:
-          - ${13:ReadWriteOne}
 endsnippet
+
+snippet sts2 "k8s normal statefulSet with mount" b
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: ${1:statefulSetName}
+spec:
+  serviceName: ${2:serverName}# the name of service
+  replicas: ${3:amount}
+  template: # pod template
+    metadata:
+      labels:
+        ${4:podLabelName}: ${5:podLabelValue}
+    spec:
+      containers:
+        - name: ${6:containerName}
+          image: ${7:containerImage}
+          ports:
+            - name: ${8:http}
+              containerPort: ${9:8080}
+    	  volumeMounts:
+    	  - name: ${10:volumeName} # The volume called html is mounted at /usr/share/nginx/html in the container
+      	  mountPath: ${11:mountPath(container)}
+      	  ${12:ReadOnly}: ${13:true}
+      volumes: # define volumes
+  	  - name: $10 # name of the volumes
+    	  ${14:emptyDir}: ${15:{}} # define type is emptyDir
+endsnippet
+
+snippet sts3 "k8s normal statefulSet with env and mount" b
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: ${1:statefulSetName}
+spec:
+  serviceName: ${2:serverName}# the name of service
+  replicas: ${3:amount}
+  template: # pod template
+    metadata:
+      labels:
+        ${4:podLabelName}: ${5:podLabelValue}
+    spec:
+      containers:
+        - name: ${6:containerName}
+          image: ${7:containerImage}
+          ports:
+            - name: ${8:http}
+              containerPort: ${9:8080}
+    	  volumeMounts:
+    	  - name: ${10:volumeName} # The volume called html is mounted at /usr/share/nginx/html in the container
+      	  mountPath: ${11:mountPath(container)}
+      	  ${12:ReadOnly}: ${13:true}
+      	  env: # pass env to container
+          - name: #${14:PORT} env name
+            value: ${15:"5000"} # env value
+      volumes: # define volumes
+  	  - name: $10 # name of the volumes
+    	  ${16:emptyDir}: ${17:{}} # define type is emptyDir
+endsnippet
+
 ## SERVICE
 snippet svc "Test" b
 apiVersion: v1
@@ -446,6 +773,18 @@ spec:
           matchLabels:
             ${8:role}: ${9:database} # Adjust the label to match the allowed pods
 endsnippet
+
+snippet env "K8s Env" b
+env: # pass env to container
+  - name: #${1:PORT} env name
+    value: ${2:"5000"} # env value
+endsnippet
+
+snippet imgsc "ImageSecretPull" b
+imagePullSecrets:
+- name: ${1:my-registry-key}
+endsnippet
+
 ### DOCKER
 
 ### AWS

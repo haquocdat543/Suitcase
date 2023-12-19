@@ -172,7 +172,7 @@ spec:
       mountPath: ${6:mountPath(container)}
       ${7:ReadOnly}: ${8:true}
       env: # pass env to container
-        - name: #${9:PORT} env name
+        - name: ${9:PORT} # env name
           value: ${10:"5000"} # env value
 volumes: # define volumes
   - name: $5 # name of the volumes
@@ -252,7 +252,7 @@ spec:
       	mountPath: ${11:mountPath(container)}
       	${12:ReadOnly}: ${13:true}
       	env: # pass env to container
-        - name: #${14:PORT} env name
+        - name: ${14:PORT} # env name
           value: ${15:"5000"} # env value
     volumes: # define volumes
   	- name: $10 # name of the volumes
@@ -305,15 +305,12 @@ spec:
     	- name: ${10:volumeName} # The volume called html is mounted at /usr/share/nginx/html in the container
       	mountPath: ${11:mountPath(container)}
       	${12:ReadOnly}: ${13:true}
-      	env: # pass env to container
-        - name: #${14:PORT} env name
-          value: ${15:"5000"} # env value
     volumes: # define volumes
   	- name: $10 # name of the volumes
-    	${16:emptyDir}: ${17:{}} # define type is emptyDir
+    	${14:emptyDir}: ${15:{}} # define type is emptyDir
 endsnippet
 
-snippet rs "k8s replicaSet with env and mount" b
+snippet rs3 "k8s replicaSet with env and mount" b
 apiVersion: apps/v1 # change version API
 kind: ReplicaSet # change resource name
 metadata:
@@ -333,19 +330,16 @@ spec:
         name:${8:containerName} 
         ports:
           - containerPort: ${9:8080}
-      	env: # pass env to container
-        - name: #${10:PORT} env name
-          value: ${11:"5000"} # env value
     	volumeMounts:
     	- name: ${12:volumeName} # The volume called html is mounted at /usr/share/nginx/html in the container
       	mountPath: ${13:mountPath(container)}
-      	${14:ReadOnly}: ${14:true}
+      	${14:ReadOnly}: ${15:true}
       	env: # pass env to container
-        - name: #${16:PORT} env name
+        - name: ${16:PORT} # env name
           value: ${17:"5000"} # env value
     volumes: # define volumes
-  	- name: $18 # name of the volumes
-    	${19:emptyDir}: ${20:{}} # define type is emptyDir
+  	- name: $12 # name of the volumes
+    	${18:emptyDir}: ${19:{}} # define type is emptyDir
 endsnippet
 
 snippet dms "k8s normal daemonSet" b
@@ -368,7 +362,7 @@ spec:
         - name: ${8:containerName}
           image: ${9:containerImage}
       	env: # pass env to container
-        - name: #${10:PORT} env name
+        - name: ${10:PORT} # env name
           value: ${11:"5000"} # env value
 endsnippet
 
@@ -424,7 +418,7 @@ spec:
         mountPath: ${11:mountPath(container)}
         ${12:ReadOnly}: ${13:true}
         env: # pass env to container
-         - name: #${14:PORT} env name
+         - name: ${14:PORT} # env name
            value: ${15:"5000"} # env value
      volumes: # define volumes
     - name: $10 # name of the volumes
@@ -456,9 +450,6 @@ spec:
         image: ${9:image}
         ports:
         - containerPort: ${10:containerPort}
-      	env: # pass env to container
-        - name: #${11:PORT} env name
-          value: ${12:"5000"} # env value
 endsnippet
 
 snippet dpl2 "k8s normal deployment with mount" b
@@ -520,19 +511,16 @@ spec:
         image: ${9:image}
         ports:
         - containerPort: ${10:containerPort}
-      	env: # pass env to container
-        - name: #${11:PORT} env name
-          value: ${12:"5000"} # env value
     	volumeMounts:
-    	- name: ${13:volumeName} # The volume called html is mounted at /usr/share/nginx/html in the container
-      	mountPath: ${14:mountPath(container)}
-      	${15:ReadOnly}: ${16:true}
+    	- name: ${11:volumeName} # The volume called html is mounted at /usr/share/nginx/html in the container
+      	mountPath: ${12:mountPath(container)}
+      	${13:ReadOnly}: ${14:true}
       	env: # pass env to container
-        - name: #${17:PORT} env name
-          value: ${18:"5000"} # env value
+        - name: ${15:PORT} # env name
+          value: ${16:"5000"} # env value
     volumes: # define volumes
-  	- name: $13 # name of the volumes
-    	${19:emptyDir}: ${20:{}} # define type is emptyDir
+  	- name: $11 # name of the volumes
+    	${17:emptyDir}: ${18:{}} # define type is emptyDir
 endsnippet
 
 snippet sts "k8s normal statefulSet" b
@@ -608,7 +596,7 @@ spec:
       	  mountPath: ${11:mountPath(container)}
       	  ${12:ReadOnly}: ${13:true}
       	  env: # pass env to container
-          - name: #${14:PORT} env name
+          - name: ${14:PORT} # env name
             value: ${15:"5000"} # env value
       volumes: # define volumes
   	  - name: $10 # name of the volumes
@@ -780,9 +768,31 @@ env: # pass env to container
     value: ${2:"5000"} # env value
 endsnippet
 
+snippet v2 "Container env variable" b
+- name: ${1:PORT} # env name
+  value: ${2:"5000"} # env value
+endsnippet
+
+snippet v3 "Svc port" b
+- protocol: ${1:TCP}
+  port: ${2:80}
+  targetPort: ${3:8080}
+endsnippet
+
+snippet v4 "Nodeport port" b
+- protocol: ${1:TCP}
+  port: ${2:80}
+  targetPort: ${3:8080}
+  nodePort: ${4:31000}
+endsnippet
+
 snippet imgsc "ImageSecretPull" b
 imagePullSecrets:
 - name: ${1:my-registry-key}
+endsnippet
+
+snippet 3 "Separation" b
+___
 endsnippet
 
 ### DOCKER

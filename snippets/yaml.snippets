@@ -618,7 +618,7 @@ spec:
       targetPort: ${6:targetPort}
 endsnippet
 
-snippet np "Test" b
+snippet svc2 "k8s svc nodeport" b
 apiVersion: v1
 kind: Service
 metadata:
@@ -634,7 +634,7 @@ spec:
       nodePort: ${7:31000}
 endsnippet
 
-snippet lb "Test" b
+snippet svc3 "k8s svc loadbalancer" b
 apiVersion: v1
 kind: Service
 metadata:
@@ -649,7 +649,7 @@ spec:
       targetPort: ${6:8080}
 endsnippet
 
-snippet in "Test" b
+snippet in "k8s ingress" b
 piVersion: extensions/v1beta1
 kind: Ingress
 metadata:
@@ -665,64 +665,18 @@ spec:
           servicePort: ${5:serverPort}
 endsnippet
 
-snippet pv "Test" b
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: ${1:my-pvc}
-spec:
-  capacity:
-    storage: ${2:5Gi}
-  volumeMode: ${3:Filesystem}
-  accessModes:
-    - ${4:ReadWriteOnce}
-  persistentVolumeReclaimPolicy: ${5:Recycle}
-  storageClassName: ${6:myStorageClass} 
-endsnippet
-
-snippet emptyDir "Test" b
-      volumeMounts:
-        - name: ${1:volueName} # The volume called html is mounted at /usr/share/nginx/html in the container
-          mountPath:${2:mountPath(container)} 
-          ${3:ReadOnly}: ${4:true}
-  volumes: # define volumes
-    - name: $1 name of the volumes
-      ${6:emptyDir}: ${7:{}} # define type is emptyDir
-endsnippet
-
-snippet hostPath "Test" b
-      volumeMounts:
-        - name: ${1:volueName} # The volume called html is mounted at /usr/share/nginx/html in the container
-          mountPath:${2:mountPath(container)} 
-          ${3:ReadOnly}: ${4:true}
-  volumes: # define volumes
-    - name: $1 name of the volumes
-      hostPath: # hostPath volume
-      	${6:path}: ${7:path} # define type is emptyDir
-endsnippet
-
 snippet gce "Test" b
-      volumeMounts:
-        - name: ${1:volueName} # The volume called html is mounted at /usr/share/nginx/html in the container
-          mountPath:${2:mountPath(container)} 
-          ${3:ReadOnly}: ${4:true}
-  volumes: # define volumes
-    - name: $1 name of the volumes
-      gcePersistentDisk: # google cloud disk volume
-        pdName: ${2:persistentVolumeName} # name of the persistent disk on google cloud
-        fsType: ext4
+- name: ${1:htlm}
+  gcePersistentDisk: # google cloud disk volume
+    pdName: ${2:persistentVolumeName} # name of the persistent disk on google cloud
+    fsType: ext4
 endsnippet
 
-snippet aws "Test" b
-      volumeMounts:
-        - name: ${1:volueName} # The volume called html is mounted at /usr/share/nginx/html in the container
-          mountPath:${2:mountPath(container)} 
-          ${3:ReadOnly}: ${4:true}
-  volumes: # define volumes
-    - name: $1 name of the volumes
-      awsElasticBlockStore: # amazon web service volume
-        volumeID: ${2:volumeID} # volume of the aws ebs
-        fsType: ext4
+snippet aws "k8s aws volume inside resources" b
+- name: ${1:html}
+  awsElasticBlockStore: # amazon web service volume
+    volumeID: ${2:volumeID} # volume of the aws ebs
+    fsType: ext4
 endsnippet
 
 snippet map "Test" b
@@ -734,7 +688,7 @@ data:
   ${2:DB}: ${3:postgre}
 endsnippet
 
-snippet netpo "Test" b
+snippet nw "k8s network policy" b
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
@@ -810,7 +764,7 @@ metadata:
   name: ${1:my-storage-class}
 provisioner: kubernetes.io/${2:aws-ebs} # aws-ebs | gcp-pd | rbd | azure-disk | azure-file | portworx-volume | vsphere-volume | no-provisioner
 parameters: # type | fsType | encrypted | iopsPerGB | zones | replication-tye 
-  type: ${3:gp2}
+  type: ${3:gp2} # io1 | io2 | gp2 | gp3
   fsType: ${4:ext4}
   encrypted: "${5:true}"  
   iopsPerGB: "${6:10}"   
@@ -870,7 +824,7 @@ spec:
   capacity:
     storage: ${2:1Gi}
   accessModes:
-    - ${3:ReadWriteOnce} # ReadWriteOnce | ReadOnly | WriteOnly
+    - ${3:ReadWriteOnce} # ReadWriteOnce | ReadOnlyMany | ReadWriteMany
   persistentVolumeReclaimPolicy: ${4:Retain} # Retain | Delete | Snapshot
   storageClassName: ${5:my-storage-class}
   hostPath:
@@ -900,6 +854,136 @@ spec:
         targetAverageValue: ${8:200Mi}
 endsnippet
 
+snippet ns "K8s namespace" b
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: ${1:my-namespace}
+endsnippet
+
+snippet jb "k8s job" b
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: ${1:my-job}
+spec:
+  template:
+    metadata:
+      name: ${2:my-pod}
+    spec:
+      containers:
+      - name: ${3:my-container}
+        image: ${4:my-image:latest}
+  backoffLimit: ${5:3}
+endsnippet
+
+snippet cjb "k8s cronjob" b
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: ${1:my-cronjob}
+spec:
+  schedule: "${2:*/5 * * * *}"
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          labels:
+            ${3:app}: ${4:my-cronjob}
+        spec:
+          containers:
+          - name: ${5:my-container}
+            image: ${6:my-image:latest}
+  successfulJobsHistoryLimit: ${7:3}
+  failedJobsHistoryLimit: ${8:1}
+endsnippet
+
+snippet rl "Role" b
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: ${1:my-role}
+  namespace: ${2:my-namespace}
+rules:
+- apiGroups: ["${3:my-group}"]
+  resources: ["${4:pods}"]
+  verbs: [${5:"get"}] # get | list | watch | create | update | patch | delete
+endsnippet
+
+snippet rlb "RoleBinding" b
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: ${1:my-role-binding}
+  namespace: ${2:my-namespace}
+subjects:
+- kind: ${3:ServiceAccount}
+  name: ${4:default}
+  namespace: ${5:my-namespace}
+roleRef:
+  kind: ${6:Role}
+  name: ${7:my-role}
+  apiGroup: rbac.authorization.k8s.io
+endsnippet
+
+snippet clr "k8s clusterRole" b
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: ${3:my-cluster-role}
+rules:
+- apiGroups: ["${2:my-group}"]
+  resources: ["${3:pods}"]
+  verbs: [${5:"get"}] # get | list | watch | create | update | patch | delete
+- apiGroups: ["${6:my-group}"]
+  resources: ["${7:deployments}"]
+  verbs: [${5:"get"}] # get | list | watch | create | update | patch | delete
+endsnippet
+
+snippet clrb "k8s clusterRoleBinding" b
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: ${1:my-cluster-role-binding}
+subjects:
+- kind: ${2:ServiceAccount}
+  name: ${3:default}
+  namespace: ${4:default}
+roleRef:
+  kind: ${5:ClusterRole}
+  name: ${6:my-cluster-role}
+  apiGroup: rbac.authorization.k8s.io
+endsnippet
+
+snippet pv "Test" b
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: ${1:my-pvc}
+spec:
+  capacity:
+    storage: ${2:5Gi}
+  volumeMode: ${3:Filesystem}
+  accessModes:
+    - ${4:ReadWriteOnce} # ReadWriteOnce | ReadOnlyMany | ReadWriteMany
+  persistentVolumeReclaimPolicy: ${5:Recycle}
+  storageClassName: ${6:myStorageClass} 
+endsnippet
+
+snippet pvc "k8s pvc" b
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: ${1:my-pvc}
+spec:
+  accessModes:
+    - ${2:ReadWriteOnce} # ReadWriteOnce | ReadOnlyMany | ReadWriteMany
+  storageClassName: ${3:my-storage-class}
+  resources:
+    requests:
+      storage: ${4:5Gi}
+endsnippet
+
 snippet argocd "k8s argocd" b
 apiVersion: argoproj.io/v1alpha1
 kind: Application
@@ -917,10 +1001,43 @@ spec:
     namespace: argocd
   syncPolicy:
     syncOptions:
-      - CreateNamespace = true
+      - CreateNamespace = ${6:true}
     automated:
-      selfHeal: true
-      prune:    true
+      selfHeal: ${7:true}
+      prune:    ${8:true}
+endsnippet
+
+snippet argoro "k8s argo rollout" b
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  name: ${1:bluegreen-demo}
+  labels:
+    app: ${2:bluegreen-demo}
+spec:
+  replicas: ${3:2}
+  revisionHistoryLimit: ${4:1}
+  selector:
+    matchLabels:
+      app: ${4:bluegreen-demo}
+  template:
+    metadata:
+      labels:
+        app: ${5:bluegreen-demo}
+    spec:
+      containers:
+        - name: ${6:bluegreen-demo}
+          image: ${7:argoproj/rollouts-demo:green}
+          imagePullPolicy: ${8:Always}
+          ports:
+            - name: ${9:http}
+              protocol: ${10:TCP}
+              containerPort: ${11:8080}
+  strategy:
+    blueGreen:
+      autoPromotionEnabled: ${12:false}
+      activeService: ${13:bluegreen-demo}
+      previewService: ${14:bluegreen-demo-preview}
 endsnippet
 
 snippet env "K8s Env" b
@@ -951,9 +1068,91 @@ snippet v5 "Secret variable" b
 ${1:password}: ${2:<base64-encoded-password>}
 endsnippet
 
+snippet v6 "node Selector" b
+nodeSelector:
+    ${1:disktype}: ${2:ssd}
+endsnippet
+
+snippet tol "k8s toleration" b
+tolerations:
+  - key: ${1:node-type}
+    Operator: ${2:Equal}
+    value: ${3:production}
+    effect: ${4:NoSchedule} # NoSchedule | PreferNoSchedule | NoExecute
+endsnippet
+
+snippet naff "k8s node Affinity" b
+affinity:
+  nodeAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      nodeSelectorTerms:
+        - matchExpressions:
+          - ${1:key}: ${2:disktype}
+            operator: ${3:In}
+            values:
+              - "${4:ssd}"
+endsnippet
+
+snippet paff "k8s pod affinity" b
+affinity:
+  podAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      - topologyKey: kubernetes.io/hostname
+        labelSelector:
+            matchLabels:
+              ${1:app}: ${2:database}
+endsnippet
+
 snippet imgsc "ImageSecretPull" b
 imagePullSecrets:
 - name: ${1:my-registry-key}
+endsnippet
+
+snippet vol "k8s volume inside resources" b
+volumes:
+  - name: ${1:my-persistent-storage}
+    persistentVolumeClaim:
+      claimName: ${1:my-pvc}
+endsnippet
+
+snippet vol2 "k8s volume EmptyDir" b
+- name: ${1:html}
+  emptyDir: ${2:{}}
+endsnippet
+
+snippet vol3 "k8s volume hostPath" b
+- name: ${1:log}
+  hostPath: 
+    path: ${2:/var/log}
+endsnippet
+
+snippet vol4 "k8s volume gitRepo" b
+- name: ${1:html}
+  gitRepo: 
+    repository: https://github.com/${2:luksa}/${3:kubia-website-example}.git 
+    revision: ${4:master }
+    directory: ${5:.}
+endsnippet
+
+snippet vol5 "k8s volume ConfigMap" b
+- name: ${1:config}
+  configMap:
+    name: ${2:nginx-config}
+endsnippet
+
+snippet vlm "k8s volume mount" b
+volumeMounts:
+    - name: ${1:mongodb-data}
+      mountPath: ${2:/data/db}
+endsnippet
+
+snippet vm "k8s volume mount" b
+- name: ${1:mongodb-data}
+  mountPath: ${2:/data/db}
+endsnippet
+
+snippet vm1 "k8s readOnly" b
+${1:ReadOnly}: ${2:true}
 endsnippet
 
 snippet 3 "Separation" b

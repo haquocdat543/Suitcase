@@ -776,7 +776,7 @@ endsnippet
 
 snippet env "K8s Env" b
 env: # pass env to container
-  - name: #${1:PORT} env name
+  - name: ${1:PORT} # env name
     value: ${2:"5000"} # env value
 endsnippet
 

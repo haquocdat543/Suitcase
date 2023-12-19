@@ -15,6 +15,7 @@ set pastetoggle=<C-e>
 
 call plug#begin()
 Plug 'ryanoasis/vim-devicons'
+Plug 'easymotion/vim-easymotion'
 Plug 'vim-airline/vim-airline' " Status bar
 Plug 'voldikss/vim-floaterm'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
@@ -114,6 +115,8 @@ noremap <Del> "_x
 map <Leader>ev :tabnew $MYVIMRC<CR>
 map <Leader>ea :tabnew ~/.bashrc<CR>
 nnoremap <Leader>rc :%s///g<Left><Left>
+nmap <Leader>el yypC
+nmap <Leader>eL yyPC
 
 let c='a'
 while c <= 'z'

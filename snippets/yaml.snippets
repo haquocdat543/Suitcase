@@ -762,6 +762,144 @@ spec:
             ${8:role}: ${9:database} # Adjust the label to match the allowed pods
 endsnippet
 
+snippet sc "k8s secret" b
+apiVersion: v1
+kind: Secret
+metadata:
+  name: ${1:my-secret}
+type: Opaque
+data:
+  ${2:username}: ${3:<base64-encoded-username>}
+endsnippet
+
+snippet sc2 "k8s secret basic auth" b
+apiVersion: v1
+kind: Secret
+metadata:
+  name: ${1:my-basic-auth-secret}
+type: kubernetes.io/basic-auth
+data:
+  ${2:username}: ${3:<base64-encoded-username>}
+endsnippet
+
+snippet sc3 "k8s secret docker registry" b
+apiVersion: v1
+kind: Secret
+metadata:
+  name: ${1:my-docker-secret}
+type: kubernetes.io/dockerconfigjson
+data:
+  .dockerconfigjson: ${2:<base64-encoded-docker-config>}
+endsnippet
+
+snippet sc4 "k8s secret tls cert" b
+apiVersion: v1
+kind: Secret
+metadata:
+  name: ${1:my-tls-secret}
+type: kubernetes.io/tls
+data:
+  tls.crt: ${2:<base64-encoded-certificate>}
+  tls.key: ${3:<base64-encoded-private-key>}
+endsnippet
+
+snippet stc "k8s storage class" b
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: ${1:my-storage-class}
+provisioner: kubernetes.io/${2:aws-ebs} # aws-ebs | gcp-pd | rbd | azure-disk | azure-file | portworx-volume | vsphere-volume | no-provisioner
+parameters: # type | fsType | encrypted | iopsPerGB | zones | replication-tye 
+  type: ${3:gp2}
+  fsType: ${4:ext4}
+  encrypted: "${5:true}"  
+  iopsPerGB: "${6:10}"   
+  zones: ${7:ap-northeast-1a} # Can use multi zone seperate by comma
+  replication-type: none 
+reclaimPolicy: ${8:Delete} # Delete | Retain | Snapshot
+allowVolumeExpansion: ${9:false} # true or false
+mountOption:
+  - debug
+volumeBindingMode: ${10:WaitForFirstConsumer} # WaitForFirstConsumer | Immediate
+endsnippet
+
+snippet cfg "k8s configmap" b
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ${1:my-configmap}
+data:
+  ${2:key1}: ${3:value1}
+endsnippet
+
+snippet cfg2 "k8s configmap 3" b
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ${1:my-configmap-files}
+data:
+  ${2:special-key}: |-
+    ${3:key1}=${4:value1}
+endsnippet
+
+snippet cfg3 "k8s configmap 3" b
+piVersion: v1
+kind: ConfigMap
+metadata:
+  name: ${1:my-configmap-binary}
+data:
+  binary-data: ${2:<base64-encoded-binary-content>}
+endsnippet
+
+snippet cfg4 "k8s configmap 4" b
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ${1:my-configmap-yaml}
+data:
+  ${2:config.yaml}: |
+    ${3:key1}: ${4:value1}
+endsnippet
+
+snippet pv "k8s persistence volume" b
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: ${1:my-pv}
+spec:
+  capacity:
+    storage: ${2:1Gi}
+  accessModes:
+    - ${3:ReadWriteOnce} # ReadWriteOnce | ReadOnly | WriteOnly
+  persistentVolumeReclaimPolicy: ${4:Retain} # Retain | Delete | Snapshot
+  storageClassName: ${5:my-storage-class}
+  hostPath:
+    path: ${6:/path/on/host}
+endsnippet
+
+snippet argocd "k8s argocd" b
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: ${1:argocd-app}
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/${2:haquocdat543}/${3:devops-argocd}.git 
+    targetRevision: ${4:HEAD}
+    path: ${5:resources}
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: argocd
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace = true
+    automated:
+      selfHeal: true
+      prune:    true
+endsnippet
+
 snippet env "K8s Env" b
 env: # pass env to container
   - name: ${1:PORT} # env name
@@ -784,6 +922,10 @@ snippet v4 "Nodeport port" b
   port: ${2:80}
   targetPort: ${3:8080}
   nodePort: ${4:31000}
+endsnippet
+
+snippet v5 "Secret variable" b
+${1:password}: ${2:<base64-encoded-password>}
 endsnippet
 
 snippet imgsc "ImageSecretPull" b

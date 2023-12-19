@@ -877,6 +877,29 @@ spec:
     path: ${6:/path/on/host}
 endsnippet
 
+snippet hpa "k8s HPA" b
+apiVersion: autoscaling/v2beta2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: ${1:my-hpa}
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: ${2:Deployment} # Pod | ReplicationSet ,...
+    name: ${3:my-deployment}
+  minReplicas: ${4:2}
+  maxReplicas: ${5:5}
+  metrics:
+    - type: Resource
+      resource:
+        name: ${6:cpu}
+        targetAverageUtilization: ${7:80}
+    - type: Resource
+      resource:
+        name: ${7:memory}
+        targetAverageValue: ${8:200Mi}
+endsnippet
+
 snippet argocd "k8s argocd" b
 apiVersion: argoproj.io/v1alpha1
 kind: Application

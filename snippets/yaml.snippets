@@ -1155,6 +1155,89 @@ snippet vm1 "k8s readOnly" b
 ${1:ReadOnly}: ${2:true}
 endsnippet
 
+snippet meshgw "k8s consul mesh gateway" b
+piVersion: consul.hashicorp.com/v1alpha1
+kind: Mesh
+metadata:
+  name: ${1:mesh}
+spec:
+  peering:
+    peerThroughMeshGateways: ${2:true}
+endsnippet
+
+snippet expsvc "k8s consul exported service" b
+apiVersion: consul.hashicorp.com/v1alpha1
+kind: ExportedServices
+metadata:
+  name: ${1:default }
+spec:
+  services:
+    - name: "${2:shippingservice}" 
+      consumers:
+      - peer: ${3:eks }
+endsnippet
+
+snippet svcin "k8s consul service intention" b
+apiVersion: consul.hashicorp.com/v1alpha1
+kind: ServiceIntentions
+metadata:
+  name: ${1:shipping-allow-eks}
+spec:
+  destination:
+    name: ${2:shippingservice}
+  sources:
+   - name: ${3:frontendxx} # name of service within eks sending traffic to frontend
+     action: ${4:allow}
+     peer: ${5:eks}
+endsnippet
+
+snippet svcre "k8s consul service resolver" b
+apiVersion: consul.hashicorp.com/v1alpha1
+kind: ServiceResolver
+metadata:
+  name: ${1:shippingservice}
+spec:
+  connectTimeout: ${2:15s}
+  failover:
+    '*':
+      targets:
+        - peer: '${3:lke}'
+endsnippet
+
+snippet consul "k8s consul file" b
+global:
+  image: "hashicorp/consul:1.14.0"
+  peering:
+    enabled: ${1:true}
+  tls:
+    enabled: ${2:true}
+
+server:
+  replicas: ${3:1}
+  bootstrapExpect: ${4:1}
+  extraConfig: |
+    {
+      "log_level": "TRACE"
+    }
+
+connectInject:
+  enabled: ${5:true}
+  default: ${6:true}
+
+meshGateway:
+  enabled: ${7:true}
+  replicas: ${8:1}
+
+controller:
+  enabled: ${9:true}
+
+ui:
+  enabled: ${10:true}
+  service:
+    enabled: ${11:true}
+    type: ${12:LoadBalancer}
+endsnippet
+
 snippet 3 "Separation" b
 ___
 endsnippet

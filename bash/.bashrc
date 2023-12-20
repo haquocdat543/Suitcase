@@ -236,6 +236,7 @@ alias mnode='. ~/preconfig/Suitcase/bash/k8s-ami.sh'
 ### Documentation
 alias dock8s='vi -m ~/preconfig/Suitcase/bash/docs/dock8s.md'
 alias docfzf='vi -m ~/preconfig/Suitcase/bash/docs/fzf.md'
+alias docbash='vi -m ~/preconfig/Suitcase/bash/docs/bash.md'
 
 ### Installation
 alias igo='. ~/preconfig/Suitcase/bash/commands/goInstall.sh'
@@ -324,7 +325,8 @@ alias a2iamls='aws iam list-users'
 alias a2iamlg='aws iam list-groups'
 alias a2elbdes='aws elb describe-load-balancers'
 alias a2elbdl='aws elb delete-load-balancer --load-balancer-name'
-alias a2lmdgf='aws lambda list-functions'
+alias a2lmdi='aws lambda invoke --function-name'
+alias a2lmdlf='aws lambda list-functions'
 alias a2lmddf='aws lambda delete-function --function-name'
 alias a2apigks='aws apigateway get-api-keys'
 alias a2apigk='aws apigateway get-api-key --api-key'

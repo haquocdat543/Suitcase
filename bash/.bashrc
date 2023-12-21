@@ -115,6 +115,7 @@ alias vicp='vi ./docker-compose.yaml'
 alias vigr2='vi /etc/grub2.cfg'
 alias vigig='vi ./.gitignore'
 alias vihig='vi ./.helmignore'
+alias vihr='vi ./redis-values.yaml'
 alias vidig='vi ./.dockerignore'
 alias vikub='vi ~/.kube/config'
 alias vigcf='vi ./.gitconfig'
@@ -756,6 +757,7 @@ alias hifb='helm repo add elastic https://helm.elastic.co ; helm install filebea
 alias hikb='helm repo add elastic https://helm.elastic.co ; helm install kibana elastic/kibana'
 alias hilt='helm repo add elastic https://helm.elastic.co ; helm install logstash elastic/logstash'
 alias himb='helm repo add elastic https://helm.elastic.co ; helm repo add prometheus-community https://prometheus-community.github.io/helm-charts ; helm install metricbeat elastic/metricbeat'
+alias hird='helm install redis-cache bitnami/redis -f redis-values.yaml'
 
 ### Trivy command
 alias t1='trivy'

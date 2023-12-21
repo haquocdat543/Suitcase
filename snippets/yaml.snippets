@@ -1238,6 +1238,32 @@ ui:
     type: ${12:LoadBalancer}
 endsnippet
 
+snippet hredis "k8s redis with helm" b
+master:
+  password: "${1:integration}"
+  resources:
+    requests:
+      memory: "${2:1Gi}"
+      cpu: "${3:500m}"
+    limits:
+      memory: "${4:1Gi}"
+      cpu: "${5:500m}"
+persistence:
+  enabled: true
+
+pdb:
+  create: true
+  minAvailable: ${6:1}
+  maxUnavailable: "$7"
+
+architecture: ${8:standalone}
+
+metrics:
+  enabled: ${9:true}
+  service:
+    type: ${10:Loadbalancer}
+endsnippet
+
 snippet 3 "Separation" b
 ___
 endsnippet

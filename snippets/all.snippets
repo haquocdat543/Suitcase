@@ -94,14 +94,6 @@ snippet jkst "Jenkin stage" b
             }
 endsnippet
 
-
-snippet gr "Group" b
-[${1:groupName}]
-$2
-
-$3
-endsnippet
-
 snippet make "Test" b
 CC = ${1:gcc}
 SOURCE = ${2:*.c}
@@ -155,3 +147,22 @@ Host git-codecommit.*.amazonaws.com
   User ${1:APKARMNDORPRYA4G76KM}
     IdentityFile ~/.ssh/codecommit_rsa $2
 endsnippet
+
+snippet ansk "Ansible ssh key config" i
+ansible_ssh_private_key_file=${1:/home/${2:root}/.ssh/${3:id_rsa}}
+endsnippet
+
+snippet ansu "Ansible ssh user" b
+ansible_ssh_user=${1:ec2-user}
+endsnippet
+
+snippet gr "Group" b
+[${1:groupName}]
+$2
+endsnippet
+
+snippet grv "Group vars" b
+[${1:groupName}:vars]
+$2
+endsnippet
+

@@ -24,4 +24,9 @@ myhosts:
 ### 2. With playbook
 * ansible playbook -i `inventory_file` `path_to_playbook`
 
+* -i parameter can follow by `file` or `folder`
+* Can use multi `inventory file` :
+```
+ansible-playbook example.yml -i first_inventory -i second_inventory ...
+```
 

@@ -505,6 +505,10 @@ alias anplt='ansible-playbook --list-tags'
 alias anpi='ansible-playbook -i'
 alias ancf='ansible-config'
 alias ancs='ansible-console'
+alias angin='ansible-galaxy init'
+alias angis='ansible-galaxy init'
+alias angl='ansible-galaxy list'
+alias angr='ansible-galaxy remove'
 
 ### Vagrant command
 alias vgi='vagrant init'

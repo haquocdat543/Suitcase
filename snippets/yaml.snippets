@@ -1,5 +1,14 @@
 ## Ansible
 
+snippet abp "Ansible builtin ping" b
+ansible.builtin.ping:
+endsnippet
+
+snippet abd "Ansible builtin debug" b
+ansible.builtin.debug:
+ Msg: ${1:"Hello world"}
+endsnippet
+
 snippet loop "Ansible loop" b
 loop:
   - ${1:docker}

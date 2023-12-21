@@ -238,6 +238,7 @@ alias mnode='. ~/preconfig/Suitcase/bash/k8s-ami.sh'
 alias dock8s='vi -m ~/preconfig/Suitcase/bash/docs/dock8s.md'
 alias docfzf='vi -m ~/preconfig/Suitcase/bash/docs/fzf.md'
 alias docbash='vi -m ~/preconfig/Suitcase/bash/docs/bash.md'
+alias docans='vi -m ~/preconfig/Suitcase/bash/docs/ansible.md'
 
 ### Installation
 alias igo='. ~/preconfig/Suitcase/bash/commands/goInstall.sh'

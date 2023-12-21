@@ -510,6 +510,8 @@ alias angin='ansible-galaxy init'
 alias angis='ansible-galaxy init'
 alias angl='ansible-galaxy list'
 alias angr='ansible-galaxy remove'
+alias ancfi='ansible-config init --disabled > ansible.cfg'
+alias ancfit='ansible-config init --disabled -t all > ansible.cfg'
 
 ### Vagrant command
 alias vgi='vagrant init'

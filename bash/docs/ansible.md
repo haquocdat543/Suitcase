@@ -29,4 +29,27 @@ myhosts:
 ```
 ansible-playbook example.yml -i first_inventory -i second_inventory ...
 ```
+## 3. Ad hoc commands
+### 1. Command display
+```
+ansible atlanta -m ansible.builtin.copy -a "src=/etc/hosts dest=/tmp/hosts"
+ansible webservers -m ansible.builtin.file -a "dest=/srv/foo/a.txt mode=600"
+ansible webservers -m ansible.builtin.yum -a "name=acme state=latest"
+```
+### 2. playbook display
+```
+- name: Copy
+  ansible.builtin.copy:
+    src: /etc/hosts
+    dest: /tmp/hosts
+- name: File operation
+  ansible.builtin.file:
+    dest: /srv/foo/a.txt
+    mode: 600
+- name: Yum install
+  ansible.builtin.yum:
+    name: acme
+    state: latest
+```
+
 

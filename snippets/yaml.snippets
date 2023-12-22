@@ -9,6 +9,22 @@ ansible.builtin.debug:
  Msg: ${1:"Hello world"}
 endsnippet
 
+snippet abc "Ansible builtin command" b
+ansible.builtin.command: ${1:command}
+endsnippet
+
+snippet abs "Ansible builtin shell" b
+ansible.builtin.shell: ${1:command}
+endsnippet
+
+snippet abu "Ansible builtin user create" b
+ansible.builtin.user: name=${1:foo} password=${2:password}
+endsnippet
+
+snippet abu2 "Ansible builtin user delete" b
+ansible.builtin.user: name=${1:foo} state=${2:absent}
+endsnippet
+
 snippet loop "Ansible loop" b
 loop:
   - ${1:docker}
@@ -36,7 +52,7 @@ $1=$2
 endsnippet
 
 snippet an "Ansible task name" b
-name: ${1:Name}
+- name: ${1:Name}
   ${2:ansvc}
 endsnippet
 

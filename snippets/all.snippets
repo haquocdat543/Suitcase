@@ -183,3 +183,15 @@ snippet hn "Host name" b
 ${1:server-dns-or-ip} ${2:server-name}
 endsnippet
 
+snippet rq1 "Ansible requirements" b
+- name: ${1:nginx_role}
+  src: ${2:https://github.com/bennojoy/nginx}
+  version: ${3:main}
+endsnippet
+
+snippet rq2 "Ansible requirements" b
+- src: ${1:git@gitlab.company.com:mygroup/ansible-core.git}
+  scm: ${2:git}
+  version: "${3:0.1}"
+endsnippet
+

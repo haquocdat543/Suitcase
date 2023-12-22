@@ -29,6 +29,20 @@ snippet abt "Ansible builtin template" b
 ansible.builtin.template: src=${1:./} dest=${2:./}
 endsnippet
 
+snippet abur "Ansible builtin uri" b
+ansible.builtin.uri:
+  url: ${1:link}
+  method: ${2:GET}
+  status_code: ${3:200}
+endsnippet
+
+snippet abun "Ansible builtin unarchive" b
+ansible.builtin.archive:
+  src: ${1:src-link}
+  dest: ${2:dest}
+  remote_src: ${3:yes}
+endsnippet
+
 snippet loop "Ansible loop" b
 loop:
   - ${1:docker}

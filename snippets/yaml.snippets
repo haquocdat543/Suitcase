@@ -25,6 +25,10 @@ snippet abu2 "Ansible builtin user delete" b
 ansible.builtin.user: name=${1:foo} state=${2:absent}
 endsnippet
 
+snippet abt "Ansible builtin template" b
+ansible.builtin.template: src=${1:./} dest=${2:./}
+endsnippet
+
 snippet loop "Ansible loop" b
 loop:
   - ${1:docker}
@@ -166,6 +170,11 @@ endsnippet
 snippet w1 "Ansible when condition" b
 when: ${1:ansible_distribution} ${2:==} ${3:"Ubuntu"}
 $4
+endsnippet
+
+snippet hdl "Ansible handlers" b
+handlers:
+  - name: ${1:restart}
 endsnippet
 
 ## K8S

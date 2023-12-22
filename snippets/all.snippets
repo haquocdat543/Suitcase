@@ -170,3 +170,16 @@ snippet grv "Group vars" b
 $2
 endsnippet
 
+snippet grc "Group children" b
+[${1:groupName}:children]
+$2
+endsnippet
+
+snippet anh "Ansible node host" b
+${1:nodeName} ansible_host=${2:node-dns-or-ip}
+endsnippet
+
+snippet hn "Host name" b
+${1:server-dns-or-ip} ${2:server-name}
+endsnippet
+

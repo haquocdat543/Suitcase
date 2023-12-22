@@ -51,5 +51,12 @@ ansible webservers -m ansible.builtin.yum -a "name=acme state=latest"
     name: acme
     state: latest
 ```
-
-
+### 4. file structure
+* defaults
+* file
+* handlers
+* meta
+* tasks
+* template
+* tests
+* vars

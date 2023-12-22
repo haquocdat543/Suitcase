@@ -17,6 +17,6 @@ purple2='\033[1;35m'
 cyan2='\033[1;36m'
 white='\033[1;37m'
 nc='\033[0m' # No Color
-read -p "$(echo -e "Enter your ${yellow}file name${nc}") " filename
+read -p "$(echo -e "Enter your ${yellow}file name : ${nc}") " filename
 vi ~/Suitcase/bash/commands/$filename.sh  ~/Suitcase/bash/.bashrc
 

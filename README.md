@@ -2,15 +2,17 @@
 This is my toolbox for speed up workloads
 ## 1. Linux
 
-###   1. Alias
+###   1. Bash alias
+Install bash aliases ( k8s, ansible, git, terraform, docker,... )
+
 ```
 alias up1='bash <(curl -s https://raw.githubusercontent.com/haquocdat543/Suitcase/main/bash/alias.sh )'
 up1
 ```
-You can view all of my [bash scripts](https://github.com/haquocdat543/Suitcase/blob/main/bash/commands)
 
 You can view my [aliases](https://github.com/haquocdat543/Suitcase/blob/main/bash/.bashrc)
 ###   2. Vim
+Vim configuration file:
 ```
 alias up2='bash <(curl -s https://raw.githubusercontent.com/haquocdat543/Suitcase/main/bash/vimconfig.sh )'
 up2
@@ -37,6 +39,30 @@ You can view my [init.el](https://github.com/haquocdat543/Suitcase/blob/main/bas
 ```
 curl -L -o %USERPROFILE%/Desktop/setup.bat https://raw.githubusercontent.com/haquocdat543/Suitcase/main/windows/setup.bat
 ```
+After execute, run setup.bat on `Desktop`
 ##   3. Snippets
-You can view my [Snippets](https://github.com/haquocdat543/Suitcase/blob/main/snippets)
+These snippets use `Vim Ultisnips` plugin
 
+You can view my [Snippets](https://github.com/haquocdat543/Suitcase/blob/main/snippets)
+* all.snippets : miscellaneous
+* yaml.snippets : k8s, ansible, helm
+* tf.snippets : terraform
+* tex.snippets : Latex
+* markdown.snippets : Markdown file ( `*.md` )
+* sh.snippets : bash shell
+* ...
+## 4. Scripts
+You can view all of my [bash scripts](https://github.com/haquocdat543/Suitcase/blob/main/bash/commands)
+
+It include scripts to install ( lazygit, k9s, nvim, python, ansible, k8s,...) and other functional scripts
+## 5. Install common tools
+After install `bash aliases`
+```
+upsss ; iness
+```
+
+## 5. Destroy
+To destroy all. Run:
+```
+dall
+```

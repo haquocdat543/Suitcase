@@ -1,5 +1,39 @@
 #version 1
 #PREAMBLE
+snippet el "End of line" i
+ \\\\ $1
+endsnippet
+
+snippet vs "Vertical space" i
+\vspace{$1}$2
+endsnippet
+
+snippet vs3 "Vertical space point 3" i
+\vspace{3pt}$1
+endsnippet
+
+snippet la "Large font" i
+\Large$1
+endsnippet
+
+snippet rshl "Resume subheading list" b
+\resumeSubHeadingListStart
+$1
+\resumeSubHeadingListEnd
+endsnippet
+
+snippet rsh "Resume subheading" b
+\resumeSubheading
+endsnippet
+
+snippet cb "Curly bracket" b
+{$1}$2
+endsnippet
+
+snippet cb2 "Curly bracket type 2 " b
+{$1}{$2}$3
+endsnippet
+
 snippet ri "Resume item" b
 \resumeItem{$1}$2
 endsnippet
@@ -67,6 +101,12 @@ endsnippet
 snippet begin "\begin{} ... \end{} block" i
 \\begin{${1:env}}
 	${0:${VISUAL}}
+\\end{$1}
+endsnippet
+
+snippet bgd "Begin document" i
+\\begin{${1:document}}
+$2
 \\end{$1}
 endsnippet
 
@@ -231,6 +271,10 @@ ${0}
 endsnippet
 
 # Section
+snippet sec2 "\section" i
+\\section{${1:section name}}}
+endsnippet
+
 snippet sec "\section" i
 \\section{${1:section name}}%
 \\label{sec:${2:$1}}
@@ -357,6 +401,10 @@ endsnippet
 
 snippet bf "bold face text" i
 \\textbf{${1:${VISUAL:text}}}${0}
+endsnippet
+
+snippet bfs "bold face text with section" i
+\\textbf{\\section{${1:section name}}}}${2}
 endsnippet
 
 snippet under "underline text" i

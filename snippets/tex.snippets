@@ -1,5 +1,15 @@
 #version 1
 #PREAMBLE
+snippet ri "Resume item" b
+\resumeItem{$1}$2
+endsnippet
+
+snippet rl "Resume list" b
+\resumeItemListStart
+$1
+\resumeItemListEnd
+endsnippet
+
 snippet ss "$|$" i
 $|$ $1
 endsnippet

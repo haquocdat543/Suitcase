@@ -1,5 +1,9 @@
 #version 1
 #PREAMBLE
+snippet hf "Horizontall fill" i
+\hfill$1
+endsnippet
+
 snippet el "End of line" i
  \\\\ $1
 endsnippet
@@ -277,6 +281,14 @@ endsnippet
 # Section
 snippet sec2 "\section" i
 \\section{${1:section name}}}
+endsnippet
+
+snippet ssec2 "Subsection" i
+\\subsection{${1:subsection name}}}
+endsnippet
+
+snippet sssec2 "Subsubsection" i
+\\subsubsection{${1:subsubsection name}}}
 endsnippet
 
 snippet sec "\section" i

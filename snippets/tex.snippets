@@ -1,5 +1,9 @@
 #version 1
 #PREAMBLE
+snippet ss "$|$" i
+$|$ $1
+endsnippet
+
 #documentclass without options
 snippet dcl "\documentclass{}" i
 \\documentclass{${1:class}} ${0}

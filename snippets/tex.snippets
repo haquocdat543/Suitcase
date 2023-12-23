@@ -1,437 +1,659 @@
 #version 1
 #PREAMBLE
 #documentclass without options
-snippet dcl \documentclass{}
-	\\documentclass{${1:class}} ${0}
+snippet dcl "\documentclass{}" i
+\\documentclass{${1:class}} ${0}
+endsnippet
+
 #documentclass with options
-snippet dclo \documentclass[]{}
-	\\documentclass[${1:options}]{${2:class}} ${0}
+snippet dclo "\documentclass[]{}" i
+\\documentclass[${1:options}]{${2:class}} ${0}snippet tmplt "Template"
+endsnippet
 
-snippet tmplt "Template"
-	\\documentclass{${1:article}}
-
-	\\usepackage{import}
-	\\usepackage{pdfpages}
-	\\usepackage{transparent}
-	\\usepackage{xcolor}
-	$2
-	
-	\\newcommand{\incfig}[2][1]{%
-		    \def\svgwidth{#1\columnwidth}
-		    \import{./figures/}{#2.pdf_tex}
-	}
-	$3
-	\\pdfsuppresswarningpagegroup=1
-	
-	\\begin{document}
-		    $0
-	\\end{document}
+snippet tmplt "Template" i
+\\documentclass{${1:article}}
+\\usepackage{import}
+\\usepackage{pdfpages}
+\\usepackage{transparent}
+\\usepackage{xcolor}
+$2	
+\\newcommand{\incfig}[2][1]{%
+		   \def\svgwidth{#1\columnwidth}
+		   \import{./figures/}{#2.pdf_tex}
+}
+$3
+\\pdfsuppresswarningpagegroup=1	
+\\begin{document}
+		   $0
+\\end{document}
+endsnippet
 
 #newcommand
-snippet nc \newcommand
-	\\newcommand{\\${1:cmd}}[${2:opt}]{${3:realcmd}} ${0}
+snippet nc "\newcommand" i
+\\newcommand{\\${1:cmd}}[${2:opt}]{${3:realcmd}} ${0}
+endsnippet
+
 #usepackage
-snippet up \usepackage
-	\\usepackage[${1:options}]{${2:package}} ${0}
+snippet up "\usepackage" i
+\\usepackage[${1:options}]{${2:package}} ${0}
+endsnippet
+
 #newunicodechar
-snippet nuc \newunicodechar
-	\\newunicodechar{${1}}{${2:\\ensuremath}${3:tex-substitute}}} ${0}
+snippet nuc "\newunicodechar" i
+\\newunicodechar{${1}}{${2:\\ensuremath}${3:tex-substitute}}} ${0}
+endsnippet
+
 #DeclareMathOperator
-snippet dmo \DeclareMathOperator
-	\\DeclareMathOperator{${1}}{${2}} ${0}
+snippet dmo "\DeclareMathOperator" i
+\\DeclareMathOperator{${1}}{${2}} ${0}
+endsnippet
 
 #DOCUMENT
 # \begin{}...\end{}
-snippet begin \begin{} ... \end{} block
-	\\begin{${1:env}}
-		${0:${VISUAL}}
-	\\end{$1}
+snippet begin "\begin{} ... \end{} block" i
+\\begin{${1:env}}
+	${0:${VISUAL}}
+\\end{$1}
+endsnippet
 
 # Maketitle
-snippet mkt maketitle
-	\\maketitle
+snippet mkt "maketitle" i
+\\maketitle
+endsnippet
 	
 # Tabular
-snippet tab tabular (or arbitrary) environment
-	\\begin{${1:tabular}}{${2:c}}
-		${0:${VISUAL}}
-	\\end{$1}
-snippet thm thm (or arbitrary) environment with optional argument
-	\\begin[${1:author}]{${2:thm}}
-		${0:${VISUAL}}
-	\\end{$2}
-snippet center center environment
-	\\begin{center}
-		${0:${VISUAL}}
-	\\end{center}
+snippet tab "tabular (or arbitrary) environment" i
+\\begin{${1:tabular}}{${2:c}}
+	${0:${VISUAL}}
+\\end{$1}
+endsnippet
+
+snippet thm "thm (or arbitrary) environment with optional argument" i
+\\begin[${1:author}]{${2:thm}}
+	${0:${VISUAL}}
+\\end{$2}
+endsnippet
+
+snippet center "center environment" i
+\\begin{center}
+	${0:${VISUAL}}
+\\end{center}
+endsnippet
+
 # Align(ed)
-snippet ali align(ed) environment
-	\\begin{align${1:ed}}
-		\\label{eq:${2}}
-		${0:${VISUAL}}
-	\\end{align$1}
+snippet ali "align(ed) environment" i
+\\begin{align${1:ed}}
+	\\label{eq:${2}}
+	${0:${VISUAL}}
+\\end{align$1}
+endsnippet
+
 # Gather(ed)
-snippet gat gather(ed) environment
-	\\begin{gather${1:ed}}
-		${0:${VISUAL}}
-	\\end{gather$1}
+snippet gat "gather(ed) environment" i
+\\begin{gather${1:ed}}
+	${0:${VISUAL}}
+\\end{gather$1}
+endsnippet
+
 # Equation
-snippet eq equation environment
-	\\begin{equation}
-		${0:${VISUAL}}
-	\\end{equation}
+snippet eq "equation environment" i
+\\begin{equation}
+	${0:${VISUAL}}
+\\end{equation}
+endsnippet
+
 # Equation
-snippet eql Labeled equation environment
-	\\begin{equation}
-		\\label{eq:${2}}
-		${0:${VISUAL}}
-	\\end{equation}
+snippet eql "Labeled equation environment" i
+\\begin{equation}
+	\\label{eq:${2}}
+	${0:${VISUAL}}
+\\end{equation}
+endsnippet
+
 # Equation
-snippet eq* unnumbered equation environment
-	\\begin{equation*}
-		${0:${VISUAL}}
-	\\end{equation*}
+snippet eq* "unnumbered equation environment" i
+\\begin{equation*}
+	${0:${VISUAL}}
+\\end{equation*}
+endsnippet
+
 # Unnumbered Equation
-snippet \ unnumbered equation: \[ ... \]
-	\\[
-		${0:${VISUAL}}
-	\\]
+snippet \ "unnumbered equation: \[ ... \]" i
+\\[
+	${0:${VISUAL}}
+\\]
+endsnippet
+
 # Equation array
-snippet eqnarray eqnarray environment
-	\\begin{eqnarray}
-		${0:${VISUAL}}
-	\\end{eqnarray}
+snippet eqnarray "eqnarray environment" i
+\\begin{eqnarray}
+	${0:${VISUAL}}
+\\end{eqnarray}
+endsnippet
+
 # Label
-snippet lab \label
-	\\label{${1:eq:}${2:fig:}${3:tab:}${0}}
+snippet lab "\label" i
+\\label{${1:eq:}${2:fig:}${3:tab:}${0}}
+endsnippet
+
 # Enumerate
-snippet enum enumerate environment
-	\\begin{enumerate}
-		\\item ${0}
-	\\end{enumerate}
-snippet enuma enumerate environment
-	\\begin{enumerate}[(a)]
-		\\item ${0}
-	\\end{enumerate}
-snippet enumi enumerate environment
-	\\begin{enumerate}[(i)]
-		\\item ${0}
-	\\end{enumerate}
+snippet enum "enumerate environment" i
+\\begin{enumerate}
+	\\item ${0}
+\\end{enumerate}
+endsnippet
+
+snippet enuma "enumerate environment" i
+\\begin{enumerate}[(a)]
+	\\item ${0}
+\\end{enumerate}
+endsnippet
+
+snippet enumi "enumerate environment" i
+\\begin{enumerate}[(i)]
+	\\item ${0}
+\\end{enumerate}
+endsnippet
+
 # Itemize
-snippet item itemize environment
-	\\begin{itemize}
-		\\item ${0}
-	\\end{itemize}
-snippet it \item
-	\\item ${1:${VISUAL}}
+snippet item "itemize environment" i
+\\begin{itemize}
+	\\item ${0}
+\\end{itemize}
+endsnippet
+
+snippet it "\item" i
+\\item ${1:${VISUAL}}
+endsnippet
+
 # Description
-snippet desc description environment
-	\\begin{description}
-		\\item[${1}] ${0}
-	\\end{description}
+snippet desc "description environment" i
+\\begin{description}
+	\\item[${1}] ${0}
+\\end{description}
+endsnippet
+
 # Endless new item
-snippet ]i \item (recursive)
-	\\item ${1}
-		${0:]i}
+snippet ]i "\item (recursive)" i
+\\item ${1}
+	${0:]i}
+endsnippet
+
 # Matrix
-snippet mat smart matrix environment
-	\\begin{${1:p/b/v/V/B/small}matrix}
-		${0:${VISUAL}}
-	\\end{$1matrix}
+snippet mat "smart matrix environment" i
+\\begin{${1:p/i/v/V/B/small}matrix}
+	${0:${VISUAL}}
+\\end{$1matrix}
+endsnippet
+
 # Cases
-snippet cas cases environment
-	\\begin{cases}
-		${1:equation}, &\\text{ if }${2:case}\\
-		${0:${VISUAL}}
-	\\end{cases}
+snippet cas "cases environment" i
+\\begin{cases}
+	${1:equation}, &\\text{ if }${2:case}\\
+	${0:${VISUAL}}
+\\end{cases}
+endsnippet
+
 # Split
-snippet spl split environment
-	\\begin{split}
-		${0:${VISUAL}}
-	\\end{split}
+snippet spl "split environment" i
+\\begin{split}
+	${0:${VISUAL}}
+\\end{split}
+endsnippet
+
 # Part
-snippet part document \part
-	\\part{${1:part name}} % (fold)%
-	\\label{prt:${2:$1}}
-	${0}
-	% part $2 (end)
+snippet part "document \part" i
+\\part{${1:part name}} % (fold)%
+\\label{prt:${2:$1}}
+${0}
+% part $2 (end)
+endsnippet
+
 # Chapter
-snippet cha \chapter
-	\\chapter{${1:chapter name}}%
-	\\label{cha:${2:$1}}
-	${0}
+snippet cha "\chapter" i
+\\chapter{${1:chapter name}}%
+\\label{cha:${2:$1}}
+${0}
+endsnippet
+
 # Section
-snippet sec \section
-	\\section{${1:section name}}%
-	\\label{sec:${2:$1}}
-	${0}
+snippet sec "\section" i
+\\section{${1:section name}}%
+\\label{sec:${2:$1}}
+${0}
+endsnippet
+
 # Section without number
-snippet sec* \section*
-	\\section*{${1:section name}}%
-	\\label{sec:${2:$1}}
-	${0}
+snippet sec* "\section*" i
+\\section*{${1:section name}}%
+\\label{sec:${2:$1}}
+${0}
+endsnippet
+
 # Sub Section
-snippet sub \subsection
-	\\subsection{${1:subsection name}}%
-	\\label{sub:${2:$1}}
-	${0}
+snippet sub "\subsection" i
+\\subsection{${1:subsection name}}%
+\\label{sub:${2:$1}}
+${0}
+endsnippet
+
 # Sub Section without number
-snippet sub* \subsection*
-	\\subsection*{${1:subsection name}}%
-	\\label{sub:${2:$1}}
-	${0}
+snippet sub* "\subsection*" i
+\\subsection*{${1:subsection name}}%
+\\label{sub:${2:$1}}
+${0}
+endsnippet
+
 # Sub Sub Section
-snippet ssub \subsubsection
-	\\subsubsection{${1:subsubsection name}}%
-	\\label{ssub:${2:$1}}
-	${0}
+snippet ssub "\subsubsection" i
+\\subsubsection{${1:subsubsection name}}%
+\\label{ssub:${2:$1}}
+${0}
+endsnippet
+
 # Sub Sub Section without number
-snippet ssub* \subsubsection*
-	\\subsubsection*{${1:subsubsection name}}%
-	\\label{ssub:${2:$1}}
-	${0}
+snippet ssub* "\subsubsection*" i
+\\subsubsection*{${1:subsubsection name}}%
+\\label{ssub:${2:$1}}
+${0}
+endsnippet
+
 # Paragraph
-snippet par \paragraph
-	\\paragraph{${1:paragraph name}}%
-	\\label{par:${2:$1}}
-	${0}
+snippet par "\paragraph" i
+\\paragraph{${1:paragraph name}}%
+\\label{par:${2:$1}}
+${0}
+endsnippet
+
 # Sub Paragraph
-snippet subp \subparagraph
-	\\subparagraph{${1:subparagraph name}}%
-	\\label{subp:${2:$1}}
-	${0}
-snippet ni \noindent
-	\\noindent
-	${0}
+snippet subp "\subparagraph" i
+\\subparagraph{${1:subparagraph name}}%
+\\label{subp:${2:$1}}
+${0}
+endsnippet
+
+snippet ni "\noindent" i
+\\noindent
+${0}
+endsnippet
+
 #References
-snippet itd description \item
-	\\item[${1:description}] ${0:item}
-snippet figure reference to a figure
-	${1:Figure}~\\ref{${2:fig:}}
-snippet table reference to a table
-	${1:Table}~\\ref{${2:tab:}}
-snippet listing reference to a listing
-	${1:Listing}~\\ref{${2:list}}
-snippet section reference to a section
-	${1:Section}~\\ref{sec:${2}} ${0}
-snippet page reference to a page
-	${1:page}~\\pageref{${2}} ${0}
-snippet index \index
-	\\index{${1:index}} ${0}
+snippet itd "description \item" i
+\\item[${1:description}] ${0:item}
+endsnippet
+
+snippet figure "reference to a figure" i
+${1:Figure}~\\ref{${2:fig:}}
+endsnippet
+
+snippet table "reference to a table" i
+${1:Table}~\\ref{${2:tab:}}
+endsnippet
+
+snippet listing "reference to a listing" i
+${1:Listing}~\\ref{${2:list}}
+endsnippet
+
+snippet section "reference to a section" i
+${1:Section}~\\ref{sec:${2}} ${0}
+endsnippet
+
+snippet page "reference to a page" i
+${1:page}~\\pageref{${2}} ${0}
+endsnippet
+
+snippet index "\index" i
+\\index{${1:index}} ${0}
+endsnippet
+
 #Citations
-snippet citen \citen
-	\\citen{${1}} ${0}
+snippet citen "\citen" i
+\\citen{${1}} ${0}
+endsnippet
+
 # natbib citations
-snippet citep \citep
-	\\citep{${1}} ${0}
-snippet citet \citet
-	\\citet{${1}} ${0}
-snippet cite \cite[]{}
-	\\cite[${1}]{${2}} ${0}
-snippet citea \citeauthor
-	\\citeauthor{${1}} ${0}
-snippet citey \citeyear
-	\\citeyear{${1}} ${0}
-snippet fcite \footcite[]{}
-	\\footcite[${1}]{${2}}${0}
+snippet citep "\citep" i
+\\citep{${1}} ${0}
+endsnippet
+
+snippet citet "\citet" i
+\\citet{${1}} ${0}
+endsnippet
+
+snippet cite "\cite[]{}" i
+\\cite[${1}]{${2}} ${0}
+endsnippet
+
+snippet citea "\citeauthor" i
+\\citeauthor{${1}} ${0}
+endsnippet
+
+snippet citey "\citeyear" i
+\\citeyear{${1}} ${0}
+endsnippet
+
+snippet fcite "\footcite[]{}" i
+\\footcite[${1}]{${2}}${0}
+endsnippet
+
 #Formating text: italic, bold, underline, small capital, emphase ..
-snippet ita italic text
-	\\textit{${1:${VISUAL:text}}}${0}
-snippet bf bold face text
-	\\textbf{${1:${VISUAL:text}}}${0}
-snippet under underline text
-	\\underline{${1:${VISUAL:text}}}${0}
-snippet over overline text
-	\\overline{${1:${VISUAL:text}}}${0}
-snippet emp emphasize text
-	\\emph{${1:${VISUAL:text}}}${0}
-snippet sc small caps text
-	\\textsc{${1:${VISUAL:text}}}${0}
+snippet ita "italic text" i
+\\textit{${1:${VISUAL:text}}}${0}
+endsnippet
+
+snippet bf "bold face text" i
+\\textbf{${1:${VISUAL:text}}}${0}
+endsnippet
+
+snippet under "underline text" i
+\\underline{${1:${VISUAL:text}}}${0}
+endsnippet
+
+snippet over "overline text" i
+\\overline{${1:${VISUAL:text}}}${0}
+endsnippet
+
+snippet emp "emphasize text" i
+\\emph{${1:${VISUAL:text}}}${0}
+endsnippet
+
+snippet sc "small caps text" i
+\\textsc{${1:${VISUAL:text}}}${0}
+endsnippet
+
 #Choosing font
-snippet sf sans serife text
-	\\textsf{${1:${VISUAL:text}}}${0}
-snippet rm roman font text
-	\\textrm{${1:${VISUAL:text}}}${0}
-snippet tt typewriter (monospace) text
-	\\texttt{${1:${VISUAL:text}}}${0}
-snippet tsub subscripted text
-	\\textsubscript{${1:${VISUAL:text}}}${0}
-snippet tsup superscripted text
-	\\textsuperscript{${1:${VISUAL:text}}}${0}
+snippet sf "sans serife text" i
+\\textsf{${1:${VISUAL:text}}}${0}
+endsnippet
+
+snippet rm "roman font text" i
+\\textrm{${1:${VISUAL:text}}}${0}
+endsnippet
+
+snippet tt "typewriter (monospace) text" i
+\\texttt{${1:${VISUAL:text}}}${0}
+endsnippet
+
+snippet tsub "subscripted text" i
+\\textsubscript{${1:${VISUAL:text}}}${0}
+endsnippet
+
+snippet tsup "superscripted text" i
+\\textsuperscript{${1:${VISUAL:text}}}${0}
+endsnippet
+
 #Math font
-snippet mf mathfrak
-	\\mathfrak{${1:${VISUAL:text}}}${0}
-snippet mc mathcal
-	\\mathcal{${1:${VISUAL:text}}}${0}
-snippet ms mathscr
-	\\mathscr{${1:${VISUAL:text}}}${0}
+snippet mf "mathfrak" i
+\\mathfrak{${1:${VISUAL:text}}}${0}
+endsnippet
+
+snippet mc "mathcal" i
+\\mathcal{${1:${VISUAL:text}}}${0}
+endsnippet
+
+snippet ms "mathscr" i
+\\mathscr{${1:${VISUAL:text}}}${0}
+endsnippet
+
 #misc
-snippet ft \footnote
-	\\footnote{${1:${VISUAL:text}}}${0}
-snippet fig figure environment (includegraphics)
-	\\begin{figure}
-	\\begin{center}
-		\\includegraphics[scale=${1}]{Figures/${2}}
-	\\end{center}
-	\\caption{${3}}
-	\\label{fig:${4}}
-	\\end{figure}
-	${0}
-snippet tikz figure environment (tikzpicture)
-	\\begin{figure}[htpb]
-	\\begin{center}
-	\\begin{tikzpicture}[scale=${1:1}, transform shape]
-		${2}
-	\\end{tikzpicture}
-	\\end{center}
-	\\caption{${3}}%
-	\\label{fig:${4}}
-	\\end{figure}
-	${0}
-snippet subfig subfigure environment
-	\\begin{subfigure}[${1}]{${2:\\textwidth}}
-	\\begin{center}
-		${3}
-	\\end{center}
-	\\caption{${4}}
-	\\label{fig:${5}}
-	\\end{subfigure}
-	${0}
-snippet tikzcd tikzcd environment in equation
-	\\begin{equation}
-	\\begin{tikzcd}
-		${1}
-	\\end{tikzcd}
-	\\end{equation}
-	${0}
-snippet tikzcd* tikzcd environment in equation*
-	\\begin{equation*}
-	\\begin{tikzcd}
-		${1}
-	\\end{tikzcd}
-	\\end{equation*}
-	${0}
+snippet ft "\footnote" i
+\\footnote{${1:${VISUAL:text}}}${0}
+endsnippet
+
+snippet fig "figure environment (includegraphics)" i
+\\begin{figure}
+\\begin{center}
+	\\includegraphics[scale=${1}]{Figures/${2}}
+\\end{center}
+\\caption{${3}}
+\\label{fig:${4}}
+\\end{figure}
+${0}
+endsnippet
+
+snippet tikz "figure environment (tikzpicture)" i
+\\begin{figure}[htpb]
+\\begin{center}
+\\begin{tikzpicture}[scale=${1:1}, transform shape]
+	${2}
+\\end{tikzpicture}
+\\end{center}
+\\caption{${3}}%
+\\label{fig:${4}}
+\\end{figure}
+${0}
+endsnippet
+
+snippet subfig "subfigure environment" i
+\\begin{subfigure}[${1}]{${2:\\textwidth}}
+\\begin{center}
+	${3}
+\\end{center}
+\\caption{${4}}
+\\label{fig:${5}}
+\\end{subfigure}
+${0}
+endsnippet
+
+snippet tikzcd "tikzcd environment in equation" i
+\\begin{equation}
+\\begin{tikzcd}
+	${1}
+\\end{tikzcd}
+\\end{equation}
+${0}
+endsnippet
+
+snippet tikzcd* "tikzcd environment in equation*" i
+\\begin{equation*}
+\\begin{tikzcd}
+	${1}
+\\end{tikzcd}
+\\end{equation*}
+${0}
+endsnippet
+
 #math
-snippet stackrel \stackrel{}{}
-	\\stackrel{${1:above}}{${2:below}} ${0}
-snippet frac \frac{}{}
-	\\frac{${1:num}}{${2:denom}} ${0}
-snippet sum \sum^{}_{}
-	\\sum^{${1:n}}_{${2:i=1}} ${0}
-snippet lim \lim_{}
-	\\lim_{${1:n \\to \\infty}} ${0}
-snippet frame frame environment
-	\\begin{frame}[${1:t}]
-		\frametitle{${2:title}}
-		\framesubtitle{${3:subtitle}}
-		${0:${VISUAL}}
-	\\end{frame}
-snippet block block environment
-	\\begin{block}{${1:title}}
-		${0:${VISUAL}}
-	\\end{block}
-snippet alert alert text
-	\\alert{${1:${VISUAL:text}}} ${0}
-snippet alertblock alertblock environment
-	\\begin{alertblock}{${1:title}}
-		${0:${VISUAL}}
-	\\end{alertblock}
-snippet example exampleblock environment
-	\\begin{exampleblock}{${1:title}}
-		${0:${VISUAL}}
-	\\end{exampleblock}
-snippet col2 two-column environment
-	\\begin{columns}
-		\\begin{column}{0.5\\textwidth}
-			${1}
-		\\end{column}
-		\\begin{column}{0.5\\textwidth}
-			${0}
-		\\end{column}
-	\\end{columns}
-snippet multicol2 two-column environment with multicol
-	\\begin{multicols}{2}
+snippet stackrel "\stackrel{}{}" i
+\\stackrel{${1:above}}{${2:below}} ${0}
+endsnippet
+
+snippet frac "\frac{}{}" i
+\\frac{${1:num}}{${2:denom}} ${0}
+endsnippet
+
+snippet sum "\sum^{}_{}" i
+\\sum^{${1:n}}_{${2:i=1}} ${0}
+endsnippet
+
+snippet lim "\lim_{}" i
+\\lim_{${1:n \\to \\infty}} ${0}
+endsnippet
+
+snippet frame "frame environment" i
+\\begin{frame}[${1:t}]
+	\frametitle{${2:title}}
+	\framesubtitle{${3:subtitle}}
+	${0:${VISUAL}}
+\\end{frame}
+endsnippet
+
+snippet block "block environment" i
+\\begin{block}{${1:title}}
+	${0:${VISUAL}}
+\\end{block}
+endsnippet
+
+snippet alert "alert text" i
+\\alert{${1:${VISUAL:text}}} ${0}
+endsnippet
+
+snippet alertblock "alertblock environment" i
+\\begin{alertblock}{${1:title}}
+	${0:${VISUAL}}
+\\end{alertblock}
+endsnippet
+
+snippet example "exampleblock environment" i
+\\begin{exampleblock}{${1:title}}
+	${0:${VISUAL}}
+\\end{exampleblock}
+endsnippet
+
+snippet col2 "two-column environment" i
+\\begin{columns}
+	\\begin{column}{0.5\\textwidth}
 		${1}
-		\columnbreak
+	\\end{column}
+	\\begin{column}{0.5\\textwidth}
 		${0}
-	\\end{multicols}
-snippet \{ \{ \}
-	\\{ ${0} \\}
+	\\end{column}
+\\end{columns}
+endsnippet
+
+snippet multicol2 "two-column environment with multicol" i
+\\begin{multicols}{2}
+	${1}
+	\columnbreak
+	${0}
+\\end{multicols}
+endsnippet
+
+snippet \{ "\{ \}" i
+\\{ ${0} \\}
+endsnippet
+
 #delimiter
-snippet lr left right
-	\\left${1} ${0:${VISUAL}} \\right$1
-snippet lr( left( right)
-	\\left( ${0:${VISUAL}} \\right)
-snippet lr| left| right|
-	\\left| ${0:${VISUAL}} \\right|
-snippet lr{ left\{ right\}
-	\\left\\{ ${0:${VISUAL}} \\right\\}
-snippet lr[ left[ right]
-	\\left[ ${0:${VISUAL}} \\right]
-snippet lra langle rangle
-	\\langle ${0:${VISUAL}} \\rangle
+snippet lr "left right" i
+\\left${1} ${0:${VISUAL}} \\right$1
+endsnippet
+
+snippet lr( "left( right)" i
+\\left( ${0:${VISUAL}} \\right)
+endsnippet
+
+snippet lr| "left| right|" i
+\\left| ${0:${VISUAL}} \\right|
+endsnippet
+
+snippet lr{ "left\{ right\}" i
+\\left\\{ ${0:${VISUAL}} \\right\\}
+endsnippet
+
+snippet lr[ "left[ right]" i
+\\left[ ${0:${VISUAL}} \\right]
+endsnippet
+
+snippet lra "langle rangle" i
+\\langle ${0:${VISUAL}} \\rangle
+endsnippet
+
 # Code listings
-snippet lst
-	\\begin{listing}[language=${1:language}]
-		${0:${VISUAL}}
-	\\end{listing}
-snippet lsi
-	\\lstinline|${1}| ${0}
+snippet lst "???" i
+\\begin{listing}[language=${1:language}]
+	${0:${VISUAL}}
+\\end{listing}
+endsnippet
+
+snippet lsi "Test" i
+\\lstinline|${1}| ${0}
+endsnippet
+
 # Hyperlinks
-snippet url
-	\\url{${1}} ${0}
-snippet href
-	\\href{${1}}{${2}} ${0}
+snippet url "Test" i
+\\url{${1}} ${0}
+endsnippet
+
+snippet href "Test" i
+\\href{${1}}{${2}} ${0}
+endsnippet
+
 # URL from Clipboard.
-snippet urlc
-	\\url{`@+`} ${0}
-snippet hrefc
-	\\href{`@+`}{${1}} ${0}
+snippet urlc "Test" i
+\\url{`@+`} ${0}
+endsnippet
+
+snippet hrefc "Test" i
+\\href{`@+`}{${1}} ${0}
+endsnippet
+
 # enquote from package csquotes
-snippet enq enquote
-	\\enquote{${1:${VISUAL:text}}} ${0}
+snippet enq "enquote" i
+\\enquote{${1:${VISUAL:text}}} ${0}
+endsnippet
+
 # Time derivative
-snippet ddt time derivative
-	\\frac{d}{dt} {$1} {$0}
+snippet ddt "time derivative" i
+\\frac{d}{dt} {$1} {$0}
+endsnippet
+
 # Limit
-snippet lim limit
-	\\lim_{{$1}} {{$2}} {$0}
+snippet lim2 "limit" i
+\\lim_{{$1}} {{$2}} {$0}
+endsnippet
+
 # Partial derivative
-snippet pdv partial derivation
-	\\frac{\\partial {$1}}{\\partial {$2}} {$0}
+snippet pdv "partial derivation" i
+\\frac{\\partial {$1}}{\\partial {$2}} {$0}
+endsnippet
+
 # Second order partial derivative
-snippet ppdv second partial derivation
-	\\frac{\\partial^2 {$1}}{\\partial {$2} \\partial {$3}} {$0}
+snippet ppdv "second partial derivation" i
+\\frac{\\partial^2 {$1}}{\\partial {$2} \\partial {$3}} {$0}
+endsnippet
+
 # Ordinary derivative
-snippet dv derivative
-	\\frac{d {$1}}{d {$2}} {$0}
+snippet dv "derivative" i
+\\frac{d {$1}}{d {$2}} {$0}
+endsnippet
+
 # Summation
-snippet summ summation
-	\\sum_{{$1}} {$0}
+snippet summ "summation" i
+\\sum_{{$1}} {$0}
+endsnippet
+
 # Shorthand for time derivative
-snippet dot dot
-	\\dot{{$1}} {$0}
+snippet dot "dot" i
+\\dot{{$1}} {$0}
+endsnippet
+
 # Shorthand for second order time derivative
-snippet ddot ddot
-	\\ddot{{$1}} {$0}
+snippet ddot "ddot" i
+\\ddot{{$1}} {$0}
+endsnippet
+
 # Vector
-snippet vec vector
-	\\vec{{$1}} {$0}
+snippet vec "vector" i
+\\vec{{$1}} {$0}
+endsnippet
+
 # Bar
-snippet bar bar
-	\\bar{{$1}} {$0}
+snippet bar "bar" i
+\\bar{{$1}} {$0}
+endsnippet
+
 # Cross product
-snippet \x cross product
-	\\times {$0}
+snippet \x "cross product" i
+\\times {$0}
+endsnippet
+
 # Dot product
-snippet . dot product
-	\\cdot {$0}
+snippet . "dot product" i
+\\cdot {$0}
+endsnippet
+
 # Integral
-snippet int integral
-	\\int_{{$1}}^{{$2}} {$3} \\: d{$4} {$0}
+snippet int "integral" i
+\\int_{{$1}}^{{$2}} {$3} \\: d{$4} {$0}
+endsnippet
+
 # Right arrow
-snippet ra rightarrow
-	\\rightarrow {$0}
+snippet ra "rightarrow" i
+\\rightarrow {$0}
+endsnippet
+
 # Long right arrow
-snippet lra longrightarrow
-	\\longrightarrow {$0}
+snippet lra2 "longrightarrow" i
+\\longrightarrow {$0}
+endsnippet
+

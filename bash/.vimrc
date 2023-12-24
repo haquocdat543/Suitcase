@@ -1,5 +1,5 @@
 let mapleader = " "
-set viminfo='100,<1000,s100,h
+set viminfo='100,<1000000,s100000,h
 set history=200
 set paste
 set wrap

@@ -1,5 +1,15 @@
 #version 1
 #PREAMBLE
+snippet tcbl "tcb lower" b
+\tcblower
+endsnippet
+
+snippet bgt "Begin tcolorbox" b
+\begin{tcolorbox}[colback=${1:red}!${2:5}!${3:white},colframe=${4:red}!${5:75}!${6:black},title=${7:My Heading}]
+$8
+\end{tcolorbox}
+endsnippet
+
 snippet hf "Horizontall fill" i
 \hfill$1
 endsnippet

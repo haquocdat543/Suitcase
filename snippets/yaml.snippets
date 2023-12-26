@@ -87,6 +87,19 @@ snippet abf2 "Ansible builtin file remove" b
 ansible.builtin.file: dest=${1:./} state=${2:absent}
 endsnippet
 
+snippet abfd "Ansible builtin file find" b
+ansible.builtin.find:
+  paths: ${1:/}
+  patterns: ${1:*.log}
+endsnippet
+
+snippet abn "Ansible builtin npm" b
+npm:
+  name: ${1:forever}
+  state: ${1:state}
+  global: ${1:yes}
+endsnippet
+
 snippet abfe "Ansible builtin fetch file" b
 ansible.builtin.fetch: src=${1:./} dest=${2:./}
 endsnippet

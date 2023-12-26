@@ -17,6 +17,31 @@ snippet abs "Ansible builtin shell" b
 ansible.builtin.shell: ${1:command}
 endsnippet
 
+snippet absc "Ansible builtin script" b
+script: ${1:/}
+endsnippet
+
+snippet abr "Ansible builtin RPM" b
+ansible.builtin.rpm: 
+  key: ${1:rpm-link}
+  state: ${2:present}
+endsnippet
+
+snippet wi "with items" b
+with_items:
+  - ${1:src}: 
+    ${2:src}: 
+endsnippet
+
+snippet abcm "Ansible builtin command" b
+ansible.builtin.command: ${1:command}
+endsnippet
+
+snippet abcm2 "Ansible builtin command 2" b
+command: >
+  $1
+endsnippet
+
 snippet abu "Ansible builtin user create" b
 ansible.builtin.user: name=${1:foo} password=${2:password}
 endsnippet
@@ -25,8 +50,58 @@ snippet abu2 "Ansible builtin user delete" b
 ansible.builtin.user: name=${1:foo} state=${2:absent}
 endsnippet
 
+snippet abg "Ansible builtin group" b
+ansible.builtin.group: name=${1:admin} state=${2:present}
+endsnippet
+
+snippet abgu "Ansible builtin get url" b
+get_url: 
+  url: ${1:link}
+  dest: ${1:/}
+  checksum: ${1:/}
+endsnippet
+
+snippet abgi "Ansible builtin git" b
+git: 
+  repo: ${1:link}
+  version: ${1:8.x}
+  dest: ${1:/}
+endsnippet
+
+snippet abl "Ansible builtin lineinfile" b
+lineinfile: 
+  dest: ${1:/}
+  regexp: '${1:ENV_VAR=}'
+  line: "${1:ENV_VAR=value}"
+endsnippet
+
+snippet abst "Ansible builtin stat" b
+ansible.builtin.stat: path=${1:/etc/environment} 
+endsnippet
+
+snippet abf "Ansible builtin file" b
+ansible.builtin.file: src=${1:./} dest=${2:./}
+endsnippet
+
+snippet abf2 "Ansible builtin file remove" b
+ansible.builtin.file: dest=${1:./} state=${2:absent}
+endsnippet
+
+snippet abfe "Ansible builtin fetch file" b
+ansible.builtin.fetch: src=${1:./} dest=${2:./}
+endsnippet
+
 snippet abt "Ansible builtin template" b
-ansible.builtin.template: src=${1:./} dest=${2:./}
+ansible.builtin.template:
+  src: ${1:/}
+  dest: ${2:/}
+  owner: ${3:root}
+  group: ${4:root}
+  mode: ${5:0644}
+endsnippet
+
+snippet abc "Ansible builtin template" b
+ansible.builtin.cron: name=${1:jobname} hour=${2:4} job=${3:/}
 endsnippet
 
 snippet abur "Ansible builtin uri" b
@@ -1508,9 +1583,10 @@ Resources:
         Ref: mySubnet1,
         Ref: mySubnet2
         ]
+endsnippet
+
 snippet bs "Buildspec.yml" b
 version: 0.2
-endsnippet
 
 phases:
   install:

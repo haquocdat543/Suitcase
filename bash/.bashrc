@@ -525,6 +525,7 @@ alias angri='. ~/preconfig/Suitcase/bash/commands/roleInfo.sh'
 alias angrm='ansible-galaxy remove'
 alias ancfi='ansible-config init --disabled > ansible.cfg'
 alias ancfit='ansible-config init --disabled -t all > ansible.cfg'
+alias anve='ansible-vault encrypt'
 
 ### Vagrant command
 alias vgi='vagrant init'

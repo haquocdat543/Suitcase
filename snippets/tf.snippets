@@ -49,6 +49,13 @@ snippet tag "AWS Tag" b
   }
 endsnippet
 
+snippet op "Output" b
+output "$1" {
+  description = "$2"
+  value       = $3
+}
+endsnippet
+
 snippet eks "AWS EKS" b
 # Profile configuration
 provider "aws" {

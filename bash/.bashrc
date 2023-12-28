@@ -816,6 +816,7 @@ alias bi='brew install'
 ### Go command
 alias gor='go run'
 alias gom='go mod'
+alias gomv='go mod vendor'
 alias gomi='go mod init'
 alias gomt='go mod tidy'
 alias gob='go build'

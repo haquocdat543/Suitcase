@@ -8,3 +8,78 @@ func main() {
 }
 endsnippet
 
+snippet v "Go variable" b
+$1 := $2
+endsnippet
+
+snippet im "Go import" b
+import {
+${1:"fmt"}$2
+}
+endsnippet
+
+snippet stf "Go Stringify" b
+string($1)$2
+endsnippet
+
+snippet cm "Go Comment" i
+// 
+endsnippet
+
+snippet st "Go Struct" b
+type ${1:structName} struct {
+$2
+}
+endsnippet
+
+snippet v1 "Go var" b
+var $1 := $2
+endsnippet
+
+snippet v2 "Go var" b
+var $1 $2
+endsnippet
+
+snippet v3 "Go var equal" b
+var $1 $2 = $3
+endsnippet
+
+snippet v4 "Go var array" b
+var $1 = [${2:amount}]${3:type}{$4}$5
+endsnippet
+
+snippet pv "Percentage v" b
+%v
+endsnippet
+
+snippet pt "Percentage t" b
+%T
+endsnippet
+
+snippet c "Go constant" b
+const $1 := $2
+endsnippet
+
+snippet pr "Go print" b
+fmt.Println("${1:Hello, World!}")$2
+endsnippet
+
+snippet i1 "Go conditional statement" b
+if $1 {
+$2
+}
+endsnippet
+
+snippet f "Go Function" b
+func ${1:Name}(${2:parameters}) ${3:funcType} {
+$4
+}
+endsnippet
+
+snippet fr "Go Function return" b
+func ${1:Name}(${2:parameters}) ${3:funcType} {
+$4
+return $5
+}
+endsnippet
+

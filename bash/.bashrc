@@ -825,6 +825,7 @@ alias goe='go env'
 alias goep='go env GOPATH'
 alias goi='go install'
 alias gog='go get'
+alias goa='. ~/preconfig/Suitcase/bash/commands/goa.sh'
 
 ### cargo command
 alias cga='cargo add'

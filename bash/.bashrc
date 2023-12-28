@@ -819,6 +819,10 @@ alias gom='go mod'
 alias gomi='go mod init'
 alias gomt='go mod tidy'
 alias gob='go build'
+alias gobo='go build -o'
+alias goe='go env'
+alias goep='go env GOPATH'
+alias goi='go install'
 
 ### cargo command
 alias cga='cargo add'

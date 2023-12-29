@@ -83,3 +83,37 @@ return $5
 }
 endsnippet
 
+# GOCUI 
+snippet gquit "Gocui quit" b
+func quit(g *gocui.Gui, v *gocui.View) error {
+	return gocui.ErrQuit
+}
+endsnippet
+
+snippet gkey "Gocui key" b
+if err := g.SetKeybinding(${1:"hello"}, ${2:gocui.KeyCtrlC}, ${3:gocui.ModNone}, ${4:quit}); err != nil {
+	${5:log.Panicln(err)}
+}
+endsnippet
+
+snippet gview "Gocui view" b
+func ${1:layout}(g *gocui.Gui) error {
+	maxX, maxY := g.Size()
+	if v, err := g.SetView(${2:"hello"}, ${3:maxX/2-7}, ${4:maxY/2}, ${5:maxX/2+7}, ${6:maxY/2+2}); err != nil {
+		if err != gocui.ErrUnknownView {
+			return err
+		}
+		fmt.Fprintln(v, ${7:"Hello world!"})
+	}
+	return nil
+}
+endsnippet
+
+snippet gpr "Gocui print" b
+fmt.Fprintln(v, ${1:"Hello world!"})$2
+endsnippet
+
+snippet gti "Gocui title" b
+v.Title = ${1:"Commit"}
+endsnippet
+

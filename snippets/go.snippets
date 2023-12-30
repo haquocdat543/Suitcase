@@ -117,3 +117,14 @@ snippet gti "Gocui title" b
 v.Title = ${1:"Commit"}
 endsnippet
 
+snippet gkbd "Gocui keybinding" b
+func (gui *Gui) ${1:SetKeybindings}(g *gocui.Gui) error {
+
+	// Exit Keybinding q
+	if err := g.SetKeybinding("$2", nil, ${3:'q'}, gocui.ModNone, ${4:quit}); err != nil {
+		return err
+	}
+	return nil
+}
+endsnippet
+

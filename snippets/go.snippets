@@ -211,3 +211,15 @@ func (gui *Gui) onInfoClick(g *gocui.Gui, v *gocui.View) error {
 
 endsnippet
 
+snippet osge "Os get env" i
+os.Getenv("${1:GIT_DIR}")$2
+endsnippet
+
+snippet osse "Os set env" i
+os.Setenv("${1:GIT_DIR}", ${2:value})$3
+endsnippet
+
+snippet osue "Os unset env" i
+os.Unsetenv("${1:GIT_DIR}")$3
+endsnippet
+

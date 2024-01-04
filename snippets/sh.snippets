@@ -256,6 +256,10 @@ ${2:Content}
 EOF
 endsnippet
 
+snippet s5 "Sed type 5" b
+sed '/${1:Strint}/,$d' ${2:Path}
+endsnippet
+
 snippet hn "Set hostname" b
 hostnamectl set-hostname ${1:Sonarqube}
 endsnippet

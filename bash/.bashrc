@@ -898,6 +898,11 @@ alias virs='vi *.rs'
 alias ua='useradd'
 alias pw='passwd'
 
+### gaiad cosmos
+alias gaiai='gaiad init'
+alias gaias='gaiad start'
+alias gaiae='gaiad export'
+
 ### GPG key
 alias gpglk='gpg --list-keys'
 alias gpgfgk='gpg --full-generate-key'

@@ -307,6 +307,16 @@ echo -e "${1:Content}$2"
 $2
 endsnippet
 
+snippet arg "Argument" b
+${1:arg1}=$${2:1}
+endsnippet
+
+snippet fn "Func" b
+${1:funcName}(){
+$2
+}
+endsnippet
+
 snippet nd "Test" b
 if [ ! -d ${1:folderPath} ]
 then

@@ -579,7 +579,8 @@ alias tfdia='tfda ; tfi ; tfaa'
 
 ### Docker command
 
-alias do='docker'
+alias dk='docker'
+alias dki='docker init'
 alias dcp='docker-compose'
 alias dcpud='docker-compose up -d'
 alias dcpd='docker-compose down'

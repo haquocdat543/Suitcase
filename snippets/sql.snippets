@@ -80,6 +80,33 @@ CREATE TABLE ${1:TABLENAME}(
 );$3
 endsnippet
 
+snippet cv "CREATE VIEW" b
+CREATE VIEW ${1:VIEW_NAME} AS
+SELECT ${2:COLUMN1}
+FROM ${3:TABLE_NAME}
+WHERE ${4:CONDITION};$5
+endsnippet
+
+snippet corv "CREATE VIEW OR REPLACE" b
+CREATE OR REPLACE VIEW ${1:VIEW_NAME} AS
+SELECT ${2:COLUMN1}
+FROM ${3:TABLE_NAME}
+WHERE ${4:CONDITION};$5
+endsnippet
+
+snippet ci "CREATE INDEX" b
+CREATE INDEX ${1:IDX_LASTNAME}
+ON ${2:PERSONS} (${3:LASTNAME});$4
+endsnippet
+
+snippet dri "DROP INDEX" b
+DROP INDEX ${1:INDEX_NAME} ON ${2:TABLE_NAME};$3
+endsnippet
+
+snippet drv "DROP VIEW" b
+DROP VIEW ${1:BRAZIL};$2
+endsnippet
+
 snippet dt "DROP TABLE" b
 DROP TABLE ${1:TABLENAME}
 endsnippet
@@ -108,12 +135,20 @@ snippet cspk "CONSTRAINT PRIMARY KEY" b
 CONSTRAINT ${1:PK_GIANGDAY} PRIMARY KEY (${2:MALOP, MAMH)},$3
 endsnippet
 
+snippet csunq "CONSTRAINT UNIQUE" b
+CONSTRAINT ${1:PK_GIANGDAY} UNIQUE (${2:MALOP, MAMH)},$3
+endsnippet
+
 snippet in2 "INSERT" b
 insert into ${1:DIEUKIEN} (${2:'COLULMNNAME'}) values(${3:'CSDL','CTRR'})$4
 endsnippet
 
 snippet ins "INSERT" b
 insert into ${1:DIEUKIEN} values(${2:'CSDL','CTRR'})$3
+endsnippet
+
+snippet iit "INSERT INTO" b
+INSERT INTO ${1:TABLENAME}
 endsnippet
 
 snippet ata "ALTER TABLE ADD" b
@@ -130,6 +165,14 @@ endsnippet
 
 snippet atm "ALTER TABLE MODIFY" b
 ALTER TABLE ${1:HOCVIEN} MODIFY COLUMN ${2:COLUMNNAME} ${3:DATATYPE}
+endsnippet
+
+snippet idx "INDEX" i
+INDEX $1;$2
+endsnippet
+
+snippet cst "CONSTRAINT" i
+CONSTRAINT $1;$2
 endsnippet
 
 snippet v "VARIABLE" i
@@ -150,6 +193,10 @@ endsnippet
 
 snippet nbt "NOT BETWEEN" i
 NOT BETWEEN ${1:30000} AND ${1:40000}
+endsnippet
+
+snippet wt "WHEN THEN" i
+WHEN $1 THEN $2
 endsnippet
 
 snippet a "AND" i
@@ -180,8 +227,24 @@ snippet 6 "EXISTS" i
 EXISTS $1
 endsnippet
 
-snippet 7 "LIKE ( multi characters) ( _ single character ) ( [] set of character ) ( [a-f] range of character )" i
+snippet 7 "ANY" i
+ANY $1
+endsnippet
+
+snippet 8 "ALL" i
+ALL $1
+endsnippet
+
+snippet 9 "INTO" i
+INTO $1
+endsnippet
+
+snippet 10 "LIKE ( multi characters) ( _ single character ) ( [] set of character ) ( [a-f] range of character )" i
 LIKE ${1:'G%'}
+endsnippet
+
+snippet 11 "SOME" i
+SOME $1
 endsnippet
 
 snippet ne "NOT EXISTS" i
@@ -285,6 +348,28 @@ AS
   $4
 endsnippet
 
+snippet cp "CREATE PROCEDURE" b
+CREATE PROCEDURE ${1:PROCEDURE_NAME}
+AS
+${2:CODE}
+GO;
+endsnippet
+
+snippet cpp "CREATE PROCEDURE WITH PARAMS" b
+CREATE PROCEDURE ${1:PROCEDURE_NAME} @$2
+AS
+${3:CODE}
+GO;
+endsnippet
+
+snippet exp "EXEC WITH PARAMS" i
+EXEC ${1:CONTENT} @$2;$3
+endsnippet
+
+snippet ex "EXEC" i
+EXEC ${1:CONTENT};$2
+endsnippet
+
 snippet pr "PRINT" i
 PRINT '${1:CONTENT}'$2
 endsnippet
@@ -302,7 +387,7 @@ endsnippet
 snippet cse "CASE END" i
 CASE
   $1
-END
+END;
 endsnippet
 
 snippet s "SET" b
@@ -311,6 +396,10 @@ endsnippet
 
 snippet st "SET" b
 SET 
+endsnippet
+
+snippet dot "DOT" b
+$1.$2
 endsnippet
 
 snippet as "AS" b
@@ -331,5 +420,92 @@ endsnippet
 
 snippet avg "AVG" b
 AVG(${1:QUANTITY})$2
+endsnippet
+
+snippet gd "GETDATE FUNC" b
+GETDATE()
+endsnippet
+
+snippet ijo "INNER JOIN ON" b
+INNER JOIN $1 ON $2;
+endsnippet
+
+snippet ljo "LEFT JOIN ON" b
+LEFT JOIN $1 ON $2;
+endsnippet
+
+snippet rjo "RIGHT JOIN ON" b
+RIGHT JOIN $1 ON $2;
+endsnippet
+
+snippet fjo "FULL JOIN ON" b
+FULL JOIN $1 ON $2;
+endsnippet
+
+snippet uni "UNION" b
+UNION $2;
+endsnippet
+
+snippet unia "UNION ALL" b
+UNION ALL $1;
+endsnippet
+
+snippet hv "HAVING" b
+HAVING $1;
+endsnippet
+
+snippet isn "IS NULL FUNC" b
+ISNULL($1)$2
+endsnippet
+
+snippet ifn "IF NULL FUNC" b
+IFNULL($1)$2
+endsnippet
+
+snippet cle "COALESCE FUNC" b
+COALESCE($1)$2
+endsnippet
+
+snippet cm "COMMENT" b
+-- 
+endsnippet
+
+snippet cm2 "COMMENT TYPE 2" b
+/* $1 */$2
+endsnippet
+
+snippet bkd "BACKUP DATABASE" b
+BACKUP DATABASE ${1:DATABASENAME}
+TO DISK = '${2:FILEPATH}';$3
+endsnippet
+
+snippet bkdwd "BACKUP DATABASE WITH DIFFERENTIAL" b
+BACKUP DATABASE ${1:DATABASENAME}
+TO DISK = '${2:FILEPATH}';
+WITH DIFFERENTIAL;$3
+endsnippet
+
+snippet nn "NOT NULL" i
+NOT NULL 
+endsnippet
+
+snippet unq "UNIQUE" i
+UNIQUE
+endsnippet
+
+snippet pk "PRIMARY KEY" i
+PRIMARY KEY
+endsnippet
+
+snippet fkr "FOREIGN KEY REFERENCE" i
+FOREIGN KEY (${1:PersonID}) REFERENCES ${2:Persons}(${3:PersonID})
+endsnippet
+
+snippet chk "CHECK" i
+CHECK ($1)$2
+endsnippet
+
+snippet df "DEFAULT" i
+DEFAULT 
 endsnippet
 

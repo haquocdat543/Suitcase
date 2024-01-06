@@ -1,34 +1,327 @@
-snippet cd "Create Database" b
-CREATE DATABASE ${1:Name};
-$2
+snippet cd "CREATE DATABASE" b
+CREATE DATABASE ${1:NAME};$2
 endsnippet
 
-snippet sl "Select" b
-SELECT ${1:*} FROM ${2:Table}
-$3
+snippet dd "DROP DATABASE" b
+DROP DATABASE ${1:NAME};$2
 endsnippet
 
-snippet slw "Select From Where" b
+snippet u "USE" b
+USE ${1:QUANLYGIAOVU}
+endsnippet
+
+snippet sl "SELECT" b
+SELECT ${1:*} FROM ${2:Table};$3
+endsnippet
+
+snippet slw "SELECT FROM WHERE" b
 SELECT ${1:*} 
-FROM ${2:Table}
-WHERE ${3:Condition};
-$4
+FROM ${2:TABLE}
+WHERE ${3:CONDITION};$4
 endsnippet
 
-snippet ct "Create Table" b
-CREATE TABLE ${1:TableName}(
-	${2:Column} ${3:type} ${4:,}
-	$5
-);
-$6
+snippet sld "SELECT FROM DISTINCT" b
+SELECT DISTINCT ${1:COLUMNNAME}
+FROM ${2:TABLE}
 endsnippet
 
-snippet int "Integer" b
-${1:ColumnName} ${2:int} ${3:,}
-$4
+snippet  u "UPDATE" b
+UPDATE ${1:TABLENANE} 
 endsnippet
 
-snippet vc "Varchar" b
-${1:ColumnName} ${2:varchar( ${3:500})} ${4:,}
-$5
+snippet  us "UPDATE SET" b
+UPDATE ${1:TABLENANE} 
+SET ${2:MAP}
 endsnippet
+
+snippet  usw "UPDATE SET WHERE" b
+UPDATE ${1:TABLENANE} 
+SET ${2:MAP}
+WHERE ${3:CONDITION};$4
+endsnippet
+
+snippet slt "SELECT TOP" b
+SELECT TOP ${1:3} ${2:*}
+endsnippet
+
+snippet sltp "SELECT TOP PERCENTAGE" b
+SELECT TOP ${1:50} PERCENT *
+endsnippet
+
+snippet slaff "FETCH FIRST" b
+SELECT * FROM ${1:Customers}
+FETCH FIRST ${2:50} PERCENT ROWS ONLY;
+endsnippet
+
+snippet ff "FETCH FIRST" b
+FETCH FIRST ${1:50} PERCENT ROWS ONLY;
+endsnippet
+
+snippet lm "LIMIT" b
+LIMIT ${1:3}; 
+endsnippet
+
+snippet  f "FROM" b
+FROM ${1:TABLENANE};$2
+endsnippet
+
+snippet  df "DELETE FROM" b
+DELETE FROM ${1:TABLENANE};$2
+endsnippet
+
+snippet  dfw "DELETE FROM WHERE" b
+DELETE FROM ${1:TABLENANE} 
+WHERE ${3:CONDITION};$4
+endsnippet
+
+snippet ct "CREATE TABLE" b
+CREATE TABLE ${1:TABLENAME}(
+	$2
+);$3
+endsnippet
+
+snippet dt "DROP TABLE" b
+DROP TABLE ${1:TABLENAME}
+endsnippet
+
+snippet int "INTEGER" b
+${1:COLUMNNAME} INT,$2
+endsnippet
+
+snippet vc "VARCHAR" b
+${1:COLUMNNAME} VARCHAR(${2:500}),$3
+endsnippet
+
+snippet smdt "SMALL DATETIME" b
+${1:TUNGAY} SMALLDATETIME,$2
+endsnippet
+
+snippet nmr "NUMERIC" b
+${1:DIEM} NUMERIC(${2:4,2}),$3
+endsnippet
+
+snippet tint "TINYINT" b
+${1:LANTHI} TINYINT,$2
+endsnippet
+
+snippet cspk "CONSTRAINT PRIMARY KEY" b
+CONSTRAINT ${1:PK_GIANGDAY} PRIMARY KEY (${2:MALOP, MAMH)},$3
+endsnippet
+
+snippet in2 "INSERT" b
+insert into ${1:DIEUKIEN} (${2:'COLULMNNAME'}) values(${3:'CSDL','CTRR'})$4
+endsnippet
+
+snippet ins "INSERT" b
+insert into ${1:DIEUKIEN} values(${2:'CSDL','CTRR'})$3
+endsnippet
+
+snippet ata "ALTER TABLE ADD" b
+ALTER TABLE ${1:HOCVIEN} ADD $2
+endsnippet
+
+snippet atd "ALTER TABLE DROP COLUMN" b
+ALTER TABLE ${1:HOCVIEN} DROP COLUMN $2
+endsnippet
+
+snippet atr "ALTER TABLE RENAME" b
+ALTER TABLE ${1:HOCVIEN} RENAME COLUMN ${2:OLDCOLUMN} TO ${3:NEWCOLUMN}
+endsnippet
+
+snippet atm "ALTER TABLE MODIFY" b
+ALTER TABLE ${1:HOCVIEN} MODIFY COLUMN ${2:COLUMNNAME} ${3:DATATYPE}
+endsnippet
+
+snippet v "VARIABLE" i
+${1:NUOC} ${2:=} ${3:'VN'}
+endsnippet
+
+snippet v2 "VARIABLE" i
+${1:NUOC} = '${2:VN}'$3
+endsnippet
+
+snippet bt "BETWEEN" i
+BETWEEN ${1:30000} AND ${1:40000}
+endsnippet
+
+snippet a "AND" i
+AND $1
+endsnippet
+
+snippet 1 "AND" i
+AND $1
+endsnippet
+
+snippet 2 "OR" i
+OR $1
+endsnippet
+
+snippet 3 "NOT" i
+NOT $1
+endsnippet
+
+snippet 4 "WHEN" i
+WHEN $1
+endsnippet
+
+snippet 5 "THEN" i
+THEN $1
+endsnippet
+
+snippet 6 "EXISTS" i
+EXISTS $1
+endsnippet
+
+snippet 7 "LIKE ( multi characters) ( _ single character ) ( [] set of character ) ( [a-f] range of character )" i
+LIKE ${1:'G%'}
+endsnippet
+
+snippet ne "NOT EXISTS" i
+NOT EXISTS $1
+endsnippet
+
+snippet ni "NOT IN" i
+NOT IN $1
+endsnippet
+
+snippet in "IS NULL" i
+IS NULL 
+endsnippet
+
+snippet inn "IS NOT NULL" i
+IS NOT NULL 
+endsnippet
+
+snippet sq "SINGLE QUOTE" i
+'$1'$2
+endsnippet
+
+snippet dq "DOUBLE QUOTE" i
+"$1"$2
+endsnippet
+
+snippet cn "COUNT" i
+COUNT($1)$2
+endsnippet
+
+snippet dst "DISTINCT" i
+DISTINCT $1
+endsnippet
+
+snippet ine "NOT EXISTS" i
+IF NOT EXISTS $1
+endsnippet
+
+snippet p "PARENTHESIS" i
+(
+   $1
+)
+endsnippet
+
+snippet pl "PARENTHESIS ONE LINE" i
+($1)$2
+endsnippet
+
+snippet gb "GROUP BY" i
+GROUP BY ${1:COUNTRY}
+endsnippet
+
+snippet ob "ORDER BY" i
+ORDER BY ${1:COUNTRY}
+endsnippet
+
+snippet obd "ORDER BY DESC" i
+ORDER BY ${1:PRICE} DESC
+endsnippet
+
+snippet oba "ORDER BY ASC" i
+ORDER BY ${1:PRICE} ASC
+endsnippet
+
+snippet obb "ORDER BY ASC AND DESC" i
+ORDER BY ${1:COUNTRY} ASC, ${2:CUSTOMERNAME} DESC;$3
+endsnippet
+
+snippet d "DELETE" i
+DELETE
+endsnippet
+
+snippet i "INSERT" i
+INSERT
+endsnippet
+
+snippet u "UPDATE" i
+UPDATE
+endsnippet
+
+snippet di "DI" i
+DELETE, INSERT
+endsnippet
+
+snippet du "DU" i
+DELETE, UPDATE
+endsnippet
+
+snippet iu "IU" i
+INSERT, UPDATE
+endsnippet
+
+snippet diu "DIU" i
+DELETE, INSERT, UPDATE
+endsnippet
+
+snippet tg "TRIGGER" b
+CREATE TRIGGER ${1:TRIGGERNAME} ON ${2:TABLE}
+FOR {${3:DELETE, INSERT, UPDATE}}
+AS 
+  $4
+endsnippet
+
+snippet pr "PRINT" i
+PRINT '${1:CONTENT}'$2
+endsnippet
+
+snippet rbt "ROLLBACK TRANSACTION" i
+ROLLBACK TRANSACTION
+endsnippet
+
+snippet bge "BEGIN END" i
+BEGIN
+  $1
+END
+endsnippet
+
+snippet cse "CASE END" i
+CASE
+  $1
+END
+endsnippet
+
+snippet s "SET" b
+SET $1 = $2
+endsnippet
+
+snippet st "SET" b
+SET 
+endsnippet
+
+snippet as "AS" b
+AS [$1]$2
+endsnippet
+
+snippet mn "MIN" b
+MIN(${1:PRICE})$2
+endsnippet
+
+snippet mx "MAX" b
+MAX(${1:PRICE})$2
+endsnippet
+
+snippet sm "SUM" b
+SUM(${1:QUANTITY})$2
+endsnippet
+
+snippet avg "AVG" b
+AVG(${1:QUANTITY})$2
+endsnippet
+

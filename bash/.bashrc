@@ -887,6 +887,10 @@ alias gog='go get'
 alias goa='. ~/preconfig/Suitcase/bash/commands/goa.sh'
 
 ### cargo command
+alias gemi='gem install'
+alias gemitv='gem install travis'
+
+### cargo command
 alias cga='cargo add'
 alias cgn='cargo new'
 alias cgb='cargo build'

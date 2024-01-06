@@ -273,6 +273,7 @@ alias irustup="curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh"
 alias iosmosis='curl -sL https://get.osmosis.zone/install > i.py && python3 i.py'
 alias invm='curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash ; up1'
 alias igaiad='. ~/preconfig/Suitcase/bash/commands/gaiaInstall.sh'
+alias icccli='. ~/preconfig/Suitcase/bash/commands/circleCliInstall.sh'
 alias ijenkins='. ~/preconfig/Suitcase/bash/commands/jenkinInstall.sh'
 alias imysql='. ~/preconfig/Suitcase/bash/commands/amzLinuxMysql.sh'
 alias ikar='. ~/preconfig/Suitcase/bash/commands/ikubectlArgoRollouts.sh'
@@ -886,9 +887,12 @@ alias goi='go install'
 alias gog='go get'
 alias goa='. ~/preconfig/Suitcase/bash/commands/goa.sh'
 
-### cargo command
+### gem command
 alias gemi='gem install'
 alias gemitv='gem install travis'
+
+### circlecli command
+alias ccc='circlecli'
 
 ### cargo command
 alias cga='cargo add'

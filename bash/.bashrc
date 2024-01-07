@@ -370,6 +370,9 @@ alias a2iamdk='. ~/preconfig/Suitcase/bash/commands/iamDeleteKey.sh'
 alias a2dnmlt='aws dynamodb list-tables'
 alias a2deseps='aws ec2 describe-vpc-endpoint-services'
 alias a2desep='aws ec2 describe-vpc-endpoints'
+alias a2qlll='aws qldb list-ledgers'
+alias a2qldl='aws qldb delete-ledger --name'
+alias a2qldesl='aws qldb describe-ledger --name'
 
 ### Gitlab command
 alias glal='glab auth login'

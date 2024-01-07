@@ -367,6 +367,9 @@ alias a2ecrlr='aws ecr describe-repositories'
 alias a2iamlk='aws iam list-ssh-public-keys'
 alias a2iamulk='. ~/preconfig/Suitcase/bash/commands/iamUploadKey.sh'
 alias a2iamdk='. ~/preconfig/Suitcase/bash/commands/iamDeleteKey.sh'
+alias a2dnmlt='aws dynamodb list-tables'
+alias a2deseps='aws ec2 describe-vpc-endpoint-services'
+alias a2desep='aws ec2 describe-vpc-endpoints'
 
 ### Gitlab command
 alias glal='glab auth login'
@@ -914,6 +917,9 @@ alias pw='passwd'
 alias gaiai='gaiad init'
 alias gaias='gaiad start'
 alias gaiae='gaiad export'
+alias g4i='gaiad init'
+alias g4s='gaiad start'
+alias g4e='gaiad export'
 
 ### GPG key
 alias gpglk='gpg --list-keys'

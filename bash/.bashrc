@@ -932,6 +932,7 @@ alias gpgpw='gpg --passwd'
 alias gpgim='gpg --import'
 
 ### Other command
+alias sqlcn='. ~/preconfig/Suitcase/bash/commands/sqlConnect.sh'
 alias duh='sudo df -H'
 alias fdl='sudo fdisk -l'
 alias fdd='sudo fdisk'

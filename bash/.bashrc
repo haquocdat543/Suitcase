@@ -910,6 +910,8 @@ alias ccc='circlecli'
 alias rds='redis-server'
 alias rdc='redis-cli'
 alias rdb='redis-benchmark'
+alias rdcn='. ~/preconfig/Suitcase/bash/commands/redisConnect.sh'
+alias rdcnp='. ~/preconfig/Suitcase/bash/commands/redisConnectPassword.sh'
 
 ### cargo command
 alias cga='cargo add'

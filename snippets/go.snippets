@@ -236,3 +236,11 @@ snippet osue "Os unset env" i
 os.Unsetenv("${1:GIT_DIR}")$3
 endsnippet
 
+snippet exec "Os exec" b
+cmd := exec.Command(${1:"git", "status"})
+output, err := cmd.CombinedOutput()
+if err != nil {
+	return fmt.Errorf("error running '${2:git status}': %v", err)
+}$3
+endsnippet
+

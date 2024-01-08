@@ -276,6 +276,7 @@ alias iosmosis='curl -sL https://get.osmosis.zone/install > i.py && python3 i.py
 alias invm='curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash ; up1'
 alias igaiad='. ~/preconfig/Suitcase/bash/commands/gaiaInstall.sh'
 alias icccli='. ~/preconfig/Suitcase/bash/commands/circleCliInstall.sh'
+alias iredisfs='. ~/preconfig/Suitcase/bash/commands/redisInstallFromSource.sh'
 alias ijenkins='. ~/preconfig/Suitcase/bash/commands/jenkinInstall.sh'
 alias imysql='. ~/preconfig/Suitcase/bash/commands/amzLinuxMysql.sh'
 alias ikar='. ~/preconfig/Suitcase/bash/commands/ikubectlArgoRollouts.sh'

@@ -906,6 +906,11 @@ alias gemitv='gem install travis'
 ### circlecli command
 alias ccc='circlecli'
 
+### redis command
+alias rds='redis-server'
+alias rdc='redis-cli'
+alias rdb='redis-benchmark'
+
 ### cargo command
 alias cga='cargo add'
 alias cgn='cargo new'

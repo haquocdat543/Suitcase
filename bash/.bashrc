@@ -277,6 +277,7 @@ alias invm='curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/instal
 alias igaiad='. ~/preconfig/Suitcase/bash/commands/gaiaInstall.sh'
 alias icccli='. ~/preconfig/Suitcase/bash/commands/circleCliInstall.sh'
 alias iredisfs='. ~/preconfig/Suitcase/bash/commands/redisInstallFromSource.sh'
+alias ikom='. ~/preconfig/Suitcase/bash/commands/komposeInstall.sh'
 alias ijenkins='. ~/preconfig/Suitcase/bash/commands/jenkinInstall.sh'
 alias imysql='. ~/preconfig/Suitcase/bash/commands/amzLinuxMysql.sh'
 alias ikar='. ~/preconfig/Suitcase/bash/commands/ikubectlArgoRollouts.sh'

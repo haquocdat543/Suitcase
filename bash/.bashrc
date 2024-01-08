@@ -375,6 +375,8 @@ alias a2desep='aws ec2 describe-vpc-endpoints'
 alias a2qlll='aws qldb list-ledgers'
 alias a2qldl='aws qldb delete-ledger --name'
 alias a2qldesl='aws qldb describe-ledger --name'
+alias a2gci='aws sts get-caller-identity'
+alias a2gci2='aws account get-contact-information'
 
 ### Gitlab command
 alias glal='glab auth login'

@@ -844,8 +844,10 @@ alias lnfs='ln -f -s'
 
 ### Helm command
 alias vicy='vi ./Chart.yaml'
+alias hmcr='helm create'
 alias hmra='helm repo add'
 alias hmru='helm repo update'
+alias hmiv='. ~/preconfig/Suitcase/bash/commands/helmInstallValues.sh'
 alias hmi='helm install'
 alias hmu='helm upgrade'
 alias hiels='helm repo add elastic https://helm.elastic.co ; helm install elasticsearch elastic/elasticsearch'

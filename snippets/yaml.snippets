@@ -1423,6 +1423,134 @@ metrics:
     type: ${10:Loadbalancer}
 endsnippet
 
+snippet hrln "Helm Release Name" b
+.Release.Name
+endsnippet
+
+snippet hrlns "Helm Release Namespace" b
+.Release.Namespace
+endsnippet
+
+snippet hrliu "Helm Release Is Upgrade" b
+.Release.IsUpgrade
+endsnippet
+
+snippet hrlii "Helm Release Is Install" b
+.Release.IsInstall
+endsnippet
+
+snippet hrls "Helm Release Service" b
+.Release.Service
+endsnippet
+
+snippet hrlr "Helm Release Revision" b
+.Release.Revision
+endsnippet
+
+snippet hfg "Helm Files Get" b
+.Files.Get
+endsnippet
+
+snippet hfgb "Helm Files Get Bytes" b
+.Files.GetBytes
+endsnippet
+
+snippet hfgl "Helm Files Glob" b
+.Files.Glob
+endsnippet
+
+snippet hfl "Helm Files Lines" b
+.Files.Lines
+endsnippet
+
+snippet hfas "Helm Files As Secret" b
+.Files.AsSecret
+endsnippet
+
+snippet hfac "Helm Files As Config" b
+.Files.AsConfig
+endsnippet
+
+snippet hcav "Helm Capabilities API Version" b
+.Capabilities.APIVersions
+endsnippet
+
+snippet hcavh "Helm Capabilities API Version Has" b
+.Capabilities.APIVersions.Has $version
+endsnippet
+
+snippet hckv "Helm Capabilities KubeVersion" b
+.Capabilities.KubeVersion
+endsnippet
+
+snippet hcav "Helm Capabilities API Version" b
+.Files.Get
+endsnippet
+
+snippet hckvmj "Helm Capabilities KubeVersion Major" b
+.Capabilities.KubeVersion.Major
+endsnippet
+
+snippet hckvmi "Helm Capabilities KubeVersion Minor" b
+.Capabilities.KubeVersion.Minor
+endsnippet
+
+snippet htn "Helm Template Name" b
+.Template.Name
+endsnippet
+
+snippet htb "Helm Template Basepath" b
+.Template.Basepath
+endsnippet
+
+snippet hch "Helm Chart" b
+.Chart.
+endsnippet
+
+snippet hvl "Helm Values" b
+.Values.
+endsnippet
+
+snippet hfq "Helm Quote Function" b
+quote
+endsnippet
+
+snippet hfr "Helm Repeat Function" b
+repeat ${1:5}
+endsnippet
+
+snippet hfu "Helm Upper Function" b
+upper
+endsnippet
+
+snippet hfl "Helm Lower Function" b
+lower
+endsnippet
+
+snippet hfi "Helm Include Function" b
+include "$1"$2
+endsnippet
+
+snippet hfrq "Helm Require Function" b
+require "$1"$2
+endsnippet
+
+snippet hfin "Helm Indent Function" b
+indent ${1:5}
+endsnippet
+
+snippet hfni "Helm Nindent Function" b
+nindent ${1:5}
+endsnippet
+
+snippet hft "Helm ToYaml Function" b
+toYaml 
+endsnippet
+
+snippet hfd "Helm Default Function" b
+default "$1"$2
+endsnippet
+
 snippet 3 "Separation" b
 ___
 endsnippet

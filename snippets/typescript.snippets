@@ -1,0 +1,100 @@
+extends javascript
+
+snippet tconst "ts const" b
+const ${1}: ${2:any} = ${3};
+${0}
+endsnippet
+
+snippet tlet "ts let" b
+let ${1}: ${2:any} = ${3};
+${0}
+endsnippet
+
+snippet tvar "ts var" b
+var ${1}: ${2:any} = ${3};
+${0}
+endsnippet
+
+snippet + "ts create field" b
+${1}: ${0:any}
+endsnippet
+
+snippet #+ "ts create private field using #" b
+#${1}: ${0:any}
+endsnippet
+
+snippet tpfi "ts create public field" b
+public ${1}: ${0:any}
+endsnippet
+
+snippet tprfi "ts create private field" b
+private ${1}: ${0:any}
+endsnippet
+
+snippet tprofi "ts create protected field" b
+protected ${1}: ${0:any}
+endsnippet
+
+snippet int "interface" b
+interface ${1} {
+	${2}: ${3:any};
+	${0}
+}
+endsnippet
+
+snippet intx "interface extends" b
+interface ${1} extends ${2} {
+	${3}: ${4:any};
+	${0}
+}
+endsnippet
+
+snippet tfun "ts function" b
+function ${1}(${2}): ${3:any} {
+	${0}
+}
+endsnippet
+
+snippet tpmet "ts public method" b
+public ${1}(${2}): ${3:any} {
+	${0}
+}
+endsnippet
+
+snippet tpsmet "ts public static method" b
+public static ${1}(${2}): ${3:any} {
+	${0}
+}
+endsnippet
+
+snippet tprmet "ts private method" b
+private ${1}(${2}): ${3:any} {
+	${0}
+}
+endsnippet
+
+snippet tpromet "ts protected method" b
+protected ${1}(${2}): ${3:any} {
+	${0}
+}
+endsnippet
+
+snippet tcla "ts class" b
+class ${1} {
+	${2}
+	constructor(public ${3}: ${4: any}) {
+		${5}
+	}
+	${0}
+}
+endsnippet
+
+snippet tclax "ts class extends" b
+class ${1} extends ${2} {
+	${3}
+	constructor(public ${4}: ${5: any}) {
+		${6}
+	}
+	${0}
+}
+endsnippet

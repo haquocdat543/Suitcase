@@ -23,4 +23,4 @@ read -p "$(echo -e "Enter your ${yellow}helm ${green}folder${nc} [${green2}.${nc
 folder=${folder:-.}
 read -p "$(echo -e "Enter your ${yellow}file ${green}name${nc} [${green2}test.yaml${nc}]: ")" file
 file=${file:-test.yaml}
-helm template $name $folder $file
+helm template $name $folder > $file

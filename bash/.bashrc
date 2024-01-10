@@ -846,6 +846,10 @@ alias kd='kubectl delete -f'
 alias lns='ln -s'
 alias lnfs='ln -f -s'
 
+### Kustomization command
+alias mdkz='md base ; md overlay'
+alias vikz='vi ./kustomization.yaml'
+
 ### Helm command
 alias vicy='vi ./Chart.yaml'
 alias hmcr='helm create'

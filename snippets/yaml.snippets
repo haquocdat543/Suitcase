@@ -1551,6 +1551,14 @@ snippet hfd "Helm Default Function" b
 default "$1"$2
 endsnippet
 
+snippet kz "Kustomize" b
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - ${1:api-depl.yaml}
+endsnippet
+
 snippet 3 "Separation" b
 ___
 endsnippet

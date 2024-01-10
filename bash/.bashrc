@@ -847,8 +847,16 @@ alias lns='ln -s'
 alias lnfs='ln -f -s'
 
 ### Kustomization command
-alias mdkz='md base ; md overlay'
+alias mdkz='md base ; md overlays'
 alias vikz='vi ./kustomization.yaml'
+alias kzi='kustomize init'
+alias kzb='kustomize build'
+alias kzbc='kustomize build .'
+alias kze='kustomize edit'
+alias kzcfg='kustomize cfg'
+alias kzcr='kustomize create'
+alias kzcp='kustomize complete'
+alias kzfn='kustomize fn'
 
 ### Helm command
 alias vicy='vi ./Chart.yaml'

@@ -1559,6 +1559,115 @@ resources:
   - ${1:api-depl.yaml}
 endsnippet
 
+snippet kzns "Kustomize namspace" b
+namespace: ${1:your-namespace}
+endsnippet
+
+snippet kzim "Kustomize images" b
+images:
+  - name: ${1:httpd}
+    newName: ${2:nginx}
+    newTag: ${3:1.21.0}
+endsnippet
+
+snippet kznpf "Kustomize Name Prefix" b
+namePrefix: ${1:LAB-}
+endsnippet
+
+snippet kznsf "Kustomize Name Suffix" b
+nameSuffix: ${1:-dev}
+endsnippet
+
+snippet kzpf "Kustomize Prefix" b
+Prefix: ${1:LAB-}
+endsnippet
+
+snippet kzsf "Kustomize Suffix" b
+Suffix: ${1:-dev}
+endsnippet
+
+snippet kzca "Kustomize Annotation" b
+commonAnnotations:
+  ${1:branch}: ${2:master}
+endsnippet
+
+snippet kzcl "Kustomize Labels" b
+commonLabels:
+  ${1:name}: ${2:value}
+endsnippet
+
+snippet kzb "Kustomize bases" b
+bases:
+  - ${1:../../base}
+endsnippet
+
+snippet kzcp "Kustomize components" b
+components:
+  - ${1:../../components/external_db}
+endsnippet
+
+snippet kzp "Kustomize patch" b
+patches:
+  - target:
+      kind: ${1:Deployment}
+      name: ${2:nginx-api}
+    patch: |-
+      - op: ${3:replace} # replace, delete, add
+        path: ${4:/spec/replicas}
+        value: ${5:10}
+endsnippet
+
+snippet 3 "Separation" b
+___
+endsnippet
+
+### DOCKER
+
+### AWS
+
+snippet cfneks "Cloudformation EKS" b
+---
+Outputs:
+  EksClusterEndpoint:
+    Description: Eks cluster endpoint
+    Value: !GetAtt EKSCluster.Endpoint
+    Export:
+      Name: !Sub "${AWS::StackName}-EKSCluster-Endpoint"
+  Arn:
+    Value: !GetAtt EKSCluster.Arn
+Resources:
+  myVPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: ${1:10.0.0.0/16}
+      EnableDnsSupport: 'true'
+      EnableDnsHostnames: 'true'
+      Tags:
+       - Key: name
+         Value: production
+  mySubnet1:
+    Type: AWS::EC2::Subnet
+    Properties:
+      MapPublicIpOnLaunch: true
+      VpcId:
+        Ref: myVPC
+      CidrBlock: ${2:10.0.0.0/24}
+      AvailabilityZone: "${3:ap-northeast-1a"}
+      Tags:
+      - Key: name
+        Value: production
+  mySubnet2:
+    Type: AWS::EC2::Subnet
+    Properties:
+      MapPublicIpOnLaunch: true
+      VpcId:
+        Ref: myVPC
+      CidrBlock: ${4:10.0.1.0/24}
+      AvailabilityZone: "${5:ap-northeast-1c}"
+      Tags:
+      - Key: name
+        Value: production
+  myInternetGateway:
 snippet 3 "Separation" b
 ___
 endsnippet

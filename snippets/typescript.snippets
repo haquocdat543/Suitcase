@@ -98,3 +98,15 @@ class ${1} extends ${2} {
 	${0}
 }
 endsnippet
+
+snippet ex "Test" b
+export const ${1:kubeconfig} = ${2:cluster}.${1:kubeconfig};$4
+endsnippet
+
+snippet im "Import" b
+import * as ${1:eks} from "@${2:pulumi/eks}";$3
+endsnippet
+
+snippet csn "Constant new" b
+const ${1:cluster} = new ${2:eks.Cluster("eks-cluster")};
+endsnippet

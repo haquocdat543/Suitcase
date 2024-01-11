@@ -100,7 +100,7 @@ sudo systemctl start prometheus
 $1
 endsnippet
 
-snippet ugra "Ubuntu grafana" b
+snippet ugra "Ubuntu Grafana" b
 # Grafana
 sudo apt-get install -y apt-transport-https software-properties-common
 wget -q -O - https://packages.grafana.com/gpg.key | sudo apt-key add -
@@ -113,7 +113,7 @@ sudo systemctl start grafana-server
 $1
 endsnippet
 
-snippet unex "Ubuntu node_exporter" 
+snippet unex "Ubuntu Node_exporter" 
 # Node Exporter
 sudo useradd \
     --system \
@@ -161,7 +161,6 @@ curl -X POST http://localhost:9090/-/reload
 $1
 endsnippet
 
-
 snippet cenjk "Centos jenkins" b
 sudo yum update –y
 sudo wget -O /etc/yum.repos.d/jenkins.repo \
@@ -187,7 +186,7 @@ sudo systemctl start jenkins
 $1
 endsnippet
 
-snippet ujava "Test" b
+snippet ujava "Ubuntu Java" b
 # Install Java
 sudo apt update -y
 wget -O - https://packages.adoptium.net/artifactory/api/gpg/key/public | tee /etc/apt/keyrings/adoptium.asc
@@ -198,7 +197,7 @@ sudo apt install temurin-17-jdk -y
 $1
 endsnippet
 
-snippet utv "Test" b
+snippet utv "Ubuntu Trivy" b
 # install trivy
 sudo apt-get install wget apt-transport-https gnupg lsb-release -y
 wget -qO - https://aquasecurity.github.io/trivy-repo/deb/public.key | gpg --dearmor | sudo tee /usr/share/keyrings/trivy.gpg > /dev/null
@@ -209,7 +208,7 @@ sudo apt-get install trivy -y
 $1
 endsnippet
 
-snippet udk "Test" b
+snippet udk "Ubuntu Docker" b
 # Install Docker
 sudo apt-get update
 sudo apt-get install docker.io -y
@@ -220,7 +219,7 @@ sudo chmod 777 /var/run/docker.sock
 $1
 endsnippet
 
-snippet usonar "Test" b
+snippet usonar "Ubuntu Sonarqube" b
 # Install Docker and Sonarqube
 sudo apt-get update
 sudo apt-get install docker.io -y
@@ -228,6 +227,18 @@ sudo usermod -aG docker ubuntu
 newgrp docker
 sudo chmod 777 /var/run/docker.sock
 docker run -d --name sonar -p 9000:9000 sonarqube:lts-community
+
+$1
+endsnippet
+
+snippet urbmq "Ubuntu Rabbitmq" b
+# Install Docker and Rabbitmq
+sudo apt-get update
+sudo apt-get install docker.io -y
+sudo usermod -aG docker ubuntu
+newgrp docker
+sudo chmod 777 /var/run/docker.sock
+docker run -d --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:3.12-management
 
 $1
 endsnippet

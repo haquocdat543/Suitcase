@@ -54,3 +54,53 @@ snippet mongoURI "mongoURI" b
 	"mongoURI":"$1"
 }
 endsnippet
+
+snippet q "backtick Quote" b
+`$1`$2
+endsnippet
+
+snippet av "Ansible like variable" b
+{{$1}}$2
+endsnippet
+
+snippet avq "Ansible like variable with quote" b
+"{{$1}}"$2
+endsnippet
+
+snippet pkr "Packer" b
+{
+    "builders": [
+      {
+        "type": "amazon-ebs",
+        "access_key": "access",
+        "secret_key": "secret",
+        "region": "ap-northeast-1",
+        "ami_name": "ami-name",
+        "source_ami": "ami-07c589821f2b353aa",
+        "instance_type": "t2.micro",
+        "ssh_username": "ec2-user"
+      }
+    ],
+    "provisioners": [
+      {
+        "type": "shell",
+        "inline": [
+        "sudo apt-get update -y",
+	"sudo apt-get install -y rabbitmq-server",
+	"sudo systemctl enable rabbitmq-server",
+	"sudo systemctl start rabbitmq-server"
+        ]
+      },
+      {
+        "type": "file",
+        "source": "index.html",
+        "destination": "/tmp/app.tar.gz"
+      },
+      {
+        "type": "shell",
+        "script": "k8s.sh"
+      }
+   ]
+}
+endsnippet
+

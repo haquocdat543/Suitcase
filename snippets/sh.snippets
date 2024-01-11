@@ -219,7 +219,7 @@ sudo chmod 777 /var/run/docker.sock
 $1
 endsnippet
 
-snippet usonar "Ubuntu Sonarqube" b
+snippet udksonar "Ubuntu Sonarqube on Docker" b
 # Install Docker and Sonarqube
 sudo apt-get update
 sudo apt-get install docker.io -y
@@ -231,7 +231,14 @@ docker run -d --name sonar -p 9000:9000 sonarqube:lts-community
 $1
 endsnippet
 
-snippet urbmq "Ubuntu Rabbitmq" b
+snippet urbmq "Ubuntu rabbitmq" b
+sudo apt-get update -y
+sudo apt-get install -y rabbitmq-server
+sudo systemctl enable rabbitmq-server
+sudo systemctl start rabbitmq-server
+endsnippet
+
+snippet udkrbmq "Ubuntu Rabbitmq on Docker" b
 # Install Docker and Rabbitmq
 sudo apt-get update
 sudo apt-get install docker.io -y

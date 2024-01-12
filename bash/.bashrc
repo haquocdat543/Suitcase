@@ -332,6 +332,9 @@ alias a2ec2li='aws ec2 describe-instances --query 'Reservations[*].Instances[*].
 alias a2ec2di='aws ec2 describe-instances'
 alias a2ec2leni='aws ec2 describe-network-interfaces'
 alias a2ec2deni='aws ec2 delete-network-interface --network-interface-id'
+alias a2ec2desi='aws ec2 describe-images'
+alias a2ec2dri='aws ec2 deregister-image --image-id'
+alias a2ec2dsi='aws ec2 disable-image --image-id'
 alias a2s3lb='aws s3api list-buckets'
 alias a2s3cb='aws s3api create-bucket --bucket'
 alias a2s3db='aws s3api delete-bucket --bucket'
@@ -606,9 +609,12 @@ alias plmds='pulumi destroy -s'
 alias plmcs='pulumi config set'
 
 ### Packer command
+alias pki='packer init'
 alias pkb='packer build'
 alias pkbc='packer build .'
 alias pkbv='packer build -var'
+alias pkpi='packer plugins install'
+alias pkpia='packer plugins install github.com/hashicorp/amazon'
 
 ### Terraform command
 alias tfc='. ~/preconfig/Suitcase/bash/commands/clean.sh'

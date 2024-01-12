@@ -1,0 +1,78 @@
+snippet v "Packer variable" b
+variable "${1:ami_id}" {
+  type    = ${2:string}
+  default = "${3:ami-07c589821f2b353aa}"
+}$4
+endsnippet
+
+snippet l "Packer local" b
+locals {
+    ${1:app_name} = "${2:httpd}"
+}
+endsnippet
+
+snippet s "Packer source" b
+source "${1:amazon-ebs}" "${2:httpd}" {
+  ami_name      = "${local.app_name}"
+  instance_type = "t2.micro"
+  region        = "ap-northeast-1"
+  source_ami    = "${var.ami_id}"
+  ssh_username  = "ec2-user"
+  tags = {
+    Env  = "${3:DEV}"
+    Name = "${4:${local.app_name}}"
+  }
+}$5
+endsnippet
+
+snippet b "Packer build" b
+build {
+  sources = ["${1:source.amazon-ebs.httpd}"]
+
+  provisioner "${2:shell}" {
+    script = "${3:script/script.sh}"
+  }
+
+  post-processor "${4:shell-local}" {
+    inline = ["${5:echo foo}"]
+  }
+}$6
+
+endsnippet
+
+snippet pkr "Packer example" b
+variable "ami_id" {
+  type    = string
+  default = "ami-07c589821f2b353aa"
+}
+
+locals {
+    app_name = "httpd"
+}
+
+source "amazon-ebs" "httpd" {
+  ami_name      = "PACKER-DEMO-${local.app_name}"
+  instance_type = "t2.micro"
+  region        = "us-west-2"
+  source_ami    = "${var.ami_id}"
+  ssh_username  = "ec2-user"
+  tags = {
+    Env  = "DEMO"
+    Name = "PACKER-DEMO-${local.app_name}"
+  }
+}
+
+build {
+  sources = ["source.amazon-ebs.httpd"]
+
+  provisioner "shell" {
+    script = "script/script.sh"
+  }
+
+  post-processor "shell-local" {
+    inline = ["echo foo"]
+  }
+}
+
+endsnippet
+

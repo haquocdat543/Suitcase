@@ -1,3 +1,15 @@
+snippet pl "Packer plugin" b
+packer {
+  required_plugins {
+    amazon = {
+      source  = "github.com/hashicorp/amazon"
+      version = "~> 1"
+    }
+  }
+}
+
+endsnippet
+
 snippet v "Packer variable" b
 variable "${1:ami_id}" {
   type    = ${2:string}

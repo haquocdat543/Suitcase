@@ -26,13 +26,13 @@ endsnippet
 snippet s "Packer source" b
 source "${1:amazon-ebs}" "${2:httpd}" {
   ami_name      = "${local.app_name}"
-  instance_type = "t2.micro"
-  region        = "ap-northeast-1"
+  instance_type = "${3:t2.micro}"
+  region        = "${4:ap-northeast-1}"
   source_ami    = "${var.ami_id}"
-  ssh_username  = "ec2-user"
+  ssh_username  = "${5:ec2-user}"
   tags = {
-    Env  = "${3:DEV}"
-    Name = "${4:${local.app_name}}"
+    Env  = "${6:DEV}"
+    Name = "${7:${local.app_name}}"
   }
 }$5
 endsnippet
@@ -63,14 +63,14 @@ locals {
 }
 
 source "amazon-ebs" "httpd" {
-  ami_name      = "PACKER-DEMO-${local.app_name}"
+  ami_name      = "${local.app_name}"
   instance_type = "t2.micro"
-  region        = "us-west-2"
+  region        = "ap-northeast-1"
   source_ami    = "${var.ami_id}"
-  ssh_username  = "ec2-user"
+  ssh_username  = "ubuntu"
   tags = {
-    Env  = "DEMO"
-    Name = "PACKER-DEMO-${local.app_name}"
+    Env  = "DEV"
+    Name = "${local.app_name}"
   }
 }
 

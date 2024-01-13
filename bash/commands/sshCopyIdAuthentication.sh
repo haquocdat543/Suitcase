@@ -17,13 +17,13 @@ purple2='\033[1;35m'
 cyan2='\033[1;36m'
 white='\033[1;37m'
 nc='\033[0m' # No Color
-read -p "$(echo -e "Enter your ${yellow}public ${green}key${nc} in${purple2}~/.ssh${nc} [${green2}id_rsa.pub${nc}]: ")" public
+read -p "$(echo -e "Enter your ${yellow}public ${green}key${nc} in${purple2} ~/.ssh${nc} [${green2}id_rsa.pub${nc}]: ")" public
  public=${public:-id_rsa.pub}
-read -p "$(echo -e "Enter your ${yellow}authentication ${green}key${nc} in${purple2}~/.ssh${nc} [${green2}master_rsa${nc}]: ")" authentication
+read -p "$(echo -e "Enter your ${yellow}authentication ${green}key${nc} in${purple2} ~/.ssh${nc} [${green2}master_rsa${nc}]: ")" authentication
  authentication=${authentication:-id_rsa.pub}
  read -p "$(echo -e "Enter your login ${yellow}username${nc} [${green2}ec2-user${nc}]: ")" username
  username=${username:-ec2-user}
- read -p "$(echo -e "Enter your server${yellow}Dns/Ip${nc} [${green2}hadoop1${nc}]: ")" dns
+ read -p "$(echo -e "Enter your server${yellow} Dns/Ip${nc} [${green2}hadoop1${nc}]: ")" dns
  dns=${dns:-hadoop1}
  
 cat ~/.ssh/$public | ssh -i ~/.ssh/$authentication $username@$dns 'mkdir -p ~/.ssh && cat >> ~/.ssh/authorized_keys'

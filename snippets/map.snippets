@@ -1,0 +1,26 @@
+snippet map "Linker Map" b
+Memory Configuration
+
+ .text           0x00400000      0x2000
+ .data           0x00401000       0x400
+ .bss            0x00402000       0x200
+ .rodata         0x00403000       0x300
+ ...
+
+Sections:
+
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         0x001000  0x00400000  0x00400000  0x00001000  2**12
+                  CONTENTS, ALLOC, LOAD, RELOC, READONLY, CODE
+  1 .data         0x000400  0x00401000  0x00401000  0x00002000  2**12
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .bss          0x000200  0x00402000  0x00402000  0x00003000  2**12
+                  ALLOC
+  3 .rodata       0x000300  0x00403000  0x00403000  0x00000000  2**12
+                  CONTENTS, ALLOC, LOAD, READONLY, DATA
+
+Symbol table '.symtab' contains 18 entries:
+
+...
+endsnippet
+

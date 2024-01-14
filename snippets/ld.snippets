@@ -1,0 +1,38 @@
+snippet ld "Linker script" b
+/* Simple Linker Script for x86_64 */
+
+ENTRY(main); /* Entry point is the main function */
+
+SECTIONS {
+    /* Section containing executable code */
+    .text : {
+        *(.text)  /* Include all text sections from input files */
+    }
+
+    /* Section containing read-only data */
+    .rodata : {
+        *(.rodata)  /* Include all read-only data sections */
+    }
+
+    /* Section containing initialized data */
+    .data : {
+        *(.data)  /* Include all initialized data sections */
+    }
+
+    /* Section containing uninitialized data */
+    .bss : {
+        *(.bss)  /* Include all uninitialized data sections */
+    }
+
+    /* Section for dynamic linking information */
+    .dynamic : {
+        *(.dynamic)  /* Include the dynamic section */
+    }
+
+    /* Section for debugging information */
+    .debug : {
+        *(.debug)  /* Include debugging information */
+    }
+}
+endsnippet
+

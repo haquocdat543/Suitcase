@@ -254,6 +254,7 @@ alias mnode='. ~/preconfig/Suitcase/bash/k8s-ami.sh'
 
 ### Documentation
 alias dock8s='vi -m ~/preconfig/Suitcase/bash/docs/dock8s.md'
+alias docgcc='vi -m ~/preconfig/Suitcase/bash/docs/gcc.md'
 alias dochelm='vi -m ~/preconfig/Suitcase/bash/docs/dochelm.md'
 alias docsql='vi -m ~/preconfig/Suitcase/bash/docs/docsql.md'
 alias docfzf='vi -m ~/preconfig/Suitcase/bash/docs/fzf.md'

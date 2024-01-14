@@ -32,6 +32,7 @@
 * -o ( Specify output )
 * -v ( Print verbose information )
 * -Wl ( Pass option linker )
+* -save-temps ( preserve .o .i .s files )
 ### 2. Target architecture
 ```
 gcc -march=x86-64 -mtune=generic -o output_file source_file.c

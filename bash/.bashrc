@@ -1016,6 +1016,12 @@ alias rdcn='. ~/preconfig/Suitcase/bash/commands/redisConnect.sh'
 alias rdcnp='. ~/preconfig/Suitcase/bash/commands/redisConnectPassword.sh'
 
 ### cargo command
+alias gcce='gcc -E'
+alias gccs='gcc -S'
+alias gccc='gcc -c'
+alias gcco='gcc -o'
+
+### cargo command
 alias cga='cargo add'
 alias cgn='cargo new'
 alias cgb='cargo build'

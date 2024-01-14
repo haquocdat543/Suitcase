@@ -33,6 +33,12 @@
 * -v ( Print verbose information )
 * -Wl ( Pass option linker )
 ### 2. Target architecture
+```
+gcc -march=x86-64 -mtune=generic -o output_file source_file.c
+```
+* mtune values can be: generic, native, core2, corei7, athlon 
+
+### 3. Target architecture
 * For x86 architecture:
 ```
 gcc -march=i386

@@ -4,6 +4,10 @@ snippet init "Automake init" b
 AC_INIT([${1:myproject}], [1.0], [bugs@${2:myproject}.org])$3
 endsnippet
 
+snippet aia "AM INIT AUTOMAKE" b
+AM_INIT_AUTOMAKE([$1])$2
+endsnippet
+
 snippet csd "Config source dir" b
 AC_CONFIG_SRCDIR([${1:src/main.c}])$2
 endsnippet

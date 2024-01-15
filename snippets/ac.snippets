@@ -1,0 +1,51 @@
+snippet init "Automake init" b
+AC_INIT([${1:myproject}], [1.0], [bugs@${2:myproject}.org])$3
+endsnippet
+
+snippet csd "Config source dir" b
+AC_CONFIG_SRCDIR([${1:src/main.c}])$2
+endsnippet
+
+snippet ch "Config header" b
+C_CONFIG_HEADERS([${1:config.h}])$2
+endsnippet
+
+snippet l "language" b
+AC_LANG([${1:C}])$2
+endsnippet
+
+snippet pr "Prog" b
+AC_PROG_CC$1
+endsnippet
+
+snippet cf "Config files" b
+AC_CONFIG_FILES([${1:Makefile src/Makefile}])$2
+endsnippet
+
+snippet o "Output" b
+AC_OUTPUT$1
+endsnippet
+
+snippet ccl "Custom check lib" b
+AC_CHECK_LIB([m], [sin], [], [AC_MSG_ERROR([libm is required])])$1
+endsnippet
+
+snippet cch "Custom check header" b
+AC_CHECK_HEADERS([m], [sin], [], [AC_MSG_ERROR([headers is required])])$1
+endsnippet
+
+snippet are "Arg enable" b
+AC_ARG_ENABLE([debug],
+   [AC_HELP_STRING([--enable-debug], [Enable debugging features])],
+   [enable_debug=$enableval], [enable_debug=no])
+endsnippet
+
+snippet ac "Am conditional" b
+AM_CONDITIONAL([ENABLE_DEBUG], [test "x$enable_debug" = "xyes"])$1
+endsnippet
+
+snippet msg "Message" b
+AC_MSG_NOTICE([${1:Configuring myproject version $PACKAGE_VERSION}])$2
+endsnippet
+
+

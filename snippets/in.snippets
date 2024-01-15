@@ -1,0 +1,30 @@
+snippet pl "Placeholder" b
+${1:CC} = @${2:CC}@$3
+endsnippet
+
+snippet v "Variable" b
+${1:feature_SRC} = ${1:feature.c}
+endsnippet
+
+snippet v2 "Variable type 2" b
+$(${1:TARGET})$2
+endsnippet
+
+snippet if "If statement" b
+if $1
+$2
+endif$3
+endsnippet
+
+snippet r "Rule" b
+${1:all}: $2
+endsnippet
+
+snippet 2 "$@ Rule name" b
+$@
+endsnippet
+
+snippet 6 "$^ Rule name value" b
+$^
+endsnippet
+

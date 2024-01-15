@@ -25,8 +25,6 @@ alias emel='emacs -q ~/init.el'
 
 ### Linux command
 alias mn='cd neovim && make CMAKE_BUILD_TYPE=RelWithDebInfo'
-alias mb='make build'
-alias mi='sudo make install'
 alias ps11='export PS1="\e[0;33m\u\e[0m\e[0;32m@\h\e[0m \e[1;32m \w \n \$ \e[0m"'
 alias ps12='export PS1="\u@\H >"  \u: haquocdat, \H: aws, @: $'
 alias upn='plug ; yg ; yn ; cm ; sn'
@@ -1037,6 +1035,13 @@ alias n4v='nginx -V'
 alias n4rl='nginx -s reload'
 alias n4rs='nginx -s restart'
 alias n4c='nginx -c'
+
+### Make and automake
+alias mb='sudo make build'
+alias mi='sudo make install'
+alias atm='automake'
+alias atc='autoconf'
+alias atmam='automake --add-missing'
 
 ### user and group
 alias ua='useradd'

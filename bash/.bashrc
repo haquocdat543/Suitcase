@@ -1021,6 +1021,7 @@ alias rdcn='. ~/preconfig/Suitcase/bash/commands/redisConnect.sh'
 alias rdcnp='. ~/preconfig/Suitcase/bash/commands/redisConnectPassword.sh'
 
 ### cargo command
+alias gccv='gcc --version'
 alias gcce='gcc -E'
 alias gccs='gcc -S'
 alias gccc='gcc -c'
@@ -1044,10 +1045,12 @@ alias n4rs='nginx -s restart'
 alias n4c='nginx -c'
 
 ### Make and automake
+alias mj='sudo make -j'
 alias mb='sudo make build'
 alias mi='sudo make install'
 alias atm='automake'
 alias atc='autoconf'
+alias atg='autogen'
 alias atmam='automake --add-missing'
 alias rcf='./configure'
 alias rcfb='./configure --prefix=/usr/local/bin'

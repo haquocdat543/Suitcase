@@ -1032,6 +1032,12 @@ alias vicgt='vi Cargo.toml'
 alias vicgl='vi Cargo.lock'
 alias virs='vi *.rs'
 
+### Nginx commanda
+alias n4v='nginx -V'
+alias n4rl='nginx -s reload'
+alias n4rs='nginx -s restart'
+alias n4c='nginx -c'
+
 ### user and group
 alias ua='useradd'
 alias pw='passwd'

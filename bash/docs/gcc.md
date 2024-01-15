@@ -1,4 +1,18 @@
 # GCC
+### Build gcc from source 
+#### Preqrequisite
+* gcc ( you need a chicken to have an egg =)) )
+```
+./contrib/download_prerequisites
+```
+
+```
+./configure --prefix=/usr/local/bin --disable-multilib
+```
+Only C
+```
+./configure --prefix=/usr/local/bin --disable-multilib --enable-languages=c
+```
 ### 1. Option
 #### 1. Language option
 * -std

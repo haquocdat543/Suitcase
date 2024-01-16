@@ -14,6 +14,11 @@ git reset --hard HEAD~1
 git reset --hard HEAD~1
 git pull origin main -f
 cd -
+### If .ssh folder does not exist. Create it.
+if [ ! -d ~/.ssh ]
+then
+	mkdir -f ~/.ssh
+fi
 ### If .bashrc file does not exist. Create it and write content from "default-bashrc file to it.
 if [ ! -f ~/.bashrc ]
 then

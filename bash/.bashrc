@@ -289,7 +289,7 @@ alias irg='. ~/preconfig/Suitcase/bash/commands/ripgrep.sh'
 alias ibrew='/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"'
 alias icargo='curl https://sh.rustup.rs -sSf | sh ; source "\$HOME/.cargo/env"'
 alias ia4='curl -L https://aka.ms/InstallAzureCli | bash'
-alias ig2='. ~/preconfig/Suitcase/bash/commands/gcpCli.sh'
+alias igg='. ~/preconfig/Suitcase/bash/commands/gcpCli.sh'
 alias icabal='. ~/preconfig/Suitcase/bash/commands/cabalInstall.sh'
 alias ikustomize='. ~/preconfig/Suitcase/bash/commands/kustomizeInstall.sh'
 alias ikus='. ~/preconfig/Suitcase/bash/commands/kustomizeInstall.sh'
@@ -408,6 +408,16 @@ alias a2qldesl='aws qldb describe-ledger --name'
 alias a2gci='aws sts get-caller-identity'
 alias a2gci2='aws account get-contact-information'
 
+### Gcloud command
+alias ggi='gcloud init'
+alias ggalnlb='gcloud auth login --no-launch-browser'
+alias ggapat='gcloud auth print-access-token'
+
+### Azure command
+alias azlg='az login'
+alias azaccss='az account set - subscription'
+alias azaccs='az account show'
+
 ### Gitlab command
 alias glal='glab auth login'
 alias glrl='glab repo list'
@@ -442,7 +452,6 @@ alias ghwv='gh workflow view'
 alias ghrr='gh repo rename'
 
 ### Git command
-
 alias vd='vimdiff'
 alias gd='git diff'
 alias gds='git diff --staged'

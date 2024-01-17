@@ -29,6 +29,7 @@ alias ps11='export PS1="\e[0;33m\u\e[0m\e[0;32m@\h\e[0m \e[1;32m \w \n \$ \e[0m"
 alias ps12='export PS1="\u@\H >"  \u: haquocdat, \H: aws, @: $'
 alias upn='plug ; yg ; yn ; cm ; sn'
 alias upu='. ~/preconfig/Suitcase/bash/commands/copySuitcase.sh'
+alias upS='. ~/preconfig/Suitcase/bash/alias2.sh'
 alias ups='ywg ; ycu ; plug ; yn ; gceh ; gcnh ; cm ; sn ; ed400 ; up2 ; rv ; up3 ; rtm'
 alias upss='ywg ; ycu ; plug ; yn ; gceh ; gcnh ; cm ; sn ; ed400 ; up2 ; rv ; up3 ; rtm ; invim ; ipip ; ipynvim ; plug2 ; up5 ; rnv '
 alias upsss='ywg ; ycu ; plug ; yn ; gceh ; gcnh ; cm ; sn ; ed400 ; up2 ; rv ; up3 ; rtm ; invim ; ipip ; ipynvim ; plug2 ; up5 ; rnv ; up6 ; swl'

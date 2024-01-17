@@ -410,6 +410,8 @@ alias a2gci2='aws account get-contact-information'
 
 ### Gcloud command
 alias ggi='gcloud init'
+alias ggcscz='gcloud config set compute/zone'
+alias ggcscr='gcloud config set compute/region'
 alias ggalnlb='gcloud auth login --no-launch-browser'
 alias ggapat='gcloud auth print-access-token'
 

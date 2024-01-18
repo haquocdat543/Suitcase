@@ -457,8 +457,18 @@ alias gumv='gutils mv'
 
 ### Azure command
 alias azlg='az login'
+alias azaccl='az account list'
+alias azaccc='az account create'
+alias azgrl='az group list'
+alias azgrc='az group create'
 alias azaccss='az account set - subscription'
 alias azaccs='az account show'
+alias azaccscrl='az account subscription list'
+
+### AzureCopy command
+alias azcplg='azcopy login'
+alias azcpcp='azcopy copy'
+alias azcpls='azcopy ls'
 
 ### Gitlab command
 alias glal='glab auth login'

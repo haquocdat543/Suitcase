@@ -446,6 +446,7 @@ alias ggctnclgc='gcloud container clusters get-credentials'
 alias ggappdlt='gcloud app deploy'
 alias ggbldsmt='gcloud builds submit'
 alias ggfndes='gcloud function describe'
+alias ggaadlg='gcloud auth application-default login'
 
 ### Gutils command
 alias guvl='gutils version -l'

@@ -1,0 +1,196 @@
+#3# DOCKER
+snippet dockerfile "Dockerfile sample" b
+FROM ${1:node:18-alpine}
+WORKDIR ${2:/app}
+COPY ${3:. .}
+RUN ${4:yarn install --production}
+CMD ${5:["node", "src/index.js"]}
+EXPOSE ${6:3000}
+endsnippet
+
+snippet dkphp "Php Dockerfile" b
+# Use an official PHP Apache image as a base
+FROM php:7.4-apache
+
+# Set the working directory inside the container
+WORKDIR /var/www/html
+
+# Copy the local PHP files to the container's working directory
+COPY . .
+
+# Expose the port the Apache server runs on
+EXPOSE 80
+
+# Set the command to run Apache with PHP
+CMD ["apache2-foreground"]
+endsnippet
+
+snippet dkpy "Python Dockerfile" b
+# Use an official Python runtime as a base image
+FROM python:3.9-slim
+
+# Set the working directory inside the container
+WORKDIR /app
+
+# Copy the local requirements.txt file to the container
+COPY requirements.txt .
+
+# Install Python dependencies
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy the local files to the container's working directory
+COPY . .
+
+# Expose any necessary ports
+# EXPOSE 8000
+
+# Set the command to run your Python application
+CMD ["python", "app.py"]
+endsnippet
+
+snippet dkgo "Go Dockerfile" b
+# Use an official Go runtime as a base image
+FROM golang:1.17-alpine
+
+# Set the working directory inside the container
+WORKDIR /app
+
+# Copy the local package files to the container's working directory
+COPY . .
+
+# Build the Go application
+RUN go build -o main .
+
+# Expose the port the app runs on
+EXPOSE 8080
+
+# Set the command to run your app
+CMD ["./main"]
+endsnippet
+
+snippet dknginx "Nginx Dockerfile" b
+FROM nginx
+RUN rm /etc/nginx/nginx.conf /etc/nginx/conf.d/default.conf
+COPY ${1:content} /usr/share/nginx/html
+COPY conf /etc/nginx
+endsnippet
+
+snippet dknginx2 "Nginx Dockerfile type 2" b
+# Use an official NGINX base image
+FROM nginx:alpine
+
+# Copy the local configuration files to the container
+COPY nginx.conf /etc/nginx/nginx.conf
+
+# Set the working directory inside the container
+WORKDIR /usr/share/nginx/html
+
+# Copy the local HTML/CSS/JS files to the container's working directory
+COPY . .
+
+# Expose the port the NGINX server runs on
+EXPOSE 80
+
+# Set the command to run NGINX
+CMD ["nginx", "-g", "daemon off;"]
+endsnippet
+
+snippet dknode "Node Dockerfile" b
+# Use an official Node.js runtime as a base image
+FROM node:14-alpine
+
+# Set the working directory inside the container
+WORKDIR /app
+
+# Copy package.json and package-lock.json to the working directory
+COPY package*.json ./
+
+# Install dependencies
+RUN npm install
+
+# Copy the local files to the container's working directory
+COPY . .
+
+# Expose the port your app runs on
+EXPOSE 3000
+
+# Set the command to run your app
+CMD ["npm", "start"]
+endsnippet
+
+snippet dkreact "React Dockerfil3" b
+# Use an official Node.js runtime as a base image
+FROM node:14-alpine
+
+# Set the working directory inside the container
+WORKDIR /app
+
+# Copy package.json and package-lock.json to the working directory
+COPY package*.json ./
+
+# Install dependencies
+RUN npm install
+
+# Copy the local files to the container's working directory
+COPY . .
+
+# Build the React app
+RUN npm run build
+
+# Expose the port the app runs on
+EXPOSE 3000
+
+# Set the command to run your app
+CMD ["npm", "start"]
+endsnippet
+
+snippet dkang "Angular Dockerfile" b
+# Use an official Node.js runtime as a base image
+FROM node:14-alpine
+
+# Set the working directory inside the container
+WORKDIR /app
+
+# Copy package.json and package-lock.json to the working directory
+COPY package*.json ./
+
+# Install dependencies
+RUN npm install
+
+# Copy the local files to the container's working directory
+COPY . .
+
+# Build the Angular app
+RUN npm run build --prod
+
+# Expose the port the app runs on
+EXPOSE 80
+
+# Set the command to run your app
+CMD ["npm", "start"]
+endsnippet
+
+snippet dkvue "vue Dockerfile" b
+FROM node:lts-alpine
+
+# install simple http server for serving static content
+RUN npm install -g http-server
+
+# make the 'app' folder the current working directory
+WORKDIR /app
+
+# copy both 'package.json' and 'package-lock.json' (if available)
+COPY package*.json ./
+
+# install project dependencies
+RUN npm install
+
+# copy project files and folders to the current working directory (i.e. 'app' folder)
+COPY . .
+
+# build app for production with minification
+RUN npm run build
+
+EXPOSE 8080
+CMD [ "http-server", "dist" ]
+endsnippet

@@ -266,3 +266,45 @@ snippet crrb "Cronjob reboot" b
 @reboot $1
 endsnippet
 
+snippet k8skube "K8s kubeconfig file" b
+piVersion: v1
+kind: Config
+clusters:
+users:
+contexts:
+endsnippet
+
+snippet k8scertc "k8s cluster in kubeconfig" b
+- cluster:
+    certificate-authority: ${1:fake-ca-file}
+    server: ${2:https://1.2.3.4}
+  name: ${3:development}
+endsnippet
+
+snippet k8sct "k8s context" b
+- context:
+    cluster: ${1:development}
+    namespace: ${2:frontend}
+    user: ${3:developer}
+  name: ${4:dev-frontend}
+endsnippet
+
+snippet k8scertu "k8s certification user" b
+- name: ${1:developer}
+  user:
+    client-certificate: ${2:fake-cert-file}
+    client-key: ${3:fake-key-file}
+endsnippet
+
+snippet k8spassu "k8s password user" b
+- name: ${1:experimenter}
+  user:
+    # Documentation note (this comment is NOT part of the command output).
+    # Storing passwords in Kubernetes client config is risky.
+    # A better alternative would be to use a credential plugin
+    # and store the credentials separately.
+    # See https://kubernetes.io/docs/reference/access-authn-authz/authentication/#client-go-credential-plugins
+    username: ${2:exp}
+    password: ${3:some-password}
+endsnippet
+

@@ -473,6 +473,7 @@ alias azgrc='az group create'
 alias azaccss='az account set - subscription'
 alias azaccs='az account show'
 alias azaccscrl='az account subscription list'
+alias azrbac='. ~/preconfig/Suitcase/bash/commands/azureRBAC.sh'
 
 ### AzureCopy command
 alias azcplg='azcopy login'

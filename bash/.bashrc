@@ -1110,6 +1110,8 @@ alias pipyg='pip install pygments'
 
 ### brew command
 alias bi='brew install'
+alias br='brew remove'
+alias bc='brew cleanup'
 
 ### Go command
 alias gor='go run'

@@ -1246,6 +1246,10 @@ alias rcfbd='./configure --prefix=/usr/local/bin --disable-multilib'
 alias ua='useradd'
 alias pw='passwd'
 
+### osmosis
+alias osm='osmosisd'
+alias osmcf='osmosisd config'
+
 ### gaiad cosmos
 alias gaiai='gaiad init'
 alias gaias='gaiad start'

@@ -1098,6 +1098,14 @@ alias tvk='trivy k8s'
 ### nasm  command
 alias nf64='nasm -felf64'
 alias cpl='. ~/preconfig/Suitcase/bash/commands/cpl.sh'
+
+### Ulimit command
+alias ulma='ulimit -a'
+alias ulmt='ulimit -t'
+alias ulmtu='ulimit -t unlimited'
+alias ulmc='ulimit -c'
+alias ulmcu='ulimit -c unlimited'
+
 ### Cron command
 alias cre='crontab -e'
 alias crl='crontab -l'

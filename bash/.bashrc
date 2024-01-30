@@ -514,6 +514,12 @@ alias azcplg='azcopy login'
 alias azcpcp='azcopy copy'
 alias azcpls='azcopy ls'
 
+### Doctl command
+alias doal='doctl auth list'
+alias doacg='doctl account get'
+alias docptiml='doctl compute image list'
+alias docptdrd='doctl compute droplet delete'
+
 ### Gitlab command
 alias glal='glab auth login'
 alias glrl='glab repo list'

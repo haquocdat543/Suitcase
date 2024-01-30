@@ -78,11 +78,9 @@ map <C-p>2 :Rg<CR>
 map <C-p>3 :Buffer<CR>
 map <C-p>4 :FloatermNew<CR>
 map <C-x>1 :<C-p><CR>
-map <A-a>a :UltiSnipsEdit<CR>
-map <A-w>w :w!<CR>
-map <A-n>n :n<CR>
-map <A-p>p :p<CR>
-map <A-e>e :e
+map <leader>aa :UltiSnipsEdit<CR>
+map <leader>ww :w!<CR>
+map <leader>ee :e
 map <C-s>s :sav
 map <C-a>a :Snippets<CR>
 nmap te :tabedit
@@ -95,7 +93,7 @@ nmap sj <C-w>j
 nmap sk <C-w>k
 nmap sl <C-w>l
 
-nnoremap <A-f>f :NERDTreeToggle<CR>
+nnoremap <leader>tt :NERDTreeToggle<CR>
 nnoremap <C-t>1 :tabnew 
 nnoremap <C-t>2 :tabo<CR>
 

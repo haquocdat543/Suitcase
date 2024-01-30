@@ -1108,6 +1108,15 @@ alias ulmtu='ulimit -t unlimited'
 alias ulmc='ulimit -c'
 alias ulmcu='ulimit -c unlimited'
 
+### Journalctl command
+alias jnl='journalctl'
+alias jnlb='journalctl -b'
+alias jnlu='journalctl -u'
+alias jnlp='journalctl -p'
+alias jnlf='journalctl -f'
+alias jnlsc='journalctl --since'
+alias jnlut='journalctl --until'
+
 ### Cron command
 alias cre='crontab -e'
 alias crl='crontab -l'

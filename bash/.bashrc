@@ -1139,6 +1139,11 @@ alias jnlsc='journalctl --since'
 alias jnlut='journalctl --until'
 
 ### Cron command
+alias sdhn='sudo shutdown -h now'
+alias sdh='sudo shutdown -h'
+alias pmssn='sudo pmset sleepnow'
+
+### Cron command
 alias cre='crontab -e'
 alias crl='crontab -l'
 alias crr='crontab -r'

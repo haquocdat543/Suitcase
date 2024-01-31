@@ -1213,6 +1213,8 @@ alias bidocker='brew install docker'
 alias bigoogle='brew install google-cloud-sdk'
 alias biawscli='brew install awscli'
 alias bihcloud='brew install hcloud'
+alias btcrf='brew tap caskroom/fonts'
+alias bihnf='brew install font-hack-nerd-font'
 
 ### Hcloud command 
 alias hc='hcloud'

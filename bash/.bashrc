@@ -1184,6 +1184,14 @@ alias bideno='brew install deno'
 alias bidocker='brew install docker'
 alias bigoogle='brew install google-cloud-sdk'
 alias biawscli='brew install awscli'
+alias bihcloud='brew install hcloud'
+
+### Hcloud command 
+alias hc='hcloud'
+alias hcv='hcloud version'
+alias hcsl='hcloud server list'
+alias hcstl='hcloud server-type list'
+alias hccl='hcloud context list'
 
 ### Go command
 alias pms='pacman -S  --noconfirm'

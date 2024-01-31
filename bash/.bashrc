@@ -1053,8 +1053,7 @@ alias kr='kubectl run --dry-run=client -oyaml --image'
 alias ka='kubectl apply -f'
 alias kd='kubectl delete -f'
 alias kgp='kubectl get secret --namespace default grafana -o jsonpath="{.data.admin-password}" | base64 --decode ; echo'
-alias krrd="kubectl run --namespace default my-redis-client --rm --tty -i --restart='Never' --image docker.io/bitnami/redis:6.2.1-debian-10-r0 -- bash"
-# redis-cli -h my-redis -p 6379
+alias krrd="kubectl run --namespace default my-redis-client --rm --tty -i --restart='Never' --image docker.io/bitnami/redis:6.2.1-debian-10-r0 -- bash" # redis-cli -h my-redis -p 6379
 
 ### Link command
 alias lns='ln -s'

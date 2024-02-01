@@ -1,0 +1,57 @@
+snippet vg "Vagrant" b
+Vagrant.configure("2") do |config|
+  $1
+end
+endsnippet
+
+snippet cfb "Config vm box" b
+config.vm.box = "${1:centos/7}"
+endsnippet
+
+snippet cfhn "Config vm hostname" b
+config.vm.hostname = "${1:Master}"
+endsnippet
+
+snippet cfbcu "Config vm box check update" b
+config.vm.box_check_update = ${1:false}
+endsnippet
+
+snippet cfnwfp1 "Config network forward port 1" b
+config.vm.network "forwarded_port", guest: ${1:80}, host: ${2:8080}
+endsnippet
+
+snippet cfnwfp2 "Config network forward port 2" b
+config.vm.network "forwarded_port", guest: ${1:80}, host: ${2:8080}, host_ip: "${3:127.0.0.1}"
+endsnippet
+
+snippet cfnwpn1 "Config network private network 1" b
+config.vm.network "private_network", ip: "${1:192.168.33.10}"
+endsnippet
+
+snippet cfnwpn "Config network public network" b
+config.vm.network "public_network"
+endsnippet
+
+snippet cfsf "Config sync folder" b
+config.vm.synced_folder "../data", "/vagrant_data"
+endsnippet
+
+snippet cfsfd "Config sync folder disable" b
+config.vm.synced_folder ".", "/vagrant", disabled: true
+endsnippet
+
+snippet cfpvd "Config provider" b
+config.vm.provider "${1:virtualbox}" do |vb|
+  # Display the VirtualBox GUI when booting the machine
+  vb.gui = ${2:true}
+
+  # Customize the amount of memory on the VM:
+  vb.memory = "${1:3024}"
+end
+endsnippet
+
+snippet cfpvs "Config provision" b
+config.vm.provision "${1:shell}", inline: <<-SHELL
+  ${1:apt-get update}
+SHELL
+endsnippet

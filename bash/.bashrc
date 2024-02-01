@@ -335,6 +335,7 @@ alias ihelm='. ~/preconfig/Suitcase/bash/commands/helmInstall.sh'
 alias ikitty='curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin'
 alias o1='cd ; git clone https://github.com/gpakosz/.tmux.git ; ln -s -f .tmux/.tmux.conf ; cp .tmux/.tmux.conf.local .'
 alias idk='yd ; sd ; ed'
+alias rmssd='. ~/preconfig/Suitcase/bash/commands/removeSystemd.sh'
 
 alias lg='lazygit'
 alias ldk='lazydocker'

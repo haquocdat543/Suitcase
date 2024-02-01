@@ -304,7 +304,7 @@ $4
 endsnippet
 
 snippet rdc "Read with default" b
-read -p "$(echo -e "$1 [${$2}$3${nc}]: ")" $4
+read -p "$(echo -e "$1 [${${2:green2}}$3${nc}]: ")" $4
 $4=${$4:-$3}
 $5
 endsnippet

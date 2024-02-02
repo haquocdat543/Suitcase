@@ -22,8 +22,6 @@ name=${name:-cosmos}
 systemctl stop $name
 systemctl disable $name
 rm /etc/systemd/system/$name
-rm /etc/systemd/system/$name
-rm /usr/lib/systemd/system/$name
 rm /usr/lib/systemd/system/$name
 systemctl daemon-reload
 systemctl reset-failed

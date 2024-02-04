@@ -2,11 +2,63 @@ snippet im "Import" b
 import $1
 endsnippet
 
+snippet imfc "Import freecad module" b
+import FreeCAD as App
+endsnippet
+
+snippet imp "Import part" b
+import Part
+endsnippet
+
+snippet drcpt "Document recompute" b
+doc.recompute()
+endsnippet
+
+snippet gawsk "Gui active workbench sketcher" b
+Gui.activateWorkbench("SketcherWorkbench")
+endsnippet
+
+snippet gawp "Gui active workbench part" b
+Gui.activateWorkbench("PartWorkbench")
+endsnippet
+
+snippet gawpd "Gui active workbench part design" b
+Gui.activateWorkbench("PartDesignWorkbench")
+endsnippet
+
+snippet gawd "Gui active workbench draft" b
+Gui.activateWorkbench("DraftWorkbench")
+endsnippet
+
+snippet gawa "Gui active workbench arch" b
+Gui.activateWorkbench("ArchWorkbench")
+endsnippet
+
+snippet gawf "Gui active workbench fem" b
+Gui.activateWorkbench("FemWorkbench")
+endsnippet
+
+snippet gawm "Gui active workbench mesh" b
+Gui.activateWorkbench("MeshWorkbench")
+endsnippet
+
+snippet gawpa "Gui active workbench path" b
+Gui.activateWorkbench("PathWorkbench")
+endsnippet
+
+snippet gawa4 "Gui active workbench assembly4" b
+Gui.activateWorkbench("Assembly4Workbench")
+endsnippet
+
+snippet gawa4 "Gui active workbench A2 plus" b
+Gui.activateWorkbench("A2plusWorkbench")
+endsnippet
+
 snippet gatdavvr "Test" b
 Gui.activeDocument().activeView().viewRight()
 endsnippet
 
-snippet eatdavvl "Test" b
+snippet gatdavvl "Test" b
 Gui.activeDocument().activeView().viewLeft()
 endsnippet
 
@@ -22,7 +74,7 @@ snippet gatdavvf "Test" b
 Gui.activeDocument().activeView().viewFront()
 endsnippet
 
-snippet gatdavvb "Test" b
+snippet gatdavvB "Test" b
 Gui.activeDocument().activeView().viewRear()
 endsnippet
 

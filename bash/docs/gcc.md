@@ -1,7 +1,14 @@
 # GCC
 ### Build gcc from source 
-#### Preqrequisite
+#### 1. Preqrequisite
 * gcc ( you need a chicken to have an egg =)) )
+* dependencies
+```
+yum -y install pkgconfig automake gcc zlib-devel pcre-devel xz-devel
+yum -y groupinstall "Development Tools"
+yum -y install pcre-devel xz-devel zlib-devel
+```
+#### 2. Build
 ```
 ./contrib/download_prerequisites
 ```
@@ -13,6 +20,58 @@ Only C
 ```
 ./configure --prefix=/usr/local/bin --disable-multilib --enable-languages=c
 ```
+make
+```
+make
+```
+or
+```
+make -j6
+```
+`-j6` mean six processes run parallel. You can replace `6` with any number you want.
+
+install
+```
+make install
+```
+#### 3. Result
+The build process took me approx `one and half an hour`
+* In `usr/local/bin` we have new folders and files:
+  * bin
+    * c++
+    * cpp
+    * g++
+    * gcc
+    * gcc-ar
+    * gcc-nm
+    * gcc-ranlib
+    * gcov
+    * gcov-dump
+    * gcov-tool
+    * lto-dump
+    * x86_64-pc-linux-gnu-c++
+    * x86_64-pc-linux-gnu-cpp
+    * x86_64-pc-linux-gnu-g++
+    * x86_64-pc-linux-gnu-gcc
+    * x86_64-pc-linux-gnu-gcc-14.0.1
+    * x86_64-pc-linux-gnu-gcc-ar
+    * x86_64-pc-linux-gnu-gcc-nm
+    * x86_64-pc-linux-gnu-gcc-ranlib
+  * include
+    * c++
+      * 14.0.1
+        * ...
+  * lib
+  * lib64
+  * libexec
+  * share
+    * gcc-14.0.1
+    * info
+      * dir
+    * locale
+    * man
+      * man1
+      * man7
 ### 1. Option
 #### 1. Language option
 * -std

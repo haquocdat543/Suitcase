@@ -64,13 +64,14 @@ map <C-b>b :set backup<CR>
 map <C-h>h :noh<CR>
 map <C-q>1 :q!<CR>
 map <C-q>2 :wq!<CR>
-map <C-c>a :%s/
-map <C-c>1 :%s/
-map <C-c>2 :.s/
-map <C-c>3 :.,0s/
-map <C-c>4 :.,$s/
-map <C-c>5 :.,.-
-map <C-c>6 :.,.+
+nnoremap <Leader>rc :%s///g<Left><Left>
+map <C-c>a :%s///g<Left><Left><Left>
+map <C-c>1 :%s///g<Left><Left><Left>
+map <C-c>2 :.s///g<Left><Left><Left>
+map <C-c>3 :.,0s///g<Left><Left><Left>
+map <C-c>4 :.,$s///g<Left><Left><Left>
+map <C-c>5 :.,.-s//g<Left><Left><Left><Left><Left>
+map <C-c>6 :.,.+s//g<Left><Left><Left><Left><Left>
 map <leader>ii :PlugInstall<CR>
 map <leader>in :PluginInstall<CR>
 map <C-p>1 :Files<CR>
@@ -119,7 +120,9 @@ noremap X "_x
 noremap <Del> "_x
 map <Leader>ev :tabnew $MYVIMRC<CR>
 map <Leader>ea :tabnew ~/.bashrc<CR>
-nnoremap <Leader>rc :%s///g<Left><Left>
+nnoremap <Leader>r1 :exe '%s/${' . @m . '}/' . @n . '/g'<CR>
+nnoremap <Leader>r2 :exe '%s/$(' . @m . ')/' . @n . '/g'<CR>
+
 nmap <Leader>el yypC
 nmap <Leader>eL yyPC
 

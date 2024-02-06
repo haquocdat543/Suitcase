@@ -22,7 +22,7 @@ fi
 ### If .bashrc file does not exist. Create it and write content from "default-bashrc file to it.
 if [ ! -f ~/.bashrc ]
 then
-	cp -f ~/preconfig/Suitcase/bash/default-bashrc ~/.bashrc
+	cp -f ~/preconfig/Suitcase/bash/configs/default-bashrc ~/.bashrc
 fi
 ## If .bashrc.backup file in in root folder and preconfig/backup/.bashrc.backup folder does not exist. Create it 
 if [ ! -f ~/.bashrc.backup ] && [ ! -f ~/preconfig/backup/.bashrc.backup ]
@@ -56,4 +56,4 @@ then
 	rm -f ~/.bashrc.backup 
 fi
 
-cat ~/preconfig/Suitcase/bash/.bashrc | sudo tee -a ~/.bashrc ; clear ; exec bash
+cat ~/preconfig/Suitcase/bash/configs/.bashrc | sudo tee -a ~/.bashrc ; clear ; exec bash

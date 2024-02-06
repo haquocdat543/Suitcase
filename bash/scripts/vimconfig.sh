@@ -40,5 +40,5 @@ mv ~/preconfig/.vimrc ~/.vimrc
 
 EOF
 ## Write content to .vimrc file in preconfig folder
-cat ~/preconfig/Suitcase/bash/.vimrc | sudo tee -a ~/preconfig/.vimrc ; clear
+cat ~/preconfig/Suitcase/bash/configs/.vimrc | sudo tee -a ~/preconfig/.vimrc ; clear
 

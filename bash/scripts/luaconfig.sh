@@ -40,5 +40,5 @@ mv ~/preconfig/init.lua ~/.config/nvim/init.lua
 
 EOF
 ## Write content to init.lua file in preconfig folder
-cat ~/preconfig/Suitcase/bash/init.lua | sudo tee -a ~/preconfig/init.lua ; clear
+cat ~/preconfig/Suitcase/bash/configs/init.lua | sudo tee -a ~/preconfig/init.lua ; clear
 

@@ -50,5 +50,5 @@ mv ~/preconfig/init.vim ~/.config/nvim/init.vim
 
 EOF
 ## Write content to init.vim file in preconfig folder
-cat ~/preconfig/Suitcase/bash/init.vim | sudo tee -a ~/preconfig/init.vim ; clear
+cat ~/preconfig/Suitcase/bash/configs/init.vim | sudo tee -a ~/preconfig/init.vim ; clear
 

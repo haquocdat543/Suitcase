@@ -54,4 +54,4 @@ mv ~/preconfig/.tmux.conf ~/.tmux.conf
 
 EOF
 ## Write content to .tmux file in preconfig folder
-cat ~/preconfig/Suitcase/bash/.tmux.conf | sudo tee -a ~/preconfig/.tmux.conf ; clear
+cat ~/preconfig/Suitcase/bash/configs/.tmux.conf | sudo tee -a ~/preconfig/.tmux.conf ; clear

@@ -27,10 +27,10 @@ if [ ! -d /home/$username/preconfig ]
 then
 	mkdir /home/$username/preconfig
 fi
-## If preconfig/commands folder does not exist. Create it 
-if [ ! -d /home/$username/preconfig/commands ]
+## If preconfig/scripts folder does not exist. Create it 
+if [ ! -d /home/$username/preconfig/scripts ]
 then
-	mkdir /home/$username/preconfig/commands
+	mkdir /home/$username/preconfig/scripts
 fi
 
 ## If preconfig/docs folder does not exist. Create it 

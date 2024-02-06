@@ -6,34 +6,34 @@ This is my toolbox for speed up workloads
 Install bash aliases ( k8s, ansible, git, terraform, docker,... )
 
 ```
-alias up1='bash <(curl -s https://raw.githubusercontent.com/haquocdat543/Suitcase/main/bash/alias.sh )'
+alias up1='bash <(curl -s https://raw.githubusercontent.com/haquocdat543/Suitcase/main/bash/scripts/alias.sh )'
 up1
 ```
 
-You can view my [aliases](https://github.com/haquocdat543/Suitcase/blob/main/bash/.bashrc)
+You can view my [aliases](https://github.com/haquocdat543/Suitcase/blob/main/bash/configs/.bashrc)
 ###   2. Vim
 Vim configuration file:
 ```
-alias up2='bash <(curl -s https://raw.githubusercontent.com/haquocdat543/Suitcase/main/bash/vimconfig.sh )'
+alias up2='bash <(curl -s https://raw.githubusercontent.com/haquocdat543/Suitcase/main/bash/scripts/vimconfig.sh )'
 up2
 ```
 
-You can view my [.vimrc](https://github.com/haquocdat543/Suitcase/blob/main/bash/.vimrc), [init.vim](https://github.com/haquocdat543/Suitcase/blob/main/bash/init.vim), [init.lua](https://github.com/haquocdat543/Suitcase/blob/main/bash/init.lua)
+You can view my [.vimrc](https://github.com/haquocdat543/Suitcase/blob/main/bash/configs/.vimrc), [init.vim](https://github.com/haquocdat543/Suitcase/blob/main/bash/configs/init.vim), [init.lua](https://github.com/haquocdat543/Suitcase/blob/main/bash/configs/init.lua)
 
 ##   3. Tmux
 ```
-alias up3='bash <(curl -s https://raw.githubusercontent.com/haquocdat543/Suitcase/main/bash/tmuxconfig.sh )'
+alias up3='bash <(curl -s https://raw.githubusercontent.com/haquocdat543/Suitcase/main/bash/scripts/tmuxconfig.sh )'
 up3
 ```
-You can view my [.tmux.conf](https://github.com/haquocdat543/Suitcase/blob/main/bash/.tmux.conf)
+You can view my [.tmux.conf](https://github.com/haquocdat543/Suitcase/blob/main/bash/configs/.tmux.conf)
 
 
 ##   4. Emacs
 ```
-alias up4='bash <(curl -s https://raw.githubusercontent.com/haquocdat543/Suitcase/main/bash/emacsconfig.sh )'
+alias up4='bash <(curl -s https://raw.githubusercontent.com/haquocdat543/Suitcase/main/bash/scripts/emacsconfig.sh )'
 up4
 ```
-You can view my [init.el](https://github.com/haquocdat543/Suitcase/blob/main/bash/init.el)
+You can view my [init.el](https://github.com/haquocdat543/Suitcase/blob/main/bash/configs/init.el)
 
 ##   2. Windows
 ```

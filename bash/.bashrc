@@ -1392,6 +1392,8 @@ alias gpgim='gpg --import'
 
 ### Other command
 alias sqlcn='. ~/preconfig/Suitcase/bash/commands/sqlConnect.sh'
+alias cntn='. ~/preconfig/Suitcase/bash/commands/countFileNumber.sh'
+alias cntl='. ~/preconfig/Suitcase/bash/commands/countFileLocation.sh'
 alias unn='uname -n'
 alias unm='uname -m'
 alias unr='uname -r'

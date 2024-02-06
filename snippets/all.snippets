@@ -94,19 +94,6 @@ snippet jkst "Jenkin stage" b
             }
 endsnippet
 
-snippet make "Test" b
-CC = ${1:gcc}
-SOURCE = ${2:*.c}
-OUTPUT = ${3:output}.exe
-
-build: compile run
-
-compile:
-	$(CC) -o $(OUTPUT) $(SOURCE) 
-run:
-	./$3.exe
-endsnippet
-
 snippet ccm "CodeCommit host config" b
 Host git-codecommit.*.amazonaws.com
   User ${1:APKARMNDORPRYA4G76KM}

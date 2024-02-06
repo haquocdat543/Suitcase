@@ -1,0 +1,33 @@
+snippet make "Simple makefile" b
+CC = ${1:gcc}
+SOURCE = ${2:*.c}
+OUTPUT = ${3:output}.exe
+
+build: compile run
+
+compile:
+	$(CC) -o $(OUTPUT) $(SOURCE) 
+run:
+	./$3.exe
+endsnippet
+
+snippet pn "Phony ( avoid same command and file name )" b
+.PHONY: $1
+endsnippet
+
+snippet v1 "Variable at declaration" i
+$1 = $2
+endsnippet
+
+snippet v2 "Variable at operation" i
+$($1)$2
+endsnippet
+
+snippet ae "At echo ( print text )" b
+@echo
+endsnippet
+
+snippet da "Dollar sign At ( print rule name )" b
+$@
+endsnippet
+

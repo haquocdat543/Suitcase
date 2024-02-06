@@ -1392,7 +1392,11 @@ alias gpgim='gpg --import'
 
 ### Other command
 alias sqlcn='. ~/preconfig/Suitcase/bash/commands/sqlConnect.sh'
+alias unn='uname -n'
 alias unm='uname -m'
+alias unr='uname -r'
+alias uns='uname -s'
+alias unv='uname -v'
 alias duh='sudo df -H'
 alias fdl='sudo fdisk -l'
 alias fdd='sudo fdisk'

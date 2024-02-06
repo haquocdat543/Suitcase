@@ -153,3 +153,28 @@ More info
 ```
 gcc --help=target
 ```
+## Autotools
+### 1. Prerequisites
+* configure.ac in main directory
+```
+~/amhello % cat configure.ac
+AC_INIT([amhello], [1.0], [bug-automake@gnu.org])
+AM_INIT_AUTOMAKE([-Wall -Werror foreign])
+AC_PROG_CC
+AC_CONFIG_HEADERS([config.h])
+AC_CONFIG_FILES([
+ Makefile
+ src/Makefile
+])
+AC_OUTPUT
+```
+* Makefile.am in main directory
+```
+SUBDIRS = src
+dist_doc_DATA = READMEé
+```
+* Makefile.am in sub directory
+```
+bin_PROGRAMS = hello
+hello_SOURCES = main.cé
+```

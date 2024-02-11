@@ -166,6 +166,7 @@ alias vvbk='vi ~/preconfig/backup/.vimrc.backup'
 alias vtbk='vi ~/preconfig/backup/.tmux.conf.backup'
 alias vrc='vi ~/.vimrc'
 alias vtm='vi ~/.tmux.conf'
+alias vbcf='vi ~/bat.conf'
 alias viy='vi *.yaml'
 alias vish='vi *.sh'
 alias viwf='vi ./.github/workflows/*'
@@ -356,6 +357,9 @@ alias ldk='lazydocker'
 alias lk='lazykubernetes'
 alias lnpm='lazynpm'
 alias lcli='lazycli'
+
+### Bat command
+alias batlt='bat --list-themes'
 
 ### Kubens command
 alias kbn='kubens'
@@ -1272,6 +1276,7 @@ alias btcrf='brew tap caskroom/fonts'
 alias bihnf='brew install font-hack-nerd-font'
 alias bijqp='brew install noahgorstein/tap/jqp'
 alias biktx='brew install kubectx'
+alias bibat='brew install bat'
 
 ### Hcloud command 
 alias hc='hcloud'

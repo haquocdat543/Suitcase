@@ -11,6 +11,10 @@ alias tmn='tmux new -s'
 alias tmk='tmux kill-session -t'
 alias tms='tmux source ~/.tmux.conf'
 
+### treesitter command
+alias tsic='tree-sitter init-config'
+alias tshl='tree-sitter highlight'
+
 ### Screen command
 alias scr='screen'
 alias scrl='screen -ls'

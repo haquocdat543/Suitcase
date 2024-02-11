@@ -357,6 +357,19 @@ alias lk='lazykubernetes'
 alias lnpm='lazynpm'
 alias lcli='lazycli'
 
+### Kubens command
+alias kbn='kubens'
+alias kbnp='kubens -'
+alias kbnc='kubens -c'
+
+### Kubectx command
+alias ktx='kubectx'
+alias ktx='kubectx'
+alias ktxp='kubectx -'
+alias ktxc='kubectx -c'
+alias ktxu='kubectx -u'
+alias ktxd='kubectx -d'
+
 ### AWS command
 alias a2c='aws configure'
 alias a2cl='aws configure list'
@@ -1258,6 +1271,7 @@ alias bihcloud='brew install hcloud'
 alias btcrf='brew tap caskroom/fonts'
 alias bihnf='brew install font-hack-nerd-font'
 alias bijqp='brew install noahgorstein/tap/jqp'
+alias biktx='brew install kubectx'
 
 ### Hcloud command 
 alias hc='hcloud'

@@ -89,10 +89,10 @@ keymap.set('n','<C-x>','<C-p><CR>')
 keymap.set('n','<A-j>',':m .+1<CR>==')
 keymap.set('n','<A-k>',':m .-2<CR>==')
 keymap.set('n','<C-a>a',':UltiSnipsEdit<CR>')
-keymap.set('n','<A-w>w',':w!<CR>')
+keymap.set('n','<leader>ww',':w!<CR>')
 keymap.set('n','<A-n>n',':n<CR>')
 keymap.set('n','<A-p>p',':p<CR>')
-keymap.set('n','<A-f>f',':NERDTreeToggle<CR>')
+keymap.set('n','<leader>nt',':NERDTreeToggle<CR>')
 keymap.set('n','<leader>to',':tabnew ')
 keymap.set('n','<leader>tx',':tabclose<CR>')
 keymap.set('n','<leader>tn',':tabn<CR>')
@@ -110,6 +110,8 @@ keymap.set('n','sl','<C-w>l')
 
 local plugins = {
  'wbthomason/packer.nvim',
+ 'nvim-treesitter/nvim-treesitter',
+ 'folke/tokyonight.nvim',
  'kdheepak/lazygit.nvim',
  'ryanoasis/vim-devicons',
  'phaazon/hop.nvim',
@@ -127,27 +129,27 @@ local plugins = {
  'airblade/vim-gitgutter',
  'preservim/nerdtree',
  'hrsh7th/nvim-cmp',
- --'hrsh7th/cmp-buffer',
- --'hrsh7th/cmp-path',
- --'L3MON4D3/LuaSnip',
- --'saadparwaiz1/cmp_luasnip',
- --'rafamadriz/friendly-snippets',
+ 'hrsh7th/cmp-buffer',
+ 'hrsh7th/cmp-path',
+ 'L3MON4D3/LuaSnip',
+ 'saadparwaiz1/cmp_luasnip',
+ 'rafamadriz/friendly-snippets',
  'nvim-lualine/lualine.nvim',
- --'williamboman/mason.nvim',
- --'williamboman/mason-lspconfig.nvim',
- --'neovim/nvim-lspconfig',
- --'hrsh7th/cmp-nvim-lsp',
- --'glepnir/lspsaga.nvim',
- --'nvim-treesitter/nvim-treesitter',
- --'jose-elias-alvarez/typescript.nvim',
- --'onsails/lspkind.nvim',
- --'jose-elias-alvarez/null-ls.nvim',
- --'jayp0521/mason-null-ls.nvim',
- --'nvim-lua/plenary.nvim',
- --'nvim-telescope/telescope-fzf-native.nvim',
- --'nvim-telescope/telescope.nvim',
- --'antosha417/nvim-lsp-file-operations',
- --'WhoIsSethDaniel/mason-tool-installer.nvim'
+ 'williamboman/mason.nvim',
+ 'williamboman/mason-lspconfig.nvim',
+ 'neovim/nvim-lspconfig',
+ 'hrsh7th/cmp-nvim-lsp',
+ 'glepnir/lspsaga.nvim',
+ 'nvim-treesitter/nvim-treesitter',
+ 'jose-elias-alvarez/typescript.nvim',
+ 'onsails/lspkind.nvim',
+ 'jose-elias-alvarez/null-ls.nvim',
+ 'jayp0521/mason-null-ls.nvim',
+ 'nvim-lua/plenary.nvim',
+ 'nvim-telescope/telescope-fzf-native.nvim',
+ 'nvim-telescope/telescope.nvim',
+ 'antosha417/nvim-lsp-file-operations',
+ 'WhoIsSethDaniel/mason-tool-installer.nvim'
 }
 
 local opts = {}
@@ -157,6 +159,112 @@ local status, lualine = pcall(require, "lualine")
 if not status then
   return
 end
+
+require('nvim-treesitter.configs').setup {
+  -- Add languages to be installed here that you want installed for treesitter
+  -- ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'typescript', 'help', 'vim' },
+
+  -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
+  auto_install = true,
+  ensure_installed = { "c", "lua", "vim", "vimdoc" },
+  -- open_on_setup = true,
+  highlight = { enable = true },
+  indent = { enable = true, disable = { 'python' } },
+  incremental_selection = {
+    enable = true,
+    keymaps = {
+      init_selection = '<c-f>',
+      node_incremental = '<c-f>',
+      scope_incremental = '<c-s>',
+      node_decremental = '<M-f>',
+    },
+  },
+  textobjects = {
+    select = {
+      enable = true,
+      lookahead = true, -- Automatically jump forward to textobj, similar to targets.vim
+      keymaps = {
+        -- You can use the capture groups defined in textobjects.scm
+        ['aa'] = '@parameter.outer',
+        ['ia'] = '@parameter.inner',
+        ['af'] = '@function.outer',
+        ['if'] = '@function.inner',
+        ['ac'] = '@class.outer',
+        ['ic'] = '@class.inner',
+      },
+    },
+    move = {
+      enable = true,
+      set_jumps = true, -- whether to set jumps in the jumplist
+      goto_next_start = {
+        [']m'] = '@function.outer',
+        [']]'] = '@class.outer',
+      },
+      goto_next_end = {
+        [']M'] = '@function.outer',
+        [']['] = '@class.outer',
+      },
+      goto_previous_start = {
+        ['[m'] = '@function.outer',
+        ['[['] = '@class.outer',
+      },
+      goto_previous_end = {
+        ['[M'] = '@function.outer',
+        ['[]'] = '@class.outer',
+      },
+    },
+    swap = {
+      enable = true,
+      swap_next = {
+        ['<leader>a'] = '@parameter.inner',
+      },
+      swap_previous = {
+        ['<leader>A'] = '@parameter.inner',
+      },
+    },
+  },
+}
+
+require("tokyonight").setup({
+    style = "night",
+    styles = {
+      comments = { italic = true },
+      keywords = { bold = true },
+      functions = { bold = true },
+      variables = {},
+      operators = { bold = true },
+      booleans = { bold = true },
+      sidebars = "dark",
+      floats = "dark",
+    },
+    on_highlights = function(hl, c)
+      hl.CursorLine = { bg = c.bg_highlight }
+      hl.Visual = { bg = "#484a37" }
+      hl.Type                 = { fg = c.blue1, bold = true }
+      hl.Conditional          = { fg = c.magenta, bold = true }
+      hl.Repeat               = { fg = c.magenta, bold = true }
+      hl.Label                = { fg = c.red }
+      hl.Constant             = { fg = c.orange, bold = true }
+      hl.String               = { fg = c.green }
+      hl.Character            = { fg = c.green }
+      hl.Number               = { fg = c.orange }
+      hl.Boolean              = { fg = c.orange }
+      hl.Float                = { fg = c.orange }
+      hl["@constructor"]      = { fg = c.blue1 }
+      hl["@variable.builtin"] = { fg = c.red }
+      hl["@text.uri"] = {}
+      hl.Include              = { fg = c.magenta, bold = true }
+      hl.rainbowcol1          = { fg = '#F4CA0D' }
+      hl.rainbowcol2          = { fg = c.purple }
+      hl.rainbowcol3          = { fg = c.cyan }
+      hl.rainbowcol4          = { fg = '#F4CA0D' }
+      hl.rainbowcol5          = { fg = c.purple }
+      hl.rainbowcol6          = { fg = c.cyan }
+      hl.rainbowcol7          = { fg = '#F4CA0D' }
+      -- hl.rainbowcol7 = { fg = c.purple }
+      hl["@punctuation.bracket"] = { fg = c.magenta } -- For brackets and parens.
+   end
+})
 
 require'hop'.setup()
 
@@ -190,257 +298,271 @@ lualine.setup({
     theme = lualine_nightfly,
   },
 })
----- import nvim-cmp plugin safely
---local cmp_status, cmp = pcall(require, "cmp")
---if not cmp_status then
-  --return
---end
---
----- import luasnip plugin safely
---local luasnip_status, luasnip = pcall(require, "luasnip")
---if not luasnip_status then
-  --return
---end
---
----- import lspkind plugin safely
---local lspkind_status, lspkind = pcall(require, "lspkind")
---if not lspkind_status then
-  --return
---end
+-- import nvim-cmp plugin safely
+local cmp_status, cmp = pcall(require, "cmp")
+if not cmp_status then
+  return
+end
 
--- load vs-code like snippets from plugins (e.g. friendly-
---cmp.setup({
-  --snippet = {
-    --expand = function(args)
-      --luasnip.lsp_expand(args.body)
-    --end,
-  --},
-    --window = {
-       --completion = cmp.config.window.bordered(),
-       --documentation = cmp.config.window.bordered(),
-  --},
-  --mapping = cmp.mapping.preset.insert({
-    --["<C-k>"] = cmp.mapping.select_prev_item(), -- previous suggestion
-    --["<C-j>"] = cmp.mapping.select_next_item(), -- next suggestion
-    --["<C-b>"] = cmp.mapping.scroll_docs(-4),
-    --["<C-f>"] = cmp.mapping.scroll_docs(4),
-    --["<C-Space>"] = cmp.mapping.complete(), -- show completion suggestions
-    --["<C-e>"] = cmp.mapping.abort(), -- close completion window
-    --["<CR>"] = cmp.mapping.confirm({ select = false }),
-  --}),
-  ---- sources for autocompletion
-  --sources = cmp.config.sources({
-    --{ name = "nvim_lsp" }, -- lsp
-    --{ name = "luasnip" }, -- snippets
-    --{ name = "buffer" }, -- text within current buffer
-    --{ name = "path" }, -- file system paths
-  --}),
---})
---
---local lspconfig = require("lspconfig")
---local cmp_nvim_lsp = require("cmp_nvim_lsp")
---local opts = { noremap = true, silent = true }
---local on_attach = function(client, bufnr)
-  --opts.buffer = bufnr
-  --keymap.set("n", "gs", "<cmd>Lspsaga show_workspace_diagnostics<CR>", opts)
-  --keymap.set("n", "ca", "<cmd>Lspsaga code_action<CR>", opts)
-  --keymap.set("n", "gn", "<Cmd>Lspsaga diagnostic_jump_next<CR>", opts)
-  --keymap.set("n", "gp", "<Cmd>Lspsaga diagnostic_jump_prev<CR>", opts)
-  --keymap.set("n", "gP", "<Cmd>Lspsaga peek_definition<CR>", opts)
-  --keymap.set("n", "gf", "<cmd>Lspsaga finder<CR>", opts)
-  --opts.desc = "Show LSP references"
-  --keymap.set("n", "gR", "<cmd>Telescope lsp_references<CR>", opts)
-  --opts.desc = "Go to declaration"
-  --keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
-  --opts.desc = "Show LSP definitions"
-  --keymap.set("n", "gd", "<cmd>Telescope lsp_definitions<CR>", opts)
-  --opts.desc = "Show LSP implementations"
-  --keymap.set("n", "gi", "<cmd>Telescope lsp_implementations<CR>", opts)
-  --opts.desc = "Show LSP type definitions"
-  --keymap.set("n", "gt", "<cmd>Telescope lsp_type_definitions<CR>", opts)
-  --opts.desc = "See available code actions"
-  --keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts)
-  --opts.desc = "Smart rename"
-  --keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
-  --opts.desc = "Show buffer diagnostics"
-  --keymap.set("n", "<leader>D", "<cmd>Telescope diagnostics bufnr=0<CR>", opts)
-  --opts.desc = "Show line diagnostics"
-  --keymap.set("n", "<leader>d", vim.diagnostic.open_float, opts)
-  --opts.desc = "Go to previous diagnostic"
-  --keymap.set("n", "[d", vim.diagnostic.goto_prev, opts)
-  --opts.desc = "Go to next diagnostic"
-  --keymap.set("n", "]d", vim.diagnostic.goto_next, opts)
-  --opts.desc = "Show documentation for what is under cursor"
-  --keymap.set("n", "K", vim.lsp.buf.hover, opts)
-  --opts.desc = "Restart LSP"
-  --keymap.set("n", "<leader>rs", ":LspRestart<CR>", opts)
---end
---
---local capabilities = cmp_nvim_lsp.default_capabilities()
---
----- Change the Diagnostic symbols in the sign column (gutter)
----- (not in youtube nvim video)
---local signs = { Error = " ", Warn = " ", Hint = "󰠠 ", Info = " " }
---for type, icon in pairs(signs) do
-  --local hl = "DiagnosticSign" .. type
-  --vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
---end
---
-    ---- configure html server
---lspconfig["html"].setup({
-  --capabilities = capabilities,
-  --on_attach = on_attach,
---})
---
----- configure typescript server with plugin
---lspconfig["tsserver"].setup({
-  --capabilities = capabilities,
-  --on_attach = on_attach,
---})
---
----- configure css server
---lspconfig["cssls"].setup({
-  --capabilities = capabilities,
-  --on_attach = on_attach,
---})
---
----- configure tailwindcss server
---lspconfig["tailwindcss"].setup({
-  --capabilities = capabilities,
-  --on_attach = on_attach,
---})
---
----- configure svelte server
---lspconfig["svelte"].setup({
-  --capabilities = capabilities,
-  --on_attach = function(client, bufnr)
-    --on_attach(client, bufnr)
---
-    --vim.api.nvim_create_autocmd("BufWritePost", {
-      --pattern = { "*.js", "*.ts" },
-      --callback = function(ctx)
-        --if client.name == "svelte" then
-          --client.notify("$/onDidChangeTsOrJsFile", { uri = ctx.file })
-        --end
-      --end,
-    --})
-  --end,
---})
---
----- configure prisma orm server
---lspconfig["prismals"].setup({
-  --capabilities = capabilities,
-  --on_attach = on_attach,
---})
---
----- configure graphql language server
---lspconfig["graphql"].setup({
-  --capabilities = capabilities,
-  --on_attach = on_attach,
-  --filetypes = { "graphql", "gql", "svelte", "typescriptreact", "javascriptreact" },
---})
---
----- configure emmet language server
---lspconfig["emmet_ls"].setup({
-  --capabilities = capabilities,
-  --on_attach = on_attach,
-  --filetypes = { "html", "typescriptreact", "javascriptreact", "css", "sass", "scss", "less", "svelte" },
---})
---
----- configure python server
---lspconfig["pyright"].setup({
-  --capabilities = capabilities,
-  --on_attach = on_attach,
---})
---
-    ---- configure lua server (with special settings)
---lspconfig["lua_ls"].setup({
-  --capabilities = capabilities,
-  --on_attach = on_attach,
-  --settings = { -- custom settings for lua
-    --Lua = {
-      ---- make the language server recognize "vim" global
-      --diagnostics = {
-        --globals = { "vim" },
-      --},
-      --workspace = {
-        ---- make language server aware of runtime files
-        --library = {
-          --[vim.fn.expand("$VIMRUNTIME/lua")] = true,
-          --[vim.fn.stdpath("config") .. "/lua"] = true,
-        --},
-      --},
-    --},
-  --},
---})
---
-    ---- import mason
---local mason = require("mason")
---
----- import mason-lspconfig
---local mason_lspconfig = require("mason-lspconfig")
---
---local mason_tool_installer = require("mason-tool-installer")
---
----- enable mason and configure icons
---mason.setup({
-  --ui = {
-    --icons = {
-      --package_installed = "✓",
-      --package_pending = "➜",
-      --package_uninstalled = "✗",
-    --},
-  --},
---})
---
---mason_lspconfig.setup({
-  ---- list of servers for mason to install
-  --ensure_installed = {
-    --"tsserver",
-    --"html",
-    --"cssls",
-    --"tailwindcss",
-    --"svelte",
-    --"lua_ls",
-    --"graphql",
-    --"emmet_ls",
-    --"prismals",
-    --"pyright",
-  --},
-      ---- auto-install configured servers (with lspconfig)
-  --automatic_installation = true, -- not the same as ensure_installed
---})
---
---mason_tool_installer.setup({
-  --ensure_installed = {
-    --"prettier", -- prettier formatter
-    --"stylua", -- lua formatter
-    --"isort", -- python formatter
-    --"black", -- python formatter
-    --"pylint", -- python linter
-    --"eslint_d", -- js linter
-  --},
---})
---
----- import lspsaga safely
---local saga_status, saga = pcall(require, "lspsaga")
---if not saga_status then
-  --return
---end
---
---saga.setup({
-  ---- keybinds for navigation in lspsaga window
-  --scroll_preview = { scroll_down = "<C-f>", scroll_up = "<C-b>" },
-  ---- use enter to open file with definition preview
-  --definition = {
-    --edit = "<CR>",
-  --},
-  --ui = {
-    --colors = {
-      --normal_bg = "#022746",
-    --},
-  --},
---})
+-- import luasnip plugin safely
+local luasnip_status, luasnip = pcall(require, "luasnip")
+if not luasnip_status then
+  return
+end
+
+-- import lspkind plugin safely
+local lspkind_status, lspkind = pcall(require, "lspkind")
+if not lspkind_status then
+  return
+end
+
+cmp.setup {
+snippet = {
+  expand = function(args)
+    luasnip.lsp_expand(args.body)
+  end,
+},
+mapping = cmp.mapping.preset.insert {
+  ['<C-j>'] = cmp.mapping.scroll_docs(-4),
+    ['<C-k>'] = cmp.mapping.scroll_docs(4),
+    ['<C-b>'] = cmp.mapping.complete {},
+    ['<CR>'] = cmp.mapping.confirm {
+      behavior = cmp.ConfirmBehavior.Replace,
+      select = true,
+    },
+    ['<Tab>'] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        cmp.select_next_item()
+      elseif luasnip.expand_or_jumpable() then
+        luasnip.expand_or_jump()
+      else
+        fallback()
+      end
+    end, { 'i', 's' }),
+    ['<S-Tab>'] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        cmp.select_prev_item()
+      elseif luasnip.jumpable(-1) then
+        luasnip.jump(-1)
+      else
+        fallback()
+      end
+    end, { 'i', 's' }),
+  },
+
+  sources = {
+    { name = "luasnip" },
+    { name = "nvim_lsp" },
+    { name = "buffer" },
+    { name = "nvim_lua" },
+    { name = "path" },
+  },
+}
+
+local lspconfig = require("lspconfig")
+local cmp_nvim_lsp = require("cmp_nvim_lsp")
+local opts = { noremap = true, silent = true }
+local on_attach = function(client, bufnr)
+  opts.buffer = bufnr
+  keymap.set("n", "gs", "<cmd>Lspsaga show_workspace_diagnostics<CR>", opts)
+  keymap.set("n", "ca", "<cmd>Lspsaga code_action<CR>", opts)
+  keymap.set("n", "gn", "<Cmd>Lspsaga diagnostic_jump_next<CR>", opts)
+  keymap.set("n", "gp", "<Cmd>Lspsaga diagnostic_jump_prev<CR>", opts)
+  keymap.set("n", "gP", "<Cmd>Lspsaga peek_definition<CR>", opts)
+  keymap.set("n", "gf", "<cmd>Lspsaga finder<CR>", opts)
+  opts.desc = "Show LSP references"
+  keymap.set("n", "gR", "<cmd>Telescope lsp_references<CR>", opts)
+  opts.desc = "Go to declaration"
+  keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
+  opts.desc = "Show LSP definitions"
+  keymap.set("n", "gd", "<cmd>Telescope lsp_definitions<CR>", opts)
+  opts.desc = "Show LSP implementations"
+  keymap.set("n", "gi", "<cmd>Telescope lsp_implementations<CR>", opts)
+  opts.desc = "Show LSP type definitions"
+  keymap.set("n", "gt", "<cmd>Telescope lsp_type_definitions<CR>", opts)
+  opts.desc = "See available code actions"
+  keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts)
+  opts.desc = "Smart rename"
+  keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
+  opts.desc = "Show buffer diagnostics"
+  keymap.set("n", "<leader>D", "<cmd>Telescope diagnostics bufnr=0<CR>", opts)
+  opts.desc = "Show line diagnostics"
+  keymap.set("n", "<leader>d", vim.diagnostic.open_float, opts)
+  opts.desc = "Go to previous diagnostic"
+  keymap.set("n", "[d", vim.diagnostic.goto_prev, opts)
+  opts.desc = "Go to next diagnostic"
+  keymap.set("n", "]d", vim.diagnostic.goto_next, opts)
+  opts.desc = "Show documentation for what is under cursor"
+  keymap.set("n", "K", vim.lsp.buf.hover, opts)
+  opts.desc = "Restart LSP"
+  keymap.set("n", "<leader>rs", ":LspRestart<CR>", opts)
+end
+
+local capabilities = cmp_nvim_lsp.default_capabilities()
+
+-- Change the Diagnostic symbols in the sign column (gutter)
+-- (not in youtube nvim video)
+local signs = { Error = " ", Warn = " ", Hint = "󰠠 ", Info = " " }
+for type, icon in pairs(signs) do
+  local hl = "DiagnosticSign" .. type
+  vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
+end
+
+    -- configure html server
+lspconfig["html"].setup({
+  capabilities = capabilities,
+  on_attach = on_attach,
+})
+
+-- configure typescript server with plugin
+lspconfig["tsserver"].setup({
+  capabilities = capabilities,
+  on_attach = on_attach,
+})
+
+-- configure css server
+lspconfig["cssls"].setup({
+  capabilities = capabilities,
+  on_attach = on_attach,
+})
+
+-- configure tailwindcss server
+lspconfig["tailwindcss"].setup({
+  capabilities = capabilities,
+  on_attach = on_attach,
+})
+
+-- configure svelte server
+lspconfig["svelte"].setup({
+  capabilities = capabilities,
+  on_attach = function(client, bufnr)
+    on_attach(client, bufnr)
+
+    vim.api.nvim_create_autocmd("BufWritePost", {
+      pattern = { "*.js", "*.ts" },
+      callback = function(ctx)
+        if client.name == "svelte" then
+          client.notify("$/onDidChangeTsOrJsFile", { uri = ctx.file })
+        end
+      end,
+    })
+  end,
+})
+
+-- configure prisma orm server
+lspconfig["prismals"].setup({
+  capabilities = capabilities,
+  on_attach = on_attach,
+})
+
+-- configure graphql language server
+lspconfig["graphql"].setup({
+  capabilities = capabilities,
+  on_attach = on_attach,
+  filetypes = { "graphql", "gql", "svelte", "typescriptreact", "javascriptreact" },
+})
+
+-- configure emmet language server
+lspconfig["emmet_ls"].setup({
+  capabilities = capabilities,
+  on_attach = on_attach,
+  filetypes = { "html", "typescriptreact", "javascriptreact", "css", "sass", "scss", "less", "svelte" },
+})
+
+-- configure python server
+lspconfig["pyright"].setup({
+  capabilities = capabilities,
+  on_attach = on_attach,
+})
+
+    -- configure lua server (with special settings)
+lspconfig["lua_ls"].setup({
+  capabilities = capabilities,
+  on_attach = on_attach,
+  settings = { -- custom settings for lua
+    Lua = {
+      -- make the language server recognize "vim" global
+      diagnostics = {
+        globals = { "vim" },
+      },
+      workspace = {
+        -- make language server aware of runtime files
+        library = {
+          [vim.fn.expand("$VIMRUNTIME/lua")] = true,
+          [vim.fn.stdpath("config") .. "/lua"] = true,
+        },
+      },
+    },
+  },
+})
+
+    -- import mason
+local mason = require("mason")
+
+-- import mason-lspconfig
+local mason_lspconfig = require("mason-lspconfig")
+
+local mason_tool_installer = require("mason-tool-installer")
+
+-- enable mason and configure icons
+mason.setup({
+  ui = {
+    icons = {
+      package_installed = "✓",
+      package_pending = "➜",
+      package_uninstalled = "✗",
+    },
+  },
+})
+
+mason_lspconfig.setup({
+  -- list of servers for mason to install
+  ensure_installed = {
+    "tsserver",
+    "html",
+    "cssls",
+    "tailwindcss",
+    "svelte",
+    "lua_ls",
+    "graphql",
+    "emmet_ls",
+    "prismals",
+    "pyright",
+  },
+      -- auto-install configured servers (with lspconfig)
+  automatic_installation = true, -- not the same as ensure_installed
+})
+
+mason_tool_installer.setup({
+  ensure_installed = {
+    "prettier", -- prettier formatter
+    "stylua", -- lua formatter
+    "isort", -- python formatter
+    "black", -- python formatter
+    "pylint", -- python linter
+    "eslint_d", -- js linter
+  },
+})
+
+-- import lspsaga safely
+local saga_status, saga = pcall(require, "lspsaga")
+if not saga_status then
+  return
+end
+
+saga.setup({
+  -- keybinds for navigation in lspsaga window
+  scroll_preview = { scroll_down = "<C-f>", scroll_up = "<C-b>" },
+  -- use enter to open file with definition preview
+  definition = {
+    edit = "<CR>",
+  },
+  ui = {
+    colors = {
+      normal_bg = "#022746",
+    },
+  },
+})
 
 vim.o.background = "dark" -- or "light" for light mode
 vim.cmd([[colorscheme gruvbox]])
@@ -470,3 +592,16 @@ vim.cmd([[let g:lazygit_use_neovim_remote = 1 " fallback to 0 if neovim-remote i
 vim.cmd([[let g:lazygit_use_custom_config_file_path = 0 " config file path is evaluated if this value is 1 ]])
 vim.cmd([[let g:lazygit_config_file_path = '' " custom config file path ]])
 vim.cmd([[set viminfo='100,<1000000,s100000,h]])
+
+vim.cmd[[colorscheme tokyonight-night]]
+vim.cmd[[
+    highlight RainbowDelimiterRed  guifg=#f4ca0d ctermfg=White
+    highlight RainbowDelimiterYellow guifg=#9d7cd8 ctermfg=White
+    highlight RainbowDelimiterBlue guifg=#7dcfff ctermfg=White
+    highlight RainbowDelimiterOrange guifg=#f4ca0d ctermfg=White
+    highlight RainbowDelimiterGreen guifg=#9d7cd8 ctermfg=White
+    highlight RainbowDelimiterViolet guifg=#7dcfff ctermfg=White
+    highlight RainbowDelimiterCyan guifg=#f4ca0d ctermfg=White
+]]
+
+

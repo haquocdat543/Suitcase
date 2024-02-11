@@ -1257,6 +1257,7 @@ alias biawscli='brew install awscli'
 alias bihcloud='brew install hcloud'
 alias btcrf='brew tap caskroom/fonts'
 alias bihnf='brew install font-hack-nerd-font'
+alias bijqp='brew install noahgorstein/tap/jqp'
 
 ### Hcloud command 
 alias hc='hcloud'
@@ -1295,6 +1296,7 @@ alias pmsdeno='pacman -S --noconfirm deno'
 alias pmsdocker='pacman -S --noconfirm docker'
 alias pmsgoogle='pacman -S --noconfirm google-cloud-sdk'
 alias pmsawscli='pacman -S --noconfirm awscli'
+alias pmsjqp='yay -S --no-confirm jqp-bin'
 
 ### Go command
 alias gor='go run'

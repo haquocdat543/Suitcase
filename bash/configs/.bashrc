@@ -810,6 +810,8 @@ alias vgsl='vagrant snapshot list'
 alias vgss='vagrant snapshot save'
 alias vgsd='vagrant snapshot delete'
 alias vgsr='vagrant snapshot restore'
+alias vgpli='vagrant plugin install'
+alias vgplqm='vagrant plugin install vagrant-qemu'
 
 ### Pulumi command
 alias plmlg='pulumi login'

@@ -249,7 +249,8 @@ alias objh='objdump -h'
 alias b0='cp -f ~/.bashrc ~/.bashrc~'
 alias b1='rm ~/.bashrc'
 alias b2='cp -f  ~/.bashrc~ ~/.bashrc'
-alias cddo='cd ~/Documents'
+alias cddc='cd ~/Documents'
+alias cddl='cd ~/Downloads'
 alias cdde='cd ~/Desktop'
 alias cdssh='cd ~/.ssh'
 alias c400='chmod 400'
@@ -357,6 +358,12 @@ alias ldk='lazydocker'
 alias lk='lazykubernetes'
 alias lnpm='lazynpm'
 alias lcli='lazycli'
+
+### Ranger command
+alias rgr='ranger'
+
+### Zoxide command
+alias z='zoxide'
 
 ### Bat command
 alias batlt='bat --list-themes'
@@ -1277,6 +1284,7 @@ alias bihnf='brew install font-hack-nerd-font'
 alias bijqp='brew install noahgorstein/tap/jqp'
 alias biktx='brew install kubectx'
 alias bibat='brew install bat'
+alias birgr='brew install ranger'
 
 ### Hcloud command 
 alias hc='hcloud'

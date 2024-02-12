@@ -7,6 +7,15 @@ variable "${1:variableName}" {
 $4
 endsnippet
 
+snippet v3 "Terraform variables v2" b
+variable "${1:variableName}" {
+  sensitive = "${2:true}"
+  type = ${3:valueType}
+}
+
+$4
+endsnippet
+
 snippet v1 "Terraform variables v1" b
 variable "${1:variableName}" {
   type = ${2:valueType}

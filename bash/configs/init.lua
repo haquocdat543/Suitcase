@@ -323,7 +323,7 @@ snippet = {
   end,
 },
 mapping = cmp.mapping.preset.insert {
-  ['<C-j>'] = cmp.mapping.scroll_docs(-4),
+    ['<C-j>'] = cmp.mapping.scroll_docs(-4),
     ['<C-k>'] = cmp.mapping.scroll_docs(4),
     ['<C-b>'] = cmp.mapping.complete {},
     ['<CR>'] = cmp.mapping.confirm {

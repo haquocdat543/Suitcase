@@ -109,6 +109,10 @@ endsnippet
 snippet gen "generate" b
 generate "${1:Provider}" {
     path = "${2:provider.tf}"
+    if_exists = "${3:overwrite_terragrunt}"
+    contents = <<EOF
+    $4
+    EOF
 }
 endsnippet
 
@@ -122,5 +126,12 @@ snippet inc "include" b
 include "${1:root}"{
     path = find_in_parent_folders()
 }
+endsnippet
+
+snippet tfs "terraform source" b
+terraform {
+    source = "${1:link}"
+}
+
 endsnippet
 

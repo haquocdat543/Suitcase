@@ -331,6 +331,7 @@ alias iignite='. ~/preconfig/Suitcase/bash/scripts/igniteInstallation.sh'
 alias idoctl='. ~/preconfig/Suitcase/bash/scripts/doctlInstall.sh'
 alias itgr='. ~/preconfig/Suitcase/bash/scripts/terragruntInstall.sh'
 alias ihk3s='. ~/preconfig/Suitcase/bash/scripts/hetznerK3sInstall.sh'
+alias iflux='curl -s https://fluxcd.io/install.sh | sudo bash'
 alias ijenkins='. ~/preconfig/Suitcase/bash/scripts/jenkinInstall.sh'
 alias imysql='. ~/preconfig/Suitcase/bash/scripts/amzLinuxMysql.sh'
 alias ikar='. ~/preconfig/Suitcase/bash/scripts/ikubectlArgoRollouts.sh'
@@ -379,6 +380,9 @@ alias z='zoxide'
 
 ### Bat command
 alias batlt='bat --list-themes'
+
+### Flux command
+alias fli='flux install'
 
 ### Kubens command
 alias kbn='kubens'
@@ -1151,6 +1155,8 @@ alias kr='kubectl run --dry-run=client -oyaml --image'
 alias ka='kubectl apply -f'
 alias kadb='kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.7.0/aio/deploy/recommended.yaml'
 alias kddb='kubectl delete -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.7.0/aio/deploy/recommended.yaml'
+alias kafl='kubectl apply -f https://github.com/fluxcd/flux2/releases/latest/download/install.yaml'
+alias kdfl='kubectl delete -f https://github.com/fluxcd/flux2/releases/latest/download/install.yaml'
 alias kd='kubectl delete -f'
 alias kgp='kubectl get secret --namespace default grafana -o jsonpath="{.data.admin-password}" | base64 --decode ; echo'
 alias krrd="kubectl run --namespace default my-redis-client --rm --tty -i --restart='Never' --image docker.io/bitnami/redis:6.2.1-debian-10-r0 -- bash" # redis-cli -h my-redis -p 6379
@@ -1208,12 +1214,14 @@ alias hml='helm list'
 alias hmla='helm list --all-namespaces'
 alias hmrb='helm rollback'
 alias hmu='helm upgrade'
-alias hiels='helm repo add elastic https://helm.elastic.co ; helm install elasticsearch elastic/elasticsearch'
-alias hifb='helm repo add elastic https://helm.elastic.co ; helm install filebeat elastic/filebeat'
-alias hikb='helm repo add elastic https://helm.elastic.co ; helm install kibana elastic/kibana'
-alias hilt='helm repo add elastic https://helm.elastic.co ; helm install logstash elastic/logstash'
-alias himb='helm repo add elastic https://helm.elastic.co ; helm repo add prometheus-community https://prometheus-community.github.io/helm-charts ; helm install metricbeat elastic/metricbeat'
-alias hird='helm install redis-cache bitnami/redis -f redis-values.yaml'
+alias hmiels='helm repo add elastic https://helm.elastic.co ; helm install elasticsearch elastic/elasticsearch'
+alias hmifb='helm repo add elastic https://helm.elastic.co ; helm install filebeat elastic/filebeat'
+alias hmikb='helm repo add elastic https://helm.elastic.co ; helm install kibana elastic/kibana'
+alias hmilt='helm repo add elastic https://helm.elastic.co ; helm install logstash elastic/logstash'
+alias hmimb='helm repo add elastic https://helm.elastic.co ; helm repo add prometheus-community https://prometheus-community.github.io/helm-charts ; helm install metricbeat elastic/metricbeat'
+alias hmird='helm install redis-cache bitnami/redis -f redis-values.yaml'
+alias hmifl='helm install -n flux-system flux oci://ghcr.io/fluxcd-community/charts/flux2'
+alias hmuifl='helm uninstall -n flux-system flux oci://ghcr.io/fluxcd-community/charts/flux2'
 
 ### Trivy command
 alias t1='trivy'
@@ -1318,6 +1326,7 @@ alias biktx='brew install kubectx'
 alias bibat='brew install bat'
 alias birgr='brew install ranger'
 alias bihk3s='brew install vitobotta/tap/hetzner_k3s'
+alias biflux='brew install fluxcd/tap/flux'
 
 ### Hcloud command 
 alias hc='hcloud'

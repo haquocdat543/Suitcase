@@ -282,6 +282,9 @@ alias k8smc='. ~/preconfig/Suitcase/bash/scripts/master-centos.sh'
 alias k8swu='. ~/preconfig/Suitcase/bash/scripts/worker-ubuntu.sh'
 alias k8swc='. ~/preconfig/Suitcase/bash/scripts/worker-centos.sh'
 alias mnode='. ~/preconfig/Suitcase/bash/scripts/k8s-ami.sh'
+alias dcl='declare'
+alias dcli='declare -i' #Declare value as integer
+alias dcla='declare -a'
 
 
 ### Documentation

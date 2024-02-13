@@ -24,6 +24,16 @@ variable "${1:variableName}" {
 $3
 endsnippet
 
+snippet v4 "Terraform variables v4" b
+locals {
+  ${1:var} = ${2:value}
+}
+endsnippet
+
+snippet v5 "Terraform variables v5" b
+${1:var} = ${2:value}
+endsnippet
+
 snippet p "Profile" b
 # Profile configuration
 provider "aws" {

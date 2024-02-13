@@ -847,6 +847,14 @@ alias pkpi='packer plugins install'
 alias pkpia='packer plugins install github.com/hashicorp/amazon'
 
 ### Terraform command
+alias tgi='terragrunt init'
+alias tgp='terragrunt plan'
+alias tga='terragrunt apply'
+alias tgaa='terragrunt apply --auto-approve'
+alias tgd='terragrunt destroy'
+alias tgda='terragrunt destroy --auto-approve'
+
+### Terraform command
 alias tfc='. ~/preconfig/Suitcase/bash/scripts/clean.sh'
 alias tfi='terraform init'
 alias tfiu='terraform init -upgrade'

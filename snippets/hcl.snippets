@@ -88,3 +88,39 @@ build {
 
 endsnippet
 
+snippet rtc "read terragrunt config" b
+${1:account}_vars = read_terragrunt_config(find_in_parent_folders("$1.hcl}"))
+endsnippet
+
+snippet v4 "Terraform variables v4" b
+locals {
+  ${1:var} = ${2:value}
+}
+endsnippet
+
+snippet v5 "Terraform variables v5" b
+${1:var} = ${2:value}
+endsnippet
+
+snippet lv "local variable" b
+${1:var} = local.account_vars.local.${2:value}
+endsnippet
+
+snippet gen "generate" b
+generate "${1:Provider}" {
+    path = "${2:provider.tf}"
+}
+endsnippet
+
+snippet inp "inputs" b
+inputs {
+    $1
+}
+endsnippet
+
+snippet inc "include" b
+include "${1:root}"{
+    path = find_in_parent_folders()
+}
+endsnippet
+

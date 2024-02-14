@@ -1286,6 +1286,9 @@ alias crl='crontab -l'
 alias crr='crontab -r'
 alias ycron='ycr ; secr ; sscr'
 
+### Python command
+alias p3upp='python3 -m pip install --upgrade pip'
+
 ### Pip command
 alias pi='pip install'
 alias pians='pip install ansible'
@@ -1330,6 +1333,7 @@ alias bibat='brew install bat'
 alias birgr='brew install ranger'
 alias bihk3s='brew install vitobotta/tap/hetzner_k3s'
 alias biflux='brew install fluxcd/tap/flux'
+alias bishc='brew install shellcheck'
 
 ### Hcloud command 
 alias hc='hcloud'

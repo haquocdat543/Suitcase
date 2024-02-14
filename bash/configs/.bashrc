@@ -125,6 +125,7 @@ alias plugin='git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundl
 alias cob='ll | wc'
 alias aw='. ~/preconfig/Suitcase/bash/scripts/awk.sh'
 alias eag='. ~/preconfig/Suitcase/bash/scripts/eag.sh'
+alias extf='. ~/preconfig/Suitcase/bash/scripts/exportTFVar.sh'
 alias ag='ag --hidden'
 alias virclc='vi /etc/rc.local'
 alias vifc='vi *.FCMacro'

@@ -376,6 +376,9 @@ alias qms84ek='qemu-system-x86_64 -enable-kvm -cdrom'
 alias qmi='qemu-img'
 alias qmicf2='qemu-img create -f qcow2'
 
+### Rsync command
+alias rsc'rsync -avz -e'
+
 ### Ranger command
 alias rgr='ranger'
 
@@ -1573,6 +1576,7 @@ alias yme='yum-config-manager --enable'
 alias darp='dnf config-manager --add-repo'
 alias ynv='yum install -y neovim'
 alias yt='yum install terraform -y'
+alias yrsync='yum install rsync -y'
 alias yterra='yyu;ymat;yt'
 alias ytm='yum install tmux -y'
 alias ydbg='yum install dbg -y'

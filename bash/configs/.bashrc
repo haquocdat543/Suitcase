@@ -378,7 +378,7 @@ alias qmi='qemu-img'
 alias qmicf2='qemu-img create -f qcow2'
 
 ### Rsync command
-alias rsc'rsync -avz -e'
+alias rsc='rsync -avz -e'
 
 ### Ranger command
 alias rgr='ranger'
@@ -390,7 +390,14 @@ alias z='zoxide'
 alias batlt='bat --list-themes'
 
 ### Flux command
+alias flv='flux --version'
 alias fli='flux install'
+alias flb='flux bootstrap'
+alias flbgh='flux bootstrap github'
+
+### Kind command
+alias kdcc='kind create cluster --name'
+alias kddc='kind delete cluster --name'
 
 ### Kubens command
 alias kbn='kubens'

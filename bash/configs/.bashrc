@@ -395,6 +395,7 @@ alias fli='flux install'
 alias flb='flux bootstrap'
 alias flcp='flux check --pre'
 alias flbgh='flux bootstrap github'
+alias flbghs='. ~/preconfig/Suitcase/bash/scripts/fluxBootstrapGithub.sh'
 
 ### Kind command
 alias kdcc='kind create cluster --name'

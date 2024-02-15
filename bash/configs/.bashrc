@@ -1354,7 +1354,18 @@ alias hccc='hcloud context create'
 alias hcdcl='hcloud datacenter list'
 alias hcdcd='hcloud datacenter describe'
 
-### Go command
+### Apk command
+alias apka='apk add'
+alias apkd='apk del'
+alias apkl='apk list'
+alias apki='apk info'
+alias apkud='apk update'
+alias apkug='apk upgrade'
+alias apkf='apk fetch'
+alias apkc='apk cache'
+alias apks='apk search'
+
+### Pacman command
 alias pms='pacman -S  --noconfirm'
 alias pmszsh='pacman -S --noconfirm zsh'
 alias pmstr='pacman -S --noconfirm tree'

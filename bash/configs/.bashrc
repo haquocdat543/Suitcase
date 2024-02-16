@@ -210,6 +210,7 @@ alias vitab='vi /etc/fstab'
 alias vilim='vi /etc/security/limits.conf'
 alias visys='vi /etc/sysctl.conf'
 alias asudo='. ~/preconfig/Suitcase/bash/scripts/addSudoers.sh'
+alias sshidrsa='. ~/preconfig/Suitcase/bash/scripts/sshidrsa.sh'
 alias vissh='vi /etc/ssh/sshd_config'
 alias ssha='eval $(ssh-agent) && ssh-add'
 alias sshad='eval $(ssh-agent) && ssh-add ~/.ssh/id_ed25519'
@@ -286,6 +287,7 @@ alias mnode='. ~/preconfig/Suitcase/bash/scripts/k8s-ami.sh'
 alias dcl='declare'
 alias dcli='declare -i' #Declare value as integer
 alias dcla='declare -a'
+alias kla='killall'
 
 
 ### Documentation

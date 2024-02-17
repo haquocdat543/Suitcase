@@ -60,3 +60,5 @@ ansible webservers -m ansible.builtin.yum -a "name=acme state=latest"
 * template
 * tests
 * vars
+### 5. Option and flags
+-vvv: verbose

@@ -1380,6 +1380,7 @@ alias bihk3s='brew install vitobotta/tap/hetzner_k3s'
 alias biflux='brew install fluxcd/tap/flux'
 alias bishc='brew install shellcheck'
 alias bikind='brew install kind'
+alias birdm='brew install --cask remote-desktop-manager'
 
 ### Hcloud command 
 alias hc='hcloud'

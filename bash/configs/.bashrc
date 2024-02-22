@@ -1214,6 +1214,11 @@ alias ktn='kubectl taint node'
 
 alias klg='kubectl logs'
 alias kn='kubectl config set-context --current --namespace'
+alias kndf='kubectl config set-context --current --namespace default'
+alias knkn='kubectl config set-context --current --namespace kube-node-lease'
+alias knkp='kubectl config set-context --current --namespace kube-public'
+alias knks='kubectl config set-context --current --namespace kube-system'
+alias knfs='kubectl config set-context --current --namespace flux-system'
 alias kgns='kubectl get namespace'
 alias kgcc='cat ~/.kube/config | grep current | sed -e "s/current-context: //"'
 alias kgac="kubectl get pods --all-namespaces -o jsonpath='{.items[*].spec.containers[*].name}' | tr -s ' ' '\n' |sort |uniq -c"

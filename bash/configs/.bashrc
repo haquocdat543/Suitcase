@@ -362,6 +362,7 @@ alias isconfig='go install github.com/freshautomations/sconfig@latest ; cp $HOME
 alias iimc='go install github.com/danielgatis/imgcat@latest ; cp $HOME/go/bin/imgcat /usr/local/bin'
 alias istoml='. ~/preconfig/Suitcase/bash/scripts/stomlInstall.sh'
 alias igm='git clone https://github.com/informalsystems/gm ; cp -f $HOME/gm/bin/* /usr/local/bin'
+alias ibat='cargo install --locked bat'
 alias ijenkins='. ~/preconfig/Suitcase/bash/scripts/jenkinInstall.sh'
 alias imysql='. ~/preconfig/Suitcase/bash/scripts/amzLinuxMysql.sh'
 alias ikar='. ~/preconfig/Suitcase/bash/scripts/ikubectlArgoRollouts.sh'

@@ -70,8 +70,8 @@ map <C-c>1 :%s///g<Left><Left><Left>
 map <C-c>2 :.s///g<Left><Left><Left>
 map <C-c>3 :.,0s///g<Left><Left><Left>
 map <C-c>4 :.,$s///g<Left><Left><Left>
-map <C-c>5 :.,.-s//g<Left><Left><Left><Left><Left>
-map <C-c>6 :.,.+s//g<Left><Left><Left><Left><Left>
+map <C-c>5 :.,.-s//g<Left><Left><Left><Left>
+map <C-c>6 :.,.+s//g<Left><Left><Left><Left>
 map <leader>ii :PlugInstall<CR>
 map <leader>in :PluginInstall<CR>
 map <C-p>1 :Files<CR>

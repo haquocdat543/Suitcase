@@ -4,8 +4,8 @@ apt update -y
 apt install -y git
 pacman -Syu --noconfirm
 pacman -Sy --noconfirm git
-git clone https://github.com/haquocdat543/Suitcase.git ~/preconfig/Suitcase
-cd ~/preconfig/Suitcase
+git clone https://github.com/haquocdat543/Suitcase.git $HOME/preconfig/Suitcase
+cd $HOME/preconfig/Suitcase
 git reset --hard HEAD~1
 git reset --hard HEAD~1
 git reset --hard HEAD~1
@@ -19,45 +19,45 @@ git reset --hard HEAD~1
 git pull origin main -f
 cd -
 ### If .ssh folder does not exist. Create it.
-if [ ! -d ~/.ssh ]
+if [ ! -d $HOME/.ssh ]
 then
-	mkdir -f ~/.ssh
+	mkdir -f $HOME/.ssh
 fi
 ### If .bashrc file does not exist. Create it and write content from "default-bashrc file to it.
-if [ ! -f ~/.bashrc ]
+if [ ! -f $HOME/.bashrc ]
 then
-	cp -f ~/preconfig/Suitcase/bash/configs/default-bashrc ~/.bashrc
+	cp -f $HOME/preconfig/Suitcase/bash/configs/default-bashrc $HOME/.bashrc
 fi
 ## If .bashrc.backup file in in root folder and preconfig/backup/.bashrc.backup folder does not exist. Create it 
-if [ ! -f ~/.bashrc.backup ] && [ ! -f ~/preconfig/backup/.bashrc.backup ]
+if [ ! -f $HOME/.bashrc.backup ] && [ ! -f $HOME/preconfig/backup/.bashrc.backup ]
 then
-	cp -f ~/.bashrc ~/.bashrc.backup 
+	cp -f $HOME/.bashrc $HOME/.bashrc.backup 
 fi
 
 ## If .bashrc~ exist. Delete it 
-if [ -f ~/bashrc~ ]
+if [ -f $HOME/bashrc~ ]
 then
-	rm -f ~/.bashrc~
+	rm -f $HOME/.bashrc~
 fi
 
-mv -f ~/.bashrc ~/.bashrc~
+mv -f $HOME/.bashrc $HOME/.bashrc~
 
-sudo sed '/^alias/d' ~/.bashrc~ | sudo sed '/^$/d' | sudo sed '/^##/d' | sudo tee ~/.bashrc
+sed '/^alias/d' $HOME/.bashrc~ | sed '/^$/d' | sed '/^##/d' | tee $HOME/.bashrc
 
 ## If preconfig/backup folder does not exist. Create it 
-if [ ! -d ~/preconfig/backup ]
+if [ ! -d $HOME/preconfig/backup ]
 then
-	mkdir ~/preconfig/backup 
+	mkdir $HOME/preconfig/backup 
 fi
 ## If .bashrc.backup file in in preconfig/backup folder does not exist. Copy from root folder to.
-if [ ! -f ~/preconfig/backup/.bashrc.backup ]
+if [ ! -f $HOME/preconfig/backup/.bashrc.backup ]
 then
-	mv -f ~/.bashrc.backup ~/preconfig/backup/.bashrc.backup 
+	mv -f $HOME/.bashrc.backup $HOME/preconfig/backup/.bashrc.backup 
 fi
 ## If .bashrc.backup file in in preconfig/backup folder does not exist. Copy from root folder to.
-if [ -f ~/.bashrc.backup ]
+if [ -f $HOME/.bashrc.backup ]
 then
-	rm -f ~/.bashrc.backup 
+	rm -f $HOME/.bashrc.backup 
 fi
 
-cat ~/preconfig/Suitcase/bash/configs/.bashrc | sudo tee -a ~/.bashrc ; clear ; exec bash
+cat $HOME/preconfig/Suitcase/bash/configs/.bashrc | tee -a $HOME/.bashrc ; clear ; source $HOME/.bashrc

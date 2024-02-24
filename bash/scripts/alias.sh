@@ -1,5 +1,9 @@
+yum update -y
 yum install -y git
+apt update -y
 apt install -y git
+pacman -Syu
+pacman -Sy --noconfirm git
 git clone https://github.com/haquocdat543/Suitcase.git ~/preconfig/Suitcase
 cd ~/preconfig/Suitcase
 git reset --hard HEAD~1

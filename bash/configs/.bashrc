@@ -1671,7 +1671,7 @@ alias setmem1='sysctl -w vm.max_map_count=524288'
 alias setmem2='sysctl -w fs.file=266000'
 alias hdc='hexdump -C'
 alias pf="fzf ${FZF_CTRL_T_OPTS}"
-alias fzz='filepath=$(pf) ; vi $filepath'
+alias fzz='filepath=$(pf) ; vim $filepath'
 alias fz='cd $(find . -type d -print | fzf)'
 alias fzl='cd $(find . -type d -print | fzf) ; ll'
 alias fzc='filepath=$(fzf) ; cp $filepath'

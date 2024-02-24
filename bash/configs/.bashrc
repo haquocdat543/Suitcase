@@ -317,6 +317,7 @@ alias docfzf='vim -m ~/preconfig/Suitcase/bash/docs/fzf.md'
 alias docbash='vim -m ~/preconfig/Suitcase/bash/docs/bash.md'
 alias docans='vim -m ~/preconfig/Suitcase/bash/docs/ansible.md'
 alias docawk='vim -m ~/preconfig/Suitcase/bash/docs/awk.md'
+alias docsed='vim -m ~/preconfig/Suitcase/bash/docs/sed.md'
 
 ### Installation
 alias igo='. ~/preconfig/Suitcase/bash/scripts/goInstall.sh'

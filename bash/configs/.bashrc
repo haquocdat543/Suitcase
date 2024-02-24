@@ -313,6 +313,7 @@ alias docsql='vi -m ~/preconfig/Suitcase/bash/docs/docsql.md'
 alias docfzf='vi -m ~/preconfig/Suitcase/bash/docs/fzf.md'
 alias docbash='vi -m ~/preconfig/Suitcase/bash/docs/bash.md'
 alias docans='vi -m ~/preconfig/Suitcase/bash/docs/ansible.md'
+alias docawk='vi -m ~/preconfig/Suitcase/bash/docs/awk.md'
 
 ### Installation
 alias igo='. ~/preconfig/Suitcase/bash/scripts/goInstall.sh'

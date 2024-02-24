@@ -1,4 +1,5 @@
 yum update -y
+yum install sudo -y
 yum install -y git
 apt update -y
 apt install -y git

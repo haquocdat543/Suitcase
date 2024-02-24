@@ -22,7 +22,7 @@ then
 	rm ~/preconfig/init.vim
 fi
 ## Write content to nvim.sh file in preconfig folder
-cat << EOF | sudo tee -a ~/preconfig/nvim.sh
+cat << EOF | tee -a ~/preconfig/nvim.sh
 #!/bin/bash
 
 ## If previmrc already exist. Delete it
@@ -50,5 +50,5 @@ mv ~/preconfig/init.vim ~/.config/nvim/init.vim
 
 EOF
 ## Write content to init.vim file in preconfig folder
-cat ~/preconfig/Suitcase/bash/configs/init.vim | sudo tee -a ~/preconfig/init.vim ; clear
+cat ~/preconfig/Suitcase/bash/configs/init.vim | tee -a ~/preconfig/init.vim ; clear
 

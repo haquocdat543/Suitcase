@@ -26,7 +26,7 @@ then
 	rm ~/preconfig/.tmux.conf
 fi
 ## Write content to run.sh file in preconfig folder
-cat << EOF | sudo tee -a ~/preconfig/tmux.sh
+cat << EOF | tee -a ~/preconfig/tmux.sh
 #!/bin/bash
 
 ## If pretmux already exist. Delete it
@@ -54,4 +54,4 @@ mv ~/preconfig/.tmux.conf ~/.tmux.conf
 
 EOF
 ## Write content to .tmux file in preconfig folder
-cat ~/preconfig/Suitcase/bash/configs/.tmux.conf | sudo tee -a ~/preconfig/.tmux.conf ; clear
+cat ~/preconfig/Suitcase/bash/configs/.tmux.conf | tee -a ~/preconfig/.tmux.conf ; clear

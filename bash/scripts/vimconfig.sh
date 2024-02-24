@@ -12,7 +12,7 @@ then
 	rm ~/preconfig/.vimrc
 fi
 ## Write content to run.sh file in preconfig folder
-cat << EOF | sudo tee -a ~/preconfig/run.sh
+cat << EOF | tee -a ~/preconfig/run.sh
 #!/bin/bash
 
 ## If previmrc already exist. Delete it
@@ -40,5 +40,5 @@ mv ~/preconfig/.vimrc ~/.vimrc
 
 EOF
 ## Write content to .vimrc file in preconfig folder
-cat ~/preconfig/Suitcase/bash/configs/.vimrc | sudo tee -a ~/preconfig/.vimrc ; clear
+cat ~/preconfig/Suitcase/bash/configs/.vimrc | tee -a ~/preconfig/.vimrc ; clear
 

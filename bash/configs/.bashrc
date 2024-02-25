@@ -368,6 +368,7 @@ alias igm='git clone https://github.com/informalsystems/gm ; cp -f $HOME/gm/bin/
 alias ibat='cargo install --locked bat'
 alias idattree='curl https://get.datree.io | /bin/bash'
 alias idgg='curl -L https://dl.dagger.io/dagger/install.sh | BIN_DIR=$HOME/.local/bin sh ; cp -f $HOME/.local/bin/dagger /usr/local/bin'
+alias icosign='go install github.com/sigstore/cosign/v2/cmd/cosign@latest'
 alias iaws='curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" ; unzip awscliv2.zip ; sudo ./aws/install'
 alias ijenkins='. $HOME/preconfig/Suitcase/bash/scripts/jenkinInstall.sh'
 alias imysql='. $HOME/preconfig/Suitcase/bash/scripts/amzLinuxMysql.sh'
@@ -1499,6 +1500,7 @@ alias hcdcd='hcloud datacenter describe'
 
 ### Apk command
 alias apka='apk add'
+alias apkacsg='apk add cosign'
 alias apkd='apk del'
 alias apkl='apk list'
 alias apki='apk info'
@@ -1511,6 +1513,7 @@ alias apks='apk search'
 ### Pacman command
 alias pms='pacman -Sy --noconfirm'
 alias pmsvim='pacman -Sy --noconfirm vim'
+alias pmscsg='pacman -Sy --noconfirm cosign'
 alias pmszsh='pacman -Sy --noconfirm zsh'
 alias pmstr='pacman -Sy --noconfirm tree'
 alias pmswg='pacman -Sy --noconfirm wget'

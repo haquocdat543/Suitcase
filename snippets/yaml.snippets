@@ -1612,6 +1612,19 @@ bases:
   - ${1:../../base}
 endsnippet
 
+snippet kzpsm "Kustomize patch strategic merge" b
+patchesStrategicMerge:
+  - ${1:external_db_cfg.yaml}
+endsnippet
+
+snippet kzcpc "Kustomize components root" b
+apiVersion: kustomize.config.k8s.io/v1alpha1
+kind: Component
+
+resources: 
+  - ${1:external_db_cfg.yaml}
+endsnippet
+
 snippet kzcp "Kustomize components" b
 components:
   - ${1:../../components/external_db}

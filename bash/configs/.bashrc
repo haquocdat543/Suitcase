@@ -1644,6 +1644,12 @@ alias g4qb='gaiad q bank'
 alias g4qbb='gaiad q bank balances'
 alias g4aga='gaiad add-genesis-account'
 
+### Cosign
+alias csg='cosign'
+alias csggkp='cosign generate keypair'
+alias csgs='cosign sign'
+alias csgsk='cosign sign --key'
+
 ### GPG key
 alias gpglk='gpg --list-keys'
 alias gpgfgk='gpg --full-generate-key'

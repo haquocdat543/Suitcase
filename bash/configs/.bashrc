@@ -368,6 +368,7 @@ alias igm='git clone https://github.com/informalsystems/gm ; cp -f $HOME/gm/bin/
 alias ibat='cargo install --locked bat'
 alias idattree='curl https://get.datree.io | /bin/bash'
 alias idgg='curl -L https://dl.dagger.io/dagger/install.sh | BIN_DIR=$HOME/.local/bin sh ; cp -f $HOME/.local/bin/dagger /usr/local/bin'
+alias iaws='curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" ; unzip awscliv2.zip ; sudo ./aws/install'
 alias ijenkins='. $HOME/preconfig/Suitcase/bash/scripts/jenkinInstall.sh'
 alias imysql='. $HOME/preconfig/Suitcase/bash/scripts/amzLinuxMysql.sh'
 alias ikar='. $HOME/preconfig/Suitcase/bash/scripts/ikubectlArgoRollouts.sh'

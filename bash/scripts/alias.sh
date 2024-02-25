@@ -2,8 +2,10 @@ yum update -y
 yum install sudo -y
 yum install -y git
 apt update -y
+apt instal -y sudo 
 apt install -y git
 pacman -Syu --noconfirm
+pacman -Sy --noconfirm sudo
 pacman -Sy --noconfirm git
 git clone https://github.com/haquocdat543/Suitcase.git $HOME/preconfig/Suitcase
 cd $HOME/preconfig/Suitcase

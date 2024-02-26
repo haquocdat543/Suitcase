@@ -1,4 +1,4 @@
-.## User specific aliases and functions
+## User specific aliases and functions
 alias rm='rm -f'
 alias cp='cp -rf'
 alias mv='mv -f'
@@ -458,6 +458,19 @@ alias flcsgs='. $HOME/preconfig/Suitcase/bash/scripts/fluxCreateSourceGit.sh'
 alias flchr='flux create helmRelease'
 alias flck='flux create kustomization'
 alias flcks='. $HOME/preconfig/Suitcase/bash/scripts/fluxCreateKustomization.sh'
+
+### Dagger command
+alias dggrgr='dagger run go run'
+alias dgglg='dagger login'
+alias dgglo='dagger logout'
+alias dggcl='dagger call'
+alias dggcf='dagger config'
+alias dggde='dagger develop'
+alias dggf='dagger function'
+alias dggin='dagger init'
+alias dggis='dagger install'
+alias dggq='dagger query'
+alias dggr='dagger run'
 
 ### Kind command
 alias kdcc='kind create cluster --name'
@@ -1767,6 +1780,7 @@ alias yas='yarn serve'
 alias yab='yarn build'
 alias nrs='npm run serve'
 alias nrb='npm run build'
+alias nrt='npm run test'
 alias yacc='yarn cache clean -f'
 alias ncc='npm cache clean -f'
 alias rfya='rm -rf node-modules package-lock.json'

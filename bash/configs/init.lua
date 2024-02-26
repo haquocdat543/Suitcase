@@ -79,12 +79,12 @@ keymap.set('n','<C-b>b',':set backup<CR>')
 keymap.set('n','<C-h>h',':noh<CR>')
 keymap.set('n','<C-q>q',':q!<CR>')
 keymap.set('n','<C-q>w',':wq!<CR>')
-keymap.set('n','<C-c>1',':%s/')
-keymap.set('n','<C-c>2',':.,.s/')
-keymap.set('n','<C-c>3',':.,0s/')
-keymap.set('n','<C-c>4',':.,$s/')
-keymap.set('n','<C-c>5',':.,.-')
-keymap.set('n','<C-c>6',':.,.+')
+keymap.set('n','<C-c>1',':%s///g<Left><Left><Left>')
+keymap.set('n','<C-c>2',':.,.s///g<Left><Left><Left>')
+keymap.set('n','<C-c>3',':.,0s///g<Left><Left><Left>')
+keymap.set('n','<C-c>4',':.,$s///g<Left><Left><Left>')
+keymap.set('n','<C-c>5',':.,.-s///g<Left><Left><Left><Left>')
+keymap.set('n','<C-c>6',':.,.+///g<Left><Left><Left><Left>')
 keymap.set('n','<C-x>','<C-p><CR>')
 keymap.set('n','<A-j>',':m .+1<CR>==')
 keymap.set('n','<A-k>',':m .-2<CR>==')
@@ -93,10 +93,14 @@ keymap.set('n','<leader>ww',':w!<CR>')
 keymap.set('n','<A-n>n',':n<CR>')
 keymap.set('n','<A-p>p',':p<CR>')
 keymap.set('n','<leader>nt',':NERDTreeToggle<CR>')
+keymap.set('n','<leader>db',':Dashboard<CR>')
 keymap.set('n','<leader>to',':tabnew ')
 keymap.set('n','<leader>tx',':tabclose<CR>')
 keymap.set('n','<leader>tn',':tabn<CR>')
 keymap.set('n','<leader>tp',':tabp<CR>')
+keymap.set('n','<leader>ev',':tabnew $MYVIMRC<CR>')
+keymap.set('n','<leader>ea',':tabnew $HOME/.bashrc<CR>')
+keymap.set('n','<leader>el',':tabnew $HOME/.config/nvim/init.lua<CR>')
 
 keymap.set('n','te',':tabedit ')
 keymap.set('n','ss',':split<CR><C-w>w')
@@ -109,6 +113,14 @@ keymap.set('n','sk','<C-w>k')
 keymap.set('n','sl','<C-w>l')
 
 local plugins = {
+ {
+  'nvimdev/dashboard-nvim',
+  event = 'VimEnter',
+  config = function()
+    require('dashboard').setup {
+    }
+  end,
+ },
  { 'codota/tabnine-nvim', build = "./dl_binaries.sh" },
  'wbthomason/packer.nvim',
  'nvim-treesitter/nvim-treesitter',
@@ -604,6 +616,7 @@ vim.cmd([[let g:lazygit_use_custom_config_file_path = 0 " config file path is ev
 vim.cmd([[let g:lazygit_config_file_path = '' " custom config file path ]])
 vim.cmd([[set viminfo='100,<1000000,s100000,h]])
 
+vim.cmd[[autocmd BufEnter * lcd %:p:h]]
 vim.cmd[[colorscheme tokyonight-night]]
 vim.cmd[[
     highlight RainbowDelimiterRed  guifg=#f4ca0d ctermfg=White

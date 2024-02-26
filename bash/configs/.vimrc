@@ -41,6 +41,7 @@ call plug#end()
 " set rtp+=~/.vim/bundle/Vundle.vim
 " call vundle#begin()
 " call vundle#end()
+autocmd BufEnter * lcd %:p:h
 
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsListSnippets="<c-y>"

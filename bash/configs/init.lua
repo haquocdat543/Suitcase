@@ -109,6 +109,7 @@ keymap.set('n','sk','<C-w>k')
 keymap.set('n','sl','<C-w>l')
 
 local plugins = {
+ { 'codota/tabnine-nvim', build = "./dl_binaries.sh" },
  'wbthomason/packer.nvim',
  'nvim-treesitter/nvim-treesitter',
  'folke/tokyonight.nvim',
@@ -159,6 +160,16 @@ local status, lualine = pcall(require, "lualine")
 if not status then
   return
 end
+
+require('tabnine').setup({
+  disable_auto_comment=true,
+  accept_keymap="<C-]>",
+  dismiss_keymap = "<C-[>",
+  debounce_ms = 800,
+  suggestion_color = {gui = "#808080", cterm = 244},
+  exclude_filetypes = {"TelescopePrompt", "NvimTree"},
+  log_file_path = nil, -- absolute path to Tabnine log file
+})
 
 require('nvim-treesitter.configs').setup {
   -- Add languages to be installed here that you want installed for treesitter

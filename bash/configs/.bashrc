@@ -1514,6 +1514,7 @@ alias bicbt='brew install certbot'
 alias biimc='brew install danielgatis/imgcat/imgcat'
 alias bidtr='brew tap datreeio/datree ; brew install datreeio/datree/datree'
 alias bidgg='brew install dagger/tap/dagger'
+alias bikops='brew install kops'
 
 ### Hcloud command 
 alias hc='hcloud'

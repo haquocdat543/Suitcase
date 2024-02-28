@@ -838,6 +838,22 @@ snippet aws "k8s aws volume inside resources" b
     fsType: ext4
 endsnippet
 
+snippet mapu "EKS Map users" b
+  mapUsers: |
+    - userarn: arn:aws:iam::${1:424432388155}:user/${2:developer}
+      username: $2
+      groups: 
+      - ${3:reader}
+endsnippet
+
+snippet mapr "EKS Map roles" b
+  mapRoles: |
+    - rolearn: arn:aws:iam::${1:424432388155}:role/${2:eks-admin}
+      username: $2
+      groups:
+      - system:masters
+endsnippet
+
 snippet map "Test" b
 apiVersion: v1
 kind: ConfigMap

@@ -1,11 +1,3 @@
-snippet usp "Ubuntu splunk" b
-wget -O splunk-9.1.1-64e843ea36b1-linux-2.6-amd64.deb "https://download.splunk.com/products/splunk/releases/9.1.1/linux/splunk-9.1.1-64e843ea36b1-linux-2.6-amd64.deb"
-sudo dpkg -i splunk-9.1.1-64e843ea36b1-linux-2.6-amd64.deb
-sudo /opt/splunk/bin/splunk enable boot-start
-
-$1
-endsnippet
-
 snippet ukubectl "Kubectl Ubuntu" b
 sudo apt update
 sudo apt install curl
@@ -337,6 +329,23 @@ snippet fn "Func" b
 ${1:funcName}(){
 $2
 }
+endsnippet
+
+snippet swc "Switch case" b
+case $${1:dayOfWeek} in
+  ${2:"Monday"})
+    ${3:echo "It's the beginning of the work week!"}
+    ;;
+  "Tuesday" | "Wednesday" | "Thursday")
+    echo "It's the middle of the work week. Keep going!"
+    ;;
+  "Friday")
+    echo "TGIF! It's the end of the work week."
+    ;;
+  *)
+    echo "It's the weekend! Enjoy your time off."
+    ;;
+esac
 endsnippet
 
 snippet nd "Test" b

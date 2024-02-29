@@ -1176,7 +1176,7 @@ alias km='kubeadm'
 alias kmtc='kubeadm token create'
 alias kmjw='kubeadm token create --print-join-command'
 alias etcdbk='ETCDCTL_API=3 etcdctl --endpoints=https://127.0.0.1:2379 --cacert /etc/kubernetes/pki/etcd/ca.crt --cert /etc/kubernetes/pki/etcd/server.crt --key /etc/kubernetes/pki/etcd/server.key snapshot save'
-alias etcdrs='ETCDCTL_API=3 etcdctl --cacert /etc/kubernetes/pki/etcd/ca.crt --cert /etc/kubernetes/pki/etcd/server.crt --key /etc/kubernetes/pki/server.key snapshot restore' # Then you should change /var/lib/etcd in /etc/kubernetes/pki/etcd.yaml to your folder
+alias etcdrs='. $HOME/preconfig/Suitcase/bash/scripts/etcdRestore.sh' # Then you should change /var/lib/etcd in /etc/kubernetes/pki/etcd.yaml to your folder
 alias kmc='kubeadm certs'
 alias kmcce='kubeadm certs check-expiration'
 alias kmcrn='kubeadm certs renew'

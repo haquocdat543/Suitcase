@@ -19,6 +19,6 @@ white='\033[1;37m'
 nc='\033[0m' # No Color
 read -p "$(echo -e "Enter ${yellow}data-dir${nc} [${green2}/var/lib/dat${nc}]: ")" datadir
 datadir=${datadir:-/var/lib/dat}
-read -p "$(echo -e "Enter ${yellow}snapshot-dir${nc} [${green2}$HOME${nc}]: ")" snapshotdir
-snapshotdir=${snpashotdir:-$HOME}
-ETCDCTL_API=3 etcdctl --cacert /etc/kubernetes/pki/etcd/ca.crt --cert /etc/kubernetes/pki/etcd/server.crt --key /etc/kubernetes/pki/server.key --data-dir $datadir snapshot restore $snapshotdir
+read -p "$(echo -e "Enter ${yellow}snapshot-dir${nc} [${green2}$HOME/bk.db${nc}]: ")" snapshotdir
+snapshotdir=${snpashotdir:-$HOME/bk.db}
+etcdutl snapshot restore --data-dir $datadir $snapshotdir

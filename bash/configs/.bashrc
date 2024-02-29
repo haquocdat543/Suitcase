@@ -162,6 +162,7 @@ alias vihig='vim ./.helmignore'
 alias vihr='vim ./redis-values.yaml'
 alias vidig='vim ./.dockerignore'
 alias vikub='vim $HOME/.kube/config'
+alias viss='vim $HOME/.config/starship.toml'
 alias vigcf='vim ./.gitconfig'
 alias vicf='vim ./configure'
 alias vicfac='vim ./configure.ac'
@@ -376,6 +377,7 @@ alias idgg='curl -L https://dl.dagger.io/dagger/install.sh | BIN_DIR=$HOME/.loca
 alias icosign='go install github.com/sigstore/cosign/v2/cmd/cosign@latest'
 alias iaws='curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" ; unzip awscliv2.zip ; sudo ./aws/install'
 alias ignome='yum groupinstall "Server with GUI" -y ; systemctl set-default graphical ; reboot'
+alias iss='curl -sS https://starship.rs/install.sh | sh' # eval "$(starship init bash)"
 alias ijenkins='. $HOME/preconfig/Suitcase/bash/scripts/jenkinInstall.sh'
 alias imysql='. $HOME/preconfig/Suitcase/bash/scripts/amzLinuxMysql.sh'
 alias ikar='. $HOME/preconfig/Suitcase/bash/scripts/ikubectlArgoRollouts.sh'
@@ -1648,6 +1650,7 @@ alias bidgg='brew install dagger/tap/dagger'
 alias bikops='brew install kops'
 alias bistern='brew install stern'
 alias bipopeye='brew install popeye'
+alias biss='brew install starship'
 
 ### Hcloud command 
 alias hc='hcloud'

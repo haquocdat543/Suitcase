@@ -15,6 +15,18 @@ kubectl config set-credentials $NEWUSER --client-certificate=$HOME/.kubernetes/u
 kubectl config set-context $NEWUSER-context --cluster=kubernetes --user=$NEWUSER --namespace=$NAMESPACE
 export KUBECONFIG=$HOME/.kube/config
 
+cat << EOF | sudo tee -a $HOME/.kubernetes/users/$NEWUSER/role.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: $NEWUSER
+  namespace: $NAMESPACE
+rules:
+- apiGroups: ["","extensions","apps"]
+  resources: ["pods","deployments","replicasets"]
+  verbs: ["get","list","watch","create","patch","delete","update"] # get | list | watch | create | update | patch | delete
+EOF
+
 cat << EOF | sudo tee -a $HOME/.kubernetes/users/$NEWUSER/rolebind.yaml
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
@@ -31,14 +43,3 @@ roleRef:
   apiGroup: ""
 EOF
 
-cat << EOF | sudo tee -a $HOME/.kubernetes/users/$NEWUSER/role.yaml
-apiVersion: rbac.authorization.k8s.io/v1
-kind: Role
-metadata:
-  name: $NEWUSER
-  namespace: $NAMESPACE
-rules:
-- apiGroups: ["","extensions","apps"]
-  resources: ["pods","deployments","replicasets"]
-  verbs: ["get","list","watch","create","patch","delete","update"] # get | list | watch | create | update | patch | delete
-EOF

@@ -18,9 +18,58 @@ etcdutl snapshot restore --data-dir $datadir $snapshotdir
 
 #### 4. Restore
 ```
-vi /etc/kubernetes/manifests/etcd.yaml
+mv /etc/kubernetes/manifests/* /etc/kubernetes/
+```
+```
+vi /etc/kubernetes/etcd.yaml
 ```
 At `volume`->> `hostPath`->> `etcd-data`
 
 Change `/var/lib/etcd` with your desire `$datadir`
+```
+mv /etc/kubernetes/*.yaml /etc/kubernetes/manifests
+```
 #### 5. Wait a little bit to see result
+## 2 Upgrade ( Centos 9 )
+#### 1. Check version
+```
+kubeadm version
+kubectl version --short
+kubelet --version
+```
+
+#### 2. Check kubedm yum package version
+```
+sudo yum list --showduplicates kubeadm --disableexcludes=kubernetes
+```
+
+#### 3. Install newer kubeadm version
+```
+sudo yum install -y kubeadm-'1.29.x-*' --disableexcludes=kubernetes
+```
+
+#### 4. Check upgrade plan
+```
+sudo kubeadm upgrade apply $version
+```
+
+#### 5. Drain node ( mark node unschedulable and evicting the workloads )
+```
+kubectl drain <node-to-drain> --ignore-daemonsets
+```
+
+#### 6. Upgrade kubectl and kubelet
+```
+sudo yum install -y kubelet-'1.29.x-*' kubectl-'1.29.x-*' --disableexcludes=kubernetes
+```
+
+#### 7. Reload 
+```
+sudo systemctl daemon-reload
+sudo systemctl restart kubelet
+```
+
+#### 8. Uncordon node ( mark node schedulable )
+```
+kubectl uncordon <node-to-uncordon>
+```

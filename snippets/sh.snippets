@@ -491,3 +491,16 @@ echo -e "\e[1;32mJobs a goodun\e[00m"
 # mysql -u root -p$mysqlpass
 endsnippet
 
+snippet exist "Check exist of binary" b
+#!/bin/bash
+
+export BINARY_NAME=${1:go}
+
+# Check if "${BINARY_NAME}" command exists using "command -v"
+if command -v ${BINARY_NAME} &> /dev/null; then
+  echo "${BINARY_NAME} command exists."
+else
+  echo "${BINARY_NAME} command does not exist."
+fi
+endsnippet
+

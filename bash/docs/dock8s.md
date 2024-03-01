@@ -1,4 +1,59 @@
 # K8S DOCUMENTATION BY HAQUOCDAT
+
+## HELP
+If you want more info about specific command, just add `-h` at the end:
+Eg:
+```
+kubectl create role -h
+```
+Output:
+```
+Create a role with single rule.
+
+Examples:
+  # Create a role named "pod-reader" that allows user to perform "get", "watch" and "list" on pods
+  kubectl create role pod-reader --verb=get --verb=list --verb=watch --resource=pods
+
+  # Create a role named "pod-reader" with ResourceName specified
+  kubectl create role pod-reader --verb=get --resource=pods --resource-name=readablepod --resource-name=anotherpod
+
+  # Create a role named "foo" with API Group specified
+  kubectl create role foo --verb=get,list,watch --resource=rs.apps
+
+  # Create a role named "foo" with SubResource specified
+  kubectl create role foo --verb=get,list,watch --resource=pods,pods/status
+
+Options:
+    --allow-missing-template-keys=true:
+        If true, ignore any errors in templates when a field or map key is missing in the template. Only applies to golang and jsonpath output formats.
+
+    --dry-run='none':
+        Must be "none", "server", or "client". If client strategy, only print the object that would be sent, without sending it. If server strategy, submit server-side request without persisting the resource.
+
+    --field-manager='kubectl-create':
+        Name of the manager used to track field ownership.
+
+    -o, --output='':
+        Output format. One of: (json, yaml, name, go-template, go-template-file, template, templatefile, jsonpath, jsonpath-as-json, jsonpath-file).
+
+    --resource=[]:
+        Resource that the rule applies to
+
+    --resource-name=[]:
+        Resource in the white list that the rule applies to, repeat this flag for multiple items
+
+    --save-config=false:
+        If true, the configuration of current object will be saved in its annotation. Otherwise, the annotation will be unchanged. This flag is useful when you want to perform kubectl apply on this object in the future.
+
+    --show-managed-fields=false:
+        If true, keep the managedFields when printing objects in JSON or YAML format.
+
+    --template='':
+        Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [http://golang.org/pkg/text/template/#pkg-overview].
+
+    --validate='strict':
+        Must be one of: strict (or true), warn, ignore (or false).              "true" or "strict" wil:
+```
 ## COMMANDS
 ## 1 Backup
 #### 1. Get certs locations
@@ -72,4 +127,94 @@ sudo systemctl restart kubelet
 #### 8. Uncordon node ( mark node schedulable )
 ```
 kubectl uncordon <node-to-uncordon>
+```
+## 3 RBAC
+#### 1. Create user
+```
+sudo useradd -m -G sudo -s /bin/bash/$NEWUSER
+```
+```
+sudo passwd $NEWUSER
+```
+```
+su - $NEWUSER
+```
+#### 2. Generate and sign key
+```
+openssl genrsa -out $NEWUSER.key 2048
+```
+```
+openssl req -new -key $NEWUSER.key -out $NEWUSER.csr -subj "/CN=$NEWUSER/O=k8s"
+```
+```
+sudo openssl x509 -req -in $NEWUSER.csr -CA /etc/kubernetes/pki/ca.crt -CAkey /etc/kubernetes/pki/ca.key -CAcreateserial -out $NEWUSER -days 1800
+```
+#### 3. Configure kubeconfig
+```
+mkdir -p /home/$NEWUSER/.kube
+```
+```
+sudo cp -i /etc/kubernetes/admin.conf /home/$NEWUSER/.kube/config
+```
+```
+sudo chown -R $NEWUSER:$NEWUSER /home/$NEWUSER/.kube
+```
+```
+kubectl config set-credentials $NEWUSER --client-certificate=/home/$NEWUSER/$NEWUSER.crt --client-key=/home/$NEWUSER/$NEWUSER.key
+```
+#### 4. Configure context
+```
+kubectl config set-context $NEWUSER-context --cluster=kubernetes --namespace=$NAMESPACE --user=$NEWUSER
+```
+```
+kubectl config use-context $NEWUSER-context
+```
+This is command will fail because there is no `Roles` or `ClusterRole` bind to `$NEWUSER`
+```
+kubectl get pods
+```
+```
+kubectl config get-context
+```
+#### 5. Configure role
+Switch back to `kubernetes-admin` user
+
+Apply `Role`:
+```
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: $NEWUSER
+  namespace: $NAMESPACE
+rules:
+- apiGroups: ["","extensions","apps"]
+  resources: ["pods","deployments","replicasets"]
+  verbs: ["get","list","watch","create","patch","delete","update"] # get | list | watch | create | update | patch | delete
+
+```
+Apply `RoleBind`:
+```
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: $NEWUSER
+  namespace: $NAMESPACE
+subjects:
+- kind: User
+  name: $NEWUSER
+  apiGroup: ""
+roleRef:
+  kind: Role
+  name: $NEWUSER
+  apiGroup: ""
+```
+Try to get pods again:
+```
+kubectl get pods
+```
+
+Test other user power when in `kubebernetes-admin`:
+eg:
+```
+kubectl get pods --as system:basic-user
 ```

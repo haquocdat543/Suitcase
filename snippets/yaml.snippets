@@ -1083,6 +1083,25 @@ metadata:
   # namespace: my-namespace
 endsnippet
 
+snippet gr "K8s group" b
+apiVersion: v1
+kind: Group
+metadata:
+  name: ${1:editors}
+endsnippet
+
+snippet usb "User subject bind" b
+apiVersion: rbac.authorization.k8s.io/v1
+kind: UserSubjectBind
+metadata:
+  name: ${1:<username>-editors-bind}
+subjects:
+- kind: User
+  name: ${2:<username>}
+objectRef:
+  kind: Group
+  name: ${3:editors}
+endsnippet
 
 snippet rl "Role" b
 apiVersion: rbac.authorization.k8s.io/v1

@@ -176,7 +176,7 @@ kubectl get pods
 ```
 kubectl config get-context
 ```
-#### 5. Configure role
+#### 5. Configure role bind to user
 Switch back to `kubernetes-admin` user
 
 Apply `Role`:
@@ -202,6 +202,61 @@ metadata:
 subjects:
 - kind: User
   name: $NEWUSER
+  apiGroup: ""
+roleRef:
+  kind: Role
+  name: $NEWUSER
+  apiGroup: ""
+```
+Try to get pods again:
+```
+kubectl get pods
+```
+#### 6. Configure role bind to group contain users
+Switch back to `kubernetes-admin` user
+Apply `Group`:
+```
+apiVersion: v1
+kind: Group
+metadata:
+  name: $GROUP
+```
+Apply `UserSubjectBind`:
+```
+apiVersion: rbac.authorization.k8s.io/v1
+kind: UserSubjectBind
+metadata:
+  name: $BIND_NAME
+subjects:
+- kind: User
+  name: $NEWUSER
+objectRef:
+  kind: Group
+  name: $GROUP
+```
+Apply `Role`:
+```
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: $NEWUSER
+  namespace: $NAMESPACE
+rules:
+- apiGroups: ["","extensions","apps"]
+  resources: ["pods","deployments","replicasets"]
+  verbs: ["get","list","watch","create","patch","delete","update"] # get | list | watch | create | update | patch | delete
+
+```
+Apply `RoleBind`:
+```
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: $NEWUSER
+  namespace: $NAMESPACE
+subjects:
+- kind: Group
+  name: $GROUP
   apiGroup: ""
 roleRef:
   kind: Role

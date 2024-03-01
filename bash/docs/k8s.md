@@ -89,7 +89,7 @@ mv /etc/kubernetes/*.yaml /etc/kubernetes/manifests
 #### 1. Check version
 ```
 kubeadm version
-kubectl version --short
+kubectl version
 kubelet --version
 ```
 

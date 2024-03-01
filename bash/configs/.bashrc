@@ -321,6 +321,7 @@ alias kla='killall'
 
 
 ### Documentation
+alias docdk='vim -m $HOME/preconfig/Suitcase/bash/docs/docker.md'
 alias dock8s='vim -m $HOME/preconfig/Suitcase/bash/docs/k8s.md'
 alias doccr='vim -m $HOME/preconfig/Suitcase/bash/docs/crypto.md'
 alias docgcc='vim -m $HOME/preconfig/Suitcase/bash/docs/gcc.md'

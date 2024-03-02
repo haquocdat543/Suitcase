@@ -511,6 +511,9 @@ alias ktxd='kubectx -d'
 
 ### AWS command
 alias s3cf='s3cmd --configure'
+alias s3l='s3cmd ls'
+alias s3p='s3cmd put'
+alias s3g='s3cmd get'
 alias a2c='aws configure'
 alias a2cl='aws configure list'
 alias a2ec2ti='aws ec2 terminate-instances --instance-ids'

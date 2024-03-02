@@ -273,3 +273,67 @@ eg:
 ```
 kubectl get pods --as system:basic-user
 ```
+## 5 Verify image with kyverno, cosign, trivy
+#### 1. Generate keypair 
+```
+cosign generate-key-pair
+```
+```
+docker image ls --digests
+```
+#### 2. Sign 
+```
+cosign sign --key cosign.key docker.io/$USERNAME/$IMAGENAME@$HASH
+```
+#### 3. Scan
+```
+trivy image --ignore-unfixed  --format cosign-vuln --output vuln.json docker.io/$USERNAME/$IMAGENAME@$HASH
+```
+#### 4. Attest
+```
+cosign attest --key cosign.key --type vuln --predicate vuln.json docker.io/$USERNAME/$IMAGENAME@$HASH
+```
+```
+cosign verify-attestation --key cosign.pub --type vuln $USERNAME/$IMAGENAME@$HASH
+```
+#### 5. Kyverno policy
+```
+apiVersion: kyverno.io/v1 
+kind: ClusterPolicy 
+metadataá: 
+  name: check-vulnerabilities 
+spec: 
+  validationFailureAction: Enforce 
+  background: false 
+  webhookTimeoutSeconds: 30 
+  failurePolicy: Fail 
+  rules: 
+    - name: checking-vulnerability-scan-not-older-than-one-hour 
+      match: 
+        any: 
+        - resources: 
+            kinds: 
+              - Pod 
+      verifyImages: 
+      - imageReferences: 
+        - "*" 
+        attestations: 
+        - type: https://cosign.sigstore.dev/attestation/vuln/v1 
+          conditions: 
+          - all: 
+            - key: "{{ time_since('','{{ metadata.scanFinishedOn }}', '') }}" 
+              operator: LessThanOrEquals 
+              value: "1h" 
+          attestors: 
+          - count: 1 
+            entries: 
+            - keys: 
+                publicKeys: |- 
+                  -----BEGIN PUBLIC KEY----- 
+                  abc 
+                  xyz 
+                  -----END PUBLIC KEY----- 
+```
+```
+kubectl apply –f policy.yaml 
+```

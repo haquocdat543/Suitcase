@@ -2049,3 +2049,33 @@ worker_node_pools:
 # - ...
 # api_server_hostname: k8s.example.com # optional: DNS for the k8s API LoadBalancer. After the script has run, create a DNS record with the address of the API LoadBalancer.
 endsnippet
+
+snippet azdo "Azure Devops Pipeline" b
+# This pipeline builds, tests, and publishes a Node.js application
+trigger:
+- main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- task: NodeTool@0
+  inputs:
+    versionSpec: '14.x'
+
+- script: npm install
+  displayName: 'Install dependencies'
+
+- script: npm test
+  displayName: 'Run tests'
+
+- publish: $(System.DefaultWorkingDirectory)/dist/
+  artifact: 'my-app'
+  displayName: 'Publish artifact'
+
+- condition: always()  # This step always runs, regardless of previous step results
+- task: PublishBuildArtifact@1
+  inputs:
+    pathToPublish: '$(Build.ArtifactStagingDirectory)'
+  displayName: 'Publish build artifacts'
+endsnippet

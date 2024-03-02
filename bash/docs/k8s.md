@@ -54,6 +54,23 @@ Options:
     --validate='strict':
         Must be one of: strict (or true), warn, ignore (or false).              "true" or "strict" wil:
 ```
+## RESOURCES
+## 1. Deployment
+Eg:
+```
+kubectl create deployment firstdpl --image=nginx --replicas=3
+```
+## 2. DaemonSets
+Eg:
+```
+kubectl create daemonsets firstdms --image=fluentd
+```
+## 3. StatefulSets
+Eg:
+```
+kubectl create statefulsets firststs --image=mysql --replicas=3
+```
+
 ## COMMANDS
 ## 1 Backup
 #### 1. Get certs locations

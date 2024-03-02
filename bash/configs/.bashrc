@@ -326,6 +326,7 @@ alias k8sgeng='. $HOME/preconfig/Suitcase/bash/scripts/k8sGenGroup.sh'
 
 ### Documentation
 alias docdk='vim -m $HOME/preconfig/Suitcase/bash/docs/docker.md'
+alias dockyverno='vim -m $HOME/preconfig/Suitcase/bash/docs/kyverno.md'
 alias dock8s='vim -m $HOME/preconfig/Suitcase/bash/docs/k8s.md'
 alias doccr='vim -m $HOME/preconfig/Suitcase/bash/docs/crypto.md'
 alias docgcc='vim -m $HOME/preconfig/Suitcase/bash/docs/gcc.md'

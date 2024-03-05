@@ -2020,6 +2020,7 @@ alias gpgpw='gpg --passwd'
 alias gpgim='gpg --import'
 
 ### Other command
+alias crleip='curl ifconfig.me' # or curl icanhazip.com
 alias dkeitb='. $HOME/preconfig/Suitcase/bash/scripts/dkeitb.sh'
 alias incvar='. $HOME/preconfig/Suitcase/bash/scripts/includeVariables.sh'
 alias sqlcn='. $HOME/preconfig/Suitcase/bash/scripts/sqlConnect.sh'

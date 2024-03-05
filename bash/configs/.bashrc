@@ -326,6 +326,7 @@ alias k8sgeng='. $HOME/preconfig/Suitcase/bash/scripts/k8sGenGroup.sh'
 
 
 ### Documentation
+alias docgrep='vim -m $HOME/preconfig/Suitcase/bash/docs/grep.md'
 alias doca4='vim -m $HOME/preconfig/Suitcase/bash/docs/azure.md'
 alias docdk='vim -m $HOME/preconfig/Suitcase/bash/docs/docker.md'
 alias dockyverno='vim -m $HOME/preconfig/Suitcase/bash/docs/kyverno.md'
@@ -1985,6 +1986,7 @@ alias gmepi='gm explorer init'
 
 ### hermes 
 alias hrmcc='hermes create connection'
+alias hrmka='hermes keys add'
 
 ### gaiad cosmos
 alias g4i='gaiad init'

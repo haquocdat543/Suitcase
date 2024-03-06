@@ -798,6 +798,7 @@ alias gL='git clone https://github.com/arismelachroinos/lscript.git $HOME/lscrip
 alias gL='git clone https://github.com/rancher/quickstart $HOME/quickstart'
 alias gN='git clone https://github.com/Elteoremadebeethoven/nvim-config.git'
 alias gnn='rm -rf $HOME/.config/nvim ; git clone https://github.com/Elteoremadebeethoven/nvim-config.git $HOME/.config/nvim'
+alias cddg='cd $(git rev-parse --show-toplevel)/.git'
 alias cdgh='cd $(git rev-parse --show-toplevel)/.git/hooks'
 alias cdgr='cd $(git rev-parse --show-toplevel)'
 alias gcfa='. $HOME/preconfig/Suitcase/bash/scripts/gitAddAlias.sh'
@@ -1987,8 +1988,12 @@ alias gmepcf='gm explorer config'
 alias gmepi='gm explorer init'
 
 ### hermes 
+alias hrmccl='hermes create client'
 alias hrmcc='hermes create connection'
+alias hrmccn='hermes create channel'
 alias hrmka='hermes keys add'
+alias hrmcfa='hermes config auto --output $HOME/.hermes/config.toml --chain cosmoshub:keyhub osmosis:keyosmosis --chain'
+alias hrmhc='hermes health-check'
 
 ### gaiad cosmos
 alias g4i='gaiad init'

@@ -50,3 +50,12 @@ grep "root|user" /etc/passwd
 ```
 grep "root|user" /etc/passwd will find lines containing either "root" or "user" in the /etc/passwd file
 
+#### 9. [ -E ] also known as --extended-regexp, enables the use of extended regular expressions for pattern matching
+Basic regular expression: grep 'ab' file.txt (Searches for the literal string "ab" in "file.txt")
+```
+grep 'ab' file.txt 
+```
+Extended regular expression with -E: grep -E '[0-9]{3}-[0-9]{3}-[0-9]{4}' file.txt (Searches for phone numbers in the format XXX-XXX-XXXX using character classes and backreferences)
+```
+grep -E '[0-9]{3}-[0-9]{3}-[0-9]{4}'
+```

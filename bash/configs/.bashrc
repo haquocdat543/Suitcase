@@ -1757,6 +1757,7 @@ alias sdh='sudo shutdown -h'
 alias pmssn='sudo pmset sleepnow'
 
 ### Cron command
+alias virc='vim /etc/cron.d/$CRONJOB'
 alias cre='crontab -e'
 alias crl='crontab -l'
 alias crr='crontab -r'

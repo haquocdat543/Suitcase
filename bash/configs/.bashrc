@@ -399,6 +399,7 @@ alias iss='curl -sS https://starship.rs/install.sh | sh' # eval "$(starship init
 alias iyay='. $HOME/preconfig/Suitcase/bash/scripts/iyay.sh'
 alias iparu='. $HOME/preconfig/Suitcase/bash/scripts/iparu.sh'
 alias igrpcurl='go install github.com/fullstorydev/grpcurl/cmd/grpcurl@latest ; mv $HOME/go/bin/grpcurl /usr/local/bin/grpcurl'
+alias iwscat='npm install -g wscat'
 alias ijenkins='. $HOME/preconfig/Suitcase/bash/scripts/jenkinInstall.sh'
 alias imysql='. $HOME/preconfig/Suitcase/bash/scripts/amzLinuxMysql.sh'
 alias ikar='. $HOME/preconfig/Suitcase/bash/scripts/ikubectlArgoRollouts.sh'

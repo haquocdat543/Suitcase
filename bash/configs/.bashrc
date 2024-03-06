@@ -398,6 +398,7 @@ alias ignome='yum groupinstall "Server with GUI" -y ; systemctl set-default grap
 alias iss='curl -sS https://starship.rs/install.sh | sh' # eval "$(starship init bash)"
 alias iyay='. $HOME/preconfig/Suitcase/bash/scripts/iyay.sh'
 alias iparu='. $HOME/preconfig/Suitcase/bash/scripts/iparu.sh'
+alias igrpcurl='go install github.com/fullstorydev/grpcurl/cmd/grpcurl@latest ; mv $HOME/go/bin/grpcurl /usr/local/bin/grpcurl'
 alias ijenkins='. $HOME/preconfig/Suitcase/bash/scripts/jenkinInstall.sh'
 alias imysql='. $HOME/preconfig/Suitcase/bash/scripts/amzLinuxMysql.sh'
 alias ikar='. $HOME/preconfig/Suitcase/bash/scripts/ikubectlArgoRollouts.sh'
@@ -1827,6 +1828,7 @@ alias bikops='brew install kops'
 alias bistern='brew install stern'
 alias bipopeye='brew install popeye'
 alias biss='brew install starship'
+alias bigrpcurl='brew install grpcurl'
 
 ### Hcloud command 
 alias hc='hcloud'

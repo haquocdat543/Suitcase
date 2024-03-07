@@ -1124,6 +1124,7 @@ alias dpldtr='docker pull datree/datree'
 alias dks='docker search'
 alias dnps='docker node ps'
 alias dnls='docker node ls'
+alias dnlsl="docker node ls -q | xargs docker node inspect -f '{{ .ID }} [{{ .Description.Hostname }}]: {{ .Spec.Labels }}'"
 alias dnuad='docker node update --availability drain'
 alias dnuap='docker node update --availability pause'
 alias dnuaa='docker node update --availability active'

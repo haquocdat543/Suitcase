@@ -329,6 +329,7 @@ alias k8sgeng='. $HOME/preconfig/Suitcase/bash/scripts/k8sGenGroup.sh'
 
 
 ### Documentation
+alias docjq='vim -m $HOME/preconfig/Suitcase/bash/docs/jq.md'
 alias doccurl='vim -m $HOME/preconfig/Suitcase/bash/docs/curl.md'
 alias docgrep='vim -m $HOME/preconfig/Suitcase/bash/docs/grep.md'
 alias doca4='vim -m $HOME/preconfig/Suitcase/bash/docs/azure.md'

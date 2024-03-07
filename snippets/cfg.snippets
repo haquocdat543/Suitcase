@@ -1,0 +1,57 @@
+snippet be "Sample backend" b
+backend ${1:web-backend}
+    balance ${2:leastconn}
+    mode ${3:http}
+    server backend-1 web-backend-1.example.com check
+    server backend-2 web-backend-2.example.com check
+    server backend-3 backup-backend.example.com check backup
+    
+backend forum
+    balance leastconn
+    server forum-1 forum-1.example.com check
+    server forum-2 forum-2.example.com check
+    server forum-3 backup-forum.example.com check backup
+endsnippet
+
+snippet fe "Frontend" b
+frontend ${1:web}
+  bind ${2:0.0.0.0}
+  default_backend ${1:web-backend}
+
+frontend forum
+  bind 0.0.0.0:8080
+  default_backend forum
+endsnippet
+
+snippet acl "ACL" b
+acl ${1:alc1} hdr_dom(host) -i  ${2:testhaproxy1.com}
+endsnippet
+
+snippet ube "Use backend" b
+use_backend ${1:name-backend} if ${2:acl1}
+endsnippet
+
+snippet mxc "Max Connection" b
+maxconn ${1:2000}
+endsnippet
+
+snippet u "User" b
+user ${1:haproxy}
+endsnippet
+
+snippet group "Group" b
+group ${1:haproxy}
+endsnippet
+
+snippet tocn "Timeout connect" b
+timeout connect 5s
+endsnippet
+
+snippet tocl "Timeout client" b
+timeout client 30s
+endsnippet
+
+snippet tosv "Timeout server" b
+timeout server 30s
+endsnippet
+

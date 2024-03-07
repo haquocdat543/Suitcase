@@ -6,3 +6,5 @@ export sortby_name="--sort-by=metadata.name" #VARCONFIG
 export sortby_node="--sort-by=spec.nodeName" #VARCONFIG
 export show_spec="--show-managed-fields=false" #VARCONFIG
 export show_label="--show-labels" #VARCONFIG
+export b6="base64"
+export b6d="base64 --decode"

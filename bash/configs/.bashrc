@@ -333,6 +333,7 @@ alias k8sgengu='. $HOME/preconfig/Suitcase/bash/scripts/k8sGenGroupUser.sh'
 
 
 ### Documentation
+alias docrancher='vim -m $HOME/preconfig/Suitcase/bash/docs/rancher.md'
 alias docsudo='vim -m $HOME/preconfig/Suitcase/bash/docs/sudo.md'
 alias docssh='vim -m $HOME/preconfig/Suitcase/bash/docs/ssh.md'
 alias docjq='vim -m $HOME/preconfig/Suitcase/bash/docs/jq.md'

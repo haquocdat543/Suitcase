@@ -412,6 +412,7 @@ alias iparu='. $HOME/preconfig/Suitcase/bash/scripts/iparu.sh'
 alias igrpcurl='go install github.com/fullstorydev/grpcurl/cmd/grpcurl@latest ; mv $HOME/go/bin/grpcurl /usr/local/bin/grpcurl'
 alias iwscat='npm install -g wscat'
 alias iyq='go install github.com/mikefarah/yq/v4@latest ; mv $HOME/go/bin/yq /usr/local/bin/yq'
+alias ilinkerd="curl --proto '=https' --tlsv1.2 -sSfL https://run.linkerd.io/install-edge | sh ; export PATH=$HOME/.linkerd2/bin:$PATH"
 alias ijenkins='. $HOME/preconfig/Suitcase/bash/scripts/jenkinInstall.sh'
 alias imysql='. $HOME/preconfig/Suitcase/bash/scripts/amzLinuxMysql.sh'
 alias ikar='. $HOME/preconfig/Suitcase/bash/scripts/ikubectlArgoRollouts.sh'
@@ -1847,6 +1848,7 @@ alias bistern='brew install stern'
 alias bipopeye='brew install popeye'
 alias biss='brew install starship'
 alias bigrpcurl='brew install grpcurl'
+alias bilkd='brew install linkerd'
 
 ### Hcloud command 
 alias hc='hcloud'

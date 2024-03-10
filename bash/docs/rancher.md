@@ -3,7 +3,7 @@
 ## Prerequistes
 * Helm
 
-## Installation
+## Installation on kubernetes
 Add helm repo:
 ```
 helm repo add rancher-latest https://releases.rancher.com/server-charts/latest
@@ -30,4 +30,17 @@ kubectl get secret --namespace cattle-system bootstrap-secret -o go-template='{{
 Patch rancher `service` to `Loadbalancer` type:
 ```
 kubectl patch svc rancher -n loadbalancer -p '{"spec": {"type": "LoadBalancer"}}'
+```
+## Installation on docker
+Install directly using command line:
+```
+docker run --privileged -d --restart=unless-stopped -p 80:80 -p 443:443 rancher/rancher
+```
+Get bootstrap password:
+```
+docker logs $RANCHERID 2>&1 | grep "Bootstrap Password:
+```
+Access UI [ Open browser ]:
+```
+127.0.0.1:80
 ```

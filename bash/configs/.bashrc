@@ -329,6 +329,7 @@ alias dcla='declare -a'
 alias kla='killall'
 alias k8sgenu='. $HOME/preconfig/Suitcase/bash/scripts/k8sGenUser.sh'
 alias k8sgeng='. $HOME/preconfig/Suitcase/bash/scripts/k8sGenGroup.sh'
+alias k8sgengu='. $HOME/preconfig/Suitcase/bash/scripts/k8sGenGroupUser.sh'
 
 
 ### Documentation

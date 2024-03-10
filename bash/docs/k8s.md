@@ -231,33 +231,12 @@ kubectl get pods
 ```
 #### 6. Configure role bind to group contain users
 Switch back to `kubernetes-admin` user
-Apply `Group`:
-```
-apiVersion: v1
-kind: Group
-metadata:
-  name: $GROUP
-```
-Apply `UserSubjectBind`:
-```
-apiVersion: rbac.authorization.k8s.io/v1
-kind: UserSubjectBind
-metadata:
-  name: $BIND_NAME
-subjects:
-- kind: User
-  name: $NEWUSER
-objectRef:
-  kind: Group
-  name: $GROUP
-```
 Apply `Role`:
 ```
 apiVersion: rbac.authorization.k8s.io/v1
-kind: Role
+kind: ClusterRole
 metadata:
   name: $NEWUSER
-  namespace: $NAMESPACE
 rules:
 - apiGroups: ["","extensions","apps"]
   resources: ["pods","deployments","replicasets"]
@@ -267,7 +246,7 @@ rules:
 Apply `RoleBind`:
 ```
 apiVersion: rbac.authorization.k8s.io/v1
-kind: RoleBinding
+kind: ClusterRoleBinding
 metadata:
   name: $NEWUSER
   namespace: $NAMESPACE

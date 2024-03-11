@@ -9,4 +9,5 @@
   tar zxvf "${KREW}.tar.gz" &&
   ./"${KREW}" install krew
 )
-sed -i "1s/^/export PATH\="\${KREW_ROOT:-$HOME\/.krew}\/bin:$PATH\"\n/" ~/.bashrc
+
+sed -i "1s/^/export PATH\=\"\${KREW_ROOT:-\$HOME\/.krew}\/bin:\$PATH\"\n/" $HOME/.bashrc

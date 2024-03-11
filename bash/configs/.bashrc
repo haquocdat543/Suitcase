@@ -417,6 +417,7 @@ alias ilinkerd="curl --proto '=https' --tlsv1.2 -sSfL https://run.linkerd.io/ins
 alias ivitess='. $HOME/preconfig/Suitcase/bash/scripts/vitessInstall.sh'
 alias icrossplane='curl -sL "https://raw.githubusercontent.com/crossplane/crossplane/master/install.sh" | sh ; mv crossplane /usr/local/bin'
 alias iopa='curl -L -o /usr/local/bin/opa https://openpolicyagent.org/downloads/v0.62.1/opa_linux_amd64_static'
+alias itiup="curl --proto '=https' --tlsv1.2 -sSf https://tiup-mirrors.pingcap.com/install.sh | sh"
 alias ijenkins='. $HOME/preconfig/Suitcase/bash/scripts/jenkinInstall.sh'
 alias imysql='. $HOME/preconfig/Suitcase/bash/scripts/amzLinuxMysql.sh'
 alias ikar='. $HOME/preconfig/Suitcase/bash/scripts/ikubectlArgoRollouts.sh'

@@ -101,7 +101,6 @@ keymap.set('n','<leader>tn',':tabn<CR>')
 keymap.set('n','<leader>tp',':tabp<CR>')
 keymap.set('n','<leader>ev',':tabnew $MYVIMRC<CR>')
 keymap.set('n','<leader>ea',':tabnew $HOME/.bashrc<CR>')
-keymap.set('n','<leader>el',':tabnew $HOME/.config/nvim/init.lua<CR>')
 
 keymap.set('n','te',':tabedit ')
 keymap.set('n','ss',':split<CR><C-w>w')

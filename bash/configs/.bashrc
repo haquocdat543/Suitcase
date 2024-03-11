@@ -415,6 +415,7 @@ alias iwscat='npm install -g wscat'
 alias iyq='go install github.com/mikefarah/yq/v4@latest ; mv $HOME/go/bin/yq /usr/local/bin/yq'
 alias ilinkerd="curl --proto '=https' --tlsv1.2 -sSfL https://run.linkerd.io/install-edge | sh ; export PATH=$HOME/.linkerd2/bin:$PATH"
 alias ivitess='. $HOME/preconfig/Suitcase/bash/scripts/vitessInstall.sh'
+alias icrossplane='curl -sL "https://raw.githubusercontent.com/crossplane/crossplane/master/install.sh" | sh ; mv crossplane /usr/local/bin'
 alias ijenkins='. $HOME/preconfig/Suitcase/bash/scripts/jenkinInstall.sh'
 alias imysql='. $HOME/preconfig/Suitcase/bash/scripts/amzLinuxMysql.sh'
 alias ikar='. $HOME/preconfig/Suitcase/bash/scripts/ikubectlArgoRollouts.sh'

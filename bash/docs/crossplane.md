@@ -28,3 +28,16 @@ Deployments:
 ```
 kubectl get deployments -n crossplane-system
 ```
+### 2. CLI
+#### 1. Get latest binary
+```
+curl -sL "https://raw.githubusercontent.com/crossplane/crossplane/master/install.sh" | sh
+```
+#### 2. Get specific version binary
+```
+curl -sL "https://raw.githubusercontent.com/crossplane/crossplane/master/install.sh" | XP_VERSION=v1.14.0 sh
+```
+#### 3. Move binary to bin folder
+```
+mv crossplane /usr/local/bin
+```

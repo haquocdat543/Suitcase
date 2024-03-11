@@ -43,6 +43,10 @@ Get token value:
 ```
 kubectl get secret admin-user -n kubernetes-dashboard -o jsonpath={".data.token"} | base64 -d
 ```
+Apply resources:
+```
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.7.0/aio/deploy/recommended.yaml
+```
 ## 2. Uninstallation
 Remove `service account` and `clusterrolebind`
 ```

@@ -513,6 +513,10 @@ alias dggis='dagger install'
 alias dggq='dagger query'
 alias dggr='dagger run'
 
+### Minikube command
+alias mnks='minikube start'
+alias mnks285='minikube start --kubernetes-version=v1.28.5 --cpus=4 --memory=11000 --disk-size=32g'
+
 ### Kind command
 alias kdcc='kind create cluster --name'
 alias kddc='kind delete cluster --name'
@@ -1830,6 +1834,7 @@ alias btcrf='brew tap caskroom/fonts'
 alias bihnf='brew install font-hack-nerd-font'
 alias bijqp='brew install noahgorstein/tap/jqp'
 alias biktx='brew install kubectx'
+alias bimnk='brew install minikube'
 alias bibat='brew install bat'
 alias birgr='brew install ranger'
 alias bihk3s='brew install vitobotta/tap/hetzner_k3s'

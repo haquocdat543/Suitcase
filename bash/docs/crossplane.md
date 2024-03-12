@@ -123,3 +123,78 @@ kubectl get buckets
 kubectl delete bucket <bucket-name>
 ```
 
+## 3. Azure Provider
+### 1.Install Azure network provider
+```
+cat <<EOF | kubectl apply -f -
+apiVersion: pkg.crossplane.io/v1
+kind: Provider
+metadata:
+  name: provider-azure-network
+spec:
+  package: xpkg.upbound.io/upbound/provider-azure-network:v0.34.0
+EOF
+```
+```
+kubectl get providers
+```
+
+### 2. Create Azure RBAC
+Save this to `azure-credentials.json`:
+```
+az ad sp create-for-rbac \
+--sdk-auth \
+--role Owner \
+--scopes /subscriptions/
+```
+Create kubernetes secret:
+```
+kubectl create secret \
+generic azure-secret \
+-n crossplane-system \
+--from-file=creds=./azure-credentials.json
+```
+```
+kubectl describe secret azure-secret -n crossplane-system
+```
+
+### 3. Create provider config
+```
+cat <<EOF | kubectl apply -f -
+apiVersion: azure.upbound.io/v1beta1
+metadata:
+  name: default
+kind: ProviderConfig
+spec:
+  credentials:
+    source: Secret
+    secretRef:
+      namespace: crossplane-system
+      name: azure-secret
+      key: creds
+EOF
+```
+
+### 4. Create Azure virtual network
+```
+cat <<EOF | kubectl create -f -
+apiVersion: network.azure.upbound.io/v1beta1
+kind: VirtualNetwork
+metadata:
+  name: crossplane-quickstart-network
+spec:
+  forProvider:
+    addressSpace:
+      - 10.0.0.0/16
+    location: "Sweden Central"
+    resourceGroupName: docs
+EOF
+```
+```
+kubectl get virtualnetwork.network
+```
+
+### 5. Delete Azure virtual network
+```
+kubectl delete virtualnetwork.network crossplane-quickstart-network
+```

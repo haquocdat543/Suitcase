@@ -2079,3 +2079,39 @@ steps:
     pathToPublish: '$(Build.ArtifactStagingDirectory)'
   displayName: 'Publish build artifacts'
 endsnippet
+
+snippet crppvd "Crossplane provider" b
+apiVersion: pkg.crossplane.io/v1
+kind: Provider
+metadata:
+  name: ${1:provider-aws-s3}
+spec:
+  package: xpkg.upbound.io/upbound/${2:provider-aws-s3}:${3:v1.1.0}
+endsnippet
+
+snippet crpcfpvd "Crossplane config provider" b
+apiVersion: aws.upbound.io/v1beta1
+kind: ProviderConfig
+metadata:
+  name: ${1:default}
+spec:
+  credentials:
+    source: ${2:Secret}
+    secretRef:
+      namespace: ${3:crossplane-system}
+      name: ${4:aws-secret}
+      key: ${5:creds}
+endsnippet
+
+snippet crps3bk "CrossPlane S3 bucket" b
+apiVersion: s3.aws.upbound.io/v1beta1
+kind: Bucket
+metadata:
+  generateName: ${1:crossplane-bucket-}
+spec:
+  forProvider:
+    region: ${1:ap-northeast-1}
+  providerConfigRef:
+    name: ${1:default}
+endsnippet
+

@@ -198,3 +198,76 @@ kubectl get virtualnetwork.network
 ```
 kubectl delete virtualnetwork.network crossplane-quickstart-network
 ```
+## 3. GCP Provider
+### 1.Install GCP Cloud storage provider
+```
+cat <<EOF | kubectl apply -f -
+apiVersion: pkg.crossplane.io/v1
+kind: Provider
+metadata:
+  name: provider-gcp-storage
+spec:
+  package: xpkg.upbound.io/upbound/provider-gcp-storage:v0.41.0
+EOF
+```
+```
+kubectl get providers
+```
+
+### 2. Get service account json file
+[GCP_SA](https://cloud.google.com/iam/docs/keys-create-delete)
+Create file `gcp-credentials.json`
+
+### 3. Create kubernetes secret 
+```
+kubectl create secret \
+generic gcp-secret \
+-n crossplane-system \
+--from-file=creds=./gcp-credentials.json
+```
+```
+kubectl describe secret gcp-secret -n crossplane-system
+```
+
+### 4. Create provider config
+```
+cat <<EOF | kubectl apply -f -
+apiVersion: gcp.upbound.io/v1beta1
+kind: ProviderConfig
+metadata:
+  name: default
+spec:
+  projectID: 
+  credentials:
+    source: Secret
+    secretRef:
+      namespace: crossplane-system
+      name: gcp-secret
+      key: creds
+EOF
+```
+
+### 5. Create managed resource
+```
+cat <<EOF | kubectl create -f -
+apiVersion: storage.gcp.upbound.io/v1beta1
+kind: Bucket
+metadata:
+  generateName: crossplane-bucket-
+  labels:
+    docs.crossplane.io/example: provider-gcp
+spec:
+  forProvider:
+    location: US
+  providerConfigRef:
+    name: default
+EOF
+```
+```
+kubectl get bucke
+```
+
+### 6. Delete resources
+```
+kubectl delete bucket --selector docs.crossplane.io/example=provider-gcp
+```

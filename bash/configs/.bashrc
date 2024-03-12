@@ -333,6 +333,9 @@ alias k8sgengu='. $HOME/preconfig/Suitcase/bash/scripts/k8sGenGroupUser.sh'
 
 
 ### Documentation
+alias dockeda='vim -m $HOME/preconfig/Suitcase/bash/docs/keda.md'
+alias dockubevela='vim -m $HOME/preconfig/Suitcase/bash/docs/kubevela.md'
+alias doccrossplane='vim -m $HOME/preconfig/Suitcase/bash/docs/crossplane.md'
 alias docflock='vim -m $HOME/preconfig/Suitcase/bash/docs/flock.md'
 alias dock8sdash='vim -m $HOME/preconfig/Suitcase/bash/docs/k8sdash.md'
 alias docrancher='vim -m $HOME/preconfig/Suitcase/bash/docs/rancher.md'

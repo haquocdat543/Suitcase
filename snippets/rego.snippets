@@ -1,0 +1,22 @@
+snippet dpldf "Does not allow deploy deployment resources in default namespace" b
+package ${1:kubernetes.deployment}
+
+deny[msg] {
+  input.review.object.metadata.namespace == "${2:default}"
+}
+
+msg = "${3:Deployments are not allowed in the 'default' namespace.}"
+endsnippet
+
+snippet k8sadm "Kubernetes admission" b
+package ${1:kubernetes.admission}
+
+deny[msg] {
+  input.request.kind.kind == "${2:Deployment}"
+  input.request.namespace == "${3:default}"
+
+  msg := "${4:Deployments are not allowed in the 'default' namespace.}"
+}
+
+endsnippet
+

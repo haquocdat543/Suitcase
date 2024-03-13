@@ -526,6 +526,12 @@ alias dggr='dagger run'
 alias mnks='minikube start'
 alias mnks285='minikube start --kubernetes-version=v1.28.5 --cpus=4 --memory=11000 --disk-size=32g'
 
+### Vela command
+alias vlae='vela addon enable'
+alias vlaetr='vela addon traefik'
+alias vlaeps='vela addon pyroscope'
+alias vlaecm='vela addon chartmeseum'
+
 ### Kind command
 alias kdcc='kind create cluster --name'
 alias kddc='kind delete cluster --name'

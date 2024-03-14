@@ -10,4 +10,4 @@ export b6="base64"
 export b6d="base64 --decode"
 export osu="-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null"
 export hh="export HISTFILE=/dev/null && unset SSH_CONNECTION SSH_CLIENT"
-
+export clr="--color"

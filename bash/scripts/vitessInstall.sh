@@ -9,4 +9,6 @@ tar -xzf ${file}
 cd $HOME/$folder
 sudo mkdir -p /usr/local/vitess/
 sudo cp -r * /usr/local/vitess/
+rm -rf $HOME/vitess-*
 cd -
+export PATH="$PATH:/usr/local/vitess/bin"

@@ -237,6 +237,9 @@ rules:
   resources: ["pods"]
   verbs: ["get", "watch", "list"]
 ```
+
+Verbs: [ get, watch, list, create, update, delete, patch ]
+
 ## 11. RoleBinding
 yaml:
 ```
@@ -425,6 +428,36 @@ spec:
 ```
 
 ## LABELS, ANNOTATION, TAINT
+#### 1. Nodes
+
+get nodes with labels:
+```
+kubectl get nodes --show-labels
+```
+
+label a node:
+```
+kubectl label nodes <node-name> <key>=<value>
+```
+Example:
+```
+kubectl label nodes worker-01 disktype=ssd
+```
+
+#### 2. Pods ( Other resources type are same )
+get pods with labels:
+```
+kubectl get pods --show-labels
+```
+
+label a node:
+```
+kubectl label pod <node-name> <key>=<value>
+```
+Example:
+```
+kubectl label pod firstpod admin=true
+```
 
 ## AFFINITY AND CPU, RAM
 

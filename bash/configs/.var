@@ -1,11 +1,11 @@
-export ow="-owide" #VARCONFIG
-export oy="-oyaml" #VARCONFIG
-export sortby_age="--sort-by=metadata.creationTimestamp" #VARCONFIG
-export sortby_status="--sort-by=status.phase" #VARCONFIG
-export sortby_name="--sort-by=metadata.name" #VARCONFIG
-export sortby_node="--sort-by=spec.nodeName" #VARCONFIG
-export show_spec="--show-managed-fields=false" #VARCONFIG
-export show_label="--show-labels" #VARCONFIG
+export ow="-owide"
+export oy="-oyaml"
+export sba"--sort-by=metadata.creationTimestamp"
+export sbst="--sort-by=status.phase"
+export sbna="--sort-by=metadata.name"
+export sbno="--sort-by=spec.nodeName"
+export shc="--show-managed-fields=false"
+export shl="--show-labels"
 export b6="base64"
 export b6d="base64 --decode"
 export osu="-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null"

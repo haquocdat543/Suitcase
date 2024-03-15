@@ -1,6 +1,6 @@
 export ow="-owide"
 export oy="-oyaml"
-export sba"--sort-by=metadata.creationTimestamp"
+export sba="--sort-by=metadata.creationTimestamp"
 export sbst="--sort-by=status.phase"
 export sbna="--sort-by=metadata.name"
 export sbno="--sort-by=spec.nodeName"

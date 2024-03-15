@@ -429,6 +429,9 @@ alias iopa='curl -L -o /usr/local/bin/opa https://openpolicyagent.org/downloads/
 alias itiup="curl --proto '=https' --tlsv1.2 -sSf https://tiup-mirrors.pingcap.com/install.sh | sh"
 alias ispire='. $HOME/preconfig/Suitcase/bash/scripts/spireInstall.sh'
 alias ikurator='. $HOME/preconfig/Suitcase/bash/scripts/kuratorInstall.sh'
+alias imanimm='. $HOME/preconfig/Suitcase/bash/scripts/manimMacOsInstall.sh'
+alias imanimf='. $HOME/preconfig/Suitcase/bash/scripts/manimFedoraInstall.sh'
+alias imanima='. $HOME/preconfig/Suitcase/bash/scripts/manimArchInstall.sh'
 alias ijenkins='. $HOME/preconfig/Suitcase/bash/scripts/jenkinInstall.sh'
 alias imysql='. $HOME/preconfig/Suitcase/bash/scripts/amzLinuxMysql.sh'
 alias ikar='. $HOME/preconfig/Suitcase/bash/scripts/ikubectlArgoRollouts.sh'

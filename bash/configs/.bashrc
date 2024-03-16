@@ -334,6 +334,8 @@ alias k8sgengu='. $HOME/preconfig/Suitcase/bash/scripts/k8sGenGroupUser.sh'
 
 
 ### Documentation
+alias doclonghorn='vim -m $HOME/preconfig/Suitcase/bash/docs/longhorn.md'
+alias docrook='vim -m $HOME/preconfig/Suitcase/bash/docs/rook.md'
 alias docsemaphore='vim -m $HOME/preconfig/Suitcase/bash/docs/semaphore.md'
 alias docvitess='vim -m $HOME/preconfig/Suitcase/bash/docs/vitess.md'
 alias dockubectl-plugin='vim -m $HOME/preconfig/Suitcase/bash/docs/kubectl-plugin.md'
@@ -1892,6 +1894,12 @@ alias bigrpcurl='brew install grpcurl'
 alias bilkd='brew install linkerd'
 alias biopa='brew install opa'
 alias bimc='brew install minio/stable/mc'
+
+### Ceph command 
+alias c3='ceph'
+alias c3sts='ceph status'
+alias c3stt='ceph start'
+alias c3stp='ceph stop'
 
 ### Hcloud command 
 alias hc='hcloud'

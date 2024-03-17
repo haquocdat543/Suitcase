@@ -22,6 +22,7 @@ cd rook/deploy/examples
 kubectl create -f crds.yaml -f common.yaml -f operator.yaml
 kubectl create -f cluster.yaml
 kubectl create -f toolbox.yaml
+kubectl create -f dashboard-loadbalancer.yaml
 ```
 ### 3. Helm repo
 ```
@@ -38,6 +39,9 @@ kubectl -n rook-ceph get pod
 ```
 ```
 kubectl create -f toolbox.yaml
+```
+```
+kubectl create -f dashboard-loadbalancer.yaml
 ```
 Get dashboard password:
 ```

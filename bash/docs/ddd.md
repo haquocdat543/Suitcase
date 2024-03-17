@@ -44,3 +44,10 @@ Pull image with image's digest:
 ```
 docker pull centos@DIGEST
 ```
+
+## 5. Comparison between Virtualization and Containerization
+| Virtualization | Containerization |
+|-----------------------------------------|:--------------------------------------------|
+| `Each Kernel` for `each VM` [ Consume more CPU, RAM,... ] | `Single Kernal` for `all container` ( **Kernal sharing** ) [ Just only host's Kernal consume CPU and RAM ]  |
+| Slower to boot ( Cuz of fully OS ) | Faster to boot ( Cuz of necessary part of OS ) |
+| `OS Tax` for `each VM` | `OS Tax` for just `host OS` |

@@ -107,7 +107,8 @@ cat <<EOF | kubectl create -f -
 apiVersion: s3.aws.upbound.io/v1beta1
 kind: Bucket
 metadata:
-  generateName: crossplane-bucket-
+  name: hqdbucket
+  generateName: hqdbucket
 spec:
   forProvider:
     region: us-east-2

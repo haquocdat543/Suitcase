@@ -79,3 +79,37 @@ Delete container [ Violate way, not recommend ]:
 docker container rm HASH/CONTAINER_NAME -f
 ```
 * `Delete` command will send POSIX signal `directly` to `SIGKILL` that `kill` it `immediately`
+
+## 7. Containerization
+Main goal: keep image small
+
+### 1. Inspect history
+Inspect commands ran in an built image:
+```
+docker image history IMAGE
+```
+Inspect `data` include `cmd` in image:
+```
+docker image inspect IMAGE
+```
+
+### 2. Multi stage build
+It is just a `Dockerfile` with **multiple** `FROM` that can easily `COPY` artifacts from *previous Stage*
+```
+FROM ubuntu:latest AS first-stage
+...
+
+
+FROM centos:latest AS second-stage
+COPY --from=first-stage /PATH/TO/LOCATION .
+...
+
+
+```
+Note: `second-stage` build `final build stage` and include **necessary part** from `previous stage`
+
+### 3. Other instructions include
+* LABEL
+* ENV
+* ONBUILD
+* HEALTHCHECK

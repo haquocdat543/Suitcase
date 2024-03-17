@@ -11,19 +11,19 @@
 - Just has necessary part of OS [ That's why it is does not have `sudo, wget,...` by dafault ]
 
 ## 3. Layer
-#### 1. Inspact
+#### 1. Inspect
 
 When pull image:
 ```
 docker pull centos:latest
 ```
 
-Inspect image to retrieve `layer data` and `metadata`:
+Inspect image to retrieve `layer data` and `metadata`, `cmd`:
 ```
 docker image inspect centos:latest
 ```
 
-* `MAINTAINER`,`ENV`,`EXPOSE`,`ENTRYPOINT` does not create new layer
+* `MAINTAINER`,`ENV`,`EXPOSE`,`ENTRYPOINT` does not create new `layer data`, just add `metadata`
 
 #### 2. Sharing image layers
 
@@ -41,9 +41,11 @@ docker image ls --digest
 ```
 
 Pull image with image's digest:
+
 ```
 docker pull centos@DIGEST
 ```
+This will pull exactly image that you specify, avoid of pull same tag image.
 
 ## 5. Comparison between Virtualization and Containerization
 | Virtualization | Containerization |
@@ -51,3 +53,29 @@ docker pull centos@DIGEST
 | `Each Kernel` for `each VM` [ Consume more CPU, RAM,... ] | `Single Kernal` for `all container` ( **Kernal sharing** ) [ Just only host's Kernal consume CPU and RAM ]  |
 | Slower to boot ( Cuz of fully OS ) | Faster to boot ( Cuz of necessary part of OS ) |
 | `OS Tax` for `each VM` | `OS Tax` for just `host OS` |
+| Hard to scale [ cost, boot time ] | *Game changer* if our system have `thousand of containers` [ Scalability ] |
+
+## 6. Container
+
+* Docker daemon implement Docker Remote API at `/var/run/docker.sock` on `Linux`
+* Docker daemon implement Docker Remote API at `npipe:////./pipe/docker_engine` on `Window`
+  * Default non TLS port is `2375`
+  * Default TLS port is `2376`
+
+### 1. Data persistent
+* Your data is `persistent` after `stop` and `start` container.
+
+### 2. Stop container gracefully, Linux POSIX
+Stop then delete container [ gracefully way, recommend ]:
+```
+docker container stop HASH/CONTAINER_NAME
+docker container rm HASH/CONTAINER_NAME
+```
+* `Stop` command will send POSIX signal to `SIGTERM`, give container `more time` to clean things u
+* `Delete` command will send POSIX signal to `SIGKILL` that `kill` it
+
+Delete container [ Violate way, not recommend ]:
+```
+docker container rm HASH/CONTAINER_NAME -f
+```
+* `Delete` command will send POSIX signal `directly` to `SIGKILL` that `kill` it `immediately`

@@ -1058,6 +1058,7 @@ alias tgd='terragrunt destroy'
 alias tgda='terragrunt destroy --auto-approve'
 
 ### Terraform command
+alias tfcs='. $HOME/preconfig/Suitcase/bash/scripts/cleanState.sh'
 alias tfc='. $HOME/preconfig/Suitcase/bash/scripts/clean.sh'
 alias tfi='terraform init'
 alias tfiu='terraform init -upgrade'

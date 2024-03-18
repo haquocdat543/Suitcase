@@ -106,10 +106,67 @@ COPY --from=first-stage /PATH/TO/LOCATION .
 
 
 ```
-Note: `second-stage` build `final build stage` and include **necessary part** from `previous stage`
+Note: `second-stage` build `final stage` and include **necessary part** from `previous stage`
 
 ### 3. Other instructions include
 * LABEL
 * ENV
 * ONBUILD
 * HEALTHCHECK
+
+## 8. Docker Swarm
+Swarm mode uses TLS to encryption, authentication nodes , authorize roles. It has machanism of automatic key rotation
+
+Manager nodes: Although you have *many manager nodes*, but *one* of them is considered *active*. This call *manager node*
+
+Swarm uses *Raft consensus algorithm*
+* Best practices
+  * Deploy an odd number of managers ( to against split brain )
+  * Dont deploy to many manager nodes ( Just 3 or 5 ) ( More nodes mean more time to consensus )
+
+## 9. Service
+Is a set of *containers* with same *config, image,...*
+
+Docker swarm run a reconcilation loop that constantly compares actual state and disire state. If they are not match, the swarm take action so that they do 
+
+Eg: If you run a service with *5 replicas*, by an unknown reason your replicas is *4*, after monitor and compare it will create a *new replica*
+
+Every node gets a mapping that can redirect your request to a node that runs a service
+
+## 10. Overlay network [ Over layer network ]
+Eg: network that connect multiple subnet CIDR together
+
+Command to create overlay network:
+```
+docker network create -d overlay NETWORK_NAME
+```
+* The *control plane* is encrypt with TLS by default
+* If your want to encrypt the *data plane* just add *-o* add the end of command.
+* Overlay network just made *available to nodes*, which *run containers* that *attached to overlay*
+* Note: Overlay network CIDR does not need to match physical CIDR, and each container has their own IP address from the network CIDR.
+
+## 11. How overlay network works
+* Overlay network leverages VXLAN tunnel to create virtual Layer 2 overlay network
+* It create a network namespace on each host [ a network namespace is like a container but instead of running application, it runs an isolated network stack
+
+* Architecture
+  * A virtual switch ( virtual bridge ) is created in network namespace
+  * *A VXLAN Tunnel End Point* is created with one end plumbed into *virtual switch* and another plumbed into *host network stack*
+  * The end of the *network stack* get an *IP address* that is bound to *a UDP socket* on port *4789*
+  * Each container get it's own *Virtual Ethernet* ( veth ) adapter that *plumbed into virtual bridge*
+
+## 12. Security in Docker
+*Container* actually is a *collection of well organized of namespace* [ pid, net, mnt, uts,... ]
+
+Docker on Linux technology relies on *Linux security technology*:
+ * kernal namespace
+   * Process ID [ PID ]: Provide *isolated process tree for each container*. So every container have its own PID 1, and *cannot access* to other *container's process* tree or *host's process* tree
+   * Network [ net ]: Provide *isolated network stack* include [ interfaces, ip adressess and routing table ]. Eg: every container get *its own eth0*, *an unique IP address* and *a range of ports*
+   * Filesystem mount [ mnt ] Provide *isolated / root filesystem* mean it can has its own */etc*, */var*, */dev*. It *cannot* access *other's filesystem* or *host's filesystem*
+   * Inter process communication [ ipc ]: Allow *shared memory* between process *inside a container*. It *cannot* access *host's share memory* or *other container's share memory*
+   * User [ user ]: Allow to map *host' user* to *container's user*. Eg: Map a *non root host's user* to *container's root user*
+   * Unix Time Sharing [ uts ]: Provide a container with *its own hostnamae*
+ * control groups: Allow you to *set limits* on *CPU*, *RAM*, *disk I/O*,... of *Linux host* for *container*
+ * capability
+ * mandatory access control ( MAC ) system
+ * seccomp

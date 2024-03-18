@@ -334,6 +334,7 @@ alias k8sgengu='. $HOME/preconfig/Suitcase/bash/scripts/k8sGenGroupUser.sh'
 
 
 ### Documentation
+alias doctf='vim -m $HOME/preconfig/Suitcase/bash/docs/terraform.md'
 alias doclinkerd='vim -m $HOME/preconfig/Suitcase/bash/docs/linkerd.md'
 alias docfleet='vim -m $HOME/preconfig/Suitcase/bash/docs/fleet.md'
 alias doclonghorn='vim -m $HOME/preconfig/Suitcase/bash/docs/longhorn.md'

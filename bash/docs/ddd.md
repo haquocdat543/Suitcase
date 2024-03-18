@@ -93,7 +93,8 @@ Inspect `data` include `cmd` in image:
 docker image inspect IMAGE
 ```
 
-### 2. Multi stage build
+### 2. Build
+#### 1. Multi stage build
 It is just a `Dockerfile` with **multiple** `FROM` that can easily `COPY` artifacts from *previous Stage*
 ```
 FROM ubuntu:latest AS first-stage
@@ -107,6 +108,67 @@ COPY --from=first-stage /PATH/TO/LOCATION .
 
 ```
 Note: `second-stage` build `final stage` and include **necessary part** from `previous stage`
+
+```
+# syntax=docker/dockerfile:1
+FROM golang:1.21-alpine AS base
+WORKDIR /src
+COPY go.mod go.sum .
+RUN go mod download
+COPY . .
+
+FROM base AS build-client
+RUN go build -o /bin/client ./cmd/client
+
+FROM base AS build-server
+RUN go build -o /bin/server ./cmd/server
+
+FROM scratch
+COPY --from=build-client /bin/client /bin/
+COPY --from=build-server /bin/server /bin/
+ENTRYPOINT [ "/bin/server" ]
+```
+```
+docker build --tag=buildme .
+```
+
+Example:
+```
+# syntax=docker/dockerfile:1
+FROM golang:1.21-alpine AS base
+WORKDIR /src
+COPY go.mod go.sum .
+RUN go mod download
+COPY . .
+
+FROM base AS build-client
+RUN go build -o /bin/client ./cmd/client
+
+FROM base AS build-server
+RUN go build -o /bin/server ./cmd/server
+
+FROM scratch AS client
+COPY --from=build-client /bin/client /bin/
+ENTRYPOINT [ "/bin/client" ]
+
+FROM scratch AS server
+COPY --from=build-server /bin/server /bin/
+ENTRYPOINT [ "/bin/server" ]
+```
+
+Specify target:
+```
+docker build --tag=buildme-client --target=client .
+```
+```
+docker build --tag=buildme-server --target=server .
+```
+
+#### 2. Mount
+#### 3. Build arguments
+#### 4. Export binaries
+#### 5. Test
+#### 6. Multi platform
 
 ### 3. Other instructions include
 * LABEL
@@ -168,5 +230,23 @@ Docker on Linux technology relies on `Linux security technology`:
    * Unix Time Sharing [ uts ]: Provide a container with `its own hostnamae`
  * control groups: Allow you to `set limits` on `CPU`, `RAM`, `disk I/O`,... of `Linux host` for `container`
  * capability
+   * Ability to boot
+   * Ability to boot
  * mandatory access control ( MAC ) system
  * seccomp
+
+## 12. My way
+Find current linux namespace:
+```
+ls -l /proc/$$/ns
+```
+```
+ls -l /proc/$$/ns | awk '{print $1, $9, $10, $11}'
+```
+```
+readlink /proc/$$/ns/cgroup
+readlink /proc/$$/ns/pid
+readlink /proc/$$/ns/mnt
+readlink /proc/$$/ns/uts
+```
+

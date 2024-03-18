@@ -720,7 +720,6 @@ spec:
                   xyz 
                   -----END PUBLIC KEY----- 
 ```
-```
 kubectl apply –f policy.yaml 
 ```
 
@@ -731,4 +730,14 @@ Write to `$HOME/.bashrc`
 aliases kgp=kubectl get pod
 ```
 
+## DEEP DIVE
+Get kubeproxy mode:
+```
+curl localhost:10249/proxyMode
+```
+Modes include: iptables, ipvs, nftables
 
+list ip table rules:
+```
+sudo iptables -S  # List all iptables rules
+```

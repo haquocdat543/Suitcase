@@ -3,7 +3,6 @@
 ## 1. Architecture
 ### 1.  Docker client: CLI use to interact with `Docker daemon`
 ### 2.  Docker daemon: A rich version, HTTP API translate CLI interaction to `CRUD API`
-
 ### 3.  Containerd: A `bridge` between `Docker daemon` and `runc`
 ### 4.  runc: use to create container [ container runtime ]
 
@@ -351,3 +350,65 @@ readlink /proc/$$/ns/mnt
 readlink /proc/$$/ns/uts
 ```
 
+## 13. Docker Daemon
+### 1. Start daemon
+#### 1. With systemd:
+```
+sudo systemctl start docker
+```
+#### 2. With dockerd:
+```
+dockerd
+
+INFO[0000] +job init_networkdriver()
+INFO[0000] +job serveapi(unix:///var/run/docker.sock)
+INFO[0000] Listening for HTTP on unix (/var/run/docker.sock)
+```
+To stop just:
+```
+Ctrl+C
+```
+
+### 2. Configuration file
+
+Linux [ regular ]: `/etc/docker/daemon.json`
+Linux [ rootless ]: `$HOME/.config/docker/daemon.json`
+Window: `C:\ProgramData\docker\config\daemon.json`
+
+You can use `dockerd --config-file PATH/TO/CONFIGFILE` to specify different location
+
+You can set configuration by `command` or `config file`
+
+### 3. Daemon data directory
+```
+```
+
+### 4. Live restore
+
+`By default`, when docker daemon `terminates`. its `shutdown` running containers. But you `can configure` docker daemon that containers will `remain running` if daemon become unavailable
+Configuration file:
+```
+{
+  "live-restore": true
+}
+```
+Command:
+```
+dockerd --live-restore
+```
+
+### 5. Remote access
+
+Configuration file:
+```
+{
+  "hosts": ["unix:///var/run/docker.sock", "tcp://127.0.0.1:2375"]
+}
+```
+
+Service file:
+```
+[Service]
+ExecStart=
+ExecStart=/usr/bin/dockerd -H fd:// -H tcp://127.0.0.1:2375
+```

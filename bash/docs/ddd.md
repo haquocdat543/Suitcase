@@ -165,10 +165,110 @@ docker build --tag=buildme-server --target=server .
 ```
 
 #### 2. Mount
+##### 1. Cache
+```
+RUN --mount=type=cache,target=/go/pkg/mod/ \
+    go mod download -x
+```
+This will cache your `downloaded package` depends on your `package manager`
+
+##### 2. Bind
+```
+    --mount=type=bind,source=go.sum,target=go.sum \
+    --mount=type=bind,source=go.mod,target=go.mod \
+```
+With this you don't need to `COPY go.mod go.sum .` any more as it already `bind to host`
+
+```
+--mount=type=bind,target=. \
+```
+With this you don't need to `COPY . .` any more as it already `bind to host`
+
+
 #### 3. Build arguments
+##### 1. Pass arguments to Dockerfile
+```
+ARG GO_VERSION=1.21
+FROM golang:${GO_VERSION}-alpine AS base
+```
+```
+docker build --build-arg="GO_VERSION=1.19" .
+```
+##### 2. Pass arguments to build command in container
+```
+ARG APP_VERSION="v0.0.0+unknown"
+RUN --mount=type=cache,target=/go/pkg/mod/ \
+    --mount=type=bind,target=. \
+    go build -o /bin/server ./cmd/server
+    go build -ldflags "-X main.version=$APP_VERSION" -o /bin/server ./cmd/server
+```
+```
+docker build --target=server --build-arg="APP_VERSION=v0.0.1" --tag=buildme-server .
+```
+
 #### 4. Export binaries
+Copy binaries from `previous stage` to `binary stage from scratch`
+```
+FROM scratch AS binaries
+COPY --from=build-client /bin/client /
+COPY --from=build-server /bin/server /
+```
+
+Build `command` with `output to host`:
+```
+docker build --output=bin --target=binaries .
+```
+
+List binaries in host:
+```
+ls -l ./bin
+total 29392
+-rwxr-xr-x  1 user  user  7581933 Apr  6 09:33 client
+-rwxr-xr-x  1 user  user  7459368 Apr  6 09:33 server
+```
+
 #### 5. Test
+```
+ARG GOLANGCI_LINT_VERSION=v1.52
+FROM golangci/golangci-lint:${GOLANGCI_LINT_VERSION} as lint
+WORKDIR /test
+RUN --mount=type=bind,target=. \
+    golangci-lint run
+```
+Build `command` specify `target` to `lint`:
+```
+docker build --target=lint .
+```
+
 #### 6. Multi platform
+##### 1. Emulation [ may take a longer time ]
+Build `command` with `single platform`:
+```
+docker build --target=server --platform=linux/amd64
+```
+Build `command` with `multi platform`:
+```
+docker build --target=server --platform=linux/amd64,linux/arm64
+```
+##### 2. Cross compiles [ faster, because it does not need to rebuild same steps ]
+```
+FROM --platform=$BUILDPLATFORM golang:${GO_VERSION}-alpine AS base
+...
+
+FROM base AS build-client
+ARG TARGETOS
+ARG TARGETARCH
+RUN --mount=type=cache,target=/go/pkg/mod \
+    --mount=type=bind,target=. \
+    go build -o /bin/client ./cmd/client
+    GOOS=${TARGETOS} GOARCH=${TARGETARCH} go build -o /bin/client ./cmd/client
+```
+```
+docker build \
+  --target=binaries \
+  --output=bin \
+  --platform=darwin/arm64,windows/amd64,linux/amd64 .
+```
 
 ### 3. Other instructions include
 * LABEL

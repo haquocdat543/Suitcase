@@ -1,10 +1,11 @@
 # DOCKER DEEP DIVE
 
 ## 1. Architecture
-* Docker client: CLI use to interact with `Docker daemon`
-* Docker daemon: A rich version, HTTP API translate CLI interaction to `CRUD API`
-* Containerd: A `bridge` between `Docker daemon` and `runc`
-* runc: use to create container [ container runtime ]
+### 1.  Docker client: CLI use to interact with `Docker daemon`
+### 2.  Docker daemon: A rich version, HTTP API translate CLI interaction to `CRUD API`
+
+### 3.  Containerd: A `bridge` between `Docker daemon` and `runc`
+### 4.  runc: use to create container [ container runtime ]
 
 ## 2. Image
 - Usually small

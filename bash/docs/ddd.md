@@ -439,6 +439,25 @@ README-secret.md
 
 ### 3. Other instructions include
 #### 1. ADD
+* Usually download from remote source:
+```
+ADD https://github.com/moby/buildkit.git#v0.10.1 /buildkit
+```
+keep `.git` folder:
+```
+ADD --keep-git-dir=true https://github.com/moby/buildkit.git#v0.10.1 /buildkit
+```
+
+Check sum:
+```
+DD --checksum=sha256:24454f830cdb571e2c4ad15481119c43b3cafd48dd869a9b2945d1036d1dc68d https://mirrors.edge.kernel.org/pub/linux/kernel/Historic/linux-0.01.tar.gz /
+```
+
+Other options:
+* `ADD --chown --chmod`
+* `ADD --link`
+* `ADD --exclude`
+
 #### 2. ARG
 * They're not accessible or present in containers instantiated from the image unless explicitly passed through from the Dockerfile into the image filesystem or configuration. They may persist in the image metadata
 * Eg: `ARG NODE_VERSION="20"`
@@ -507,10 +526,132 @@ Multi-platform build arguments:
 
 
 #### 3. LABEL
-#### 4. ENV
-#### 5. ONBUILD
-#### 6. HEALTHCHECK
+Template:
+```
+LABEL <key>=<value> <key>=<value> <key>=<value> ...
+```
 
+Example:
+```
+LABEL "com.example.vendor"="ACME Incorporated"
+LABEL com.example.label-with-value="foo"
+LABEL version="1.0"
+LABEL description="This text illustrates \
+that label-values can span multiple lines."
+```
+
+#### 4. ONBUILD
+* Use to `define action` that will be taken if there is `other stage` is build from `current stage`
+* Those `ONBUILD action` will not be execute in `current stage`. It only execute in `child stage`
+
+Template:
+```
+ONBUILD <INSTRUCTION>
+```
+
+Eg:
+```
+ONBUILD ADD . /app/src
+ONBUILD RUN /usr/local/bin/python-build --dir /app/src
+```
+
+Notes: 
+* ONBUILD ONBUILD isn't allowed
+* The ONBUILD instruction may not trigger FROM or MAINTAINER instructions
+
+#### 5. HEALTHCHECK
+CMD type:
+```
+HEALTHCHECK --interval=5m --timeout=3s \
+  CMD curl -f http://localhost/ || exit 1
+```
+
+NONE type [ Usually use when `turn off Healthcheck` from `parent stage` ]:
+```
+HEALTHCHECK NONE
+```
+
+Status:
+* 0: `success` - the container is healthy and ready for use
+* 1: `unhealthy` - the container isn't working correctly
+* 2: `reserved` - don't use this exit code
+
+#### 6. VOLUME
+The docker run command initializes the newly created volume with any data that exists at the specified location within the base image.
+```
+VOLUME ["/data"]
+```
+
+#### 7. USER
+```
+USER <user>[:<group>]
+```
+Eg:
+```
+USER <UID>[:<GID>]
+```
+
+#### 8. STOPSIGNAL
+Define `action` when execute `docker stop`:
+
+Template
+```
+STOPSIGNAL signal
+```
+
+Example:
+```
+STOPSIGNAL KILL
+```
+
+Note: `SIGTERM` if not define
+
+#### 9. SHELL
+* The SHELL instruction allows the `default shell` used for the `shell form` of commands to be `overridden`. The default shell on `Linux is ["/bin/sh", "-c"]`, and on `Windows is ["cmd", "/S", "/C"]`
+* The SHELL instruction is particularly useful on Windows where there are two commonly used and quite different native shells: cmd and powershell, as well as alternate shells available including sh
+* The SHELL instruction can `appear multiple times`. Each SHELL instruction `overrides all previous SHELL instructions`, and `affects all subsequent instructions`
+
+Template
+```
+SHELL ["executable", "parameters"]
+```
+
+Example
+```
+SHELL ["powershell", "-command"]
+RUN Write-Host hello
+```
+
+#### 10. Running a multi-line script
+Example for `bash shell`:
+```
+# syntax=docker/dockerfile:1
+FROM debian
+RUN <<EOT bash
+  set -ex
+  apt-get update
+  apt-get install -y vim
+EOT
+```
+
+Example for `default shell`:
+```
+# syntax=docker/dockerfile:1
+FROM debian
+RUN <<EOT
+  mkdir -p foo/bar
+EOT
+```
+
+#### 11. Creating inline file
+Example:
+```
+# syntax=docker/dockerfile:1
+FROM alpine
+COPY <<EOF greeting.txt
+hello world
+EOF
+```
 
 ### 4. Secret
 * A build secret is any `piece of sensitive information`, such as a `password` or `API token`, consumed as part of your application's build process.
@@ -585,6 +726,41 @@ command:
 ```
 docker build --tag hello .
 ```
+
+### 7. Builder
+Builder drivers:
+* docker: uses the BuildKit library bundled into the Docker daemon.
+* docker-container: creates a dedicated BuildKit container using Docker.
+* kubernetes: creates BuildKit pods in a Kubernetes cluster.
+* remote: connects directly to a manually managed BuildKit daemon.
+
+Command to list builders:
+```
+docker buildx ls
+```
+Command to use builder:
+```
+
+You can use environment variable `BUILDX_BUILDER` to set default builder
+
+Command to create builder:
+```
+docker buildx create --name=<builder-name>
+```
+
+Command to inspect builder: 
+```
+docker buildx inspect --bootstrap my_builder
+```
+
+Command to see how much disk space a builder is using
+```
+docker buildx du --builder BUILDER
+docker buildx du --builder my_builder
+```
+
+Command to remove builder:
+docker buildx rm <builder-name>
 
 ## 8. Docker Swarm
 Swarm mode uses TLS to encryption, authentication nodes , authorize roles. It has machanism of automatic key rotation

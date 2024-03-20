@@ -269,8 +269,143 @@ docker build \
   --output=bin \
   --platform=darwin/arm64,windows/amd64,linux/amd64 .
 ```
+#### 7. Build context
+```
+docker build [OPTIONS] PATH | URL | -
+```
+* [ Local file ] The `relative` or `absolute path` to a `local directory`
+* [ Git repositories ] A `remote URL` of a `Git repository`, `tarball`, or `plain-text file`
+* [ Remote tarball ] A `plain-text file` or `tarball piped` to the docker build command through `standard input`
+##### 1. Stdin
+```
+docker build -f- <PATH>
+```
+```
+# create a directory to work in
+mkdir example
+cd example
+
+# create an example file
+touch somefile.txt
+
+# build an image using the current directory as context
+# and a Dockerfile passed through stdin
+docker build -t myimage:latest -f- . <<EOF
+FROM busybox
+COPY somefile.txt ./
+RUN cat /somefile.txt
+EOF
+```
+##### 2. Tarball
+```
+tar czf foo.tar.gz *
+docker build - < foo.tar.gz
+```
+
+##### 3. Remote context
+###### 1. Git repositories
+```
+docker build https://github.com/user/myrepo.git
+```
+
+URL fragments `#ref:dir`, where:
+* `ref` is the name of the `branch`, `tag`, or `remote reference`
+* `dir` is a `subdirectory` inside the repository
+```
+docker build https://github.com/user/myrepo.git#container:docker
+```
+
+The following table represents all the valid suffixes with their build contexts:
+| myrepo.git | refs/heads/<default | branch> | / |
+| myrepo.git#mytag | refs/tags/mytag | /
+| myrepo.git#mybranch	| refs/heads/mybranch | / |
+| myrepo.git#pull/42/head | refs/pull/42/head | / |
+| myrepo.git#:myfolder | refs/heads/<default | branch> | /myfolder |
+| myrepo.git#master:myfolder | refs/heads/master | /myfolder |
+| myrepo.git#mytag:myfolder | refs/tags/mytag | /myfolder |
+| myrepo.git#mybranch:myfolder | refs/heads/mybranch | /myfolder |
+
+Private repositories
+```
+docker buildx build --ssh default git@github.com:user/private.git
+```
+
+token-based authentication instead
+```
+GIT_AUTH_TOKEN=<token> docker buildx build \
+  --secret id=GIT_AUTH_TOKEN \
+  https://github.com/user/private.git
+```
+
+Remote context with Dockerfile from `stdin` [ `without Dockerfile` or `without using default Dockerfile` ]
+```
+docker build -f- URL
+```
+Eg:
+```
+docker build -t myimage:latest -f- https://github.com/docker-library/hello-world.git <<EOF
+FROM busybox
+COPY hello.c ./
+EOF
+```
+
+###### 2. Remote tarball
+```
+docker build http://server/context.tar.gz
+```
+Other file extension: [ `xz, bzip2, gzip or identity (no compression)` ]
+
+###### 3. Empty context
+You can build with an empty build context when your Dockerfile `doesn't depend` on any `local files`
+
+Unix pipe:
+```
+docker build - < Dockerfile
+```
+
+Powershell:
+```
+Get-Content Dockerfile | docker build -
+```
+
+Heredocs:
+```
+docker build -t myimage:latest - <<EOF
+FROM busybox
+RUN echo "hello world"
+EOF
+```
+
+Remote file:
+```
+docker build https://raw.githubusercontent.com/dvdksn/clockbox/main/Dockerfile
+```
+
+Note: When you build `without a filesystem context`, Dockerfile instructions such as `COPY can't refer to local files`:
+
+###### 4. .dockerignore
+You can use a `.dockerignore` file to `exclude files or directories` from the `build context`.
+
+Template:
+```
+# comment
+*/temp*
+*/*/temp*
+temp?
+```
+
+Eg:
+```
+*.md
+!README*.md
+README-secret.md
+```
+
 
 ### 3. Other instructions include
+* ADD
+* ENV
+  * Eg: `ENV FLASK_APP=hello`
 * LABEL
 * ENV
 * ONBUILD

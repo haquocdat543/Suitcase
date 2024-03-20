@@ -351,11 +351,14 @@ docker build https://github.com/user/myrepo.git#container:docker
 ```
 
 The following table represents all the valid suffixes with their build contexts:
-| myrepo.git | refs/heads/<default | branch> | / |
-| myrepo.git#mytag | refs/tags/mytag | /
-| myrepo.git#mybranch	| refs/heads/mybranch | / |
+
+|  | | |
+|------------|:---------------------------|:--------|
+| myrepo.git | refs/heads/<defaultbranch> | / |
+| myrepo.git#mytag | refs/tags/mytag | / |
+| myrepo.git#mybranch | refs/heads/mybranch | / |
 | myrepo.git#pull/42/head | refs/pull/42/head | / |
-| myrepo.git#:myfolder | refs/heads/<default | branch> | /myfolder |
+| myrepo.git#:myfolder | refs/heads/<defaultbranch> | /myfolder |
 | myrepo.git#master:myfolder | refs/heads/master | /myfolder |
 | myrepo.git#mytag:myfolder | refs/tags/mytag | /myfolder |
 | myrepo.git#mybranch:myfolder | refs/heads/mybranch | /myfolder |
@@ -510,18 +513,19 @@ Multi-platform build arguments:
 * TARGETVARIANT
 
 | Variable | Type | Description |
+|----------|:-----|:------------|
 | BUILDKIT_COLORS | String | Configure text color for the terminal output |
-| BUILDKIT_HOST |  | String  Specify host to use for remote builders |
-| BUILDKIT_PROGRESS |  | String  Configure type of progress output |
-| BUILDKIT_TTY_LOG_LINES |  |String  Number of log lines (for active steps in tty mode) |
-| BUILDX_BUILDER |  |String  Specify the builder instance to use |
-| BUILDX_CONFIG |  | String  Specify location for configuration, state, and logs |
+| BUILDKIT_HOST | String  Specify host to use for remote builders |
+| BUILDKIT_PROGRESS | String  Configure type of progress output |
+| BUILDKIT_TTY_LOG_LINES | String  Number of log lines (for active steps in tty mode) |
+| BUILDX_BUILDER | String  Specify the builder instance to use |
+| BUILDX_CONFIG | String  Specify location for configuration, state, and logs |
 | BUILDX_EXPERIMENTAL | Boolean |Turn on experimental features |
-| BUILDX_GIT_CHECK_DIRTY |  |Boolean Enable dirty Git checkout detection |
-| BUILDX_GIT_INFO | Boolean |Remove Git information in provenance attestations |
-| BUILDX_GIT_LABELS |  | String | Boolean    Add Git provenance labels to images |
-| BUILDX_NO_DEFAULT_ATTESTATIONS |  |Boolean Turn off default provenance attestations |
-| BUILDX_NO_DEFAULT_LOAD |  |Boolean Turn off loading images to image store by default |
+| BUILDX_GIT_CHECK_DIRTY | Boolean Enable dirty Git checkout detection |
+| BUILDX_GIT_INFO | Boolean | Remove Git information in provenance attestations |
+| BUILDX_GIT_LABELS | String | Boolean    Add Git provenance labels to images |
+| BUILDX_NO_DEFAULT_ATTESTATIONS | Boolean Turn off default provenance attestations |
+| BUILDX_NO_DEFAULT_LOAD | Boolean Turn off loading images to image store by default |
 | EXPERIMENTAL_BUILDKIT_SOURCE_POLICY | String | Specify a BuildKit source policy file |
 
 
@@ -663,14 +667,18 @@ RUN --mount=type=secret,id=mytoken \
 ```
 
 ##### 1. CLI
-The following example mounts the `environment variable KUBECONFIG` to `secret ID kube`, as a `file` in the build container at `/run/secrets/kube.
+The following example mounts the `environment variable KUBECONFIG` to `secret ID kube`, as a `file` in the build container at `/run/secrets/kube`.
+
 ```
 docker build --secret id=kube,env=KUBECONFIG .
 ```
+
 When you secrets from environment variables, you can `omit` the id parameter to bind the secret to a file with the same name as the variable.  the value of the API_TOKEN variable is mounted to `/run/secrets/API_TOKEN` in the build container
+
 ```
 docker build --secret id=mytoken,src=$HOME/.aws/credentials .
 ```
+
 The following example `mounts` the secret to a `/root/.aws/credentials` file in the `build container`.
 ```
 docker build --secret id=API_TOKEN .
@@ -717,11 +725,13 @@ target "default" {
 
 ### 6. Create base image
 from scratch:
+
 ```
 FROM scratch
 ADD hello /
 CMD ["/hello"]
 ```
+
 command:
 ```
 docker build --tag hello .
@@ -739,7 +749,6 @@ Command to list builders:
 docker buildx ls
 ```
 Command to use builder:
-```
 
 You can use environment variable `BUILDX_BUILDER` to set default builder
 
@@ -762,7 +771,625 @@ docker buildx du --builder my_builder
 Command to remove builder:
 docker buildx rm <builder-name>
 
-## 8. Docker Swarm
+## 8. Docker Compose
+### 1. Version
+Example:
+```
+name: myapp
+
+services:
+  foo:
+    image: busybox
+    command: echo "I'm running ${COMPOSE_PROJECT_NAME}"
+```
+
+### 2. Service
+
+### 3. Network
+#### 1. Example
+* In the following example, at runtime, networks front-tier and back-tier are created and the frontend service is connected to front-tier and back-tier networks.
+```
+services:
+  frontend:
+    image: example/webapp
+    networks:
+      - front-tier
+      - back-tier
+
+networks:
+  front-tier:
+  back-tier:
+```
+
+#### 2. Advanced example
+* The advanced example shows a Compose file which defines `two custom networks`. The `proxy service` is `isolated` from the `db service`, because they `do not share` a network in common. `Only app can talk to both`.
+```
+services:
+  proxy:
+    build: ./proxy
+    networks:
+      - frontend
+  app:
+    build: ./app
+    networks:
+      - frontend
+      - backend
+  db:
+    image: postgres
+    networks:
+      - backend
+
+networks:
+  frontend:
+    # Use a custom driver
+    driver: custom-driver-1
+  backend:
+    # Use a custom driver which takes special options
+    driver: custom-driver-2
+    driver_opts:
+      foo: "1"
+      bar: "2"
+```
+
+#### 3. driver
+```
+networks:
+  db-data:
+    driver: bridge
+```
+
+#### 4. driver_opts
+```
+networks:
+  db-data:
+    driver_opts:
+      foo: "bar"
+      baz: 1
+```
+
+#### 5. attachable
+* If attachable is set to true, then `standalone containers` should be `able to attach to this network`, in addition to services. If a standalone container attaches to the network, it can communicate with services and other standalone containers that are also attached to the network.
+```
+networks:
+  mynet1:
+    driver: overlay
+    attachable: true
+```
+
+#### 6. enable_ipv6
+Can enable `ipv6` use `daemon config file`:
+```
+{
+  "experimental": true,
+  "ip6tables": true
+}
+```
+
+#### 7. external
+* external specifies that this network’s lifecycle is maintained outside of that of the application. Compose doesn't attempt to create these networks, and returns an error if one doesn't exist.
+```
+services:
+  proxy:
+    image: example/proxy
+    networks:
+      - outside
+      - default
+  app:
+    image: example/app
+    networks:
+      - default
+
+networks:
+  outside:
+    external: true
+```
+
+#### 8. ipam
+* driver: Custom IPAM driver, instead of the default.
+* config: A list with zero or more configuration elements, each containing a:
+  * subnet: Subnet in CIDR format that represents a network segment
+  * ip_range: Range of IPs from which to allocate container IPs
+  * gateway: IPv4 or IPv6 gateway for the master subnet
+  * aux_addresses: Auxiliary IPv4 or IPv6 addresses used by Network driver, as a mapping from hostname to IP
+* options: Driver-specific options as a key-value mapping.
+
+```
+networks:
+  mynet1:
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.28.0.0/16
+          ip_range: 172.28.5.0/24
+          gateway: 172.28.5.254
+          aux_addresses:
+            host1: 172.28.1.5
+            host2: 172.28.1.6
+            host3: 172.28.1.7
+      options:
+        foo: bar
+        baz: "0"
+```
+
+#### 9. internal
+By default, Compose provides external connectivity to networks. internal, when set to true, allows you to create an externally isolated network.
+
+
+#### 10. labels
+Add `metadata` to containers using labels. You can use either an `array or a dictionary`.
+```
+networks:
+  mynet1:
+    labels:
+      com.example.description: "Financial transaction network"
+      com.example.department: "Finance"
+      com.example.label-with-empty-value: ""
+```
+```
+networks:
+  mynet1:
+    labels:
+      - "com.example.description=Financial transaction network"
+      - "com.example.department=Finance"
+      - "com.example.label-with-empty-value"
+```
+
+#### 11. name
+```
+networks:
+  network1:
+    name: my-app-net
+```
+```
+networks:
+  network1:
+    external: true
+    name: "${NETWORK_ID}"
+```
+
+### 4. Volume
+#### 1. Example
+
+* The following example shows a `two-service` setup where a database's data directory is `shared with another service` as a volume, named `db-data`, so that it can be periodically backed up
+* Running docker compose up creates the volume if it doesn't already exist. Otherwise, the existing volume is used and is recreated if it's manually deleted outside of Compose.
+```
+services:
+  backend:
+    image: example/database
+    volumes:
+      - db-data:/etc/data
+
+  backup:
+    image: backup-service
+    volumes:
+      - db-data:/var/lib/backup/data
+
+volumes:
+  db-data:
+```
+
+#### 2. Driver
+* If the driver is not available, Compose returns an error and doesn't deploy the application.
+```
+volumes:
+  db-data:
+    driver: foobar
+```
+
+#### 3. driver_opts
+* driver_opts specifies a list of options as key-value pairs to pass to the driver for this volume. The options are driver-dependent.
+```
+volumes:
+  example:
+    driver_opts:
+      type: "nfs"
+      o: "addr=10.40.0.199,nolock,soft,rw"
+      device: ":/docker/example"
+```
+
+#### 4. external
+If set to true:
+
+* external specifies that this volume already exists on the platform and its lifecycle is managed outside of that of the application. Compose doesn't then create the volume, and returns an error if the volume doesn't exist
+* All other attributes apart from name are irrelevant. If Compose detects any other attribute, it rejects the Compose file as invalid.
+
+```
+services:
+  backend:
+    image: example/database
+    volumes:
+      - db-data:/etc/data
+
+volumes:
+  db-data:
+    external: true
+```
+
+#### 5. labels
+* labels are used to add metadata to volumes. You can use either an array or a dictionary.
+
+```
+volumes:
+  db-data:
+    labels:
+      com.example.description: "Database volume"
+      com.example.department: "IT/Ops"
+      com.example.label-with-empty-value: ""
+```
+```
+volumes:
+  db-data:
+    labels:
+      - "com.example.description=Database volume"
+      - "com.example.department=IT/Ops"
+      - "com.example.label-with-empty-value"
+```
+
+#### 6. name
+```
+volumes:
+  db-data:
+    name: "my-app-data"
+```
+
+### 5. Config
+* file: The config is created with the `contents of the file` at the specified path.
+* environment: The config content is created with the `value of an environment variable`.
+* content: The content is created with the `inlined value`.
+* external: If set to true, external specifies that `this config has already been created`. Compose does not attempt to create it, and if it does not exist, an error occurs.
+* name: The name of the config object in the container engine to look up. This field can be used to reference configs that contain special characters. The name is used as is and will not be scoped with the project name.
+
+file:
+```
+configs:
+  http_config:
+    file: ./httpd.conf
+```
+
+environment variable:
+```
+secrets:
+  token:
+    environment: "OAUTH_TOKEN"
+```
+
+external: 
+```
+configs:
+  http_config:
+    external: true
+```
+
+Inline: 
+```
+configs:
+  app_config:
+    content: |
+      debug=${DEBUG}
+      spring.application.admin.enabled=${DEBUG}
+      spring.application.name=${COMPOSE_PROJECT_NAME}
+```
+
+name: 
+```
+configs:
+  http_config:
+    external: true
+    name: "${HTTP_CONFIG_KEY}"
+```
+
+### 6. Secret
+
+file: The secret is created with the contents of the `file` at the specified path.
+```
+secrets:
+  server-certificate:
+    file: ./server.cert
+```
+
+environment: The secret is created with the value of an `environment variable`.
+```
+secrets:
+  token:
+    environment: "OAUTH_TOKEN"
+```
+
+### 7. Build
+#### 1. Example
+Example:
+```
+services:
+  frontend:
+    image: example/webapp
+    build: ./webapp
+
+  backend:
+    image: example/database
+    build:
+      context: backend
+      dockerfile: ../backend.Dockerfile
+
+  custom:
+    build: ~/custom
+```
+* build example/webapp image use Dockerfile in `./webapp` which mean child folder and run service
+* build example/database image use backend.Dockerfile in `..` which mean parent folder and run service
+* custom build context `~/custom`
+
+#### 2. From a remote URL [ Github ]:
+```
+services:
+  webapp:
+    build: https://github.com/mycompany/example.git#branch_or_tag:subdirectory
+```
+* build `webapp service` from a `remote URL`
+
+#### 3. dockerfile specify:
+```
+build:
+  context: .
+  dockerfile: webapp.Dockerfile
+```
+* build service from in `current directory` but specify `webapp.Dockerfile as Dockerfile`
+
+#### 4. dockerfile_inline:
+```
+build:
+  context: .
+  dockerfile_inline: |
+    FROM baseimage
+    RUN some command
+```
+#### 5. Arguments
+Example dockerfile:
+```
+ARG GIT_COMMIT
+RUN echo "Based on commit: $GIT_COMMIT"
+```
+
+Pass mapping argument in `docker-compose.yaml`:
+```
+build:
+  context: .
+  args:
+    GIT_COMMIT: cdc3b19
+```
+
+Pass list argument in `docker-compose.yaml`:
+```
+build:
+  context: .
+  args:
+    - GIT_COMMIT=cdc3b19
+```
+
+#### 6. ssh
+* ssh defines SSH authentications that the image builder should use during image build (e.g., cloning private repository)
+```
+build:
+  context: .
+  ssh:
+    - default   # mount the default ssh agent
+```
+```
+build:
+  context: .
+  ssh: ["default"]   # mount the default ssh agent
+```
+
+Using a custom id myproject with path to a local SSH key:
+```
+build:
+  context: .
+  ssh:
+    - myproject=~/.ssh/myproject.pem
+```
+#### 7. cache_from
+#### 8. cache_to
+#### 9. additional_contexts
+#### 10. extra_hosts
+#### 11. isolation
+#### 12. privileged
+#### 13. labels
+#### 14. pull
+#### 15. network
+#### 16. shm_size
+#### 17. target
+#### 18. secrets
+#### 19. tags
+Tagging:
+```
+build:
+ tags:
+   - "myimage:mytag"
+   - "registry/username/myrepos:my-other-tag"
+```
+
+#### 20. ulimits
+#### 21. platforms
+```
+build:
+  context: "."
+  platforms:
+    - "linux/amd64"
+    - "linux/arm64"
+```
+
+Note: When the platforms attribute is `omitted`, Compose includes the service's platform in the list of the `default` build target platforms.
+
+Composes reports an error in the following cases:
+* When the list contains multiple platforms but the implementation is `incapable of storing multi-platform images`.
+* When the list contains an unsupported platform.
+```
+build:
+  context: "."
+  platforms:
+    - "linux/amd64"
+    - "unsupported/unsupported"
+```
+
+* When the list is non-empty and does not contain the service's platform. [ when build platform does not include platfrom from service ]
+```
+services:
+  frontend:
+    platform: "linux/amd64"
+    build:
+      context: "."
+      platforms:
+        - "linux/arm64"
+```
+
+### 8. Deploy
+#### 1. endpoint_mode
+```
+services:
+  frontend:
+    image: example/webapp
+    ports:
+      - "8080:80"
+    deploy:
+      mode: replicated
+      replicas: 2
+      endpoint_mode: vip
+```
+
+There are two endpoint_mode:
+* endpoint_mode: vip [ Assigns the service a virtual IP (VIP) that acts as the front end for clients to reach the service on a network ]
+* endpoint_mode: dnsrr [ Platform sets up DNS entries for the service such that a DNS query for the service name returns a list of IP addresses (DNS round-robin), and the client connects directly to one of these ]
+
+#### 2. labels
+labels specifies `metadata` for the `service`. These labels are `only` set on the `service` and `not` on any `containers` for the service
+```
+services:
+  frontend:
+    image: example/webapp
+    deploy:
+      labels:
+        com.example.description: "This label will appear on the web service"
+```
+
+#### 3. mode
+mode defines the replication model used to run the service on the platform. Either `global`, exactly `one container per physical node`, or `replicated`, a `specified number of containers`. The `default` is `replicated`
+```
+services:
+  frontend:
+    image: example/webapp
+    deploy:
+      mode: global
+```
+
+#### 4. placement
+##### 1. constraints
+defines a required property the platform's node `must` fulfill to run the service container. It can be set either by a list or a map with string values.
+
+```
+deploy:
+  placement:
+    constraints:
+      - disktype=ssd
+```
+```
+deploy:
+  placement:
+    constraints:
+      disktype: ssd
+```
+
+##### 2. preferences
+defines a required property the platform's node `should` fulfill to run the service container. It can be set either by a list or a map with string values.
+```
+deploy:
+  placement:
+    preferences:
+      - datacenter=us-east
+```
+```
+deploy:
+  placement:
+    preferences:
+      datacenter: us-east
+```
+
+#### 5. replicas
+replicas specifies the `number of containers` that should be running at any given time.
+```
+services:
+  frontend:
+    image: example/webapp
+    deploy:
+      mode: replicated
+      replicas: 6
+```
+
+#### 6. resources
+* limits: The platform must prevent the container to allocate more.
+* reservations: The platform must guarantee the container can allocate at least the configured amount.
+```
+ervices:
+  frontend:
+    image: example/webapp
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 50M
+          pids: 1
+        reservations:
+          cpus: '0.25'
+          memory: 20M
+```
+
+#### 7. restart_policy
+Conditions:
+* none, containers are not automatically restarted regardless of the exit status.
+* on-failure, the container is restarted if it exits due to an error, which manifests as a non-zero exit code
+* any (default), containers are restarted regardless of the exit status
+
+```
+deploy:
+  restart_policy:
+    condition: on-failure
+    delay: 5s
+    max_attempts: 3
+    window: 120s
+```
+
+#### 8. rollback_config
+* parallelism: The number of containers to update at the same time.
+* delay: The time to wait between updating a group of containers.
+* failure_action: What to do if an update fails. One of continue, rollback, or pause (default: pause).
+* monitor: Duration after each task update to monitor for failure (ns|us|ms|s|m|h) (default 0s).
+* max_failure_ratio: Failure rate to tolerate during an update.
+* order: Order of operations during updates. One of stop-first (old task is stopped before starting new one), or start-first
+
+```
+deploy:
+  update_config:
+    parallelism: 2
+    delay: 10s
+    order: stop-first
+```
+
+#### 9. update_config
+* parallelism: The number of containers to update at the same time.
+* delay: The time to wait between updating a group of containers.
+* failure_action: What to do if an update fails. One of continue, rollback, or pause (default: pause).
+* monitor: Duration after each task update to monitor for failure (ns|us|ms|s|m|h) (default 0s).
+* max_failure_ratio: Failure rate to tolerate during an update.
+* order: Order of operations during updates. One of stop-first (old task is stopped before starting new one), or start-first
+
+```
+deploy:
+  update_config:
+    parallelism: 2
+    delay: 10s
+    order: stop-first
+```
+
+### 9. Develop
+
+
+## 9. Docker Swarm
 Swarm mode uses TLS to encryption, authentication nodes , authorize roles. It has machanism of automatic key rotation
 
 Manager nodes: Although you have `many manager nodes`, but `one` of them is considered `active`. This call `manager node`
@@ -772,7 +1399,7 @@ Swarm uses `Raft consensus algorithm`
   * Deploy an odd number of managers ( to against split brain )
   * Dont deploy to many manager nodes ( Just 3 or 5 ) ( More nodes mean more time to consensus )
 
-## 9. Service
+## 10. Service
 Is a set of `containers` with same `config, image,...`
 
 Docker swarm run a reconcilation loop that constantly compares actual state and disire state. If they are not match, the swarm take action so that they do 
@@ -781,7 +1408,7 @@ Eg: If you run a service with `5 replicas`, by an unknown reason your replicas i
 
 Every node gets a mapping that can redirect your request to a node that runs a service
 
-## 10. Overlay network [ Over layer network ]
+## 11. Overlay network [ Over layer network ]
 Eg: network that connect multiple subnet CIDR together
 
 Command to create overlay network:
@@ -793,7 +1420,7 @@ docker network create -d overlay NETWORK_NAME
 * Overlay network just made `available to nodes`, which `run containers` that `attached to overlay`
 * Note: Overlay network CIDR does not need to match physical CIDR, and each container has their own IP address from the network CIDR.
 
-## 11. How overlay network works
+## 12. How overlay network works
 * Overlay network leverages VXLAN tunnel to create virtual Layer 2 overlay network
 * It create a network namespace on each host [ a network namespace is like a container but instead of running application, it runs an isolated network stack
 
@@ -803,7 +1430,7 @@ docker network create -d overlay NETWORK_NAME
   * The end of the `network stack` get an `IP address` that is bound to `a UDP socket` on port `4789`
   * Each container get it's own `Virtual Ethernet` ( veth ) adapter that `plumbed into virtual bridge`
 
-## 12. Security in Docker
+## 13. Security in Docker
 `Container` actually is a `collection of well organized of namespace` [ pid, net, mnt, uts,... ]
 
 Docker on Linux technology relies on `Linux security technology`:
@@ -821,7 +1448,7 @@ Docker on Linux technology relies on `Linux security technology`:
  * mandatory access control ( MAC ) system
  * seccomp
 
-## 12. My way
+## 14. My way
 Find current linux namespace:
 ```
 ls -l /proc/$$/ns
@@ -836,7 +1463,7 @@ readlink /proc/$$/ns/mnt
 readlink /proc/$$/ns/uts
 ```
 
-## 13. Docker Daemon
+## 15. Docker Daemon
 ### 1. Start daemon
 #### 1. With systemd:
 ```

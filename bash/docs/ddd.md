@@ -558,6 +558,34 @@ ADD git@github.com:me/myprivaterepo.git /src/
 docker buildx build --ssh default .
 ```
 
+### 5. Annotation
+Command:
+```
+docker build --push --annotation "foo=bar" .
+docker build --tag <IMAGE> --push --annotation "index:foo=bar" .
+docker build --tag <IMAGE> --push --annotation "index,manifest:foo=bar" .
+docker build --tag <IMAGE> --push --annotation "manifest[linux/amd64]:foo=bar" .
+```
+Bake:
+```
+target "default" {
+  output = ["type=registry"]
+  annotations = ["foo=bar"]
+}
+```
+
+### 6. Create base image
+from scratch:
+```
+FROM scratch
+ADD hello /
+CMD ["/hello"]
+```
+command:
+```
+docker build --tag hello .
+```
+
 ## 8. Docker Swarm
 Swarm mode uses TLS to encryption, authentication nodes , authorize roles. It has machanism of automatic key rotation
 

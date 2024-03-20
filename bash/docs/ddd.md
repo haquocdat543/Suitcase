@@ -94,6 +94,15 @@ docker image inspect IMAGE
 ```
 
 ### 2. Build
+`--no-cache`: Dont cache build
+`--push`: Push after build
+`--use`: Use cloud builder after create
+`--bootstrap`: Use cloud builder after bootstrap
+`docker buildx ls`: List builder
+`docker buildx create --driver cloud ORG/BUILDER_NAME`: Create cloud builder
+`docker buildx build --builder cloud-ORG-BUILDER_NAM`: Build specify cloud builder
+`docker buildx imagetools inspect <username>/<image>:latest`: inspect image using `imagetools`
+
 #### 1. Multi stage build
 It is just a `Dockerfile` with **multiple** `FROM` that can easily `COPY` artifacts from *previous Stage*
 ```
@@ -162,6 +171,32 @@ docker build --tag=buildme-client --target=client .
 ```
 ```
 docker build --tag=buildme-server --target=server .
+```
+
+Use an external image as a stage [ Copy things that `available` from an `standard image` ]:
+```
+COPY --from=nginx:latest /etc/nginx/nginx.conf /nginx.conf
+```
+
+Differences between legacy builder and BuildKit:
+
+* `Legacy builder` will build a stage when specify `--target` even if the selected target `doesn't depend` on that stage.
+* `BuildKit` only builds the stages that the `target stage depends on`.
+
+Example Dockerfile:
+```
+# syntax=docker/dockerfile:1
+FROM ubuntu AS base
+RUN echo "base"
+
+FROM base AS stage1
+RUN echo "stage1"
+
+FROM base AS stage2
+RUN echo "stage2"
+```
+```
+DOCKER_BUILDKIT=1 docker build --no-cache -f Dockerfile --target stage2 .
 ```
 
 #### 2. Mount
@@ -404,12 +439,15 @@ README-secret.md
 
 ### 3. Other instructions include
 * ADD
+* ARG
 * ENV
   * Eg: `ENV FLASK_APP=hello`
 * LABEL
 * ENV
 * ONBUILD
 * HEALTHCHECK
+
+### 4. Secret
 
 ## 8. Docker Swarm
 Swarm mode uses TLS to encryption, authentication nodes , authorize roles. It has machanism of automatic key rotation

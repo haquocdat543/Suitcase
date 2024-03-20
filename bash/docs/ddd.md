@@ -438,16 +438,101 @@ README-secret.md
 
 
 ### 3. Other instructions include
-* ADD
-* ARG
-* ENV
-  * Eg: `ENV FLASK_APP=hello`
-* LABEL
-* ENV
-* ONBUILD
-* HEALTHCHECK
+#### 1. ADD
+#### 2. ARG
+* They're not accessible or present in containers instantiated from the image unless explicitly passed through from the Dockerfile into the image filesystem or configuration. They may persist in the image metadata
+* Eg: `ARG NODE_VERSION="20"`
+ENV
+* Environment variables are passed through to the build execution environment, and persist in containers instantiated from the image.
+* Eg: `ENV FLASK_APP=hello`
+* Build command: `docker build --build-arg NODE_VERSION=current .`
+
+Global Scope: 
+```
+# syntax=docker/dockerfile:1
+
+# The following build argument is declared in the global scope:
+ARG NAME="joe"
+
+FROM alpine
+# The following instruction doesn't have access to the $NAME build argument
+# because the argument was defined in the global scope, not for this stage.
+RUN echo "hello ${NAME}!"
+```
+
+because the value of the NAME build argument is out of scope. To inherit global build arguments into a stage, you must consume them:
+```
+# syntax=docker/dockerfile:1
+
+# Declare the build argument in the global scope
+ARG NAME="joe"
+
+FROM alpine
+# Consume the build argument in the build stage
+ARG NAME
+RUN echo $NAME
+```
+
+Pass `ARG` to `ENV`:
+```
+ARG NODE_ENV=production
+ENV NODE_ENV=$NODE_ENV
+```
+
+Multi-platform build arguments:
+* BUILDPLATFORM
+* BUILDOS
+* BUILDARCH
+* BUILDVARIANT
+
+* TARGETPLATFORM
+* TARGETOS
+* TARGETARCH
+* TARGETVARIANT
+
+| Variable | Type | Description |
+| BUILDKIT_COLORS | String | Configure text color for the terminal output |
+| BUILDKIT_HOST |  | String  Specify host to use for remote builders |
+| BUILDKIT_PROGRESS |  | String  Configure type of progress output |
+| BUILDKIT_TTY_LOG_LINES |  |String  Number of log lines (for active steps in tty mode) |
+| BUILDX_BUILDER |  |String  Specify the builder instance to use |
+| BUILDX_CONFIG |  | String  Specify location for configuration, state, and logs |
+| BUILDX_EXPERIMENTAL | Boolean |Turn on experimental features |
+| BUILDX_GIT_CHECK_DIRTY |  |Boolean Enable dirty Git checkout detection |
+| BUILDX_GIT_INFO | Boolean |Remove Git information in provenance attestations |
+| BUILDX_GIT_LABELS |  | String | Boolean    Add Git provenance labels to images |
+| BUILDX_NO_DEFAULT_ATTESTATIONS |  |Boolean Turn off default provenance attestations |
+| BUILDX_NO_DEFAULT_LOAD |  |Boolean Turn off loading images to image store by default |
+| EXPERIMENTAL_BUILDKIT_SOURCE_POLICY | String | Specify a BuildKit source policy file |
+
+
+#### 3. LABEL
+#### 4. ENV
+#### 5. ONBUILD
+#### 6. HEALTHCHECK
+
 
 ### 4. Secret
+* A build secret is any `piece of sensitive information`, such as a `password` or `API token`, consumed as part of your application's build process.
+#### 1. Secret mount
+Eg:
+```
+RUN --mount=type=secret,id=mytoken \
+    TOKEN=$(cat /run/secrets/mytoken) ...
+```
+
+##### 1. CLI
+```
+docker build --secret id=mytoken,src=$HOME/.aws/credentials .
+```
+
+##### 2. Bake
+```
+```
+
+#### 2. SSH mount
+```
+```
 
 ## 8. Docker Swarm
 Swarm mode uses TLS to encryption, authentication nodes , authorize roles. It has machanism of automatic key rotation

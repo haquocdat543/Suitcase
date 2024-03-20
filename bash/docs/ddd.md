@@ -522,16 +522,40 @@ RUN --mount=type=secret,id=mytoken \
 ```
 
 ##### 1. CLI
+The following example mounts the `environment variable KUBECONFIG` to `secret ID kube`, as a `file` in the build container at `/run/secrets/kube.
+```
+docker build --secret id=kube,env=KUBECONFIG .
+```
+When you secrets from environment variables, you can `omit` the id parameter to bind the secret to a file with the same name as the variable.  the value of the API_TOKEN variable is mounted to `/run/secrets/API_TOKEN` in the build container
 ```
 docker build --secret id=mytoken,src=$HOME/.aws/credentials .
+```
+The following example `mounts` the secret to a `/root/.aws/credentials` file in the `build container`.
+```
+docker build --secret id=API_TOKEN .
 ```
 
 ##### 2. Bake
 ```
+variable "HOME" {
+  default = null
+}
+
+target "default" {
+  secret = [
+    "id=mytoken,src=${HOME}/.aws/credentials"
+  ]
+}
 ```
 
 #### 2. SSH mount
+Example Dockerfile:
 ```
+FROM alpine
+ADD git@github.com:me/myprivaterepo.git /src/
+```
+```
+docker buildx build --ssh default .
 ```
 
 ## 8. Docker Swarm

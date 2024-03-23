@@ -79,6 +79,25 @@ output "$1" {
 }
 endsnippet
 
+snippet dt "Data" b
+data "${1:aws_vpc}" "${2:default}" {
+  ${3:default = true}
+}
+endsnippet
+
+snippet lc "Locals" b
+locals {
+  ${1:vpc_id}         = ${2:var.vpc_id == "" ? data.aws_vpc.default.id : var.vpc_id}
+}
+endsnippet
+
+snippet md "Module" b
+module "${1:sg_public_ssh_http_https}" {
+  source  = "${2:./SG}"
+  ${3:sg_name} = ${4:"${local.prefix}_sg_public_ssh_http_https"}
+}
+endsnippet
+
 snippet eks "AWS EKS" b
 # Profile configuration
 provider "aws" {

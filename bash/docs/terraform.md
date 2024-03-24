@@ -50,3 +50,22 @@ Edit code [ add outside resources to IaC code ]
 ```
 terraform import RESOURCE_IDENTIFICATION.RESOURCE_NAME RESOURCE_ID
 ```
+
+## 4. Workspace
+### 2. Create and selection of workspace
+Useful for multi environment:
+
+Create:
+```
+terraform workspace create WORKSPACE_NAME1
+terraform workspace create WORKSPACE_NAME2
+terraform workspace create WORKSPACE_NAME3
+terraform workspace select WORKSPACE_NAME2
+```
+
+Statefile: 1 state file for each `workspace`
+```
+WORKSPACE_NAME1.tfstate
+WORKSPACE_NAME2.tfstate
+WORKSPACE_NAME3.tfstate
+```

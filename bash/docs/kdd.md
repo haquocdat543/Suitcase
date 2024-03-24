@@ -274,3 +274,9 @@ If you don't want kubeadm to generate the required certificates, you can create 
 /etc/kubernetes/pki/front-proxy-ca.crt
 /etc/kubernetes/pki/front-proxy-ca.key
 ```
+
+## 3. Concept
+## 4. Task
+## 5. Tutorial
+## 6. Reference
+## 7. Mine

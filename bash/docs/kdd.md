@@ -561,5 +561,156 @@ To rollback to a `specific revision` use:
 kubectl rollout undo deployments/kubernetes-bootcamp --to-revision=2
 ```
 
+### 2. Configuration
+Real World Example: Configuring Redis using a ConfigMap.
+```
+cat <<EOF >./example-redis-config.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: example-redis-config
+data:
+  redis-config: ""
+EOF
+```
+
+Create resources:
+```
+kubectl apply -f example-redis-config.yaml
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/website/main/content/en/examples/pods/config/redis-pod.yaml
+```
+* A volume named config is created by `spec.volumes[1]`
+* The key and path under `spec.volumes[1].configMap.items[0]` exposes the `redis-config` key from the `example-redis-config` ConfigMap as a file named `redis.conf` on the config volume.
+* The `config` volume is then mounted at `/redis-master` by `spec.containers[0].volumeMounts[1]`
+
+This has the `net effect` of exposing the data in `data.redis-config` from the `example-redis-config` ConfigMap above as `/redis-master/redis.conf` inside the Pod.
+```
+apiVersion: v1
+kind: Pod
+metadata:
+  name: redis
+spec:
+  containers:
+  - name: redis
+    image: redis:5.0.4
+    command:
+      - redis-server
+      - "/redis-master/redis.conf"
+    env:
+    - name: MASTER
+      value: "true"
+    ports:
+    - containerPort: 6379
+    resources:
+      limits:
+        cpu: "0.1"
+    volumeMounts:
+    - mountPath: /redis-master-data
+      name: data
+    - mountPath: /redis-master
+      name: config
+  volumes:
+    - name: data
+      emptyDir: {}
+    - name: config
+      configMap:
+        name: example-redis-config
+        items:
+        - key: redis-config
+          path: redis.conf
+```
+
+Examine:
+```
+kubectl get pod/redis configmap/example-redis-config 
+```
+
+Describe config:
+```
+kubectl describe configmap/example-redis-config
+```
+
+Use `kubectl` exec to `enter` the pod and run the `redis-cli` tool to check the `current configuration`:
+```
+kubectl exec -it redis -- redis-cli
+```
+
+Check `maxmemory`:
+```
+127.0.0.1:6379> CONFIG GET maxmemory
+```
+It should show the default value of 0:
+```
+1) "maxmemory"
+2) "0"
+```
+
+Check `maxmemory-policy`:
+```
+127.0.0.1:6379> CONFIG GET maxmemory-policy
+```
+```
+1) "maxmemory-policy"
+2) "noeviction"
+```
+
+Now let's `add some configuration values` to the `example-redis-config` ConfigMap:
+```
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: example-redis-config
+data:
+  redis-config: |
+    maxmemory 2mb
+    maxmemory-policy allkeys-lru    
+```
+
+```
+kubectl apply -f example-redis-config.yaml
+```
+```
+kubectl describe configmap/example-redis-config
+```
+
+
+The `configuration values have not changed` because the Pod needs to be `restarted` to grab updated values from associated ConfigMaps. Let's `delete and recreate` the Pod:
+```
+kubectl delete pod redis
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/website/main/content/en/examples/pods/config/redis-pod.yaml
+```
+
+```
+kubectl exec -it redis -- redis-cli
+```
+
+Check `maxmemory`:
+```
+127.0.0.1:6379> CONFIG GET maxmemory
+```
+It should show the default value of 0:
+```
+1) "maxmemory"
+2) "2097152"
+```
+
+Check `maxmemory-policy`:
+```
+127.0.0.1:6379> CONFIG GET maxmemory-policy
+```
+```
+1) "maxmemory-policy"
+2) "allkeys-lru"
+```
+
+Delete resources:
+```
+kubectl delete pod/redis configmap/example-redis-config
+```
+### 3. Security
+### 4. Stateless application
+### 5. Statefulapplication
+### 6. Service
+
 ## 6. Reference
 ## 7. Mine

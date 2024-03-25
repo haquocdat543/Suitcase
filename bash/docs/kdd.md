@@ -278,5 +278,288 @@ If you don't want kubeadm to generate the required certificates, you can create 
 ## 3. Concept
 ## 4. Task
 ## 5. Tutorial
+### 1. Basic
+#### 1. Deploy an application
+* The Deployment instructs Kubernetes `how to create and update instances` of your application. Once you've created a Deployment, the Kubernetes control plane `schedules the application` instances included in that Deployment to run on `individual Nodes` in the cluster.
+* Once the application instances are created, a Kubernetes `Deployment controller continuously monitors those instances`. If the `Node hosting` an instance `goes down` or is `deleted`, the Deployment controller `replaces` the instance with `an instance` on `another Node` in the cluster. This provides a `self-healing mechanism` to address machine failure or maintenance.
+
+kubectl basic:
+* `kubectl action resource`
+* `--help`: You can use `--help` after the subcommand to get additional info about `possible parameters` ( for example: `kubectl get nodes --help`).
+* `kubectl version`: Get `server` and `client` version
+
+* Let’s deploy our `first app` on Kubernetes with the `kubectl create deployment` command
+* We need to provide the `deployment name` and app `image location` (include the `full repository url` for images hosted `outside Docker Hub`).
+```
+kubectl create deployment kubernetes-bootcamp --image=gcr.io/google-samples/kubernetes-bootcamp:v1
+```
+This `performed` a few things for you:
+* searched for a `suitable node` where an instance of the `application could be run`
+* `scheduled tha application` to run on `that Node`
+* configured the cluster to `reschedule the instance` on a `new Node when needed`
+
+To list deployment:
+```
+kubectl get deployments
+```
+* We see that there is `1 deployment` running a `single instance` of your app. The instance is running inside a container on `your node`.
+* Pods that are running inside Kubernetes are running on a `private, isolated network`. By default they are `visible` from `other pods` and `services` within the `same Kubernetes cluster`, but `not outside` that network. When we use `kubectl`, we're interacting through an `API endpoint` to `communicate` with our `application`
+* The `kubectl proxy` command can `create a proxy` that will `forward communications` into the `cluster-wide, private network.`
+
+```
+kubectl proxy
+```
+```
+curl http://localhost:8001/version
+```
+
+* We now have a `connection` between our host (the terminal) and the `Kubernetes cluster`. The proxy enables `direct access to the API` from these terminals.
+* You can see all those `APIs hosted` through the `proxy endpoint`
+
+First we need to get the Pod name, and we'll store it in the environment variable POD_NAME:
+```
+export POD_NAME=$(kubectl get pods -o go-template --template '{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}')
+echo Name of the Pod: $POD_NAME
+```
+
+You can access the Pod through the proxied API, by running:
+```
+curl http://localhost:8001/api/v1/namespaces/default/pods/$POD_NAME/
+```
+
+#### 2. Explore an application
+##### 1. Kubernetes Pods
+A Pod is a Kubernetes `abstraction` that represents `a group of one or more application containers` (such as Docker), and some `shared resources` for those containers. Those resources include:
+* `Shared storage`, `as Volumes`
+* `Networking`, as a `unique cluster IP address`
+* Information about `how to run` each container, such as the `container image version` or `specific ports` to use
+Pods are the `atomic unit` on the Kubernetes platform. When we create a Deployment on Kubernetes, that `Deployment creates Pods` with `containers inside them` (as opposed to creating containers directly). Each Pod is `tied to the Node where it is scheduled`, and remains there `until termination` (according to `restart policy`) or deletion. In case of a Node failure, identical Pods are `scheduled on other available Nodes` in the cluster.
+
+##### 2. Deployment
+A Pod always runs on a Node. A Node is a `worker machine` in Kubernetes and may be either a `virtual` or a `physical machine`, depending on the cluster. Each Node is `managed by the control plane`. A Node can have `multiple pods`, and the Kubernetes control plane `automatically handles scheduling the pods across the Nodes in the cluster`. The control plane's automatic scheduling takes into account the `available resources` on each Node.
+
+Every Kubernetes Node runs at least:
+* Kubelet, a process responsible for `communication between the Kubernetes control plane and the Node`; it manages the `Pods` and the `containers running on a machine`.
+* A container runtime (like Docker) responsible for `pulling the container image from a registry`, `unpacking` the container, and `running` the application.
+
+##### 3. Troubleshooting with kubectl
+* `kubectl get` - list resources
+* `kubectl describe` - show detailed information about a resource
+* `kubectl logs` - print the logs from a container in a pod
+* `kubectl exec` - execute a command on a container in a pod
+You can use these commands to see `when` applications were deployed, `what` their `current statuses` are, `where` they are `running` and `what` their `configurations` are.
+
+#### 3. Expose application
+##### 1. Overview of Kubernetes Services
+* Kubernetes Pods are `mortal`. Pods have a `lifecycle`. When a `worker node dies`, the `Pods running` on the Node are `also lost`. A `ReplicaSet` might then dynamically drive the cluster `back` to the `desired state` via the `creation of new Pods` to `keep your application running`. As another example, consider an image-processing backend with 3 replicas. Those replicas are exchangeable; the front-end system should not care about backend replicas or `even if a Pod is lost and recreated`. That said, each Pod in a Kubernetes cluster has `a unique IP address`, even Pods on the same Node, so there needs to be a way of automatically reconciling changes among Pods so that your applications continue to function.
+* A Service in Kubernetes is an `abstraction` which defines a `logical set of Pods` and a policy by which to access them. Services enable a loose coupling between dependent Pods. A Service is defined using `YAML or JSON`, like all Kubernetes object manifests. The set of Pods `targeted` by a Service is usually determined by a `label selector`
+* Although each Pod has `a unique IP address`, those IPs are `not exposed outside` the cluster without a Service. Services `allow` your applications to `receive traffic`. Services can be `exposed in different ways` by specifying a `type` in the `spec` of the Service:
+  * `ClusterIP` (default) - Exposes the Service on an `internal IP` in the cluster. This type makes the Service `only reachable` from `within` the `cluster`.
+  * `NodePort` - Exposes the Service on the `same port` of each `selected Node` in the cluster `using NAT`. Makes a Service `accessible from outside the cluster` using `<NodeIP>:<NodePort>`. Superset of ClusterIP.
+  * `LoadBalancer` - Creates an `external load balancer` in the `current cloud` (if supported) and `assigns a fixed, external IP` to the Service. Superset of NodePort.
+  * `ExternalName` - Maps the Service to the contents of the `externalName field` (e.g. `foo.bar.example.com`), by returning a `CNAME record` with its value. No proxying of any kind is set up. This type requires v1.7 or higher of `kube-dns`, or CoreDNS version 0.0.8 or higher.
+
+* note that there are some use cases with Services that involve `not defining a selector` in the spec. A Service created `without selector` will also `not create the corresponding Endpoints object`. This allows users to `manually map` a Service to `specific endpoints`. Another possibility why there may be no selector is you are strictly using type: `ExternalName`.
+
+##### 2. Services and Labels
+* A Service `routes traffic` across a set of Pods. Services are the `abstraction` that allows pods to `die and replicate` in Kubernetes `without impacting` your application.
+* Services `match` a set of Pods using `labels and selectors`, a `grouping primitive` that allows `logical operation` on objects in Kubernetes. Labels are `key/value` pairs attached to objects and can be used in any number of ways:
+  * Designate objects for `development`, `test`, and `production`
+  * Embed `version` tags
+  * `Classify` an object using `tags`
+Labels can be attached to objects at `creation time` or `later on`. They can be `modified` at `any time`. 
+
+##### 3.  Creating a new Service
+let’s list the `current Services` from our cluster:
+```
+kubectl get services
+```
+
+To `create` a new service and `expose` it to `external traffic` we'll use the `expose` command with `NodePort` as parameter
+```
+kubectl expose deployment/kubernetes-bootcamp --type="NodePort" --port 8080
+```
+
+Get services again:
+```
+kubectl get services
+```
+
+We have now a running Service called `kubernetes-bootcamp`. Here we see that the Service received a `unique cluster-IP`, an `internal port` and an `external-IP` (the IP of the Node).
+```
+kubectl describe services/kubernetes-bootcamp
+```
+
+##### 4. Using label
+```
+kubectl get pods -l app=kubernetes-bootcamp
+```
+```
+kubectl get services -l app=kubernetes-bootcamp
+```
+
+To apply a `new label` we use the label subcommand followed by the object type, object name and the new label:
+```
+kubectl label pods "$POD_NAME" version=v1
+```
+
+##### 4. Delete services
+```
+kubectl delete service -l app=kubernetes-bootcamp
+```
+
+```
+kubectl get service
+```
+
+#### 4. Scale application
+##### 1. Scaling overview
+* When traffic `increases`, we will need to `scale` the application to keep up with `user demand`.
+* Scaling is accomplished by `changing` the `number` of `replicas` in a Deployment.
+
+##### 2. Scaling a Deployment
+To `list` your Deployments, use the get deployments subcommand:
+```
+kubectl get deployments
+```
+* `NAME` lists the names of the Deployments in the cluster.
+* `READY` shows the ratio of CURRENT/DESIRED replicas
+* `UP-TO-DATE` displays the number of replicas that have been updated to achieve the desired state.
+* `AVAILABLE` displays how many replicas of the application are available to your users.
+* `AGE` displays the amount of time that the application has been running.
+
+To see the ReplicaSet created by the Deployment, run:
+```
+kubectl get rs
+```
+* `DESIRED` displays the desired number of replicas of the application, which you define when you create the Deployment. This is the desired state.
+* `CURRENT` displays how many replicas are currently running.
+
+let’s `scale` the Deployment to `4 replicas`. We’ll use the `kubectl` scale command, followed by the `Deployment type`, name and `desired number` of instances:
+```
+kubectl scale deployments/kubernetes-bootcamp --replicas=4
+```
+```
+kubectl get deployments
+```
+```
+kubectl describe deployments/kubernetes-bootcamp
+```
+
+##### 3. Load Balancing
+Let's check that the Service is `load-balancing` the traffic. To find out the `exposed IP` and `Port` we can use the describe service
+```
+kubectl describe services/kubernetes-bootcamp
+```
+
+```
+export NODE_PORT="$(kubectl get services/kubernetes-bootcamp -o go-template='{{(index .spec.ports 0).nodePort}}')"
+echo NODE_PORT=$NODE_PORT
+```
+
+##### 4. Scale Down
+```
+kubectl scale deployments/kubernetes-bootcamp --replicas=2
+```
+
+```
+kubectl get deployments
+```
+
+```
+kubectl get pods -o wide
+```
+
+#### 5. Update application
+##### 1. Updating an application
+* Rolling updates allow Deployments' update to take place with `zero downtime` by incrementally updating Pods instances with new ones.
+* Similar to `application Scaling`, if a Deployment is `exposed publicly`, the Service will `load-balance` the traffic only to available Pods `during the update`. An available Pod is an instance that is `available` to the users of the application.
+* Rolling updates `allow` the following `actions`:
+  * Promote an application from `one environment` to `another` (via container image updates)
+  * `Rollback` to `previous` versions
+  * Continuous Integration and Continuous Delivery of applications with `zero downtime`
+##### 2. Update the version of the app
+Get deployments:
+```
+kubectl get deployments
+```
+
+Get pods:
+```
+kubectl get pods
+```
+
+Describe pods:
+```
+kubectl describe pods
+```
+
+To `update` the `image` of the application to `version 2`, use the `set image` subcommand, followed by the `deployment name` and the `new image version`:
+```
+kubectl set image deployments/kubernetes-bootcamp kubernetes-bootcamp=docker.io/jocatalin/kubernetes-bootcamp:v2
+```
+
+Check the status of the new Pods, and view the old one terminating with the get pods subcommand
+```
+kubectl get pods
+```
+
+##### 3. Verify an update
+First, check that the app is `running`. To find the `exposed IP address` and `port`, run the describe service command:
+```
+kubectl describe services/kubernetes-bootcamp
+```
+
+You can also `confirm` the update by `running` the rollout status subcommand:
+```
+kubectl rollout status deployments/kubernetes-bootcamp
+```
+
+```
+kubectl describe pods
+```
+
+##### 4. Roll back an update
+Let’s perform `nother update`, and try to `deploy` an image tagged with `v10`:
+```
+kubectl set image deployments/kubernetes-bootcamp kubernetes-bootcamp=gcr.io/google-samples/kubernetes-bootcamp:v10
+```
+```
+kubectl get deployments
+```
+Notice that the output doesn't list the `desired number` of available Pods. Run the get pods subcommand to list all Pods:
+```
+kubectl get pods
+```
+Notice that some of the Pods have a status of `ImagePullBackOff`
+
+
+Perform rollout:
+```
+kubectl rollout undo deployments/kubernetes-bootcamp
+```
+```
+kubectl get pods
+```
+```
+kubectl describe pods
+```
+
+Delete deployment:
+```
+kubectl delete deployments/kubernetes-bootcamp services/kubernetes-bootcamp
+```
+##### 5. Revision
+Check rollout history [ revision ]:
+```
+kubectl rollout history deployments/kubernetes-bootcamp
+```
+`Default amount` of revision is `10`. You can adjust amount using `revisionHistoryLimit`
+
+To rollback to a `specific revision` use:
+```
+kubectl rollout undo deployments/kubernetes-bootcamp --to-revision=2
+```
+
 ## 6. Reference
 ## 7. Mine

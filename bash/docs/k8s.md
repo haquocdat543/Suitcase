@@ -629,17 +629,94 @@ generateName: kubia-
 ```
 
 ## AFFINITY AND CPU, RAM
-### 1. Request
+### 1. Show node resources
+```
+kubectl describe nodes
+```
+* Capacity
+* Allocatable
+
+```
+kubectl describe node
+```
+
+### 2. Request
+#### 1. Example
 ```
 resources:
   requests:
     cpu: 200m
     memory: 10Mi
 ```
+#### 2. Understanding how scheduler determine if no nodes have enough requirment
+* Based on actual allocated not real usage
+* This mean if node allocated 80% of their resources to existing pods, but their real usage is 70%. When you deploy a pod that require 25% resources of that node, it can not be schedule to.
 
-### 2. Request
+#### 3. Best node selection
+* LeaseRequestedPriority: This attribe is for node that has fewer requested resources ( with a greater amount of unallocated resources )
+* MostRequestedPriority: This is opposite to above one, usually for smallest possible number of nodes while still providing each pod with amount of resources it requests
+
+#### 4. Unused resources
+* If you dont specify a limit, pod will assume resources as much as possible. Unused resources will be distribute by their request ratio.
+
+### 3. Limit
+#### 1. Example
 ```
+spec:
+ containers:
+ - image: busybox
+   command: ["dd", "if=/dev/zero", "of=/dev/null"]
+   name: main
+   resources:
+     limits:
+     cpu: 1
+     memory: 20Mi   
 ```
+* The `sum of all limits` of all the pods on a node is `allowed to exceed 100%` of the `node’s capacity`
+#### 2. Exceed limit
+* Cpu: when a CPU limit is set for a container, the process isn’t given more CPU time than the configured limit. 
+* Ram: When a process tries to allocate memory over its limit, the process is killed (it’s said the container is OOMKilled, where OOM stands for Out Of Memory).
+* Ram: If the pod’s restart policy is set to Always or OnFailure, the process is restarted immediately, so you may not even notice it getting killed
+* Ram: But if it keeps going over the memory limit and getting killed, Kubernetes will begin restarting it with increasing delays between restarts. You’ll see a CrashLoopBackOff status in that case:
+
+The `CrashLoopBackOff` status `doesn’t mean` the Kubelet has `given up`.
+* After the first crash, it restarts the container immediately and then, if it crashes again, waits for 10 seconds before restarting it again. On subsequent crashes, this delay is then increased exponentially to 20, 40, 80, and 160 seconds, and finally limited to 300 seconds. Once the interval hits the 300-second limit, the Kubelet keeps restarting the container indefinitely every five minutes until the pod either stops crashing or is deleted. 
+
+### 5. LimitRange
+```
+apiVersion: v1
+kind: LimitRange
+metadata:
+  name: example
+spec:
+  limits:
+  - type: Pod
+    min:
+      cpu: 50m
+      memory: 5Mi
+    max:
+      cpu: 1
+      memory: 1Gi
+  - type: Container
+    defaultRequest:
+      cpu: 100m
+      memory: 10Mi
+    default:
+      cpu: 200m
+      memory: 100Mi
+    min:
+      cpu: 50m
+      memory: 5Mi
+    max:
+      cpu: 1
+      memory: 1Gi
+    maxLimitRequestRatio:
+      cpu: 4
+      memory: 10       
+```
+* Lower down, at the container level, you can set not only the minimum and maximum, but also default resource requests (defaultRequest) and default limits (default) that will be applied to each container that doesn’t specify them explicitly. 
+* Lower down, at the container level, you can set not only the minimum and maximum, but also default resource requests (defaultRequest) and default limits (default) that will be applied to each container that doesn’t specify them explicitly. 
+
 
 ## COMMANDS
 ## 1 Backup

@@ -428,8 +428,8 @@ spec:
 ```
 
 ## LABELS, ANNOTATION, TAINT
+### 1. Label
 #### 1. Nodes
-
 get nodes with labels:
 ```
 kubectl get nodes --show-labels
@@ -458,6 +458,17 @@ Example:
 ```
 kubectl label pod firstpod admin=true
 ```
+### 2. Taint
+#### 1. NoSchedule
+Pod can `not schedule` to node that has `NoSchedule taint`, pod `already exist` before taint `still live` on node
+
+#### 2. PreferNoSchedule
+`Prefer no schedule` to node if there is `other node` that `satistify pod's requirements`. In case there is `no node satisitfy pod's requirement`, the pod will be `schedule to node with PreferNoSchedule taint`
+
+#### 3. NoExecute
+The node with `NoExecute taint` will `not allow pod to shedule` to and `evict all existing pod` if those pods `dont have require tolerations`
+
+### 3. Toleration
 
 ## AFFINITY AND CPU, RAM
 

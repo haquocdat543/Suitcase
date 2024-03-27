@@ -105,9 +105,72 @@ The `master node`, which hosts the `Kubernetes Control Plane` that `controls and
 * The `Kubelet`, which `talks to the API server` and `manages containers on its node`
 * The `Kubernetes Service Proxy` (kube-proxy), which `load-balances` network `traffic` between `application` components
 
+## BEHIND THE SCENE
+#### 1. Docker build
+#### 2. Docker push
+#### 3. Image is pushed to Container Registry
+#### 4. Run Kubectl...
+#### 5. Kubectl issue REST call
+#### 6. Pod created and schedule to worker node
+#### 7. Kubelet is notified
+#### 8. Kubelet instruct container runtime run the image
 
 ## RESOURCES
-## 1. Pod
+### 1. Pod
+#### 1. Introduction
+* The pod has its own unique private IP address and hostname.
+* A Pod can have multiple containers
+* All containers of a pod run on the same node. A pod never spans two nodes.
+
+#### 2. WHY MULTIPLE CONTAINERS ARE BETTER THAN ONE CONTAINER RUNNING MULTIPLE PROCESSES
+* Imagine an app consisting of `multiple processes` that either `communicate through IPC (Inter-Process Communication)` or through `locally stored files`, which requires them to run on the `same machine`. Because in Kubernetes you always run `processes in containers` and `each container is much like an isolated machine`, you may think it makes sense to run `multiple processes` in a `single container`, but you `shouldn’t do that`. 
+* Containers are designed to run only a `single process per container` (unless the process `itself spawns child processes`). If you run `multiple unrelated processes` in a `single container`, it is your `responsibility` to `keep all those processes running`, `manage their logs`, and so on. For example, you’d have to include a `mechanism for automatically restarting individual processes if they crash`. Also, all those processes would log to the `same standard output`, so you’d have a `hard time figuring out what process logged what`. 
+* A `pod of containers` allows you to run `closely related processes` together and provide them with (almost) the `same environment` as if they were all running in a `single container`, while keeping them `somewhat isolated`. This way, you get the best of both worlds. You can take advantage of `all the features containers provide`, while at the same time giving the processes the illusion of running together.
+* Because `all containers` of a pod run under the `same Network and UTS namespaces` (we’re talking about Linux namespaces here), they `all share the same hostname and network interfaces`. Similarly, `all containers` of a pod `run under the same IPC namespace` and can `communicate through IPC`. In the latest Kubernetes and Docker versions, they `can also share the same PID namespace`, but that feature `isn’t enabled by default`. 
+* When containers of the same pod use `separate PID namespaces`, you `only see` the `container’s own processes` when running `ps aux` in the container.
+* But when it comes to the `filesystem`, things are a `little different`. Because most of the `container’s filesystem` comes from the container image, by `default`, the filesystem of each container is `fully isolated` from other containers. However, it’s `possible` to have them `share file directories` using a Kubernetes concept called a `Volume`
+
+#### 3. CONTAINERS SHARE THE SAME IP AND PORT SPACE
+* One thing to stress here is that because `containers in a pod` run in the `same Network namespace`, they share the `same IP address` and `port space`. This means `processes running in containers` of the same pod need to take care `not to bind to the same port numbers` or `they’ll run into port conflicts`. But this only concerns containers in the same pod. Containers of `different pods can never run into port conflicts`, because each pod has a `separate port space`. All the containers in a pod also have the same loopback network interface, so a container can communicate with other containers in the same pod through localhost.
+
+#### 4. INTRODUCING THE FLAT INTER-POD NETWORK
+* All pods in a Kubernetes cluster reside in a single flat, shared, network-address space, which means every pod can access every other pod at the other pod’s IP address. No NAT (Network Address Translation) gateways exist between them. When two pods send network packets between each other, they’ll each see the actual IP address of the other as the source IP in the packet
+
+#### 5. DECIDING WHEN TO USE MULTIPLE CONTAINERS IN A POD
+* Do they need to be run together or can they run on different hosts? 
+* Do they represent a single whole or are they independent components? 
+* Must they be scaled together or individually? 
+
+#### 6. Use kubectl explain
+```
+kubectl explain pods
+```
+```
+kubectl explain pod.spec
+```
+
+Command
+```
+kubectl create pod firstpod --image=nginx
+```
+Yaml:
+```
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx
+spec:
+  containers:
+  - name: nginx
+    image: nginx:1.14.2
+    ports:
+    - containerPort: 80
+```
+Apply yaml:
+```
+kubectl apply -f $POD_FILE
+```
+
 Command
 ```
 kubectl create pod firstpod --image=nginx
@@ -632,6 +695,13 @@ Example:
 ```
 kubectl label pod firstpod admin=true
 ```
+```
+kubectl get pod -l app=pc,rel=beta
+```
+
+Two dimension label strategy:
+* rel: stable, beta, canary,...
+* app: ui, as, pc, sc, os,...
 
 ### 2. Annotation
 * Annotations are also `commonly` used when `introducing new features` to Kubernetes. Usually, alpha and beta versions of new features don’t introduce any new fields to API objects. Annotations are used instead of fields, and then once the required API changes have become clear and been agreed upon by the Kubernetes developers, new fields are introduced and the related annotations deprecated.

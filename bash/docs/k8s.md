@@ -469,6 +469,14 @@ Pod can `not schedule` to node that has `NoSchedule taint`, pod `already exist` 
 The node with `NoExecute taint` will `not allow pod to shedule` to and `evict all existing pod` if those pods `dont have require tolerations`
 
 ### 3. Toleration
+Example:
+```
+tolerations:
+  - key: node-type
+    Operator: Equal
+    value: production
+    effect: NoSchedule
+```
 
 ## AFFINITY AND CPU, RAM
 

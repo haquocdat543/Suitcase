@@ -54,6 +54,58 @@ Options:
     --validate='strict':
         Must be one of: strict (or true), warn, ignore (or false).              "true" or "strict" wil:
 ```
+## WHY KUBERNETES
+It’s one of only a `few companies` in the world that runs `hundreds of thousands of servers` and has had t`o deal with managing deployments` on such a `massive scale`
+### 1. HELPING DEVELOPERS FOCUS ON THE CORE APP FEATURES
+* This includes things such as `service discovery`, `scaling`, `load-balancing`, `self-healing`, and even `leader election`
+* `Application developers` can therefore `focus on implementing` the `actual features` of the applications and `not waste time figuring out how to integrate them with the infrastructure`.
+
+### 2. HELPING OPS TEAMS ACHIEVE BETTER RESOURCE UTILIZATION
+* your application `doesn’t care` which `node it’s running on`, Kubernetes can `relocate` the app `at any time`, and by mixing and matching apps, achieve far `better resource utilization` than is possible with manual scheduling.
+
+### 3. Benefit
+If you have Kubernetes deployed on all your servers, the ops team `doesn’t need to deal with deploying` your apps anymore. Because a `containerized application already contains all it needs to run`, the `system administrators don’t need to install anything` to deploy and run the app. On any node where Kubernetes is deployed, Kubernetes can run the app `immediately without any help from the sysadmins`.
+
+#### 1. SIMPLIFYING APPLICATION DEPLOYMENT
+* Because Kubernetes `exposes all its worker nodes` as a `single deployment platform`, application developers can start `deploying applications on their own` and `don’t need to know anything about the servers` that make up the cluster. 
+* In essence, all the nodes are now a `single bunch of computational resources` that are `waiting` for `applications` to `consume them`. A developer `doesn’t usually care what kind of server the application is running on`, as long as the server can provide the application with adequate system resources. 
+* For example, one of your apps may require being run on a system with SSDs instead of HDDs, while other apps run fine on HDDs. In such cases, you obviously want to ensure that particular app is always scheduled to a node with an SSD
+* Without using Kubernetes, the sysadmin would select one specific node that has an SSD and deploy the app there. But when using Kubernetes, instead of selecting a specific node where your app should be run, it’s more appropriate to tell Kubernetes to only choose among nodes with an SSD
+#### 2. ACHIEVING BETTER UTILIZATION OF HARDWARE
+* By setting up Kubernetes on your servers and using it to run your apps instead of running them manually, you’ve decoupled your app from the infrastructure. When you tell Kubernetes to run your application, you’re letting it choose the most appropriate node to run your application on based on the description of the application’s resource requirements and the available resources on each node. 
+* By using containers and not tying the app down to a specific node in your cluster, you’re allowing the app to freely move around the cluster at any time, so the different app components running on the cluster can be mixed and matched to be packed tightly onto the cluster nodes. This ensures the node’s hardware resources are utilized as best as possible.
+* The ability to move applications around the cluster at any time allows Kubernetes to utilize the infrastructure much better than what you can achieve manually. Humans aren’t good at finding optimal combinations, especially when the number of all possible options is huge, such as when you have many application components and many server nodes they can be deployed on. Computers can obviously perform this work much better and faster than humans. 
+
+#### 3. HEALTH CHECKING AND SELF-HEALING
+* Having a system that allows moving an application across the cluster at any time is also valuable in the event of server failures. As your cluster size increases, you’ll deal with failing computer components ever more frequently. 
+* Kubernetes monitors your app components and the nodes they run on and automatically reschedules them to other nodes in the event of a node failure. This frees the ops team from having to migrate app components manually and allows the team to immediately focus on fixing the node itself and returning it to the pool of available hardware resources instead of focusing on relocating the app.
+* If your infrastructure has enough spare resources to allow normal system operation even without the failed node, the ops team doesn’t even need to react to the failure immediately, such as at 3 a.m. They can sleep tight and deal with the failed node during regular work hours.
+
+#### 4. AUTOMATIC SCALING
+* Using Kubernetes to manage your deployed applications also means the ops team doesn’t need to constantly monitor the load of individual applications to react to sudden load spikes. As previously mentioned, Kubernetes can be told to monitor the resources used by each application and to keep adjusting the number of running instances of each application. 
+* If Kubernetes is running on cloud infrastructure, where adding additional nodes is as easy as requesting them through the cloud provider’s API, Kubernetes can even automatically scale the whole cluster size up or down based on the needs of the deployed applications.
+
+#### 5. SIMPLIFYING APPLICATION DEVELOPMENT
+* The features described in the previous section mostly benefit the operations team. But what about the developers? Does Kubernetes bring anything to their table? It definitely does.
+* If you turn back to the fact that apps run in the same environment both during development and in production, this has a big effect on when bugs are discovered. We all agree the sooner you discover a bug, the easier it is to fix it, and fixing it requires less work. It’s the developers who do the fixing, so this means less work for them. 
+* Then there’s the fact that developers don’t need to implement features that they would usually implement. This includes discovery of services and/or peers in a clustered application. Kubernetes does this instead of the app. Usually, the app only needs to look up certain environment variables or perform a DNS lookup. If that’s not enough, the application can query the Kubernetes API server directly to get that and/or other information. Querying the Kubernetes API server like that can even save developers from having to implement complicated mechanisms such as leader election.
+* As a final example of what Kubernetes brings to the table, you also need to consider the increase in confidence developers will feel knowing that when a new version of their app is going to be rolled out, Kubernetes can automatically detect if the new version is bad and stop its rollout immediately. This increase in confidence usually accelerates the continuous delivery of apps, which benefits the whole organization.
+
+## ARCHITECTURE
+### 1. Control plane
+The `master node`, which hosts the `Kubernetes Control Plane` that `controls and manages` the `whole Kubernetes system`
+* The `Kubernetes API Server`, which `you` and the `other Control Plane components` `communicate with`
+* The `Scheduler`, which `schedules your apps` (assigns a `worker node` to each `deployable component` of your application) 
+* The `Controller Manager`, which performs `cluster-level functions`, such as `replicating components`, keeping `track of worker nodes`, handling `node failures`, and so on
+* `etcd`, a reliable `distributed data store` that `persistently stores` the `cluster configuration`.
+
+### 2. Worker node
+`Worker nodes` that `run` the `actual applications you deploy`
+* `Docker`, `rkt`, or `other container runtime` ( Cri-O,...) , which `runs your containers`
+* The `Kubelet`, which `talks to the API server` and `manages containers on its node`
+* The `Kubernetes Service Proxy` (kube-proxy), which `load-balances` network `traffic` between `application` components
+
+
 ## RESOURCES
 ## 1. Pod
 Command

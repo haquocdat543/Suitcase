@@ -82,6 +82,13 @@ Get pod:
 kubectl get pod
 ```
 
+Selection node:
+```
+spec:
+  nodeSelector:
+    gpu: "true"  
+```
+
 ## 2. ReplicaSet
 Full command:
 ```
@@ -393,6 +400,11 @@ Other way to map as volume:
 ```
 
 ## 15. Secret
+literal:
+```
+kubectl create secret generic postgres-config --from-literal=DB=postgres --from-literal=USER=postgres --from-literal=PASSWORD=postgres
+```
+
 yaml:
 ```
 apiVersion: v1
@@ -480,6 +492,29 @@ spec:
       restartPolicy: Never
   backoffLimit: 4
 ```
+
+Parallel and completion:
+```
+spec:
+ completions: 5
+ parallelism: 2
+   template:
+```
+* Completion: The job must ensure 5 jobs complete successful
+* Parallel : Only 2 jobs can run parallel.
+
+Scale a job:
+* You can even change a `Job’s parallelism property` while the Job is `running`. This is `similar` to scaling a `ReplicaSet` or `ReplicationController`, and can be done with the `kubectl scale` command:
+```
+kubectl scale job multi-completion-batch-job --replicas 3
+```
+
+Time limit:
+* A pod’s time can be `limited` by setting the `activeDeadlineSeconds` property in the pod spec. If the pod runs `longer` than that, the system will try to `terminate` it and will mark the Job as `failed`.
+
+Retry limit:
+* You can configure `how many times` a Job can be `retried` before it is marked as `failed` by specifying the `spec.backoffLimit` field in the Job manifest. If you `don't explicitly` specify it, it `defaults to 6`.
+
 ## 20. CronJob
 yaml:
 ```
@@ -502,6 +537,16 @@ spec:
             - -c
             - date; echo Hello from the Kubernetes cluster
           restartPolicy: OnFailure
+```
+
+Start time limit
+* You may have a `hard requirement` for the job to not be started `too far over the scheduled time`. In that case, you can specify a `deadline` by specifying the `startingDeadlineSeconds` field in the CronJob specification as shown in the following listing.
+```
+apiVersion: batch/v1beta1
+kind: CronJob
+spec:
+ schedule: "0,15,30,45 * * * *"
+ startingDeadlineSeconds: 15  
 ```
 
 ## LABELS, ANNOTATION, TAINT
@@ -535,7 +580,11 @@ Example:
 ```
 kubectl label pod firstpod admin=true
 ```
-### 2. Taint
+
+### 2. Annotation
+* Annotations are also `commonly` used when `introducing new features` to Kubernetes. Usually, alpha and beta versions of new features don’t introduce any new fields to API objects. Annotations are used instead of fields, and then once the required API changes have become clear and been agreed upon by the Kubernetes developers, new fields are introduced and the related annotations deprecated.
+
+### 3. Taint
 #### 1. NoSchedule
 Pod can `not schedule` to node that has `NoSchedule taint`, pod `already exist` before taint `still live` on node
 
@@ -555,7 +604,42 @@ tolerations:
     effect: NoSchedule
 ```
 
+## Liveness probe and readiness
+### 1. Liveness probe
+```
+spec:
+ containers:
+ - image: luksa/kubia-unhealthy
+   name: kubia
+   livenessProbe:
+     httpGet:
+     path: /             
+     port: 8080
+```
+
+## Metadata
+### 1. Creation timestamp
+```
+creationTimestamp: 2023-03-18T12:37:50Z
+```
+
+### 2. Generate name
+```
+generateName: kubia-
+```
+
 ## AFFINITY AND CPU, RAM
+### 1. Request
+```
+resources:
+  requests:
+    cpu: 200m
+    memory: 10Mi
+```
+
+### 2. Request
+```
+```
 
 ## COMMANDS
 ## 1 Backup

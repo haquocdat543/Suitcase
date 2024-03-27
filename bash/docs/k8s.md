@@ -315,6 +315,83 @@ data:
     color.bad=yellow
     allow.textmode=true
 ```
+
+Reference:
+```
+- image: 080196/hello-cm
+    name: hello-cm
+    ports:
+      - containerPort: 3000
+    envFrom: # using envFrom instead of env
+      - configMapRef: # referencing the ConfigMap
+          name: postgres-config # name of the ConfigMap
+        prefix: POSTGRES_ # All environment variables will be prefixed with POSTGRES_
+```
+
+Map as volume:
+```
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx
+spec:
+  containers:
+    - image: nginx:alpine
+      name: web-server
+      volumeMounts:
+        - mountPath: /etc/nginx/conf.d # mount content of the configmap to container
+          name: config
+          readOnly: true
+  volumes:
+    - name: config # volume use configmap as content
+      configMap:
+        name: nginx-config # configmap name
+```
+
+Other way to map as volume:
+```
+...
+  volumes:
+    - name: config
+      configMap:
+        name: nginx-config
+        items:
+          - key: my-nginx-config.conf
+            path: gzip.conf # change name of file from my-nginx-config.conf to gzip.conf
+```
+```
+...
+  containers:
+    - image: nginx:alpine
+      name: web-server
+      volumeMounts:
+        - name: config
+          mountPath: /etc/nginx/conf.d/gzip.conf # mount content of my-nginx-config.conf file to gzip.conf file
+          subPath: my-nginx-config.conf # Instead of mounting the whole volume, you’re only mounting the my-nginx-config.conf
+          readOnly: true
+...
+```
+```
+...
+  containers:
+    - image: nginx:alpine
+      name: web-server
+      volumeMounts:
+        - name: config
+          mountPath: /etc/nginx/conf.d/gzip.conf # mount content of my-nginx-config.conf file to gzip.conf file
+          subPath: my-nginx-config.conf # Instead of mounting the whole volume, you’re only mounting the my-nginx-config.conf
+          readOnly: true
+...
+```
+```
+...
+  volumes:
+    - name: config # volume use configmap as content
+      configMap:
+        name: nginx-config # configmap name
+        defaultMode: "0600"
+```
+
 ## 15. Secret
 yaml:
 ```

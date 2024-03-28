@@ -777,7 +777,10 @@ spec:
 ```
 ## 19. Job
 ### 1. Running pods that perform a single completable task 
-`ReplicationControllers`, `ReplicaSets`, and `DaemonSets` run `continuous tasks` that are never `considered completed`. Processes in such pods are restarted when they exit. But in a `completable task`, after its process terminates, it should `not be restarted again`. 
+* `ReplicationControllers`, `ReplicaSets`, and `DaemonSets` run `continuous tasks` that are never `considered completed`. Processes in such pods are restarted when they exit. But in a `completable task`, after its process terminates, it should `not be restarted again`. 
+* In the event of a `node failure`, the pods on that node that are managed by a Job will be `rescheduled` to other nodes the way `ReplicaSet` pods are. In the event of a `failure` of the process itself (when the process returns an error exit code), the Job can be `configured` to either `restart` the container `or not`.
+* For example, Jobs are useful for `ad hoc tasks`, where it’s crucial that the task finishes properly. You could run the task in an unmanaged pod and wait for it to finish, but in the event of a `node failing` or the pod being `evicted` from the node `while it is performing` its `task`, you’d need to `manually recreate it`. Doing this `manually doesn’t make sense—especially` if the job `takes hours` to `complete`.
+* An example of such a job would be if you had `data stored` somewhere and you needed to `transform` and `export` it somewhere.
 
 yaml:
 ```

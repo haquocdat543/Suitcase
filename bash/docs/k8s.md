@@ -643,6 +643,7 @@ spec:
 ```
 ## 7. Ingress
 ### 1. Configuring Ingress to handle TLS traffic
+
 creating a tls certificate for the ingress:
 ```
 openssl genrsa -out tls.key 2048
@@ -954,7 +955,187 @@ volumeBindingMode: WaitForFirstConsumer
 parameters:
   guaranteedReadWriteLatency: "true" # provider-specific
 ```
+
 ## 17. Persistence Volume
+### 1. Introducing available volume types
+* `emptyDir`: A simple `empty directory` used for `storing transient data`.
+* `hostPath` Used for `mounting directories from` the `worker node’s filesystem` into the pod.
+* gitRepo ( deprecated ) A volume initialized by checking out the contents of a Git repository.
+* `nfs` An `NFS share mounted` into the pod.
+* `gcePersistentDisk` (Google Compute Engine Persistent Disk)
+* `awsElasticBlockStore` (Amazon Web Services Elastic Block Store Volume
+* `azureDisk` (Microsoft Azure Disk Volume)—Used for mounting cloud provider-specific storage.
+* `cinder`, `cephfs`, `iscsi`, `flocker`, glusterfs, quobyte, rbd, flexVolume, vsphereVolume, photonPersistentDisk, scaleIO—Used for mounting other types of network storage.
+* `configMap`, `secret`, `downwardAPI`—Special types of volumes used to expose certain Kubernetes resources and cluster information to the pod.
+* `persistentVolumeClaim` A way to use a pre- or dynamically provisioned persistent storage
+
+### 2. Using volumes to share data between containers
+#### 1. Using an emptyDir volume
+* The `simplest volume` type is the `emptyDir volume`, so let’s look at it in the `first example` of how to define a volume in a pod. As the name suggests, the volume starts out as an `empty directory`. The app running inside the pod can then `write` any files it needs to it. Because the `volume’s lifetime` is tied to that of the pod, the `volume’s contents` are lost when the `pod is deleted`.
+* An `emptyDir volume` is especially useful for `sharing files` between containers running in the `same pod`. But it can also be used by a `single container` for when a container needs to `write data` to `disk temporarily`, such as when `performing a sort operation` on a `large dataset`, which `can’t fit` into the `available memory`. The data could also be `written` to the `container’s filesystem` itself
+
+#### 2. using an emptydir volume in a pod
+```
+apiVersion: v1
+kind: Pod
+metadata:
+  name: fortune
+spec:
+  containers:
+  - image: luksa/fortune
+    name: html-generator
+    volumeMounts:
+    - name: html
+      mountPath: /var/htdocs
+  - image: nginx:alpine
+    name: web-server
+    volumeMounts:
+    - name: html
+      mountPath: /usr/share/nginx/html
+      readOnly: true
+    ports:
+    - containerPort: 80
+      protocol: TCP
+volumes:
+  - name: html
+    emptyDir: {}   
+```
+* The pod contains `two containers` and a single volume that’s mounted in both of them, yet at `different paths`. When the `html-generator` container `starts`, it `starts writing the output` of the `fortune command` to the `/var/htdocsrindex.html` file every `10 seconds`. Because the volume is mounted at `/var/htdocs`, the `index.html` file is written to the `volume` instead of the `container’s top layer`. As soon as the `web-server` container starts, it starts serving whatever HTML files are in the /usr/share/nginx/html directory (this is the default directory Nginx serves files from). Because you mounted the volume in that exact location, Nginx will serve the index.html file written there by the container running the fortune loop.
+
+#### 3. specifying the medium to use for the emptydir
+* The `emptyDir` you used as the `volume was created` on the `actual disk` of the `worker node` hosting your pod, so its performance depends on the type of the `node’s disks`. But you can tell Kubernetes to create the emptyDir on a `tmpfs filesystem` (`in memory` instead of `on disk`). To do this, set the `emptyDir’s medium` to `Memory` like this:
+```
+volumes:
+  - name: html
+    emptyDir:
+      medium: Memory
+```
+
+#### 4. GitRepo
+* When you create the pod, the volume is first initialized as an `empty directory` and then the `specified Git repository` is `cloned into it`. If you hadn’t set the `directory` to `. (dot)`, the repository would have been `cloned into` the `kubia-website-example` subdirectory, which isn’t what you want. You want the repo to be `cloned into the root` directory of your volume. Along with the repository, you also specified you want Kubernetes to check out whatever revision the `master branch` is pointing to at the time the `volume is created`. 
+```
+apiVersion: v1
+kind: Pod
+metadata:
+  name: gitrepo-volume-pod
+spec:
+  containers:
+  - image: nginx:alpine
+    name: web-server
+    volumeMounts:
+    - name: html
+      mountPath: /usr/share/nginx/html
+      readOnly: true
+    ports:
+    - containerPort: 80
+      protocol: TCP
+volumes:
+  - name: html
+    gitRepo:
+      repository: https://github.com/luksa/kubia-website-example.git
+      revision: master
+      directory: .    
+```
+#### 5. confirming the files aren’t kept in sync with the git repo
+* If you `update Nginx file` to `master branch`. The `master branch` of the Git repository now `includes the changes` you made to the `HTML file`. These changes `will not be visible` on your `Nginx web server` yet, because the gitRepo volume `isn’t kept` in `sync` with the Git repository. You can confirm this by hitting the pod again. 
+
+### 3. Accessing files on the worker node’s filesystem
+#### 1. Introducing the hostPath volume
+* A `hostPath volume points` to a `specific file` or `directory` on the `node’s filesystem`. Pods running on the `same node` and using the `same path` in their `hostPath volume` see the `same files`.
+* hostPath volumes are the first type of persistent storage we’re introducing, because both the `gitRepo` and `emptyDir` `volumes’ contents` get `deleted` when a `pod is torn down`, whereas a `hostPath volume’s contents don’t`. If a pod is `deleted` and the `next pod` `uses a hostPath volume` `pointing` to the `same path` on the `host,` the `new pod` `will see whatever` was `left behind` by the `previous pod`, but only `if it’s scheduled` to the `same node` as the first pod.
+
+### 4. Introducing PersistentVolumes and PersistentVolumeClaims
+* To enable apps to `request storage` in a Kubernetes cluster `without having to deal` with `infrastructure specifics`, `two new resources` were introduced.
+* Using a PersistentVolume inside a pod is a `little more complex` than using a regular pod volume, so let’s `illustrate` how pods, `PersistentVolumeClaims`, `PersistentVolumes`, and the `actual underlying storage` relate to each other
+  * `Cluster admin` sets up some type of `network storage` (NFS export or similar)
+  * `Cluster Admin` then creates a `PersistentVolume` (PV) by posting a PV `descriptor` to the `Kubernetes API`
+  * `User` creates a `PersistentVolumeClaim` (PVC)
+  * Kubernetes finds a PV of `adequate size` and `access mode` and `binds the PVC` to the `PV`
+  * User creates a pod with a volume referencing the PVC
+
+### 5. Creating a PersistentVolume
+```
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: mongodb-pv
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+  - ReadWriteOnce
+  - ReadOnlyMany
+  persistentVolumeReclaimPolicy: Retain
+  gcePersistentDisk:
+    pdName: mongodb
+    fsType: ext4    
+```
+
+Referencing a GCE PD in a pod’s volume:
+```
+spec:
+  volumes:
+  - name: mongodb-data
+    gcePersistentDisk:
+      pdName: mongodb
+      fsType: ext4
+...
+```
+After you create the `PersistentVolume` with the `kubectl create` command, it should be `ready to be claimed`. See if it is by `listing all PersistentVolumes:`
+```
+kubectl get pv
+```
+* PersistentVolumes, like `cluster Nodes`, `don’t belong` to `any namespace`, unlike pods and `PersistentVolumeClaims`.
+
+Claim PersistentVolume:
+```
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mongodb-pvc   
+spec:
+  resources:
+    requests:
+      storage: 1Gi
+  accessModes:
+  - ReadWriteOnce
+  storageClassName:
+```
+* As soon as you create the claim, Kubernetes finds the `appropriate PersistentVolume` and `binds it` to the claim. The `PersistentVolume’s capacity` must be `large enough` to `accommodate` what the `claim requests`. Additionally, the `volume’s access modes` must include the `access modes` requested by the claim. In your case, the claim `requests 1 GiB` of storage and a `ReadWriteOnce access mode`. The `PersistentVolume you created` earlier `matches those two requirements` so it is `bound to your claim`. You can see this by inspecting the claim.
+```
+kubectl get pvc
+```
+
+access modes:
+* `RWO—ReadWriteOnce` Only a single node can mount the volume for reading and writing.
+* `ROX—ReadOnlyMany` Multiple nodes can mount the volume for reading.
+* `RWX—ReadWriteMany` Multiple nodes can mount the volume for both reading and writing.
+
+Note: PersistentVolume resources are `cluster-scoped` and thus cannot be created in a `specific namespace`, but `PersistentVolumeClaims` can only be created in a `specific namespace`. They can then only be used by pods in the `same namespace`.
+
+### 6. Using a PersistentVolumeClaim in a pod
+* The `PersistentVolume` is `now yours to use`. Nobody else can claim the same volume `until you release it`. To use it `inside a pod`, you need to reference the `PersistentVolumeClaim` by name inside the `pod’s volume` (yes, the `PersistentVolumeClaim`, not the `PersistentVolume` directly!)
+```
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mongodb
+  spec:
+    containers:
+    - image: mongo
+      name: mongodb
+    volumeMounts:
+    - name: mongodb-data
+      mountPath: /data/db
+    ports:
+    - containerPort: 27017
+      protocol: TCP
+volumes: 
+- name: mongodb-data
+  persistentVolumeClaim:
+    claimName: mongodb-pvc 
+```
+
 yaml:
 ```
 apiVersion: v1

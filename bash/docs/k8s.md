@@ -204,15 +204,149 @@ spec:
     gpu: "true"  
 ```
 
+## ReplicaController
+* A `ReplicationController` is a Kubernetes resource that ensures `its pods` are always kept `running`. If the `pod disappears` for any reason, such as in the event of a `node disappearing` from the cluster or because the pod was `evicted` from the `node`, the `ReplicationController` `notices` the `missing pod` and `creates` a `replacement pod`. 
+* A `ReplicationController` constantly `monitors` the `list` of `running pods` and makes sure the `actual number` of pods of a “type” `always matches` the `desired number`. If too `few` such pods are `running`, it `creates` `new replicas` from a `pod template`. If `too many` such pods are running, it `removes` the `excess replicas`
+
+Excess reason:
+* Someone creates a pod of the same type manually.
+* Someone changes an existing pod’s “type.”
+* Someone decreases the desired number of pods, and so on.
+
+### 1. three parts of a replicationcontroller
+* A `label selector`, which determines `what pods` are in the ReplicationController’s scope
+* A `replica count`, which specifies the `desired number` of pods that should be `running`
+* A `pod template`, which is used when `creating new pod` replicas
+
+### 2. benefits of using a replicationcontroller
+* It makes sure a pod (or multiple pod replicas) is `always running` by `starting` a `new pod` when an `existing one` `goes missing`.
+* When a `cluster node fails`, it `creates replacement replicas` for `all the pods` that `were running` on the `failed node` (those that were `under` the `ReplicationController’s control`).
+* It enables easy `horizontal scaling` of pods—both `manual` and `automatic`
+
+```
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: kubia
+spec:
+  replicas: 3
+  selector:
+    app: kubia 
+template:
+  metadata:
+    labels:
+      app: kubia
+  spec:
+    containers:
+    - name: kubia
+      image: luksa/kubia
+      ports:
+      - containerPort: 8080 
+```
+
+Apply resources:
+```
+kubectl create -f kubia-rc.yaml
+```
+
+### 3. Add additional label of pod
+It does not effect tk RC
+
+### 4. Change label of pod
+After changed label, RC recognize that there are too few pods is running so it create new pod that match template
+
+### 5. Change label selector
+it would make `all the pods` fall out of the `scope` of the `ReplicationController`, which would result in it `creating new pods`
+
+### 6. Change pod template
+Changing a ReplicationController’s `pod template` only `affects pods` `created afterward` and has `no effect` on `existing pods`
+
+### 7. Scale RC
+```
+kubectl scale rc kubia --replicas=10
+```
+
+### 8. Scale RC by edit
+```
+kubectl edit rc kubia
+```
+When you `save the` file and `close the editor`, the `ReplicationController is updated` and `it immediately scales` the number of pods to `10`:
+
+### 9. Delete RC only and pods still alive
+Deleting a replication controller with `--cascade=false` leaves pods `unmanaged`.
+```
+kubectl delete rc kubia --cascade=false
+```
+
+Conclusion:
+* You usually won’t create them `directly`, but instead have them `created automatically` when you create the `higher-level` Deployment resource.
+
 ## 2. ReplicaSet
+### 1. Keeping the pod healthy
+* pods represent the `basic deployable unit` in Kubernetes. You know how to `create, supervise, and manage them manually`. But in `real-world` use cases, you want your `deployments to stay up and running automatically` and `remain healthy without any manual intervention`. To do this, you almost `never create pods directly`. Instead, you `create other types of resources`, such as `ReplicationControllers` or `Deployments`, which then create and manage the `actual pods`.
+
+### 2. Liveness probe
+Kubernetes can probe a container using one of the three mechanisms:
+* An HTTP GET probe performs an HTTP GET request on the container’s IP address, a port and path you specify. If the probe receives a response 2xx or 3xx, it is living
+```
+apiVersion: v1
+kind: pod
+metadata:
+  name: kubia-liveness
+spec: 
+  containers:
+   - image: luksa/kubia-unhealthy
+     name: kubia
+     livenessProbe:
+       httpGet:
+       path: /
+       port: 8080  
+```
+ 
+```
+kubectl get po kubia-liveness
+```
+The `RESTARTS` column shows that the pod’s container has `been restarted once` (if you wait another `minute and a half`, it gets `restarted again`, and then the `cycle continues indefinitely`).
+
+Get log from previous run:
+```
+kubectl logs mypod --previous
+```
+
+Add delay to http probe
+```
+initialDelaySeconds: 15
+```
+
+* A TCP Socket probe tries to open a TCP connection to the specified port of the container. If the connection is established successfully, the probe is successful. Otherwise, the container is restarted
+* An Exec probe executes an arbitrary command inside the container and checks the command’s exit status code. If the status code is 0, the probe is successful. All other codes are considered failures. 
+ 
+### 1. Differences from ReplicaController
+* The `main improvements` of R`eplicaSets` over `ReplicationControllers` are their `more expressive` `label selectors`. You intentionally used the simpler matchLabels selector in the first ReplicaSet example to see that ReplicaSets are no different from ReplicationControllers. Now, you’ll rewrite the selector to use the `more powerful matchExpressions` property, as shown in the following listing.
+```
+selector:
+  matchExpressions:
+  - key: app
+    operator: In
+    values:
+    - kubia  
+```
+* You can `add additional expressions` to the selector. As in the example, each expression must contain a key, an operator, and possibly (depending on the operator) a list of values. You’ll see four valid operators:
+  * `In`—Label’s value `must match one` of the `specified values`.
+  * `NotIn`—Label’s value `must not match any` of the `specified values`.
+  * `Exists`—Pod must `include` a label with the `specified key` (the value isn’t important). When using this operator, you `shouldn’t specify` the values field.
+  * `DoesNotExist`—Pod `must not include` a label with the `specified key`. The values property must not be specified.
+
 Full command:
 ```
 kubectl create replicaset firstrs --image=nginx
 ```
+
 Short command:
 ```
 kubectl create rs firstrs--image=nginx
 ```
+
 Yaml:
 ```
 apiVersion: apps/v1
@@ -237,20 +371,71 @@ spec:
       - name: php-redis
         image: us-docker.pkg.dev/google-samples/containers/gke/gb-frontend:v5
 ```
+
 Apply yaml:
 ```
 kubectl apply -f $REPLICASET_FILE
 ```
+
 Get replicaset:
 ```
 kubectl get rs
 ```
 ## 3. Deployment
+
 Eg:
 ```
 kubectl create deployment firstdpl --image=nginx --replicas=3
 ```
 ## 4. DaemonSets
+* Both `ReplicationControllers` and `ReplicaSets` are used for running a `specific number` of pods `deployed anywhere` in the `Kubernetes cluster`. But certain cases exist when you want `a pod` to run `on each` and `every node` in `the cluster` 
+* `For example`, you’ll want to run a `log collector` and a `resource monitor` on `every node`. Another good example is `Kubernetes’ own kube-proxy process`, which needs to run on `all nodes` to `make services work`.
+
+### 1. Using a DaemonSet to run a pod on every node
+* To run a pod on `all cluster nodes`, you create a DaemonSet object, which is much like a `ReplicationController` or a `ReplicaSet`, except that pods created by a DaemonSet already have a `target node specified` and `skip` the `Kubernetes Scheduler`. They `aren’t scattered` around the cluster `randomly`. 
+* If a `node goes down`, the DaemonSet `doesn’t cause` the pod to be `created elsewhere`. But when a `new node` is `added` to the cluster, the DaemonSet `immediately deploys` a `new pod` instance to it. It also does the same if `someone inadvertently deletes one` of the pods, leaving the node without the DaemonSet’s pod. Like a ReplicaSet, a DaemonSet creates the pod from the pod template configured in it.
+
+### 2. Using a DaemonSet to run a pod on certain node
+* A DaemonSet deploys pods to `all nodes` in the cluster, unless you specify that the pods should only run on a `subset of all the nodes`. This is done by specifying the `nodeSelector property` in the `pod template`, which is part of the DaemonSet definition (similar to the pod template in a ReplicaSet or ReplicationController). 
+
+Example:
+```
+apiVersion: apps/v1beta2
+kind: DaemonSet
+metadata:
+  name: ssd-monitor
+spec:
+  selector:
+    matchLabels:
+      app: ssd-monitor
+template:
+  metadata:
+    labels:
+      app: ssd-monitor
+  spec:
+    nodeSelector:
+    disk: ssd
+    containers:
+    - name: main
+      image: luksa/ssd-monitor
+```
+* You’re defining a DaemonSet that will run a pod with a single container based on the `luksa/ssd-monitor` container image. An instance of this pod will be created for `each node` that has the `disk=ssd` label.
+
+### 3. adding the required label to your node(s)
+Now, add the `disk=ssd` label to one of `your nodes` like this:
+```
+kubectl label node NewNode disk=ssd
+```
+If you have `multiple nodes` and you add the `same label` to further nodes, you’ll see the DaemonSet `spin up pods` for `each of them`. 
+
+### 4. Removing  the required label to your node(s)
+imagine you’ve made a `mistake` and have `mislabeled` one of the nodes. It has a `spinning disk drive`, `not an SSD`. What `happens` if you `change` the `node’s label`?
+
+```
+kubectl label node minikube disk=hdd --overwrite
+```
+The pod is being `terminated`. But you knew that was going to happen, right? This wraps up your exploration of DaemonSets, so you may want to delete your `ssd-monitor DaemonSet`. If you still have any other daemon pods running, you’ll see that deleting the DaemonSet deletes those pods as well. 
+
 Eg:
 ```
 kubectl create daemonsets firstdms --image=fluentd
@@ -591,6 +776,9 @@ spec:
       - {key: environment, operator: In, values: [dev]}
 ```
 ## 19. Job
+### 1. Running pods that perform a single completable task 
+`ReplicationControllers`, `ReplicaSets`, and `DaemonSets` run `continuous tasks` that are never `considered completed`. Processes in such pods are restarted when they exit. But in a `completable task`, after its process terminates, it should `not be restarted again`. 
+
 yaml:
 ```
 apiVersion: batch/v1
@@ -664,6 +852,19 @@ spec:
  startingDeadlineSeconds: 15  
 ```
 
+## 20. Namespace
+* Kubernetes namespaces provide a `scope for objects names`. Instead of having `all your resources in one single namespace`, you can split them into `multiple namespaces`, which also allows you to use the `same resource names multiple times` (across different namespaces).
+* Resource names only need to be `unique within a namespace`. Two `different namespaces` can contain `resources of the same name`. But, while `most types of resources are namespaced`, a `few aren’t`. One of them is the `Node resource`, which is `global` and not tied to a `single namespace`
+
+```
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: custom-namespace  
+```
+* Namespaces allow you to `isolate objects` into `distinct groups`, which allows you to `operate only` on those `belonging to the specified namespace`, they `don’t provide` any kind of `isolation of running objects`. 
+* For example, you may think that when `different users` deploy `pods across different namespaces`, those pods are `isolated from each other and can’t communicate`, but that’s not necessarily the case. Whether namespaces provide `network isolation` depends on which networking solution is deployed with Kubernetes. When the solution `doesn’t provide inter-namespace network isolation`, if a pod in namespace foo knows `the IP address of a pod in namespace bar`, there is `nothing preventing` it from sending traffic, such as HTTP requests, to the other pod.
+
 ## LABELS, ANNOTATION, TAINT
 ### 1. Label
 #### 1. Nodes
@@ -676,6 +877,7 @@ label a node:
 ```
 kubectl label nodes <node-name> <key>=<value>
 ```
+
 Example:
 ```
 kubectl label nodes worker-01 disktype=ssd

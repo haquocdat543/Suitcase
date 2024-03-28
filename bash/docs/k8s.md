@@ -320,7 +320,31 @@ initialDelaySeconds: 15
 
 * A TCP Socket probe tries to open a TCP connection to the specified port of the container. If the connection is established successfully, the probe is successful. Otherwise, the container is restarted
 * An Exec probe executes an arbitrary command inside the container and checks the command’s exit status code. If the status code is 0, the probe is successful. All other codes are considered failures. 
- 
+
+### Readiness probes
+* An `Exec` probe, where a `process is executed`. The container’s status is `determined` by the `process’ exit status code`.
+* An `HTTP GET` probe, which sends an `HTTP GET request` to the container and the `HTTP status code` of the response determines whether the container is `ready or not`.
+* A `TCP Socket` probe, which opens a `TCP connection` to a `specified port` of the container. If the connection is `established`, the container is `considered ready`
+```
+apiVersion: v1
+kind: ReplicationController
+...
+spec:
+ ...
+template:
+   ...
+   spec:
+     containers:
+     - name: kubia
+       image: luksa/kubia
+       readinessProbe:
+         exec:
+           command:
+             - ls
+             - /var/ready
+```
+* The `readiness probe` will periodically `perform` the `command` `ls /var/`ready inside the container. The ls command `returns exit code zero` if the `file exists`, or a `non-zero` exit code `otherwise.` If the `file exists`, the readiness probe will `succeed`; `otherwise`, it will fail. 
+
 ### 1. Differences from ReplicaController
 * The `main improvements` of R`eplicaSets` over `ReplicationControllers` are their `more expressive` `label selectors`. You intentionally used the simpler matchLabels selector in the first ReplicaSet example to see that ReplicaSets are no different from ReplicationControllers. Now, you’ll rewrite the selector to use the `more powerful matchExpressions` property, as shown in the following listing.
 ```
@@ -446,6 +470,163 @@ Eg:
 kubectl create statefulsets firststs --image=mysql --replicas=3
 ```
 ## 6. Service
+### 1. Problem of Pod's network
+* Pods are `ephemeral`. They may `come and go` at any time, whether it’s because a pod is `removed from a node` to make r`oom for other pods`, because `someone scaled down` the number of pods, or because a `cluster node has failed`.
+* Kubernetes assigns `an IP address` to a pod after the pod has `been scheduled to` a node and before it’s started—Clients thus can’t know the IP address of the server pod up front.
+* Horizontal scaling means `multiple pods` may provide the same service—Each of those pods `has its own IP address`. Clients shouldn’t care how many pods are backing the service and what their IPs are. They shouldn’t have to keep a list of all the individual IPs of pods. Instead, all those pods should be accessible through a single IP address.
+
+* A Kubernetes Service is a resource you create to make a `single`, `constant point` of `entry` to a `group of pods` providing the `same service`. Each service has `an IP address` and `port` that` never change` while the `service exists`
+* Clients can `open connections` to that `IP` and `port`, and those connections are then `routed` to one of the `pods backing that service`. This way, clients of a service `don’t need to know` the `location` of `individual pods` providing the service, `allowing those pods` to be `moved around the cluster` at any time. 
+* Connections to the service are `load-balanced` `across all` the `backing pods`.
+
+### 2. Testing your service within cluster
+* The obvious way is to `create a pod` that will `send the request` to the `service’s clustera IP` and log the response. You can then examine the pod’s log to see what the service’s response was.
+* You can `ssh` into one of the Kubernetes `nodes` and use the `curl` command.
+* You can execute the `curl` command inside one of your `existing pods` through the `kubectl exec` command.
+
+### 3. configuring session affinity on the service
+* If you execute the `same command` a `few more times`, you should `hit a different` pod with `every invocation`, because the service proxy normally forwards `each connection` to a randomly `selected backing pod`, even if the connections are coming from the `same client`. 
+* If, on the `other hand`, you want `all requests made` by a `certain client` to be `redirected` to the `same pod every time`, you can set the `service’s sessionAffinity` property to `ClientIP (`instead of `None`, which is the `default`), as shown in the following listing.
+
+### 4. discovering services through environment variables
+* When a pod is `started`, Kubernetes `initializes` a `set of environment variables` pointing to `each service` that `exists at that moment`. If you `create the service` `before` creating the `client pods`, processes in those pods `can get the IP address and port` of the service by `inspecting` their `environment variables`. 
+```
+kubectl exec kubia-xxxxx env
+```
+
+Output:
+```
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+HOSTNAME=kubia-3inly
+KUBERNETES_SERVICE_HOST=10.111.240.1
+KUBERNETES_SERVICE_PORT=443
+...
+KUBIA_SERVICE_HOST=10.111.249.153
+KUBIA_SERVICE_PORT=80
+...
+```
+
+### 5. discovering services through dns
+* the pod runs a `DNS server`, which all other pods `running` in the cluster are `automatically configured` to use (Kubernetes does that by modifying each container’s `/etc/resole.conf` file)
+* `Each` service gets `a DNS entry` in the `internal DNS server`, and client pods that know the `name of the service` can access it through its `fully qualified domain name` (FQDN) instead of `resorting` to `environment variables`
+
+### 6. connecting to the service through its fqdn
+* To revisit the `frontend-backend` example, a frontend pod can `connect` to the `backenddatabase` service by `opening a connection` to the `following FQDN`
+```
+backend-database.default.svc.cluster.local
+```
+* `backend-database` corresponds to the `service name`, `default` stands for the `namespace` the service is defined in, and `svc.cluster.local` is a `onfigurable` cluster domain suffix used in all cluster local service names. 
+
+### 7. running a shell in a pod’s container
+```
+curl http://kubia.default.svc.cluster.local
+```
+
+```
+curl http://kubia.default
+```
+
+```
+curl http://kubia
+```
+
+```
+cat /etc/resolv.conf
+```
+
+### 8. understanding why you can’t ping a service ip
+Inside container:
+```
+ping kubia
+```
+* `curl-ing` the `service works`, but `pinging` it `doesn’t`. That’s because the service’s `cluster IP` is a `virtual IP`, and only has meaning when combined with the service port
+
+### 9. Endpoint
+* An Endpoints resource (yes, plural) is a `list of IP addresses` and `ports` exposing a service. The Endpoints resource is like any other` Kubernetes resource`, so you can `display its basic` info with `kubectl` get:
+```
+kubectl get endpoints kubia
+```
+
+### 10. Manually configuring service endpoints
+Service:
+```
+apiVersion: v1
+kind: Service
+metadata:
+  name: external-service
+    spec:
+      ports:  - port: 80    
+```
+
+Endpoint:
+```
+apiVersion: v1
+kind: Endpoints
+metadata:
+  name: external-service
+subsets:
+  - addresses:
+    - ip: 11.11.11.11
+    - ip: 22.22.22.22
+    ports:
+    - port: 80     
+```
+
+### 11. Creating an alias for an external service
+```
+apiVersion: v1
+kind: Service
+metadata:
+  name: external-service
+spec:
+  type: ExternalName
+  externalName: someapi.somecompany.com
+    ports:
+    - port: 80
+```
+
+### 12. preventing unnecessary network hops
+```
+spec:
+  externalTrafficPolicy: Local
+```
+
+### 13. Creating a headless service
+* You’ve seen how services can be used to provide a `stable IP address` allowing clients to `connect to pods` (or other `endpoints`) backing each service. `Each connection` to the service is `forwarded` to one randomly selected backing pod. But what if the client needs to `connect to all` of `those pods`?
+* For a client to connect to `all pods`, it needs to `figure out` the the `IP` of `each individual pod`.
+```
+apiVersion: v1
+kind: Service
+metadata:
+  name: kubia-headless
+spec:
+  clusterIP: None
+    ports:
+    - port: 80
+      targetPort: 8080
+      selector:
+        app: kubia
+```
+
+### 14. understanding dns a records returned for a headless service
+```
+kubectl exec dnsutils nslookup kubia-headless
+```
+
+### 15. Discovering all pods—even those that aren’t ready
+```
+kind: Service
+metadata:
+ annotations: service.alpha.kubernetes.io/tolerate-unready-endpoints: "true"
+```
+
+```
+apiVersion: v1
+kind: Service
+spec:
+  sessionAffinity: ClientIP
+```
+
 yaml:
 ```
 apiVersion: v1
@@ -461,6 +642,47 @@ spec:
       targetPort: 9376
 ```
 ## 7. Ingress
+### 1. Configuring Ingress to handle TLS traffic
+creating a tls certificate for the ingress:
+```
+openssl genrsa -out tls.key 2048
+openssl req -new -x509 -key tls.key -out tls.cert -days 360 -subj /CN=kubia.example.com
+```
+
+Create secret like this:
+```
+kubectl create secret tls tls-secret --cert=tls.cert --key=tls.key
+```
+
+Signing certificates through the CertificateSigningRequest resource:
+```
+kubectl certificate approve <name of the CSR>
+```
+```
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: kubia
+spec:
+  tls:
+  - hosts:
+    - kubia.example.com
+    secretName: tls-secret
+  rules:
+  - host: kubia.example.com
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: kubia-nodeport
+          servicePort: 80
+```
+
+Curl 
+```
+curl -k -v https://kubia.example.com/kubia
+```
+
 yaml:
 ```
 apiVersion: networking.k8s.io/v1

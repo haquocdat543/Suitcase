@@ -1128,6 +1128,12 @@ metadata:
   uid: 721ab723-13bc-11e5-aec2-42010af0021e
 ```
 ## 10. Role
+### 1. Enable RBAC
+```
+kubectl delete clusterrolebinding permissive-binding
+```
+
+
 ```
 piVersion: rbac.authorization.k8s.io/v1
 kind: Role
@@ -1143,6 +1149,17 @@ rules:
 Verbs: [ get, watch, list, create, update, delete, patch ]
 
 ## 11. RoleBinding
+### 1. including serviceaccounts from other namespaces in a rolebinding
+```
+subjects:
+- kind: ServiceAccount
+  name: default
+  namespace: bar  
+```
+
+### 2. allowing access to cluster-level resources
+* A `RoleBinding` referencing a `ClusterRole` `doesn’t grant access` to `clusterlevel` resources.
+
 yaml:
 ```
 apiVersion: rbac.authorization.k8s.io/v1
@@ -1165,6 +1182,31 @@ roleRef:
 ```
 
 ## 12. ClusterRole
+* A `ClusterRoleBinding` and `ClusterRole` must be used to `grant access` to `clusterlevel` resources.
+* A `ClusterRoleBinding` and `ClusterRole` grants `permission` to resources across `all namespaces`.
+
+### 1. allowing access to non-resource url
+```
+kubectl get clusterrole system:discovery -o yaml
+kubectl get clusterrolebinding system:discovery -o yaml
+```
+
+### 2. using clusterroles to grant access to resources in specific namespaces
+* ClusterRoles `don’t always` need to be `bound` with `cluster-level ClusterRoleBindings`. They can also be `bound` with `regular`, `namespaced RoleBindings`. You’ve already started looking at predefined ClusterRoles, so let’s look at another one called view, which is shown in the following listing.
+```
+kubectl get clusterrole view -o yaml
+```
+
+### 3. Understanding default ClusterRoles and ClusterRoleBindings
+* Kubernetes comes with a `default set` of `ClusterRoles` and `ClusterRoleBindings`, which are `updated every time` the `API server starts`. This `ensures` `all` the `default roles` and `bindings` are `recreated` if you `mistakenly` `delete` them or if a `newer version` of Kubernetes uses a `different configuration` of cluster `roles` and `bindings`.
+```
+kubectl get clusterrolebindings
+```
+
+```
+kubectl get clusterroles
+```
+
 ```
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole

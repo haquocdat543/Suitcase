@@ -406,6 +406,163 @@ Get replicaset:
 kubectl get rs
 ```
 ## 3. Deployment
+##### 1. Updating an application
+* Rolling updates allow Deployments' update to take place with `zero downtime` by incrementally updating Pods instances with new ones.
+* Similar to `application Scaling`, if a Deployment is `exposed publicly`, the Service will `load-balance` the traffic only to available Pods `during the update`. An available Pod is an instance that is `available` to the users of the application.
+* Rolling updates `allow` the following `actions`:
+  * Promote an application from `one environment` to `another` (via container image updates)
+  * `Rollback` to `previous` versions
+  * Continuous Integration and Continuous Delivery of applications with `zero downtime`
+##### 2. replacing old pods with new ones by scaling the two replicationcontrollers
+* `Step 1`: Scaling kubia-v2 up to `1`
+* `Step 2`: Scaling kubia-v1 down to `2`
+
+##### 3. Update the version of the app
+Get deployments:
+```
+kubectl get deployments
+```
+
+Get pods:
+```
+kubectl get pods
+```
+
+Describe pods:
+```
+kubectl describe pods
+```
+
+To `update` the `image` of the application to `version 2`, use the `set image` subcommand, followed by the `deployment name` and the `new image version`:
+```
+kubectl set image deployments/kubernetes-bootcamp kubernetes-bootcamp=docker.io/jocatalin/kubernetes-bootcamp:v2
+```
+
+Check the status of the new Pods, and view the old one terminating with the get pods subcommand
+```
+kubectl get pods
+```
+
+##### 4. Verify an update
+First, check that the app is `running`. To find the `exposed IP address` and `port`, run the describe service command:
+```
+kubectl describe services/kubernetes-bootcamp
+```
+
+You can also `confirm` the update by `running` the rollout status subcommand:
+```
+kubectl rollout status deployments/kubernetes-bootcamp
+```
+
+```
+kubectl describe pods
+```
+
+##### 5. Roll back an update
+Let’s perform `nother update`, and try to `deploy` an image tagged with `v10`:
+```
+kubectl set image deployments/kubernetes-bootcamp kubernetes-bootcamp=gcr.io/google-samples/kubernetes-bootcamp:v10
+```
+```
+kubectl get deployments
+```
+Notice that the output doesn't list the `desired number` of available Pods. Run the get pods subcommand to list all Pods:
+```
+kubectl get pods
+```
+Notice that some of the Pods have a status of `ImagePullBackOff`
+
+
+Perform rollout:
+```
+kubectl rollout undo deployments/kubernetes-bootcamp
+```
+```
+kubectl get pods
+```
+```
+kubectl describe pods
+```
+
+Delete deployment:
+```
+kubectl delete deployments/kubernetes-bootcamp services/kubernetes-bootcamp
+```
+##### 6. Revision
+Check rollout history [ revision ]:
+```
+kubectl rollout history deployments/kubernetes-bootcamp
+```
+`Default amount` of revision is `10`. You can adjust amount using `revisionHistoryLimit`
+
+To rollback to a `specific revision` use:
+```
+kubectl rollout undo deployments/kubernetes-bootcamp --to-revision=2
+```
+
+##### 7. maxsurge and maxunavailable properties
+```
+spec:
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+    type: RollingUpdate
+```
+* `maxSurge`: Determines `how many pod instances` you allow to `exist above` the `desired replica count` configured on the Deployment. It `defaults to 25%`, so there can be at most `25% more` pod instances than the `desired count`. If the desired `replica count` is set to `four`, there will `never` be `more than five pod` instances running `at the same time` during an update. When `converting a percentage` to an `absolute number`, the `number is rounded up`. Instead of a `percentage`, the `value` can also be an `absolute value` (for example, one or two additional pods can be allowed).
+* `maxUnavailable`: Determines `how many pod` instances can be `unavailable` relative to the `desired replica count` during the update. It also `defaults to 25%`, so the number of `available pod instances` must `never` fall `below 75%` of the `desired replica count`. Here, when `converting` a `percentage` to an `absolute number`, the number is `rounded down`. If the `desired replica count` is set to four and the `percentage is 25%`, only one pod can be `unavailable`. There will always be `at least three` pod instances available to serve requests during the whole rollout. As with maxSurge, you can also specify an `absolute value` instead of a `percentage`.
+
+##### 8. Pausing the rollout process
+After the `bad experience` with `version 3` of `your app`, imagine you’ve now `fixed the bug` and `pushed version 4` of your image. You’re a little apprehensive about rolling it out across all your pods the way you did before. What you want is to run a `single v4 pod` next to your `existing v2 pods` and see how it behaves with `only a fraction` of `all your users`. Then, once you’re sure `everything’s okay`, you can `replace all` the old pods with new ones. 
+```
+kubectl set image deployment kubia nodejs=luksa/kubia:v4
+```
+
+```
+kubectl rollout pause deployment kubia
+```
+
+##### 9. kubectl rollout resume deployment kubia
+```
+kubectl rollout resume deployment kubia
+```
+
+##### 10. Blocking rollouts of bad versions
+```
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: kubia
+spec:
+  replicas: 3
+  minReadySeconds: 10
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+        type: RollingUpdate
+  template:
+    metadata:
+      name: kubia
+      labels:
+        app: kubia
+    spec:
+      containers:
+      - image: luksa/kubia:v3
+        name: nodejs
+        readinessProbe:
+          periodSeconds: 1
+            httpGet:
+            path: /
+            port: 8080
+```
+* The fact that the `deployment` is `stuck` is a `good thing`, because if it had `continued replacing` the `old pods` with the `new ones`, you’d end up with a completely non-working service, like you did when you first `rolled out version 3`, when you weren’t using the `readiness probe`. But now, with the `readiness probe` in place, there was virtually `no negative impact` on your `users`. `A few users` may have experienced the internal server error, but that’s not as big of a problem as if the rollout had `replaced all pods` with the faulty version 3.
+
+##### 11. configuring a deadline for the rollout
+```
+spec:
+  progressDeadlineSeconds: 10m
+```
 
 Eg:
 ```

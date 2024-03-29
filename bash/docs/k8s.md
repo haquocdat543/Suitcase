@@ -659,6 +659,7 @@ Signing certificates through the CertificateSigningRequest resource:
 ```
 kubectl certificate approve <name of the CSR>
 ```
+
 ```
 apiVersion: extensions/v1beta1
 kind: Ingress
@@ -1142,6 +1143,7 @@ Other way to map as volume:
           - key: my-nginx-config.conf
             path: gzip.conf # change name of file from my-nginx-config.conf to gzip.conf
 ```
+
 ```
 ...
   containers:
@@ -1774,6 +1776,343 @@ metadata:
 ```
 * Namespaces allow you to `isolate objects` into `distinct groups`, which allows you to `operate only` on those `belonging to the specified namespace`, they `don’t provide` any kind of `isolation of running objects`. 
 * For example, you may think that when `different users` deploy `pods across different namespaces`, those pods are `isolated from each other and can’t communicate`, but that’s not necessarily the case. Whether namespaces provide `network isolation` depends on which networking solution is deployed with Kubernetes. When the solution `doesn’t provide inter-namespace network isolation`, if a pod in namespace foo knows `the IP address of a pod in namespace bar`, there is `nothing preventing` it from sending traffic, such as HTTP requests, to the other pod.
+
+## DOWNWARD API
+* What about data that isn’t known up until that point—such as the `pod’s IP`, the `host node’s name`, or even the `pod’s own name` (when the name is generated; for example, when the pod is created by a ReplicaSet or similar controller)? And what about data that’s already specified elsewhere, such as a `pod’s labels` and `annotations`? You don’t want to repeat the same information in multiple places.
+* This problems are solved by the Kubernetes `Downward API`. It allows you to `pass metadata` about the pod and `its environment` through `environment variables` or `files` (in a downwardAPI volume).
+
+### 1. Available metadata
+The `Downward API` enables you to expose the `pod’s own metadata` to the processes running inside that pod. Currently, it allows you to pass the following information to your containers:
+* The pod’s name
+* The pod’s IP
+* The namespace the pod belongs to
+* The name of the node the pod is running on
+* The name of the service account the pod is running under
+* The CPU and memory requests for each container
+* The CPU and memory limits for each container
+* The pod’s labels
+* The pod’s annotations
+
+### 2. Exposing metadata through environment variables
+```
+apiVersion: v1
+kind: Pod
+metadata:
+  name: downward
+spec:
+  containers:
+  - name: main
+    image: busybox
+    command: ["sleep", "9999999"]
+    resources:
+      requests:
+        cpu: 15m
+        memory: 100Ki
+      limits:
+        cpu: 100m
+        memory: 4Mi
+   env:
+   - name: POD_NAME
+     valueFrom:
+       fieldRef:
+         fieldPath: metadata.name
+   - name: POD_NAMESPACE
+     valueFrom:
+       fieldRef:
+         fieldPath: metadata.namespace
+   - name: POD_IP
+     valueFrom:
+       fieldRef:
+         fieldPath: status.podIP
+   - name: NODE_NAME
+     valueFrom:
+       fieldRef:
+         fieldPath: spec.nodeName
+   - name: SERVICE_ACCOUNT
+     valueFrom:
+       fieldRef:
+         fieldPath: spec.serviceAccountName
+   - name: CONTAINER_CPU_REQUEST_MILLICORES
+     valueFrom:
+       resourceFieldRef:
+         resource: requests.cpu
+         divisor: 1m
+   - name: CONTAINER_MEMORY_LIMIT_KIBIBYTES
+     valueFrom:
+       resourceFieldRef:
+         resource: limits.memory
+         divisor: 1Ki
+```
+
+Check environment variable:
+```
+kubectl exec downward env
+```
+ 
+### 3. Passing metadata through files in a downwardAPI volume
+```
+apiVersion: v1
+kind: Pod
+metadata:
+  name: downward
+  labels:
+    foo: bar
+ annotations:
+   key1: value1
+   key2: |
+     multi
+     line
+     value   
+spec:
+  containers:
+  - name: main
+    image: busybox
+    command: ["sleep", "9999999"]
+    resources:
+      requests:
+        cpu: 15m
+        memory: 100Ki
+      limits:
+        cpu: 100m
+        memory: 4Mi
+    volumeMounts:
+    - name: downward
+      mountPath: /etc/downward
+volumes:
+- name: downward
+  downwardAPI:
+    items:
+    - path: "podName"
+      fieldRef:
+        fieldPath: metadata.name
+    - path: "podNamespace"
+      fieldRef:
+        fieldPath: metadata.namespace
+    - path: "labels"
+      fieldRef:
+        fieldPath: metadata.labels
+    - path: "annotations"
+      fieldRef:
+        fieldPath: metadata.annotations
+    - path: "containerCpuRequestMilliCores"
+      resourceFieldRef:
+        containerName: main
+        resource: requests.cpu
+        divisor: 1m
+    - path: "containerMemoryLimitBytes"
+      resourceFieldRef:
+        containerName: main
+        resource: limits.memory
+        divisor: 1
+```
+
+Check volume:
+```
+kubectl exec downward ls -lL /etc/downward
+```
+
+Examples:
+```
+kubectl exec downward cat /etc/downward/labels
+foo="bar"
+```
+
+```
+kubectl exec downward cat /etc/downward/annotations
+key1="value1"
+key2="multi\nline\nvalue\n"
+kubernetes.io/config.seen="2016-11-28T14:27:45.664924282Z"
+kubernetes.io/config.source="api"
+```
+
+### 4. updating labels and annotations
+* You may remember that `labels` and `annotations` can be modified while a pod is running. As you might expect, when they change, Kubernetes updates the `files holding them`, allowing the pod to always see `up-to-date` data. This also explains why labels and annotations `can’t be exposed` through `environment variables`. Because `environment variable values` can’t be updated afterward, if the labels or annotations of a pod were exposed through environment variables, `there’s no way` to expose the `new values` after `they’re modified`.
+
+### 5. referring to container-level metadata in the volume specification
+```
+spec:
+  volumes:
+  - name: downward
+    downwardAPI:
+      items:
+      - path: "containerCpuRequestMilliCores"
+        resourceFieldRef:
+          containerName: main
+          resource: requests.cpu
+          divisor: 1m
+```
+
+### 6. Talking to the Kubernetes API server
+Get IP info:
+```
+kubectl cluster-info
+```
+
+```
+curl https://IP:8443 -k
+```
+
+### 7. accessing the api server through kubectl proxy 
+* The `kubectl proxy` command runs a `proxy server` that `accepts HTTP connections` on your `local machine` and `proxies` them to the API server while `taking care of authentication`, so you `don’t need to pass` the `authentication token` in `every request`. It also makes sure you’re talking to the `actual API server` and not a man in the middle (by verifying the server’s certificate on each request).
+```
+kubectl proxy
+```
+
+```
+curl localhost:8001
+```
+
+### 8. exploring the batch api group’s rest endpoint
+```
+curl http://localhost:8001/apis/batch
+```
+
+```
+curl http://localhost:8001/apis/batch/v1
+```
+
+### 9. listing all job instances in the cluster
+```
+curl http://localhost:8001/apis/batch/v1/jobs
+```
+
+### 10. retrieving a specific job instance by name
+```
+curl http://localhost:8001/apis/batch/v1/namespaces/default/jobs/my-job
+```
+
+### 11. Talking to the API server from within a pod
+You’ve learned how to talk to the API server from your `local machine`, using the `kubectl proxy`. Now, let’s see how to `talk` to it from `within a pod`, where you (usually) don’t have `kubectl`. Therefore, to `talk` to the `API server` from `inside a pod`, you need to `take care` of three things:
+* Find the `location` of `the API server`.
+* Make sure `you’re talking` to the `API server` and not something impersonating it.
+* `Authenticate` with the server; otherwise it won’t let you `see` or `do` `anything`.
+
+### 12. running a pod to try out communication with the api server
+```
+apiVersion: v1
+kind: Pod
+metadata:
+  name: curl
+spec:
+  containers:
+  - name: main
+    image: tutum/curl
+    command: ["sleep", "9999999"] 
+```
+
+Then:
+```
+kubectl exec -it curl bash
+```
+
+Finding API server address ( localhost ):
+```
+kubectl get svc
+```
+
+Finding API server address ( container ):
+```
+env | grep KUBERNETES_SERVICE
+```
+
+Curl:
+```
+curl https://kubernetes
+```
+
+```
+curl: (60) SSL certificate problem: unable to get local issuer certificate
+...
+If you'd like to turn off curl's verification of the certificate, use  the -k (or --insecure) option.
+```
+
+Curl with cacert:
+```
+curl --cacert /var/run/secrets/kubernetes.io/serviceaccount/ca.crt https://kubernetes
+```
+
+Export env:
+```
+export CURL_CA_BUNDLE=/var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+```
+
+```
+curl https://kubernetes
+```
+
+### 13. authenticating with the api server
+Set `env` for `token`:
+```
+TOKEN=$(cat /var/run/secrets/kubernetes.io/serviceaccount/token)
+```
+
+Curl with `cert` and `token`:
+```
+curl -H "Authorization: Bearer $TOKEN" https://kubernetes
+```
+
+### 14. Disabling role-based access control (RBAC)
+```
+kubectl create clusterrolebinding permissive-binding \
+--clusterrole=cluster-admin \
+--group=system:serviceaccounts
+```
+* This gives `all service accounts` (we could also say `all pods`) `cluster-admin privileges`, allowing them to `do whatever they want`. Obviously, doing this is `dangerous` and `should never be done` on `production clusters`. For `test purposes`, `it’s fine`.
+
+### 15. getting the namespace the pod is running in
+Export namespace env:
+```
+NS=$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace)
+```
+
+Curl namespace with cert and token:
+```
+curl -H "Authorization: Bearer $TOKEN" https://kubernetes/api/v1/namespaces/$NS/pods
+```
+
+### 16. recapping how pods talk to kubernetes
+* The app should verify whether the `API server’s certificate` is `signed` by the `certificate authority`, whose certificate is in the `ca.crt` file. 
+* The app should `authenticate itself` by sending the `Authorization header` with the `bearer token` from the `token file`. 
+* The `namespace file` should be used to pass `the namespace` to the `API server` when performing `CRUD operations` on API objects inside the `pod’s namespace`.
+
+### 18. introducing the ambassador container pattern
+```
+apiVersion: v1
+kind: Pod
+metadata:
+  name: curl-with-ambassador
+spec:
+  containers:
+  - name: main
+    image: tutum/curl
+    command: ["sleep", "9999999"]
+  - name: ambassador
+    image: luksa/kubectl-proxy:1.6.2
+```
+
+Exec to `main` container:
+```
+kubectl exec -it curl-with-ambassador -c main bash
+```
+
+Curl inside `main` container:
+```
+curl localhost:8001
+```
+
+### 19. Using client libraries to talk to the API server
+* `Golang` client—https://github.com/kubernetes/client-go
+* `Python` https://github.com/kubernetes-incubator/client-python
+* `Java` client by Fabric8—https://github.com/fabric8io/kubernetes-client
+* `Java` client by Amdatu—https://bitbucket.org/amdatulabs/amdatu-kubernetes
+* `Node.js` client by tenxcloud—https://github.com/tenxcloud/node-kubernetes-client
+* `Node.js` client by GoDaddy—https://github.com/godaddy/kubernetes-client
+* `PHP` https://github.com/devstub/kubernetes-api-php-client
+* `Ruby` https://github.com/Ch00k/kubr
+* `Another` Ruby client—https://github.com/abonas/kubeclient
+* `Clojure` https://github.com/yanatan16/clj-kubernetes-api
+* `Scala` https://github.com/doriordan/skuber
+* `Perl` https://metacpan.org/pod/Net::Kubernetes
 
 ## LABELS, ANNOTATION, TAINT
 ### 1. Label

@@ -105,6 +105,161 @@ The `master node`, which hosts the `Kubernetes Control Plane` that `controls and
 * The `Kubelet`, which `talks to the API server` and `manages containers on its node`
 * The `Kubernetes Service Proxy` (kube-proxy), which `load-balances` network `traffic` between `application` components
 
+### 1. Checking the status of the Control Plane components
+```
+kubectl get componentstatuses
+```
+
+### 2. how these components communicate
+* Kubernetes `system components` `communicate only` with `the API server`. They `don’t talk` to `each other directly`. The `API server` is the `only component` that `communicates with etcd`. `None` of the `other components` communicate with `etcd directly`, but `instead modify` the `cluster state` by `talking to the API server`.
+
+### 3. how components are run
+* The `Control Plane components`, as well as `kube-proxy`, can either be `deployed` on the `system directly` or they `can run as pods`.
+* The `Kubelet` is the `only component` that `always runs` as a `regular system component`, and it’s the `Kubelet` that then `runs all` the `other components as pods`. To run the `Control Plane components` as `pods`, the `Kubelet` is also `deployed` on the `master`. The next listing shows pods in the `kube-system namespace` in a `cluster created with kubeadm`, which is explained in appendix B
+
+```
+kubectl get po -o custom-columns=POD:metadata.name,NODE:spec.nodeName --sort-by spec.nodeName -n kube-system
+```
+
+### 3. How Kubernetes uses etcd
+* `Pods`, `ReplicationControllers`, `Services`, `Secrets`, and so on—need to be stored somewhere in a `persistent` manner so their `manifests survive` API server restarts and failures. For this, Kubernetes uses `etcd`, which is a `fast`, `distributed`, and consistent `key-value store`. Because it’s `distributed`, you can run `more than one` `etcd instance` to provide both `high availability` and `better performance`.
+* The `only component` that `talks to etcd directly` is the `Kubernetes API server`. All other components `read` and `write` data to `etcd indirectly` through `the API server`. This brings a few benefits, among them a more `robust optimistic locking` system as well as `validation`; and, by abstracting away the actual storage mechanism from all the other components, it’s much simpler to replace it in the future. It’s worth emphasizing that `etcd` is the only place Kubernetes stores `cluster state` and `metadata`
+
+### 4. how resources are stored in etcd
+* Kubernetes stores all its data in etcd under `/registry`. The following listing shows a `list of keys` stored under `/registry`.
+```
+etcdctl ls /registry
+```
+
+Pods:
+```
+etcdctl ls /registry/pods
+```
+
+Pods in default namespace:
+```
+etcdctl ls /registry/pods/default
+```
+
+Specific pods in default namespace:
+```
+etcdctl get /registry/pods/default/kubia-xxxx
+```
+### 5. ensuring consistency when etcd is clustered
+* For ensuring `high availability,` you’ll usually run `more than a single` instance of `etcd`. `Multiple etcd` instances will need to `remain consistent`. Such a `distributed system` needs to reach a consensus on what the actual state is. `etcd` uses the `RAFT consensus algorithm` to achieve this, which ensures that at any given moment, each node’s state is either what the majority of the `nodes` agrees is the `current state` or is one of the previously agreed upon states. 
+
+### 6. What the API server does
+* The `Kubernetes API server` is the central component used by all other components and by clients, such as `kubectl`. It provides a `CRUD` (`Create`, `Read`, `Update`, `Delete`) interface for `querying` and `modifying` the `cluster state` over a `RESTful API`. It stores that `state` in `etcd`.
+
+#### 1. authenticating the client with authentication plugins
+* First, the API server needs to `authenticate` the `client` sending the request. This is `performed by one` or more `authentication plugins` configured in `the API server`. The API server calls these plugins in turn, until one of them `determines who` is `sending the request`. It does this by inspecting the HTTP request. 
+
+#### 2. authorizing the client with authorization plugins
+* Besides `authentication plugins`, `the API server` is also configured to use one or `more authorization plugins`. Their job is to determine whether the authenticated user can perform the requested action on the requested resource. For example, `when creating pods`, `the API server` consults `all authorization` plugins in turn, to determine whether the user can create pods in the `requested namespace`. As soon as a plugin says the user can perform the action, the API server progresses to the next stage.
+
+#### 3. validating and/or modifying the resource in the request with admission control plugins
+* If the request is trying to `create`, `modify`, or `delete` a `resource`, the request is sent through `Admission Control.` Again, the server is configured with `multiple Admission Control plugins`. These plugins `can modify` the resource for `different reasons`. They may `initialize fields missing` from the `resource specification` to the `configured default values` or even `override them`. They may even `modify` other related resources, which aren’t in the request, and can also `reject a request` for whatever reason. The resource passes through all `Admission Control` plugins.
+* `NOTE`: When the request is `only` trying to `read data`, the request `doesn’t go` through the `Admission Control`.
+* Examples of Admission Control plugins include:
+  * `AlwaysPullImages` Overrides the `pod’s imagePullPolicy` to `Always`, forcing the image to be pulled `every time` the pod is deployed.
+  * `ServiceAccount` Applies the `default service account` to pods that `don’t specify` it `explicitly`.
+  * `NamespaceLifecycle` Prevents `creation of pods` in `namespaces` that are in the `process of being deleted`, as well as in `non-existing` namespaces.
+  * `ResourceQuota` Ensures pods in a `certain namespace` only use as `much CPU and memory` as has been allotted to the namespace.
+
+#### 4. validating the resource and storing it persistently
+* After letting the `request pass` through all the `Admission Control` plugins, the API server then `validates the object`, stores it in `etcd`, and returns a `response` to the client.
+
+### 7. How API Server notifies clients of resource change
+* 1. GET /.../pods?watch=true [ `Client` ->> `API Server` ]
+* 2. POST /.../pods/pod-xyz [ `kubectl` ->> `API Server` ]
+* Update object in etcd [ `API Server` ->> `ETCD` ]
+* Modification notification [ `ETCD` ->> `API Server` ]
+* Send updated object to all watchers [ `API Server` ->> `Clients` ]
+
+### 8. Understanding the Scheduler
+#### 1. understanding the default scheduling algorithm
+The selection of a node can be broken down into two parts:
+* Filtering the `list of all nodes` to `obtain` a `list` of `acceptable nodes` the `pod can be scheduled` to.
+* `Prioritizing` the `acceptable nodes` and `choosing the best one`. If `multiple nodes` have the `highest score`, `round-robin` is used to ensure pods are `deployed across all` of them evenly.
+
+#### 2. finding acceptable nodes
+To `determine which nodes` are `acceptable` for the `pod`, the Scheduler passes each node through a `list of configured` predicate functions. These check various things such as:
+* Can the `node fulfill` the `pod’s requests` for `hardware resources`?
+* Is the node `running out of resources` (is it reporting a memory or a disk pressure condition)? 
+* If the `pod requests` to be `scheduled to a specific node` (by name), is this the node?  Does the node have a `label` that `matches` the `node selector` in the `pod specification` (if one is defined)?
+* If the `pod requests` to be bound to a `specific host port`, is that port `already taken` on this node `or not`? 
+* If the `pod requests` a `certain type of volume`, can `this volume` be `mounted` for this pod `on this node`, or is `another pod` on the node `already` using the `same volume`?
+* Does the `pod tolerate` the `taints of the node`?
+* Does the pod `specify node` and/or `pod affinity` or `anti-affinity` rules? If yes, would scheduling the pod to this node break those rules?
+
+### 9. advanced scheduling of pods
+### 10. using multiple schedulers
+* Instead of running a `single Scheduler` in `the cluster`, you can run `multiple Schedulers`. Then, `for each pod`, you `specify` the Scheduler that should schedule this particular pod by setting the `schedulerName` `property` in the `pod spec`.
+* Pods `without` this `property` set are scheduled using the `default Scheduler`, and so are pods with `schedulerName` set to `default-scheduler`. All other pods are ignored by the default Scheduler, so they need to be scheduled either manually or by `another Scheduler` watching for such pods. 
+
+### 11. Introducing the controllers running in the Controller Manager
+As previously mentioned, the API server `doesn’t do anything` except store resources in etcd and `notify clients` about the change. The `Scheduler` only `assigns a node` to the pod, so you need `other active components` to make sure the `actual state` of the `system converges` toward the desired state, as specified in the resources deployed through the API server. This work is done by `controllers` running inside the `Controller Manager`. 
+* Replication Manager (a controller for ReplicationController resources)
+* ReplicaSet, DaemonSet, and Job controllers
+* Deployment controllers
+* Stateful controllers
+* Node controllers
+* Service controllers
+* Endpoint controllers
+* Namespace controllers
+* Persistent controllers
+* Other controllers
+
+### 12. understanding what controllers do and how they do it
+All these `controllers` operate on the `API objects` through the API server. They `don’t communicate` with the `Kubelets directly` or issue any kind of `instructions` to them. In fact, they don’t even know Kubelets exist. After a controller `updates a resource` in `the API server`, the `Kubelets` and `Kubernetes Service Proxies`, also oblivious of the controllers’ existence, `perform their work`, such as `spinning up` a pod’s containers and `attaching network storage` to them, or in the case of services, setting up the `actual load balancing` across pods. 
+
+### 13. What the Kubelet does
+* In a nutshell, the Kubelet is the component `responsible` for `everything running` on a `worker node`. `Its initial job` is to `register the node` it’s running on by creating a `Node resource` in `the API server`. Then it needs to `continuously monitor` `the API server` for Pods that have been `scheduled to the node`, and `start` the `pod’s containers`. It does this by telling the `configured container runtime` (which is `Docker`, `CoreOS`’ `rkt`, or something else) to `run a container` from a `specific container image`. The Kubelet then `constantly monitors` running containers and reports their `status`, `events`, and `resource consumption` to the API server. 
+* The Kubelet is also the component that runs the container `liveness probes`, `restarting` containers when the `probes fail`. Lastly, it `terminates` containers when their Pod is `deleted` `from the API server` and `notifies` the `server` that the `pod has terminated`.
+
+### 14. The role of the Kubernetes Service Proxy
+* Beside the `Kubelet`, `every worker node` also runs the `kube-proxy`, whose purpose is to make sure `clients can connect` to the `services` you define through the `Kubernetes API`. The `kube-proxy` makes sure `connections` to the `service IP` and `port` end up at one of the `pods backing that service` (or other, non-pod service endpoints). When a service is backed by more than one pod, the `proxy performs load balancing` across those pods. 
+* The `initial implementation of` the `kube-proxy` was the `userspace` proxy. It used an `actual server` process to `accept connections` and proxy them to the pods. To intercept connections destined to the `service IPs`, the proxy configured `iptables rules` (`iptables` is the tool for managing the `Linux kernel’s packet filtering` features) to `redirect` the `connections` to the `proxy server`.
+* The `kube-proxy` `got its name` because it was an `actual proxy`, but the current, much better performing implementation only uses `iptables rules` to redirect packets to a randomly selected backend pod without passing them through an `actual proxy server`. This mode is called the iptables proxy mode
+
+### 14. Chain of events
+  Imagine you prepared the `YAML file` containing the `Deployment manifest` and you’re about to submit it to Kubernetes through `kubectl`. `kubectl` sends the `manifest` to the `Kubernetes API server` in an `HTTP POST` request. `The API server` validates the `Deployment specification`, stores it in `etcd`, and returns a response to `kubectl`. Now a chain of events starts to unfold.
+* Creates Deployment resource
+* Notification through watch
+* Creates ReplicaSet
+* Notification
+* Creates pod
+* Notification through watch
+* Assigns pod to node
+* Notification through watch
+* Tells Docker to run containers
+* Runs containers
+
+get real events:
+```
+kubectl get events --watch
+```
+
+### 14. Inter-pod networking
+By now, you know that each pod gets its own `unique IP address` and can communicate `with all other pods` through a `flat`, `NAT-less network`. How exactly does Kubernetes achieve this? In short, it doesn’t. The network is set up by the `system administrator` or by a `Container Network Interface` (CNI) plugin, not by Kubernetes itself. 
+
+### 15. What the network must be like
+* Kubernetes doesn’t require you to use a `specific networking technology`, but it does mandate that the pods (or to be more precise, their containers) `can communicate` with `each other`, regardless if they’re running on the `same worker node` `or not`. The network the pods use to communicate must be such that the `IP address` a pod sees as its own is the exact same address that all other pods see as the `IP address` of the pod in question. 
+* When `pod A` connects to (sends a `network packet` to) `pod B`, the `source IP` `pod B` sees must be the `same IP` that `pod A` sees as its own. There should be no `network address translation` (NAT) performed in between—the packet sent by `pod A` must reach `pod B` with both the source and destination address unchanged.
+
+### 1. enabling communication between pods on the same node
+* Before the infrastructure container is `started`, a `virtual Ethernet interface pair` (a `veth pair`) is created for the `container`. `One interface` of the `pair` remains in the `host’s namespace` (you’ll see it listed as `vethXXX` when you run `ifconfig` on the `node`), whereas the other is moved into the `container’s network namespace` and renamed `eth0`. The `two virtual interfaces` are like `two ends` of `a pipe` (or like `two network devices` connected by `an Ethernet cable`)—what goes in on one side comes out on the other, and vice-versa. 
+* The interface in the `host’s network` namespace is attached to a `network bridge` that the container runtime is configured to use. The `eth0` interface in the container is `assigned an IP address` from the bridge’s address range. Anything that an application running inside the container sends to the eth0 network interface (the one in the container’s namespace), comes out at the other veth interface in the host’s namespace and is sent to the bridge. This means it can be received by any network interface that’s connected to the bridge. 
+
+### 2. enabling communication between pods on the different node
+* For pods on different nodes to `communicate`, the `bridges` need to be `connected somehow`.
+* You have `many ways` to `connect bridges` on `different nodes`. This can be done with `overlay` or `underlay` networks or by `regular layer 3` routing, which we’ll look at next.
+* You know `pod IP addresses` must be `unique` across the `whole cluster`, so the `bridges across` the nodes must use `non-overlapping` address ranges to prevent pods on `different nodes` from getting the `same IP`. In the example shown in figure 11.16, the bridge on `node A` is using the `10.1.1.0/24 IP range` and the bridge on `node B` is using `10.1.2.0/24`, which ensures no IP address `conflicts` exist.
+
+### 15. How kube-proxy uses iptables
+* When a service is created in the `API server`, the `virtual IP address` is `assigned` to it `immediately`. Soon afterward, `the API server` notifies all `kube-proxy` agents running on the `worker nodes` that a new Service has been created. Then, each `kube-proxy` makes that service `addressable on the node` it’s running on. It does this by `setting up` a `few iptables rules`, which make sure `each packet destined` for the `service IP/port` pair is `intercepted` and its `destination address modified`, so the packet is redirected to one of the pods backing the service. 
+* Besides `watching` the `API server` for `changes` to Services, `kube-proxy` also `watches` for `changes` to `Endpoints` objects. Let me refresh your memory, as it’s easy to forget they even exist, because you `rarely` create them `manually`. An Endpoints object holds the `IP/port` pairs of all the `pods` that `back` the `service` (an `IP/port` pair can also point to something other than a pod). That’s why the `kube-proxy` must also watch all Endpoints objects. After all, an Endpoints object `changes every time` a new backing pod is `created` or `deleted`, and when the `pod’s readiness` status changes or the `pod’s labels change` and it falls in or out of scope of the service. 
+
 ## BEHIND THE SCENE
 #### 1. Docker build
 #### 2. Docker push

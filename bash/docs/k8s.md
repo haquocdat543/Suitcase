@@ -1057,6 +1057,65 @@ spec:
       port: 5978
 ```
 ## 9. Service Account
+* Each pod is `associated` with a `single ServiceAccount` in the `pod’s namespace` [ you cannot bind a pod with other namespace's serviceaacount ]
+
+### 1. creating a serviceaccount
+Command line:
+```
+kubectl create serviceaccount foo
+```
+
+Describe sa:
+```
+kubectl describe sa foo
+```
+* You can see that a `custom token Secret` has been created and associated with the `ServiceAccount`. If you look at the `Secret’s data` with `kubectl` describe secret `foo-token-xxxxx`, you’ll see it contains the same items (the `CA certificate`, `namespace`, and `token`) as the `default ServiceAccount’s does` (the token itself will obviously be different), as shown in the following listing.
+
+Inspect custom service account secret:
+```
+kubectl describe secret foo-token-xxxxx
+```
+
+### 2. understanding a serviceaccount’s mountable secrets
+* By `default`, a pod can `mount any Secret` it wants. But the `pod’s ServiceAccount` can be configured to `only allow` the pod to `mount Secrets` that are `listed` as `mountable Secrets` on the `ServiceAccount`. To `enable` this feature, the ServiceAccount `must contain` the following `annotation`: `kubernetes.io/enforce-mountable-secrets="true". `
+* If the ServiceAccount is `annotated` with `this annotation`, any pods using it `can mount only` the `ServiceAccount’s mountable` Secrets they can’t use any other Secret.
+
+### 3. understanding a serviceaccount’s image pull secrets
+```
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: my-service-account
+imagePullSecrets:
+- name: my-dockerhub-secret
+```
+
+### 4. Assigning a ServiceAccount to a pod
+```
+apiVersion: v1
+kind: Pod
+metadata:
+  name: curl-custom-sa
+spec:
+  serviceAccountName: foo
+  containers:
+  - name: main
+    image: tutum/curl
+    command: ["sleep", "9999999"]
+  - name: ambassador
+    image: luksa/kubectl-proxy:1.6.2
+```
+
+Test:
+```
+kubectl exec -it curl-custom-sa -c main 
+cat /var/run/secrets/kubernetes.io/serviceaccount/token
+```
+
+```
+kubectl exec -it curl-custom-sa -c main curl localhost:8001/api/v1/pods
+```
+
 yaml:
 ```
 piVersion: v1

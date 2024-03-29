@@ -825,6 +825,259 @@ roleRef:
   apiGroup: rbac.authorization.k8s.io
 ```
 ## 14. Config
+Regardless if you’re using a `ConfigMap` to store `configuration data` or not, you can configure your apps by
+* Passing `command-line arguments` to containers
+* Setting `custom environment variables` for each container
+* Mounting `configuration files` into containers through a `special type of volume`
+
+### 1. Passing command-line arguments to containers
+* In all the `examples so far`, you’ve created containers that ran the `default command` defined in the `container image`, but Kubernetes allows `overriding the command` as part of the `pod’s container` definition when you want to run a `different executable` instead of the `one specified in the image`, or want to run it with a `different set` of `command-line arguments`.
+Example bash:
+```
+#!/bin/bash
+trap "exit" SIGINT
+INTERVAL=$1
+echo Configured to generate new fortune every $INTERVAL seconds
+mkdir -p /var/htdocs
+while :
+do
+ echo $(date) Writing fortune to /var/htdocs/index.html
+ /usr/games/fortune > /var/htdocs/index.html
+sleep $INTERVAL
+done
+```
+
+Example dockerfile:
+```
+FROM ubuntu:latest
+RUN apt-get update ; apt-get -y install fortune
+ADD fortuneloop.sh /bin/fortuneloop.sh
+ENTRYPOINT ["/bin/fortuneloop.sh"]
+CMD ["10"]  
+```
+
+Build:
+```
+docker build -t docker.io/luksa/fortune:args .
+docker push docker.io/luksa/fortune:args
+```
+
+Run:
+```
+docker run -it docker.io/luksa/fortune:args
+```
+```
+Configured to generate new fortune every 15 secon
+```
+
+### 2. Overriding the command and arguments in Kubernetes
+```
+kind: Pod
+spec:
+  containers:
+  - image: some/image
+    command: ["/bin/command"]
+    args: ["arg1", "arg2", "arg3"]
+```
+* In `most cases`, you’ll only `set custom arguments` and `rarely override` the command (except in `general-purpose` images such as `busybox`, which `doesn’t define` an `ENTRYPOINT` at all). 
+
+### 3. running the fortune pod with a custom interval
+```
+apiVersion: v1
+kind: Pod
+metadata:
+  name: fortune2s 
+spec:
+  containers:
+  - image: luksa/fortune:args
+    args: ["2"]
+    name: html-generator
+    volumeMounts:
+    - name: html
+      mountPath: /var/htdo
+```
+
+### 4. Setting environment variables for a container
+```
+kind: Pod
+spec:
+  containers:
+  - image: luksa/fortune:env
+    env:
+    - name: INTERVAL
+      value: "30"
+    name: html-generator
+```
+
+### 5. Referring to other environment variables in a variable’s value
+```
+env:
+- name: FIRST_VAR
+  value: "foo"
+- name: SECOND_VAR
+  value: "$(FIRST_VAR)bar"
+```
+
+### 6. Creating a ConfigMap
+### 1. From literal
+* `ConfigMap keys` must be a `valid DNS subdomain` (they may only contain `alphanumeric characters`, `dashes`, `underscores`, and `dots`). They may optionally `include a leading dot`.
+```
+kubectl create configmap fortune-config --from-literal=sleep-interval=25
+```
+```
+kubectl create configmap myconfigmap --from-literal=foo=bar --from-literal=bar=baz --from-literal=one=two
+```
+
+### 2. creating a configmap entry from the contents of a file
+```
+kubectl create configmap my-config --from-file=config-file.conf
+```
+
+### 3. creating a configmap from files in a directory
+```
+kubectl create configmap my-config --from-file=/path/to/dir
+```
+
+### 4. combining different options
+```
+kubectl create configmap my-config  --from-file=foo.json --from-file=bar=foobar.conf --from-file=config-opts/ --from-literal=some=thing
+```
+
+### 5. Passing a ConfigMap entry to a container as an environment variable
+```
+apiVersion: v1
+kind: Pod
+metadata:
+  name: fortune-env-from-configmap
+spec:
+  containers:
+  - image: luksa/fortune:env
+    env:
+    - name: INTERVAL
+      valueFrom:
+        configMapKeyRef:
+          name: fortune-config
+          key: sleep-interval
+```
+#### 1. referencing non-existing configmaps in a pod
+* You might wonder what happens if the referenced ConfigMap doesn’t exist when you create the pod. Kubernetes schedules the pod normally and tries to run its containers. The container referencing the non-existing ConfigMap will fail to start, but the other container will start normally. If you then create the missing ConfigMap, the failed container is started without requiring you to recreate the pod.
+
+### 6. Passing all entries of a ConfigMap as environment variables at once
+* When your ConfigMap contains `more than` just a `few entries`, it becomes `tedious` and `error-prone` to create `environment variables` from each entry `individually`. Luckily, Kubernetes version 1.6 provides a way to expose `all entries` of a ConfigMap as `environment variables`
+```
+spec:
+  containers:
+  - image: some-image
+    envFrom:
+    - prefix: CONFIG_
+      configMapRef:
+        name: my-config-map
+```
+
+* NOTE: The prefix is optional, so if you omit it the environment variables will have the same name as the keys. 
+
+### 7. Passing a ConfigMap entry as a command-line argument
+```
+apiVersion: v1
+kind: Pod
+metadata:
+  name: fortune-args-from-configmap
+spec:
+  containers:
+  - image: luksa/fortune:args
+    env:
+    - name: INTERVAL
+      valueFrom:
+        configMapKeyRef:
+          name: fortune-config
+          key: sleep-interval
+    args: ["$(INTERVAL)"] 
+
+```
+* You defined the `environment variable` `exactly` as you did before, but then you used the `$(ENV_VARIABLE_NAME)` syntax to have Kubernetes `inject` the `value` of the `variable` into the `argument`. 
+
+### 8. Using a configMap volume to expose ConfigMap entries as files
+* Passing configuration options as `environment variables` or `command-line arguments` is usually used for `short variable values`. A ConfigMap, as you’ve seen, can also contain `whole config files`. When you want to expose those to the container, you can use one of the `special volume types`
+Nginx config file:
+```
+server {
+ listen              80;
+ server_name         www.kubia-example.com;
+
+ gzip on;
+ gzip_types text/plain application/xml;
+
+ location / {
+   root   /usr/share/nginx/html;
+   index  index.html index.htm;
+  }
+}
+```
+
+Create configmap:
+```
+kubectl create configmap nginx-config --from-file=configmap-files
+```
+
+### 9. using the configmap's entries in a volume 
+
+Map as volume:
+```
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx
+spec:
+  containers:
+    - image: nginx:alpine
+      name: web-server
+      volumeMounts:
+        - mountPath: /etc/nginx/conf.d 
+          name: config
+          readOnly: true
+  volumes:
+    - name: config 
+      configMap:
+        name: nginx-config
+```
+
+### 10. setting the file permissions for files in a configmap volume
+```
+volumes:
+  - name: config
+    configMap:
+      name: fortune-config
+      defaultMode: "6600"   
+```
+
+### 11. Updating an app’s config without having to restart the app
+* Be aware that as I’m writing this, it takes a `surprisingly long time` for the files to be `updated after` you update the ConfigMap (it can take up to `one whole minute`).
+```
+kubectl edit configmap fortune-config
+```
+```
+kubectl exec fortune-configmap-volume -c web-server
+cat /etc/nginx/conf.d/my-nginx-config.conf
+```
+
+Restart nginx:
+```
+kubectl exec fortune-configmap-volume -c web-server -- nginx -s reload
+```
+
+### 12. understanding how the files are updated atomically
+* You may wonder what happens if an app can `detect config file changes` on its own and reloads them before Kubernetes has finished `updating all` the `files` in the `configMap volume`. Luckily, this can’t happen, because all the files are `updated atomically`, which means all updates occur at once
+```
+kubectl exec -it fortune-configmap-volume -c web-server -- ls -lA /etc/nginx/conf.d
+```
+* As you can see, the files in the `mounted configMap volume` are `symbolic links` pointing to `files` in the `..data` dir. The `..data` dir is also a `symbolic link` pointing to a directory called `..4984_09_04_something`. `When` the ConfigMap is `updated,` Kubernetes creates a `new directory like this`, writes all the files to it, and then `re-links` the `..data symbolic link` to the `new directory`, effectively `changing all files` `at once`
+
+### 13. understanding that files mounted into existing directories don’t get updated
+* For now, if you need to `add an individual file` and have it `updated` when you `update` its `source ConfigMap`, one workaround is to mount the `whole volume` into a `different directory` and then create a `symbolic link` pointing to the `file` in question. The `symlink` can either be created in the `container image itself`, or you `could` create the `symlink` when the container starts.
+
+### 14. understanding the consequences of updating a configmap
+ * If the app does support `reloading`, `modifying` the ConfigMap usually isn’t such a big deal, but you do need to be `aware` that because files in the ConfigMap volumes `aren’t updated synchronously` across `all running instances`, the files in `individual pods` may be `out of sync` for up to a `whole minute`.
+
 yaml:
 ```
 apiVersion: v1
@@ -901,6 +1154,7 @@ Other way to map as volume:
           readOnly: true
 ...
 ```
+
 ```
 ...
   containers:
@@ -923,6 +1177,153 @@ Other way to map as volume:
 ```
 
 ## 15. Secret
+### 1. Introduction 
+* To `store and distribute` such `information`, Kubernetes provides a `separate object` called a `Secret`. `Secrets` are much `like ConfigMaps` they’re also maps that hold `key-value pairs`. They can be used the same way as a `ConfigMap`. You can
+* Pass `Secret entries` to the container as `environment variables`
+* Expose Secret entries as `files in a volume`
+
+Kubernetes helps `keep` your Secrets `safe` by making sure each Secret is only `distributed` to the `nodes` that run the `pods` that `need access` to the `Secret`. Also, on the `nodes themselves`, Secrets are `always stored in memory` and `never written` to `physical storage`, which would require `wiping the disks` after `deleting` the Secrets from them. 
+
+On the master `node itself` (more specifically in `etcd`), Secrets used to be stored in `unencrypted form`, which meant the `master node` needs to be `secured` to keep the `sensitive data` stored in `Secrets secure`. This didn’t only include keeping the `etcd storage secure`, but also `preventing unauthorized users` from using the API server, because anyone who can create `pods can mount` the Secret into the pod and `gain access` to the `sensitive data` through it. From Kubernetes version `1.7`, etcd stores Secrets in `encrypted form`, making the system much more secure.
+
+it’s imperative you properly choose when to use a Secret or a ConfigMap. Choosing between them is simple:
+* Use a ConfigMap to store `non-sensitive`, `plain configuration data`.
+* Use a Secret to store any data that is `sensitive` in nature and needs to be kept under key. If a config file includes both `sensitive` and `not-sensitive` data, you should store the file in a Secret.
+
+### 2. Introducing the default token Secret
+You’ll start learning about Secrets by examining a Secret `that’s mounted into every container you run`. You may have noticed it when using kubectl describe on a pod. The `command’s output` has always contained something like this:
+```
+kubectl get secrets
+```
+ 
+You can also use `kubectl describe` to learn a bit more about it
+
+* You can see that the Secret contains three entries `ca.crt`, `namespace`, and `token` which represent everything you need to securely talk to the Kubernetes API server from within your pods, should you need to do that. Although ideally you want your application to be completely Kubernetes-agnostic, when there’s no alternative other than to talk to Kubernetes directly, you’ll use the `files` provided through `this secret volume`. 
+
+The kubectl describe pod command shows where the secret volume is mounted
+```
+Mounts:
+  /var/run/secrets/kubernetes.io/serviceaccount from default-token-xxxxx
+```
+* By `default`, the `default-token` Secret is `mounted` into `every container`, but you can `disable` that in each pod by `setting` the `automountServiceAccountToken field` in the `pod spec` to `false` or by setting it to `false` on the `service account` the pod is using.
+```
+kubectl exec mypod ls /var/run/secrets/kubernetes.io/serviceaccount/
+```
+```
+ca.crt
+namespace
+token
+```
+
+### 3. Create secret
+* First, generate the certificate and private key files:
+```
+openssl genrsa -out https.key 2048
+openssl req -new -x509 -key https.key -out https.cert -days 3650 -subj /CN=www.kubia-example.com
+```
+
+Now you can use kubectl create secret to create a Secret from the three files
+```
+kubectl create secret generic fortune-https --from-file=https.key --from-file=https.cert --from-file=foo
+```
+
+### 4. Comparing ConfigMaps and Secrets
+* The contents of a Secret’s entries are shown as `Base64-encoded` strings, whereas those of a ConfigMap are shown in `clear text`
+
+### 5. using secrets for binary data
+* The reason for using `Base64 encoding` is simple. A Secret’s entries `can contain binary values`, `not only plain-text`. `Base64 encoding` allows you to include the `binary data` in YAML or JSON, which are both plain-text formats. 
+* You can use Secrets even for `non-sensitive` `binary data`, but be aware that the `maximum size` of a Secret is limited to `1MB`
+
+### 6. introducing the stringdata field
+```
+kind: Secret
+apiVersion: v1
+stringData:
+  foo: plain text
+```
+
+### 7. Using the Secret in a pod
+```
+apiVersion: v1
+kind: Pod
+metadata:
+  name: fortune-https
+spec:
+  containers:
+  - image: luksa/fortune:env
+    name: html-generator
+    env:
+    - name: INTERVAL
+      valueFrom:
+        configMapKeyRef:
+          name: fortune-config
+          key: sleep-interval
+      volumeMounts:
+      - name: html
+        mountPath: /var/htdocs
+    - image: nginx:alpine
+      name: web-server
+      volumeMounts:
+      - name: html
+        mountPath: /usr/share/nginx/html
+        readOnly: true
+      - name: config
+        mountPath: /etc/nginx/conf.d
+        readOnly: true
+      - name: certs
+        mountPath: /etc/nginx/certs/
+        readOnly: true
+      ports:
+      - containerPort: 80
+      - containerPort: 443
+  volumes:
+  - name: html
+    emptyDir: {}
+  - name: config
+    configMap:
+      name: fortune-config
+      items:
+      - key: my-nginx-config.conf
+        path: https.conf
+  - name: certs
+    secret:
+      secretName: fortune-https 
+```
+
+### 8. exposing a secret’s entries through environment variables
+```
+env:
+- name: FOO_SECRET
+  valueFrom:
+    secretKeyRef:
+      name: fortune-https
+      key: foo     
+```
+
+### 9. creating a secret for authenticating with a docker registry
+```
+kubectl create secret docker-registry mydockerhubsecret \
+--docker-username=myusername --docker-password=mypassword \ 
+--docker-email=my.email@provider.com
+```
+
+### 10. creating a secret for authenticating with a docker registry
+```
+apiVersion: v1
+kind: Pod
+metadata:
+  name: private-pod
+spec:
+  imagePullSecrets:
+  - name: mydockerhubsecret
+  containers:
+  - image: username/private:tag
+    name: main
+```
+
+### 11. not having to specify image pull secrets on every pod
+* Image pull Secrets can be added to all your pods `automatically` if you add the `Secrets` to a `ServiceAccount`.
+
 literal:
 ```
 kubectl create secret generic postgres-config --from-literal=DB=postgres --from-literal=USER=postgres --from-literal=PASSWORD=postgres
@@ -1115,6 +1516,109 @@ Note: PersistentVolume resources are `cluster-scoped` and thus cannot be created
 
 ### 6. Using a PersistentVolumeClaim in a pod
 * The `PersistentVolume` is `now yours to use`. Nobody else can claim the same volume `until you release it`. To use it `inside a pod`, you need to reference the `PersistentVolumeClaim` by name inside the `pod’s volume` (yes, the `PersistentVolumeClaim`, not the `PersistentVolume` directly!)
+
+### 6. Recycling PersistentVolumes
+#### 1. eclaiming persistentvolumes manually
+You told Kubernetes you wanted your PersistentVolume to behave like this when you created it—by setting its persistentVolumeReclaimPolicy to Retain.
+
+### 7. Dynamic provisioning of PersistentVolumes
+* You’ve seen how using PersistentVolumes and PersistentVolumeClaims makes it easy to obtain persistent storage without the developer having to deal with the actual storage technology used underneath. But this still requires a cluster administrator to provision the actual storage up front. Luckily, Kubernetes can also perform this job automatically through dynamic provisioning of PersistentVolumes.
+* The cluster admin, instead of creating PersistentVolumes, can deploy a PersistentVolume provisioner and define one or more StorageClass objects to let users choose what type of PersistentVolume they want. The users can refer to the StorageClass in their PersistentVolumeClaims and the provisioner will take that into account when provisioning the persistent storage. 
+```
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: fast
+provisioner: kubernetes.io/gce-pd
+parameters:
+ type: pd-ssd
+ zone: europe-west1-b  
+```
+
+### 8. Requesting the STORAGE CLASS in a PersistentVolumeClaim
+After the StorageClass resource is created, users can refer to the storage class by name in their PersistentVolumeClaims. 
+```
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mongodb-pvc 
+spec:
+  storageClassName: fast
+  resources:
+    requests:
+    storage: 100Mi
+  accessModes:
+    - ReadWriteOnce
+```
+* Apart from specifying the size and access modes, your PersistentVolumeClaim now also specifies the class of storage you want to use. When you create the claim, the PersistentVolume is created by the provisioner referenced in the fast StorageClass resource. The provisioner is used even if an existing manually provisioned PersistentVolume matches the PersistentVolumeClaim.
+```
+kubectl get pvc mongodb-pvc
+```
+The VOLUME column shows the PersistentVolume that’s `bound to this claim` (the actual name is longer than what’s shown above). You can try listing PersistentVolumes now to see that a new PV has indeed been created automatically:
+
+### 9. understanding how to use storage classes
+* The cluster admin can create `multiple storage classes` with `different performance` or `other characteristics`. The developer then `decides which` one is `most appropriate` for `each claim` they create. 
+* The nice thing about `StorageClasses` is the `fact that claims` refer to them by name. The `PVC definitions` are therefore `portable across different` clusters, as long as the `StorageClass` names are the same across all of them.
+
+### 10. Dynamic provisioning without specifying a storage class
+List storage class:
+```
+kubectl get sc
+```
+* Beside the `fast` `storage class`, which you created yourself, a standard storage class exists and is marked as `default`. You’ll learn what that means in a moment.
+
+### 11. examining the default storage class
+```
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  annotations:
+   storageclass.beta.kubernetes.io/is-default-class: "true"
+   creationTimestamp: 2021-07-19T12:24:11Z
+  labels:
+    addonmanager.kubernetes.io/mode: EnsureExists
+    kubernetes.io/cluster-service: "true"
+  name: standard
+  resourceVersion: "180"
+  selfLink: /apis/storage.k8s.io/v1/storageclassesstandard
+  uid: b6498511-3a4b-11e7-ba2c-42010a840014
+parameters:
+  type: pd-standard
+provisioner: kubernetes.io/gce-pd 
+```
+
+### 12. PVC with no storage class defined: mongodb-pvc-dp-nostorageclass.yaml
+```
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mongodb-pvc2
+spec:
+  resources:
+    requests:
+      storage: 100Mi
+  accessModes:
+    - ReadWriteOnce   
+```
+* This `PVC definition` includes only the `storage size request` and the desired access modes, but `no storage class`. When you create the PVC, `whatever storage class` is marked as `default` will be used. You can confirm that’s the case:
+
+### 13. forcing a persistentvolumeclaim to be bound to one of the pre-provisioned persistentvolumes
+```
+kind: PersistentVolumeClaim
+spec:
+  storageClassName: ""      
+```
+* If you `hadn’t set` the `storageClassName attribute` to an `empty string`, the dynamic volume provisioner would have provisioned a new PersistentVolume, `despite` there being an `appropriate pre-provisioned` PersistentVolume.
+* Explicitly set `storageClassName` to `""` if you want the `PVC` to use a `preprovisioned PersistentVolume`.
+
+### 14. understanding the complete picture of dynamic persistentvolume provisioning
+* Cluster admin sets up a PersistentVolume provisioner (if one’s not already deployed)
+* Admin creates one or more StorageClasses and marks one as the default (it may already exist)
+* User creates a PVC referencing one of the StorageClasses (or none to use the default)
+* Kubernetes looks up the StorageClass and the provisioner referenced in it and asks the provisioner to provision a new PV based on the PVC’s requested access mode and storage size and the parameters in the StorageClass
+* Provisioner provisions the actual storage, creates a PersistentVolume, and binds it to the PVC
+* User creates a pod with a volume referencing the PVC by name
+
 ```
 apiVersion: v1
 kind: Pod

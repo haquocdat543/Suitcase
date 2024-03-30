@@ -2076,6 +2076,7 @@ spec:
     path: /tmp
     server: 172.17.0.2
 ```
+
 ## 18. Persistence Volume Claim
 yaml:
 ```
@@ -2177,7 +2178,7 @@ spec:
  startingDeadlineSeconds: 15  
 ```
 
-## 20. Namespace
+## 21. Namespace
 * Kubernetes namespaces provide a `scope for objects names`. Instead of having `all your resources in one single namespace`, you can split them into `multiple namespaces`, which also allows you to use the `same resource names multiple times` (across different namespaces).
 * Resource names only need to be `unique within a namespace`. Two `different namespaces` can contain `resources of the same name`. But, while `most types of resources are namespaced`, a `few aren’t`. One of them is the `Node resource`, which is `global` and not tied to a `single namespace`
 
@@ -2189,6 +2190,66 @@ metadata:
 ```
 * Namespaces allow you to `isolate objects` into `distinct groups`, which allows you to `operate only` on those `belonging to the specified namespace`, they `don’t provide` any kind of `isolation of running objects`. 
 * For example, you may think that when `different users` deploy `pods across different namespaces`, those pods are `isolated from each other and can’t communicate`, but that’s not necessarily the case. Whether namespaces provide `network isolation` depends on which networking solution is deployed with Kubernetes. When the solution `doesn’t provide inter-namespace network isolation`, if a pod in namespace foo knows `the IP address of a pod in namespace bar`, there is `nothing preventing` it from sending traffic, such as HTTP requests, to the other pod.
+
+## 22. Network Policy
+### 1. Overview
+```
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: postgres-netpolicy
+spec:
+  podSelector:
+    matchLabels:
+      app: database
+  ingress:
+  - from:
+    - podSelector:
+        matchLabels:
+          app: webserver
+    ports:
+    - port: 5432    
+```
+
+### 2. Isolating the network between Kubernetes namespaces
+```
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: shoppingcart-netpolicy
+spec:
+  podSelector:
+    matchLabels:
+      app: shopping-cart
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          tenant: manning
+    ports:
+    - port: 80
+```
+
+### 3. Isolating using CIDR notation
+```
+ingress:
+- from:
+  - ipBlock:
+    cidr: 192.168.1.0/24  
+```
+
+### 4. Limiting the outbound traffic of a set of pods
+```
+pec:
+  podSelector:
+    matchLabels:
+      app: webserver
+  egress:
+  - to:
+    - podSelector:
+        matchLabels:
+          app: database
+```
 
 ## DOWNWARD API
 * What about data that isn’t known up until that point—such as the `pod’s IP`, the `host node’s name`, or even the `pod’s own name` (when the name is generated; for example, when the pod is created by a ReplicaSet or similar controller)? And what about data that’s already specified elsewhere, such as a `pod’s labels` and `annotations`? You don’t want to repeat the same information in multiple places.
@@ -2367,6 +2428,7 @@ curl https://IP:8443 -k
 
 ### 7. accessing the api server through kubectl proxy 
 * The `kubectl proxy` command runs a `proxy server` that `accepts HTTP connections` on your `local machine` and `proxies` them to the API server while `taking care of authentication`, so you `don’t need to pass` the `authentication token` in `every request`. It also makes sure you’re talking to the `actual API server` and not a man in the middle (by verifying the server’s certificate on each request).
+
 ```
 kubectl proxy
 ```
@@ -2470,6 +2532,7 @@ kubectl create clusterrolebinding permissive-binding \
 --clusterrole=cluster-admin \
 --group=system:serviceaccounts
 ```
+
 * This gives `all service accounts` (we could also say `all pods`) `cluster-admin privileges`, allowing them to `do whatever they want`. Obviously, doing this is `dangerous` and `should never be done` on `production clusters`. For `test purposes`, `it’s fine`.
 
 ### 15. getting the namespace the pod is running in
@@ -2555,10 +2618,12 @@ label a node:
 ```
 kubectl label pod <node-name> <key>=<value>
 ```
+
 Example:
 ```
 kubectl label pod firstpod admin=true
 ```
+
 ```
 kubectl get pod -l app=pc,rel=beta
 ```
@@ -2612,6 +2677,449 @@ creationTimestamp: 2023-03-18T12:37:50Z
 ### 2. Generate name
 ```
 generateName: kubia-
+```
+
+## SECURITY
+### 1. hostNetwork: true  
+```
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-with-host-network
+spec:
+  hostNetwork: true
+  containers:
+  - name: main
+    image: alpine
+    command: ["/bin/sleep", "999999"]
+```
+* After you run the pod, you can use the following command to see that it’s indeed using the host’s network namespace (it sees all the host’s network adapters, for example).
+```
+kubectl exec pod-with-host-network ifconfig
+```
+
+### 2. Binding to a host port without using the host’s network namespace
+```
+apiVersion: v1
+kind: Pod
+metadata:
+  name: kubia-hostport
+spec:
+  containers:
+  - image: luksa/kubia
+    name: kubia
+    ports:
+    - containerPort: 8080
+      hostPort: 9000
+      protocol: TCP
+```
+* It’s important to understand that if a pod is using a specific host port, only one instance of the pod can be scheduled to each node, because two processes can’t bind to the same host port.
+
+### 3. Using the node’s PID and IPC namespaces
+* Similar to the hostNetwork option are the hostPID and hostIPC pod spec properties. When you set them to true, the pod’s containers will use the node’s PID and IPC namespaces, allowing processes running in the containers to see all the other processes on the node or communicate with them through IPC, respectively. See the following listing for an example.
+```
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-with-host-pid-and-ipc
+spec:
+  hostPID: true
+  hostIPC: true
+  containers:
+  - name: main
+    image: alpine
+    command: ["/bin/sleep", "999999"]
+```
+* You’ll remember that pods usually see only their own processes, but if you run this pod and then list the processes from within its container, you’ll see all the processes running on the host node, not only the ones running in the container, as shown in the following listing.
+```
+kubectl exec pod-with-host-pid-and-ipc ps aux
+```
+
+### 4. Configuring the container’s security context
+Configuring the security context allows you to do various things:
+* Specify the `user` (the `user’s ID`) under `which` the `process` in the container `will run`.
+* Prevent the container from `running as root` (the `default user` a container runs as is usually defined in the `container image` itself, so you may want to prevent containers from `running as root`).
+* Run the container in `privileged mode`, giving it `full access` to the `node’s kernel`.
+* Configure `fine-grained privileges`, by `adding` or `dropping` `capabilities—in` contrast to giving the container all `possible permissions` by running it in `privileged mode`.
+* Set `SELinux` (Security Enhanced Linux) options to strongly lock down a container.
+* Prevent the process from writing to the `container’s filesystem`.
+
+### 5. Running a container as a specific user
+```
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-as-user-guest
+spec:
+  containers:
+  - name: main
+    image: alpine
+    command: ["/bin/sleep", "999999"]
+    securityContext:
+      runAsUser: 405     
+```
+
+```
+kubectl exec pod-as-user-guest id
+```
+
+### 6. Preventing a container from running as root
+```
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-run-as-non-root
+spec:
+  containers:
+  - name: main
+    image: alpine
+    command: ["/bin/sleep", "999999"]
+    securityContext:
+      runAsNonRoot: true     
+```
+
+If you deploy this pod, it gets scheduled, but is not allowed to run:
+```
+kubectl get po pod-run-as-non-root
+```
+
+### 7. Running pods in privileged mode
+* Sometimes pods need to do `everything` that the `node they’re running on can do`, such as use `protected system devices` or other `kernel features`, which `aren’t accessible` to regular containers. 
+* An example of such a pod is the `kube-proxy` pod, which needs to modify the `node’s iptables` rules to make `services work`,
+```
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-privileged
+spec:
+  containers:
+  - name: main
+    image: alpine
+    command: ["/bin/sleep", "999999"]
+    securityContext:
+      privileged: true     
+```
+
+Non previliged mode:
+```
+kubectl exec -it pod-with-defaults ls /dev
+```
+
+Previliged mode:
+```
+kubectl exec -it pod-privileged ls /dev
+```
+
+### 8. Adding individual kernel capabilities to a container
+* In the previous section, you saw one way of `giving` a container `unlimited power`. In the `old days`, traditional UNIX implementations only `distinguished` between `privileged` and `unprivileged processes`, but for many years, Linux has `supported` a much more `fine-grained` `permission system` through `kernel capabilities`.
+* Instead of making a container `privileged` and giving it `unlimited permissions`, a much `safer method` (from a `security perspective`) is to give it access `only` to the `kernel features` it `really requires`. Kubernetes allows you to `add capabilities` to each container or `drop part` of them, which allows you to `fine-tune` the `container’s permissions` and `limit` the `impact` of a potential intrusion by an attacker.
+
+Modify date format without capabilities:
+```
+kubectl exec -it pod-with-defaults -- date +%T -s "12:00:00"
+```
+
+```
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-add-settime-capability
+spec:
+  containers:
+  - name: main
+    image: alpine
+    command: ["/bin/sleep", "999999"]
+    securityContext:
+      capabilities:
+        add:
+        - SYS_TIME  
+```
+
+Modify date format with capabilities:
+```
+kubectl exec -it pod-add-settime-capability -- date +%T -s "12:00:00"
+```
+
+date:
+```
+kubectl exec -it pod-add-settime-capability -- date
+```
+
+check node's date format as well:
+```
+date
+```
+
+### 9. Dropping capabilities from a container
+* You’ve seen how to add capabilities, but you can also `drop capabilities` that may otherwise be `available` to the container. For example, the `default capabilities` given to a container include the `CAP_CHOWN` capability, which allows `processes` to change the `ownership of files` in `the filesystem`. 
+
+Change owner with default capabilities:
+```
+kubectl exec pod-with-defaults chown guest /tmp
+kubectl exec pod-with-defaults -- ls -la / | grep tmp
+```
+
+```
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-drop-chown-capability
+spec:
+  containers:
+  - name: main
+    image: alpine
+    command: ["/bin/sleep", "999999"]
+    securityContext:
+      capabilities:
+        drop:
+        - CHOWN      
+```
+
+Change owner without capabilities:
+```
+kubectl exec pod-drop-chown-capability chown guest /tmp
+```
+
+### 10. Preventing processes from writing to the container’s filesystem
+```
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-with-readonly-filesystem
+spec:
+  containers:
+  - name: main
+    image: alpine
+    command: ["/bin/sleep", "999999"]
+    securityContext:
+      readOnlyRootFilesystem: true
+        volumeMounts:
+        - name: my-volume
+          mountPath: /volume
+          readOnly: false
+  volumes:
+  - name: my-volume
+    emptyDir:
+```
+
+Write file without permission:
+```
+kubectl exec -it pod-with-readonly-filesystem touch /new-file
+```
+
+On the other hand, writing to the mounted volume is allowed:
+```
+kubectl exec -it pod-with-readonly-filesystem touch /volume/newfile
+kubectl exec -it pod-with-readonly-filesystem -- ls -la /volume/newfile
+```
+
+### 11. Sharing volumes when containers run as different users
+* we explained how `volumes` are used to `share data` between the `pod’s containers`. You had no `trouble writing files` in `one container` and `reading` them in the `other`. 
+* If those two containers use a volume to `share files`, they may `not necessarily` be `able` to `read` or `write files` of `one another`. 
+* fsGroup
+* supplementalGroups
+```
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-with-shared-volume-fsgroup
+spec:
+  securityContext:
+    fsGroup: 555
+    supplementalGroups: [666,777]
+  containers:
+  - name: first
+    image: alpine
+    command: ["/bin/sleep", "999999"]
+    securityContext:
+      runAsUser: 1111
+        volumeMounts:
+        - name: shared-volume
+          mountPath: /volume
+          readOnly: false
+  - name: second
+    image: alpine
+    command: ["/bin/sleep", "999999"]
+    securityContext:
+    runAsUser: 2222
+      volumeMounts:
+      - name: shared-volume
+        mountPath: /volume
+        readOnly: false
+  volumes:
+  - name: shared-volume
+    emptyDir:
+```
+
+First container:
+```
+kubectl exec -it pod-with-shared-volume-fsgroup -c first sh
+```
+
+```
+ls -l / | grep volume
+```
+
+```
+echo foo > /volume/foo
+ls -l /volume
+```
+
+```
+echo foo > /tmp/foo
+ls -l /tmp
+```
+
+Second container:
+```
+kubectl exec -it pod-with-shared-volume-fsgroup -c second sh
+```
+
+### 12. PodSecurityPolicy 
+#### 1. Overview
+A `PodSecurityPolicy` resource defines things like the following:
+* Whether a pod can use the host’s IPC, PID, or Network namespaces
+* Which host ports a pod can bind to
+* What user IDs a container can run as
+* Whether a pod with privileged containers can be created
+* Which kernel capabilities are allowed, which are added by default and which are always dropped
+* What SELinux labels a container can use
+* Whether a container can use a writable root filesystem or not
+* Which filesystem groups the container can run as
+* Which volume types a pod can use
+```
+apiVersion: extensions/v1beta1
+kind: PodSecurityPolicy
+metadata:
+  name: default
+spec:
+  hostIPC: false
+  hostPID: false
+  hostNetwork: false
+  hostPorts:
+  - min: 10000
+    max: 11000
+  - min: 13000
+    max: 14000
+  privileged: false
+  readOnlyRootFilesystem: true
+  runAsUser:
+    rule: RunAsAny
+  fsGroup:
+    rule: RunAsAny
+  supplementalGroups:
+    rule: RunAsAny
+  seLinux:
+    rule: RunAsAny
+  volumes:
+  - '*'           
+```
+
+#### 2. Understanding runAsUser, fsGroup, and supplementalGroups policies
+using the mustrunas rule:
+```
+runAsUser:
+  rule: MustRunAs
+  ranges:
+  - min: 2
+    max: 2
+fsGroup:
+  rule: MustRunAs
+  ranges:
+  - min: 2
+    max: 10
+  - min: 20
+    max: 30
+supplementalGroups:
+  rule: MustRunAs
+  ranges:
+  - min: 2
+    max: 10
+  - min: 20
+    max: 30  
+```
+
+deploying a pod with runasuser outside of the policy’s range:
+```
+kubectl create -f pod-as-user-guest.yaml
+```
+
+#### 3. Configuring allowed, default, and disallowed capabilities
+```
+apiVersion: extensions/v1beta1
+kind: PodSecurityPolicy
+spec:
+  allowedCapabilities:
+  - SYS_TIME
+  defaultAddCapabilities:
+  - CHOWN
+  requiredDropCapabilities:
+  - SYS_ADMIN
+  - SYS_MODULE
+...
+```
+
+* `allowedCapabilities`: Allow containers to add the `SYS_TIME` capability.
+* `defaultAddCapabilities`: Automatically add the `CHOWN` capability to every container.
+* `requiredDropCapabilities`: Require containers to drop the `SYS_ADMIN` and SYS_MODULE capabilities.
+
+#### 4. Constraining the types of volumes pods can use
+```
+kind: PodSecurityPolicy
+spec:
+  volumes:
+  - emptyDir
+  - configMap
+  - secret
+  - downwardAPI
+  - persistentVolumeClaim
+```
+
+#### 5. creating a podsecuritypolicy allowing privileged containers to be deployed
+```
+apiVersion: extensions/v1beta1
+kind: PodSecurityPolicy
+metadata:
+  name: privileged
+spec:
+  privileged: true
+  runAsUser:
+    rule: RunAsAny
+  fsGroup:
+    rule: RunAsAny
+  supplementalGroups:
+    rule: RunAsAny
+  seLinux:
+    rule: RunAsAny
+  volumes:
+  - '*'
+```
+
+Get pod security policy:
+```
+kubectl get psp
+```
+
+#### 6. using rbac to assign different podsecuritypolicies to different users
+```
+kubectl create clusterrole psp-default --verb=use --resource=podsecuritypolicies --resource-name=default
+```
+
+```
+kubectl create clusterrole psp-privileged --verb=use --resource=podsecuritypolicies --resource-name=privileged
+```
+
+```
+kubectl create clusterrolebinding psp-all-users --clusterrole=psp-default --group=system:authenticated
+```
+
+```
+kubectl create clusterrolebinding psp-bob --clusterrole=psp-privileged --user=bob
+```
+
+#### 7. creating additional users for kubectl
+```
+kubectl config set-credentials alice --username=alice --password=password
 ```
 
 ## AFFINITY AND CPU, RAM

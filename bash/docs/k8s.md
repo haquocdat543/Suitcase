@@ -3382,6 +3382,60 @@ spec:
     pods: 4    
 ```
 
+## Affinity
+### 1. Using node affinity to attract pods to certain nodes
+```
+apiVersion: v1
+kind: Pod
+metadata:
+  name: kubia-gpu
+spec:
+  affinity:
+   nodeAffinity:
+     requiredDuringSchedulingIgnoredDuringExecution:
+       nodeSelectorTerms:
+       - matchExpressions:
+         - key: gpu
+           operator: In
+           values:
+           - "true"
+```
+
+* `requiredDuringScheduling`... means the rules defined under this field specify the labels the node must have for the pod to be scheduled to the node.
+* ...`IgnoredDuringExecution` means the rules defined under the field don’t affect pods already executing on the node. 
+
+### 2. specifying preferential node affinity rules
+
+* The biggest benefit of the newly introduced node affinity feature is the ability to specify which nodes the Scheduler should prefer when scheduling a specific pod. This is done through the `preferredDuringSchedulingIgnoredDuringExecution` 
+
+```
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: pref
+spec:
+  template:
+  ...
+  spec:
+    affinity:
+      nodeAffinity:
+        preferredDuringSchedulingIgnoredDuringExecution:
+        - weight: 80
+          preference:
+            matchExpressions:
+            - key: availability-zone
+              operator: In
+              values:
+              - zone1
+        - weight: 20
+          preference:
+            matchExpressions:
+            - key: share-type
+              operator: In
+              values:
+              - dedicated     
+```
+
 ## COMMANDS
 ## 1 Backup
 #### 1. Get certs locations

@@ -3436,6 +3436,68 @@ spec:
               - dedicated     
 ```
 
+## MISC
+### 1. Starting pods in a specific order
+
+adding an init container to a pod:
+```
+spec:
+  initContainers:
+  - name: init
+    image: busybox
+    command:
+    - sh
+    - -c
+    -  'while true; do echo "Waiting for fortune service to come up..."; wget http://fortune -q -T 1 -O /dev/null >/dev/null 2>/dev/null && break; sleep 1; done; echo "Service is up! Starting main container."'
+```
+
+### 2. Adding lifecycle hooks
+
+PostStart:
+```
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-with-poststart-hook
+spec:
+  containers:
+  - image: luksa/kubia
+    name: kubia
+    lifecycle:
+      postStart:
+        exec:
+          command:
+          - sh
+          -c
+          - "echo 'hook will fail with exit code 15'; sleep 5; exit 15"
+```
+
+Prestop:
+```
+lifecycle:
+  preStop:
+    httpGet:
+      port: 8080
+      path: shutdown
+```
+
+Termination message:
+```
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-with-termination-message
+spec:
+  containers:
+  - image: busybox
+    name: main
+    terminationMessagePath: /var/termination-reason
+    command:
+    - sh
+    - c
+    - 'echo "I''ve had enough" > /var/termination-reason ; exit 1'   
+```
+
 ## COMMANDS
 ## 1 Backup
 #### 1. Get certs locations

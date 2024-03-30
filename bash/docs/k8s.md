@@ -3123,6 +3123,94 @@ kubectl create clusterrolebinding psp-bob --clusterrole=psp-privileged --user=bo
 kubectl config set-credentials alice --username=alice --password=password
 ```
 
+## 22. Horizontal pod autoscaling
+### 1. Overview
+The autoscaling process can be split into `three steps`:
+* `Obtain metrics` of `all` the pods managed by the `scaled resource object`.
+* `Calculate` the `number` of `pods required` to bring the `metrics` to (or close to) the `specified target value`.
+  * All it takes is `summing up` the `metrics values` of `all the pods`, `dividing` that by the `target value` set on the `HorizontalPodAutoscaler` resource, and then `rounding it up` to the `next-larger integer`
+* `Update` the `replicas field` of the scaled resource.
+
+Only supported resource:
+* Deployments
+* ReplicaSets
+* ReplicaControllers
+* StatefulSets
+
+Example:
+```
+apiVersion: autoscaling/v2beta1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: kubia
+...
+spec:
+  maxReplicas: 5
+  metrics:
+  - resource:
+      name: cpu
+      targetAverageUtilization: 30
+    type: Resource
+  minReplicas: 1
+  scaleTargetRef:
+    apiVersion: extensions/v1beta1
+    kind: Deployment
+    name: kubia      
+status:
+ currentMetrics: []
+ currentReplicas: 3
+ desiredReplicas: 0    
+```
+
+### 2. modifying the target metric value on an existing hpa object
+```
+spec:
+  maxReplicas: 5
+  metrics:
+  - resource:
+      name: cpu
+      targetAverageUtilization: 60
+        type: Resource
+```
+
+As you can see, the `metrics field` allows you to `define` more than `one metric` to use. In the listing, you’re using a `single metric`. Each entry defines the type of metric— in this case, a Resource metric. You have `three types` of metrics you can use in an `HPAobject`:
+* Resource
+* Pods
+* Object
+
+### 3. Reffering to a metric of a different object in the HPA
+```
+spec:
+  metrics:
+  - type: Object
+    resource:
+      metricName: latencyMillis   
+      target:
+        apiVersion: extensions/v1beta1
+        kind: Ingress 
+        name: frontend
+      targetValue: 20
+    SaleTargetRef:
+      apiVersion: extensions/v1beta1
+      kind: Deployment
+      name: kubia    
+```
+* The horizontal `pod autoscaler` currently `doesn’t allow` setting the `minReplicas field` to `0`, so the autoscaler will never `scale down` to `zero`, even if the pods aren’t doing
+
+## 23. PodDisruptionBudget
+Limiting service disruption during cluster scale-down
+```
+apiVersion: policy/v1beta1
+kind: PodDisruptionBudget
+metadata:
+  name: kubia-pdb
+spec:
+  minAvailable: 3
+    selector:
+      matchLabels:
+        app: kubia  
+```
+
 ## AFFINITY AND CPU, RAM
 ### 1. Show node resources
 ```

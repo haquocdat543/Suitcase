@@ -3017,6 +3017,7 @@ spec:
 
 #### 2. Understanding runAsUser, fsGroup, and supplementalGroups policies
 using the mustrunas rule:
+
 ```
 runAsUser:
   rule: MustRunAs
@@ -3176,6 +3177,16 @@ spec:
 The `CrashLoopBackOff` status `doesn’t mean` the Kubelet has `given up`.
 * After the first crash, it restarts the container immediately and then, if it crashes again, waits for 10 seconds before restarting it again. On subsequent crashes, this delay is then increased exponentially to 20, 40, 80, and 160 seconds, and finally limited to 300 seconds. Once the interval hits the 300-second limit, the Kubelet keeps restarting the container indefinitely every five minutes until the pod either stops crashing or is deleted. 
 
+### 4. Understanding pod QoS classes
+
+Imagine having `two pods`, where `pod A` is using, let’s say, `90%` of the `node’s memory` and then `pod B` suddenly `requires more memory` than what it had been using up to that point and the `node can’t provide` the required `amount of memory`. Which container should be killed? Should it be pod B, because its request for memory can’t be satisfied, or should pod A be killed to free up memory, so it can be provided to pod B? 
+
+Obviously, `it depends`. Kubernetes `can’t make` a `proper decision` on its own. You need a way to specify `which pods` have `priority` in such cases. Kubernetes does this by categorizing pods into three `Quality of Service` (QoS) `classes`:
+
+* BestEffort (the lowest priority)
+* Burstable
+* Guaranteed (the highest)
+
 ### 5. LimitRange
 ```
 apiVersion: v1
@@ -3211,6 +3222,77 @@ spec:
 * Lower down, at the container level, you can set not only the minimum and maximum, but also default resource requests (defaultRequest) and default limits (default) that will be applied to each container that doesn’t specify them explicitly. 
 * Lower down, at the container level, you can set not only the minimum and maximum, but also default resource requests (defaultRequest) and default limits (default) that will be applied to each container that doesn’t specify them explicitly. 
 
+### 6. creating a resourcequota for cpu and memory
+#### 1. Specifying a quota for persistent storage
+```
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: cpu-and-mem
+spec:
+  hard:
+    requests.cpu: 400m
+    requests.memory: 200Mi
+    limits.cpu: 600m
+    limits.memory: 500Mi
+```
+* `LimitRanges` apply to `individual pods`; `ResourceQuotas` apply to `all pods` in the `namespace`.
+
+#### 2. Specifying a quota for persistent storage
+```
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: storage
+spec:
+  hard:
+    requests.storage: 500Gi
+    ssd.storageclass.storage.k8s.io/requests.storage: 300Gi
+    standard.storageclass.storage.k8s.io/requests.storage: 1Ti
+```
+* In this example, the `amount` of `storage` `all PersistentVolumeClaims` in a `namespace` can `request` is `limited` to `500 GiB` (by the requests.storage entry in the `ResourceQuota` object). 
+
+#### 3. Limiting the number of objects that can be created
+
+Object count quotas can currently be set for the following objects: 
+* Pods
+* ReplicationControllers
+* Secrets
+* Configmaps
+* PersistentVolumeClaims
+* Service ( Loadbalancer, Nodeport )
+
+```
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: objects
+spec:
+  hard:
+    pods: 10
+    replicationcontrollers: 5
+    secrets: 10
+    configmaps: 10
+    persistentvolumeclaims: 4
+    services: 5              
+    services.loadbalancers: 1
+    services.nodeports: 2
+    ssd.storageclass.storage.k8s.io/persistentvolumeclaims: 2   
+```
+
+#### 4. Specifying quotas for specific pod states and/or QoS classes
+```
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: besteffort-notterminating-pods
+spec:
+  scopes:
+  - BestEffort
+  - NotTerminating
+  hard:
+    pods: 4    
+```
 
 ## COMMANDS
 ## 1 Backup

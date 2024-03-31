@@ -82,6 +82,8 @@ Sample:
 * `Resource`: `list of resources` to which the actions applied to
 * `Condition`: `conditions` for `when` this policy is in effect (`optional`)
 
+##### 4. Role
+
 #### 2. EC2
 #### 3. Instance storage
 #### 4. HA & Scale

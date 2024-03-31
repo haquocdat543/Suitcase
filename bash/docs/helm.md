@@ -42,3 +42,17 @@ If you know Terraform already. Helm is just a `bunch` of `manifest files` **temp
 * `crds/`: Custom Resource Definitions
 * `templates/`: A directory of `templates` that, when combined with `values`,
 * `templates/NOTES.txt`: OPTIONAL: A plain text file containing short usage notes
+
+### 3. Variables
+values.yaml
+```
+replicaCount: 1
+```
+
+templates/deployment.yaml
+```
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+```

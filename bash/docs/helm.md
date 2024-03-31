@@ -43,7 +43,7 @@ If you know Terraform already. Helm is just a `bunch` of `manifest files` **temp
 * `templates/`: A directory of `templates` that, when combined with `values`,
 * `templates/NOTES.txt`: OPTIONAL: A plain text file containing short usage notes
 
-### 3. Variables
+#### 4. Variables
 values.yaml
 ```
 replicaCount: 1
@@ -55,4 +55,44 @@ spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
+```
+
+### 3. ELK with Helm
+Add helm repo:
+```
+helm repo add elastic https://Helm.elastic.co
+```
+
+Search helm repo:
+```
+helm search repo elastic/elasticsearch
+```
+
+Export variable:
+```
+export VERSION=
+```
+
+```
+export NAMESPACE=
+```
+
+Pull down ELK repo:
+```
+helm pull elastic/elasticsearch --version $VERSION
+```
+
+Extract ELK:
+```
+tar -xzf elasticsearch-$VERSION.tgz
+```
+
+Edit values:
+```
+vim elasticsearch/values.yaml
+```
+
+Deploy:
+```
+helm -n $NAMESPACE install elasticsearch -f elasticsearch/values.yaml elasticsearch
 ```

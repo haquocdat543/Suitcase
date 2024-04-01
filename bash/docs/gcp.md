@@ -89,6 +89,27 @@
 #### 14. Security & Encryption
 #### 15. Deployment
 #### 16. Cost control
+##### 1. Commited Use Discounts ( CUD's )
+* Discounted prices when you commit using minimium level of resources for a specific term
+* 1 or 3 years Commitment
+* Types
+  * Spend based
+  * Resource based
+
+###### 1. Spend based
+* Discount for a commitment to spend a `minimum amount` for a service ( `hours` ) in a `particular region`
+* `25%` discount for `a year` `52%` discount on `3 year`.
+* Available for:
+  * CloudSQL
+  * Vmware Engine
+
+###### 2. Resource based
+* Discount for a commitment to spend a `minimum amount amount for Compute Engine resources` in particular `region`.
+* `vCPU`, `Memory`, `GPU` and `Local SSD`
+  * `57%` discount for `most resources`
+  * `70%` discount for `memory optimized` machine type.
+* For use `accross Projects`
+ 
 #### 17. Backup
 #### 18. Migration
 #### 19. Container

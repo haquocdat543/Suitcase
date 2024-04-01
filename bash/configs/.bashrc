@@ -991,7 +991,7 @@ alias gcnh='git config --global user.name "haquocdat543"'
 alias gceh='git config --global user.email "wwwdatha543@gmail.com"'
 alias gcnc='git config --global user.name "haquocdat543"'
 alias gcec='git config --global user.email "wwwdatha543@gmail.com"'
-alias gcnn='git config --global user.name "dqdNotional"'
+alias gcnn='git config --global user.name "hqdNotional"'
 alias gcen='git config --global user.email "datquocha@notional.ventures"'
 
 ### Ansible command

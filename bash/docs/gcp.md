@@ -3,6 +3,21 @@
 ## 
 ### 
 #### Basic
+##### 1. Multi regions
+* `Large geograpgic area` thar contains `two` or `more regions`
+
+##### 2. Region
+* Region are `independent geographic areas` that are `subdivide` into zones
+* For `fault tolerent` and `high availability`
+* Intercommunication `less than 5ms` between `zones` of a `region`
+* Eg: `us-east4`
+
+##### 3. Zone
+* A zone is a `deployment area` for Google Cloud resources `winthin a region`. The `smallest entity` of Google Cloud's `global infrastructure`.
+
+##### 4. Point of Presence
+* Content is `delivered` to `end users` with `lower latency`
+
 #### 1. IAM
 ##### 1. Resource hierarchy
 * Domain

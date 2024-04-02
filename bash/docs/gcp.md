@@ -102,6 +102,7 @@
 * Available for:
   * CloudSQL
   * Vmware Engine
+* Only apply to `CPU` and `memory usage`
 
 ###### 2. Resource based
 * Discount for a commitment to spend a `minimum amount amount for Compute Engine resources` in particular `region`.
@@ -109,6 +110,27 @@
   * `57%` discount for `most resources`
   * `70%` discount for `memory optimized` machine type.
 * For use `accross Projects`
+
+###### 3. Sustained use discount
+* `Automatic discounts` for running `Compute Engine` for a significant portion of month billing
+* Apply to CPU and Memory of most Compute Engine instance type.
+* Include GKE instances
+* Does not apply to `App Engine` flexible, `Dataflow` and `E2 machine`
+
+###### 4. Google cloud pricing calculator
+Help you `estimate cost` for usage.
+
+###### 5. Budget alert
+* Help you `track` your Google Cloud `actual spend`.
+* `Budget alert` set `threshold` Trigger `email notification` to `inform` you.
+* Help you define `scope of budget`
+  * Spend of billing account or more granular.
+* Alert email are send to `billing account` and `specific users` when cost `exceed percentage` of the budget.
+
+* Can integrate with `PubSub` for `programatic notification` or `automate cost management tasks`
+
+###### 6. Billing export
+Billing export enables granular billing data ( `usage`, `cost details`,... ) automatically export to `BigQuery` for `analysis`.
  
 #### 17. Backup
 #### 18. Migration

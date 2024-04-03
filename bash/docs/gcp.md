@@ -44,6 +44,139 @@
 
 `Billing` ->> `Account management` ( bottom ) ->> `Close billing account`
 
+##### 3. Admin user account
+###### 1. architecture
+* Google level
+  * Linked to
+  * Pays for
+  * Cloud resources
+* Cloud level
+  * Billing Account Administrator
+  * Billing account user
+
+###### 2. Add role to user account
+`Billing` ->> `Account management` ( bottom ) ->> `Permissions` ( right ) ->> `Add members` ->> `Fill email and role` ->> `Save`
+
+##### 4. SDK and CLI
+###### 1. SDK
+Set of `command line` tools what allow you to `manage resources` through the `terminal`.
+* gcloud
+* gsutil
+* bq
+* kubectl
+
+Do everything and more
+* Interactive and Automated script
+* IaC
+* Autocompletion
+* Powershell
+
+User account:
+* single machine
+
+Service account:
+* google account
+* multiple machine
+
+Some common commands:
+* gcloud init
+* gcloud auth login
+* gcloud config
+* gcloud components
+
+Some common commands:
+* gcloud + compute + instances + create + example1 --zone=asia-northeast1
+* gcloud + component + entity + operation + positional arguments + flags
+
+Installation ( version `455.0.0` ):
+```
+#!/bin/bash
+
+export VER="455.0.0"
+cd
+curl -O https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-cli-${VER}-linux-x86_64.tar.gz
+tar -xf google-cloud-cli-${VER}-linux-x86_64.tar.gz
+~/google-cloud-sdk/install.sh
+~/google-cloud-sdk/bin/gcloud init
+export PATH="$PATH:$HOME/google-cloud-sdk/bin"
+rm -f google-cloud-cli-${VER}-linux-x86_64.tar.gz
+cd -
+```
+
+Init account and configuration:
+```
+gcloud init
+```
+Authenticate current account:
+```
+gcloud auth login
+```
+List authenticated accounts:
+```
+gcloud auth list
+```
+
+Set authenticated account:
+```
+gcloud config set account $EMAIL
+```
+
+Get configuration of current authenticated account:
+```
+gcloud config list
+```
+
+Set configuration to default:
+```
+gcloud config configurations activate default
+```
+
+Describe configuration ( example for default ):
+```
+gcloud config configurations describe default
+```
+
+Set compute zone [ Tokyo A ]:
+```
+gcloud config compute/zone $ZONE
+gcloud config compute/zone asia-northeast1-a
+```
+
+Install components [ beta ]:
+```
+gcloud components install beta
+```
+
+Use components [ beta ]:
+```
+gcloud beta interactive
+```
+
+###### 2. Cloud shell
+* You are `automatically authenticate` with account you `logged in` to.
+
+* Built in tools:
+  * Cloud SDK
+  * Bash
+  * Vim
+  * Helm
+  * Git
+  * Docker
+  * ...
+
+* Languages supported:
+  * Java
+  * Python
+  * Go
+  * Nodejs
+  * Ruby
+  * DotNet Core
+
+* Builtin editor:
+```
+edit $FILENAME
+```
+
 #### 2. Compute 
 #### 1. Compute engine
 #### 2. Kubernetes engine

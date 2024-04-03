@@ -265,6 +265,34 @@ Help you `estimate cost` for usage.
 ###### 6. Billing export
 Billing export enables granular billing data ( `usage`, `cost details`,... ) automatically export to `BigQuery` for `analysis`.
  
+##### 2. Limits and Quotas
+##### 1. Overview
+* `Hard limit` on how much `particular Google Cloud resources` your `project` you can use:
+  * Rate quotas
+  * Allocation quotas
+
+##### 2. Enforcement of Quotas
+###### 1. Protection
+Prevent unforeseen usage.
+
+###### 2. Resource management
+You can `set limit` on your `own service usage` winthin your quota `when developing` and `test application`.
+
+###### 3. Request quotas and set monitoring
+You can `request more quota` for `your need` and `set up monitoring` to `alert` you about `unusual quota usage`.
+
+###### 1. View quotas
+Overview:
+* `IAM` ->> `quotas`
+
+Granular:
+* `APIs and Services` ->> `Any service` ->> `Quotas`
+
+###### 2. Edit quotas
+`Select quotas` ->> `Edit quotas` ->> `Fill`:
+* New limit 
+* Request description ->> `Submit request`
+
 #### 17. Backup
 #### 18. Migration
 #### 19. Container

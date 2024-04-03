@@ -177,6 +177,59 @@ gcloud beta interactive
 edit $FILENAME
 ```
 
+##### 4. Permissions
+###### 1. Permissions
+Least previliges principle:
+* A `user`, `group`, `program` or `process` should have `only` bare `minimum permission` to `perform its function`.
+
+Eg: A girl should just have `permission` to `create storage`:
+* Allow `storage.object.create`
+* Deny `storage.object.get`
+* Deny `storage.object.delete`
+* Deny `storage.object.list`
+
+###### 2. Who, what, which
+Who, ( member ):
+* Eg: Google account, Service account, Google group,...
+
+What permission ( policy ):
+* Eg: `Allow` or `deny`
+* `Not directly` grant to user
+* Grant role that container `one` or `more permissions`
+
+* Role launch stages:
+  * Alpha: in testing
+  * Beta: tested and await for approve
+  * Gamma: Available to use
+
+###### 3. Role
+Role:
+* Eg: `Role for compute engine trainee`
+  * `compute.instance.list`
+  * `compute.instance.get`
+  * `compute.instance.stop`
+  * `compute.instance.start`
+  * `compute.instance.setMachineType`
+  * `compute.instance.delete`
+
+* Role type:
+  * Primitive
+    * `Historically` available google cloud role
+    * `Owner`, `Editor`, `Viewer`
+    * `Avoid` to use if possible
+  * Predefined
+    * Finer grained access control ( `Google` managed role )
+  * Custom
+    * Finer grained access control ( `user` managed role )
+
+###### 4. Conditions
+* Used to define anf enforce conditional, attribute-based access control
+* Granting resource access to identities only if configured conditions are met
+* When a condition exists, the access is only granted if the conditional = true
+
+Which resources ( policy ):
+* Eg: Google account, Service account, Google group,...
+
 #### 2. Compute 
 #### 1. Compute engine
 #### 2. Kubernetes engine

@@ -223,12 +223,191 @@ Role:
     * Finer grained access control ( `user` managed role )
 
 ###### 4. Conditions
-* Used to define anf enforce conditional, attribute-based access control
-* Granting resource access to identities only if configured conditions are met
-* When a condition exists, the access is only granted if the conditional = true
+* Used to define anf `enforce conditional`, `attribute-based` access control
+* Granting resource access to `identities` only if `configured conditions are met`
+* When a `condition exists`, the access is only granted if the `conditional = true`
+Eg: `Timestamp`, `originating`/`destination` IP address
 
 Which resources ( policy ):
-* Eg: Google account, Service account, Google group,...
+* Eg: `Google account`, `Service account`, `Google group`,...
+
+Timestamp based:
+```
+bindings:
+- members:
+  - user: wwwdatha543@gmail.com
+  role: role/storage.admin
+  - user: sciencekingdom1@gmail.com
+  role: role/storage.objectviewer
+  conditions:
+    title: expirable access
+    description: Do not grant access after Feb 2025
+    expression: request.time < timestamp('2025-02-01T00:00:00.000Z')
+etag: aj7s8wih+3
+version: 3
+```
+
+Time based:
+```
+bindings:
+- members:
+  - user: wwwdatha543@gmail.com
+  role: role/storage.admin
+  - user: sciencekingdom1@gmail.com
+  role: role/storage.objectviewer
+  conditions:
+    title: Business hour access
+    description: Business hour access Monday - Friday
+    expression: request.time.getHours("America/Toronto") > 9 &&
+                request.time.getHours("America/Toronto") < 17 &&
+                request.time.getDayOfWeek("America/Toronto") > 1 &&
+                request.time.getDayOfWeek("America/Toronto") < 5
+etag: aj7s8wih+3
+version: 3
+```
+
+Resource based:
+```
+bindings:
+- members:
+  - user: wwwdatha543@gmail.com
+  role: role/owner
+  - user: sciencekingdom1@gmail.com
+  role: role/compute.instanceAdmin
+  conditions:
+    title: Dev only access
+    description: Dev only access to development* VM
+    expression: (resource.type == 'compute.googleapis.com/Disk' &&
+                 resource.name.startWith(project/my-project/region/us-central-1/disks/development')) ||
+                (resource.type == 'compute.googleapis.com/Instance' &&
+                 resource.name.startWith(project/my-project/region/us-central-1a/instances/development')) ||
+                (resource.type != 'compute.googleapis.com/Disk' &&
+                (resource.type != 'compute.googleapis.com/Instance')
+etag: aj7s8wih+3
+version: 3
+```
+Note:
+* Member cannot be `allUsers` or `allAuthenticatedUser`
+* Limit of `100 conditional role` bindings per `policy`
+* `20 roles` bindings for `same role` or `same member`
+
+###### 4. AuditConfig logs
+```
+auditConfigs:
+- auditConfigs:
+  - logType: DATA_READ
+  - logType: ADMIN_READ
+  - logType: DATA_WRITE
+  service: allServices
+- auditConfigs:
+  - exemptedMembers:
+    - wwwdat543@gmail.com
+    logType: DATA_READ
+  service: storage.googleapis.com
+```
+
+###### 5. AuditConfig logs
+Get IAM policy base on project name:
+```
+gcloud project get-iam-policy PROJECT_NAME
+```
+
+Set IAM policy base on project name:
+```
+gcloud project get-iam-policy PROJECT_NAME iam.yaml
+```
+
+###### 6. Add other Gmail
+Add gmail:
+* IAM > IAM > Grant Access > Fill gmail and role( Eg: `Project viewer` ) > Save
+
+Test added gmail:
+* Switch account > Dashboard > take an action ( `Delete/Create` )
+
+###### 7. Add role to other Gmail
+Add role to other gmail account:
+```
+gcloud project add-iam-policy-binding $PROJECT_NAME --member user:$OTHER_GMAIL --role roles/storage.admin
+```
+
+Test:
+* Switch account > Dashboard > take an action ( `Delete/Create` )
+
+###### 8. Service account
+type:
+* User managed:
+  * User created ( You choose a name )
+  * Eg: `service-account-name@project-id.iam.serviceaccount.com`
+* Default:
+  * Using some services create `user managed account`
+  * Automatically granted the `Editor role` for the project
+  * Eg: `project-id@appspot.gserviceaccount.com`
+  * Eg: `project-number-compute@developer.gserviceaccount.com`
+* Google managed:
+  * Managed by Google
+  * Use by Google by Google services
+  * Some `visible`, some `hidden`
+  * Name ends with `Service Account` / `Service Agent`
+
+Testing a service account:
+* Compute Emgine > Create > New VM instance
+* Navigate to `Identity and API Access` > `Compute engine default service account`
+* Set access for each API
+* Storage > Read only
+* SSH to VM instance
+* View service account condig
+```
+gcloud config list
+```
+* View storage object ( need to have a storage with objects first )
+```
+gsutil ls gs://STORAGE_NAME
+```
+* Copy object to storage ( Will be forbid )
+```
+gsutil cp FILE  gs://STORAGE_NAME
+```
+
+Create service account:
+* IAM > Service account > Fill details ( Name, Id, Description ) > Create
+* Select role Eg: Storage Object viewer, Storage Object viewer,... > Continue
+* Grant access from `User role` or `Admin role` (Optional)
+* Done
+
+Test user created service account:
+* Compute Emgine > Create > New VM instance
+* Navigate to `Identity and API Access` > `Compute engine default service account`
+* Set access for each API
+* Storage > Read only
+* SSH to VM instance
+* View service account condig
+```
+gcloud config list
+```
+* View storage object ( need to have a storage with objects first )
+```
+gsutil ls gs://STORAGE_NAME
+```
+* Copy object to storage
+```
+gsutil cp FILE  gs://STORAGE_NAME
+```
+
+Create user managed service account with command line:
+* List service account
+```
+gcloud iam service-accounts list
+```
+
+* Create service account
+```
+gcloud iam service-accounts create MAME --display-name 'NAME'
+```
+
+* Attach role to service account
+```
+gcloud project add-iam-policy-binding PROJECT --member 'SERVICEACCOUNT' --role 'roles/storage.objectviewer'
+```
 
 #### 2. Compute 
 #### 1. Compute engine

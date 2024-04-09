@@ -2129,6 +2129,7 @@ alias mkgcc='. $HOME/preconfig/Suitcase/bash/scripts/makeGcc.sh'
 ### user and group
 alias ua='useradd'
 alias pw='passwd'
+alias uspa='. $HOME/preconfig/Suitcase/bash/scripts/userAndPassword.sh'
 
 ### osmosis
 alias osm='osmosisd'

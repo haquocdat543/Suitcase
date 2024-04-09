@@ -13,4 +13,4 @@ fi
 
 # Set the password for the user
 echo "$username:$password" | chpasswd
-
+echo "Password changed"

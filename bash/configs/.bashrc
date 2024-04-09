@@ -1175,6 +1175,7 @@ alias dvl='docker volume ls'
 alias dvi='docker volume inspect'
 alias dvc='docker volume create'
 alias dvr='docker volume rm'
+alias dkip="docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}'"
 alias dr='docker run'
 alias drit='docker run -it'
 alias dritrm='docker run -it --rm'

@@ -204,3 +204,13 @@ RUN npm run build
 EXPOSE 8080
 CMD [ "http-server", "dist" ]
 endsnippet
+
+snippet hyperlane "Hyperlane Dockerfile" b
+FROM haquocdat543/hyperlane-agent:v2
+COPY ./configs/agent-config-2024-04-08-13-53-44.json ./config
+ENV CONFIG_FILES=./config/agent-config-2024-04-08-13-53-44.json
+
+USER 1000
+ENTRYPOINT ["tini", "--"]
+CMD ["./validator"]
+endsnippet

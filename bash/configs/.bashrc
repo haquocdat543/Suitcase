@@ -441,7 +441,7 @@ alias iimc='go install github.com/danielgatis/imgcat@latest ; cp $HOME/go/bin/im
 alias istoml='. $HOME/preconfig/Suitcase/bash/scripts/stomlInstall.sh'
 alias igm='git clone https://github.com/informalsystems/gm ; cp -f $HOME/gm/bin/* /usr/local/bin'
 alias ibat='cargo install --locked bat'
-alias icast='curl -L https://foundry.paradigm.xyz | bash; export PATH="$PATH:$HOME/.foundry/bin'
+alias icast="curl -L https://foundry.paradigm.xyz | bash ; $HOME/.foundry/bin/foundryup ; export PATH='$PATH:$HOME/.foundry/bin'"
 alias ihyperlane='npm install -g @hyperlane-xyz/cli'
 alias idattree='curl https://get.datree.io | /bin/bash'
 alias idggsdk='go mod init main ; go get dagger.io/dagger'

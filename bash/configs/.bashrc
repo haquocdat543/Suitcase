@@ -892,6 +892,7 @@ alias gc='git commit -m'
 alias gC='git commit -a'
 alias gcu='git commit -m "Update"'
 alias gt='git tag'
+alias gtn='git tag -n'
 alias gta='git tag -a'
 alias gtd='git tag -d'
 ## if you want to push all tags to repo use: git push <remote> <branch> --tags

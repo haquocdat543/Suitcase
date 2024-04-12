@@ -146,20 +146,20 @@ BucketAccesser
 ```
 
 ###### 4. IAM Policies Conditions
-* "Condition" : { "{condition-operator}" : { "{condition-key}" : "{condition-value}" }}
+* "`Condition`" : { "{`condition-operator`}" : { "{`condition-key`}" : "{`condition-value`}" }}
 
-* String (StringEquals, StringNotEquals, StringLike,... )
+* `String` (StringEquals, StringNotEquals, StringLike,... )
   * "Condition": {"StringEquals": {"aws:PrincipalTag/job-category": "iamuser-admin"}}
-  * "Condition": {"StringLike": {"s3:prefix": [ "", "home/", "home/${aws:username}/" ]}}
-* Numeric (NumericEquals, NumericNotEquals, NumericLessThan,...)
-* Date (DateEquals, DateNotEquals, DateLessThan,...)
-* Boolean (Bool):
+  * "`Condition`": {"StringLike": {"s3:prefix": [ "", "home/", "home/${aws:username}/" ]}}
+* `Numeric` (NumericEquals, NumericNotEquals, NumericLessThan,...)
+* `Date` (DateEquals, DateNotEquals, DateLessThan,...)
+* `Boolean` (Bool):
   * “Condition": {"Bool": {"aws:SecureTransport": "true"}}
   * "Condition": {"Bool": {"aws:MultiFactorAuthPresent": "true"}}
-* (Not)IpAddress: 
+* (`Not`) IpAddress: 
   * "Condition": {"IpAddress": {"aws:SourceIp": "203.0.113.0/24"}} 
-* ArnEquals, ArnLike
-* Null: "Condition":{"Null":{"aws:TokenIssueTime":"true"}} 
+* `ArnEquals`, ArnLike
+* `Null`: "Condition":{"Null":{"aws:TokenIssueTime":"true"}} 
 
 ###### 5. IAM Policies Variables and Tags
 * Example: ${aws:username}
@@ -224,6 +224,15 @@ Use cases:
 * Delegate `responsibilities` to `non administrators` within `their permission boundaries`, for example `create new IAM users`
 * Allow developers to `self-assign policies` and `manage their own permissions`, while making sure they `can’t “escalate”` their privileges (= `make themselves admin`)
 * Useful to `restrict` one specific user (instead of a whole account using Organizations & SCP)
+
+###### 8. Tools
+Policy Genrator:
+* Help yoy write policy faster.
+* `https://awspolicygen.s3.amazonaws.com/policygen.html`
+
+Policy Similator:
+* Help you `test` permission of your `IAM user` or `predefined IAM policy`
+* `https://policysim.aws.amazon.com/`
 
 ##### 3. IAM Policies Structure
 * `Version`: policy language version, always include “`2012-1017`”
@@ -313,12 +322,39 @@ JwIDAQAB
 ```
 
 ##### 6. Role ( Service account )
+###### 1. Overview
 * Some AWS service will need to `perform actions` on your behalf
 * To do so, we will `assign permissions` to `AWS services` with `IAM Roles`
 * Common roles:
   * `EC2` Instance Roles
   * `Lambda Function` Roles
   * Roles for `CloudFormation` 
+
+* Trust relationship ( `who` can `assume` this role ):
+Example:
+```
+i{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "Service": "ec2.amazonaws.com"
+      },
+      "Action": "sts:AssumeRole"
+    }
+  ]
+}
+```
+
+###### 2. Types
+Service role:
+* Created and managed by `you`.
+* permissions `editable`.
+
+Service linked role:
+* Created and managed by `AWS`.
+* `Read Only`
 
 ##### 7. IAM Security tools
 * IAM Credentials Report (`account-level`) 

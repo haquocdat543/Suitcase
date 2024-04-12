@@ -2084,12 +2084,15 @@ alias rdb='redis-benchmark'
 alias rdcn='. $HOME/preconfig/Suitcase/bash/scripts/redisConnect.sh'
 alias rdcnp='. $HOME/preconfig/Suitcase/bash/scripts/redisConnectPassword.sh'
 
-### cargo command
+### gcc command
 alias gccv='gcc --version'
 alias gcce='gcc -E'
 alias gccs='gcc -S'
 alias gccc='gcc -c'
 alias gcco='gcc -o'
+
+### ghc command
+alias cblii='cabal init --interactive'
 
 ### cargo command
 alias cga='cargo add'

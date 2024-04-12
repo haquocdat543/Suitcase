@@ -415,7 +415,6 @@ alias ibrew='/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebr
 alias icargo='curl https://sh.rustup.rs -sSf | sh ; source "\$HOME/.cargo/env"'
 alias ia4='curl -L https://aka.ms/InstallAzureCli | bash'
 alias igg='. $HOME/preconfig/Suitcase/bash/scripts/gcpCli.sh'
-alias icabal='. $HOME/preconfig/Suitcase/bash/scripts/cabalInstall.sh'
 alias ighcup="curl --proto '=https' --tlsv1.2 -sSf https://get-ghcup.haskell.org | sh"
 alias ikustomize='. $HOME/preconfig/Suitcase/bash/scripts/kustomizeInstall.sh'
 alias ikus='. $HOME/preconfig/Suitcase/bash/scripts/kustomizeInstall.sh'

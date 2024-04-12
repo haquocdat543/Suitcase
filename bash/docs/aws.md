@@ -42,6 +42,7 @@
 ###### 1. Overview
 * `Users` or `Groups` can be assigned `JSON documents` called `policies`
 * `These policies` define the `permissions`
+* Can be attach as `permission policy` or `boundary policy`
 * In AWS you apply the `least privilege principle`: don’t give `more permissions` than a `user needs` 
 
 Sample:
@@ -248,7 +249,9 @@ Use cases:
   * Require users to change their password after some time (`password expiration`)
   * Prevent password `re-use`
 
-##### 5. Multi Factor Authentication - MFA
+##### 5. Security credentials
+###### 1. Multi Factor Authentication - MFA
+* Maximium: 8
 * MFA = `password you know` + `security device you own`
 * if a password is `stolen` or `hacked`, the account is `not compromised`
 
@@ -262,20 +265,54 @@ Hardware
 * Hardware Key Fob MFA Device 
 * Hardware Key Fob MFA Device for AWS GovCloud (US)
 
-##### 6. Access Keys & Secret key
+###### 2. Access Keys & Secret key
+* Maximium: 2
+* Can deactivate and reactivate
 * Example:
   * Access key: `AKIASK4E37PV4983d6C`
   * Secret Key: `AZPN3zojWozWCndIjhB0Unh8239a1bzbzO5fqqkZq`
 
-##### 7. CLI
+CLI:
 * A tool that enables you to interact with AWS services using `commands` in your `command-line` shell
 * It’s open-source `https://github.com/aws/aws-cli`
 
-##### 8. SDK
+SDK:
 * AWS `Software Development Kit` (AWS SDK)
 * Language-specific `APIs` (set of libraries) 
 
-##### 9. Role ( Service account )
+###### 3. SSH public keys for AWS CodeCommit
+* Maximium: 2
+* Can deactivate and reactivate
+* Can upload Public SSH key
+
+Example public key:
+```
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC3XM/m4u/5lUC0F4FqY6BQ8YcVdYbyJz12U/jdH7vZiwPBRrM+4zkiK3+l9Gt8Bkk6K0NwP3jAF6Gg0I9D0JGmY9nfrSx4Kl6A/zv7MLqCsoO8DUn5tg4DqgjM6Nl03pM9R/wCQ8tET//HKmZ3fZfgyMO/66rzFDN16VRbwJmI6XCQfwMe4rIUBT5PvdoLjDXQ01gZ4Qx1bG61wSSonwvufTGki8eHqAZ22xNLmZcIBNa5CXk3TCBvpHwUfLtK5tnANWBNM1i/uAomPi3fYsJpnISD5wA0ePywWQKTMx2/6X1oZDYVscDsAStk1yYPCiWKxZrJhdHcDw6WT6v+3 user@hostname
+```
+
+###### 4. HTTPS Git credentials for AWS CodeCommit
+* Maximium: 2
+* Can deactivate and reactivate, reset password
+
+###### 5. X.509 Signing certificates
+* Maximium: 2
+* Can deactivate and reactivate 
+* Can upload key
+
+Example key:
+```
+-----BEGIN PUBLIC KEY-----
+MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA2E9YBky/Mn79y5kL5z6x
+ZjK7on7d8KLlFb43B0Gsx0WfH1hrIkbYiB/84Ia7uFDjYc/HBtiNfxtYY2Wwq1tN
+IdUoj/zcD7XO2w6JiEKo/LEJmzuowX0ab7ry0KlhLwFTGgch2mDw1NUHMbRLC2y0
+yyk7zZo/DN2f4Bdtpm/jj1ogD8FdE/vuJ1K3cD/B5J8CkStx9fKNCdIq8Hq4xZ+I
+pFr/+evXk1Vl+RyfUUP7ChAUWM5j7E3ZVKj5txI3o2tUw+iN+Xf/SlytLa7RS95O
+7b7eZvKPWeX2JvpCYuETc+lEddK7wqXrLy7jb3c8r/lvmOTZ92V80gJUKMZ9cIwI
+JwIDAQAB
+-----END PUBLIC KEY-----
+```
+
+##### 6. Role ( Service account )
 * Some AWS service will need to `perform actions` on your behalf
 * To do so, we will `assign permissions` to `AWS services` with `IAM Roles`
 * Common roles:
@@ -283,13 +320,13 @@ Hardware
   * `Lambda Function` Roles
   * Roles for `CloudFormation` 
 
-##### 10. IAM Security tools
+##### 7. IAM Security tools
 * IAM Credentials Report (`account-level`) 
   * a report that lists all your account's users and the status of their various credentials
 
 * IAM Access Advisor (`user-level`)
-  * Access advisor shows the service permissions granted to a user and when those services were last accessed.
-  * You can use this information to revise your policies.
+  * Access advisor shows the `service permissions` `granted` to `a user` and `when` those services were `last accessed`.
+  * You can use this information to `revise` your policies.
 
 #### 2. EC2
 #### 3. Instance storage

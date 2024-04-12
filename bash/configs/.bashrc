@@ -2092,6 +2092,7 @@ alias gccc='gcc -c'
 alias gcco='gcc -o'
 
 ### ghc command
+alias cblc='cabal clean'
 alias cblr='cabal run'
 alias cblb='cabal build'
 alias cblii='cabal init --interactive'

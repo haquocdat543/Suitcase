@@ -2092,6 +2092,8 @@ alias gccc='gcc -c'
 alias gcco='gcc -o'
 
 ### ghc command
+alias cblr='cabal run'
+alias cblb='cabal build'
 alias cblii='cabal init --interactive'
 
 ### cargo command

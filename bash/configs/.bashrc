@@ -445,6 +445,7 @@ alias ibat='cargo install --locked bat'
 alias icast="curl -L https://foundry.paradigm.xyz | bash ; $HOME/.foundry/bin/foundryup ; export PATH='$PATH:$HOME/.foundry/bin'"
 alias ihyperlane='npm install -g @hyperlane-xyz/cli'
 alias iawsjs='npm install aws-sdk'
+alias iawsjs3='npm install @aws-sdk/client-ec2'
 alias idattree='curl https://get.datree.io | /bin/bash'
 alias idggsdk='go mod init main ; go get dagger.io/dagger'
 alias idgg='curl -L https://dl.dagger.io/dagger/install.sh | BIN_DIR=$HOME/.local/bin sh ; cp -f $HOME/.local/bin/dagger /usr/local/bin'

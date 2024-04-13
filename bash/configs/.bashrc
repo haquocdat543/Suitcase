@@ -692,6 +692,7 @@ alias a2gci2='aws account get-contact-information'
 ### AWS Backup command
 alias a2bklbkp='aws backup list-backup-plans'
 alias a2bklbkps='aws backup list-backup-selections --backup-plan-id'
+alias a2bkdbkps='. $HOME/preconfig/Suitcase/bash/scripts/deleteBackupSelection.sh'
 alias a2bkgbkp='aws backup get-backup-plan'
 alias a2bkcbkp='aws backup create-backup-plan'
 alias a2bkdbkp='aws backup delete-backup-plan --backup-plan-id'

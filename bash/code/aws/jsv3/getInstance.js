@@ -19,6 +19,11 @@ ec2Client.send(describeInstancesCommand)
       instances.forEach((instance) => {
         console.log("Instance ID:", instance.InstanceId);
         console.log("Instance State:", instance.State.Name);
+        console.log("Instance image ID:", instance.ImageId);
+        console.log("Instance Type:", instance.InstanceType);
+        console.log("Public IP Address:", instance.PublicIpAddress || "N/A");
+        console.log("Private IP Address:", instance.PrivateIpAddress || "N/A");
+        console.log("-----------------------------------------");
       });
     });
   })

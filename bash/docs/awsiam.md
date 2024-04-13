@@ -51,6 +51,175 @@
 ```
 
 ### Ref
+#### IAM
+User
+```
+iam:CreateUser
+iam:DeleteUser
+iam:ListUsers
+```
+
+Group
+```
+iam:CreateGroup
+iam:DeleteGroup
+iam:ListGroups
+```
+
+User ->> group
+```
+iam:AddUserToGroup
+iam:RemoveUserFromGroup
+```
+
+Policy ->> group
+```
+iam:AttachGroupPolicy
+iam:DetachGroupPolicy
+```
+
+Policy
+```
+iam:CreatePolicy
+iam:DeletePolicy
+iam:ListPolicies
+```
+
+Role
+```
+iam:CreateRole
+iam:DeleteRole
+iam:ListRoles
+iam:PassRole
+iam:ListAttachedRolePolicies
+```
+
+Policy ->> role
+```
+iam:PutRolePolicy
+iam:DeleteRolePolicy
+iam:GetRolePolicy
+```
+
+```
+iam:UpdateUser
+iam:GetUser
+iam:ListGroupsForUser
+iam:GetGroup
+iam:GetPolicy
+```
+
+User Group Policy
+```
+iam:ListAttachedUserPolicies
+iam:ListAttachedGroupPolicies
+iam:ListEntitiesForPolicy
+```
+
+Simulate
+```
+iam:SimulatePrincipalPolicy
+```
+
+Report
+```
+iam:GenerateCredentialReport
+```
+
+SSH Key
+```
+iam:UploadSSHPublicKey
+iam:DeleteSSHPublicKey
+iam:ListSSHPublicKeys
+iam:GetSSHPublicKey
+```
+
+Access Key
+```
+iam:CreateAccessKey
+iam:DeleteAccessKey
+iam:ListAccessKeys
+iam:GetAccessKeyLastUsed
+```
+
+Login profile
+```
+iam:DeleteLoginProfile
+iam:GetLoginProfile
+iam:UpdateLoginProfile
+```
+
+MFA
+```
+iam:EnableMFADevice
+iam:DeactivateMFADevice
+iam:ListMFADevices
+```
+
+Credential
+```
+iam:ListServiceSpecificCredentials
+iam:ResetServiceSpecificCredential
+iam:UpdateServiceSpecificCredential
+```
+
+```
+iam:CreateServiceLinkedRole
+iam:ListServiceTags
+```
+
+Tag role
+```
+iam:TagRole
+iam:UntagRole
+iam:ListRoleTags
+```
+
+Policy ->> ( user, group )
+```
+iam:PutUserPolicy
+iam:DeleteUserPolicy
+iam:GetUserPolicy
+iam:ListUserPolicies
+```
+
+Profile
+```
+iam:ListInstanceProfilesForRole
+iam:DeleteInstanceProfile
+```
+
+User tag
+```
+iam:UpdateUserTags
+iam:ListUserTags
+```
+
+Group policy
+```
+iam:CreateGroupPolicy
+iam:DeleteGroupPolicy
+iam:GetGroupPolicy
+iam:ListGroupPolicies
+```
+
+Saml provider
+```
+iam:CreateSAMLProvider
+iam:DeleteSAMLProvider
+iam:ListSAMLProviders
+iam:ListRolePolicies
+iam:GetContextKeysForCustomPolicy
+iam:ListEntitiesForPolicy
+iam:ListAttachedGroupPolicies
+iam:ListAttachedUserPolicies
+iam:DeleteServiceLinkedRole
+iam:GetServiceLinkedRoleDeletionStatus
+iam:ListRoles
+iam:ListInstanceProfiles
+iam:GetRole
+```
+
 #### EC2
 Instance
 ```

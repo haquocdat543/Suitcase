@@ -70,6 +70,7 @@ alias cdsc='cd $HOME/Suitcase/bash/scripts'
 alias cdcex='cd $HOME/Library/Application\ Support/Google/Chrome/Default/Extensions'
 alias cddt='cd $HOME/Suitcase/bash/data'
 alias cdif='cd $HOME/Suitcase/bash/infra'
+alias cdcd='cd $HOME/Suitcase/bash/code'
 alias cdtmp='cd $(mktemp -d)'
 alias cdvli='cd /var/lib'
 alias cdvlo='cd /var/log'
@@ -598,11 +599,13 @@ alias ktxc='kubectx -c'
 alias ktxu='kubectx -u'
 alias ktxd='kubectx -d'
 
-### AWS command
+### S3 command
 alias s3cf='s3cmd --configure'
 alias s3l='s3cmd ls'
 alias s3p='s3cmd put'
 alias s3g='s3cmd get'
+
+### AWS command
 alias a2c='aws configure'
 alias a2cl='aws configure list'
 alias a2ebsdesv='aws ebs describe-volumes'
@@ -685,6 +688,14 @@ alias a2qldl='aws qldb delete-ledger --name'
 alias a2qldesl='aws qldb describe-ledger --name'
 alias a2gci='aws sts get-caller-identity'
 alias a2gci2='aws account get-contact-information'
+
+### AWS Backup command
+alias a2bklbkp='aws backup list-backup-plans'
+alias a2bklbkpt='aws backup list-backup-plan-templates'
+alias a2bklbkv='aws backup list-backup-vaults'
+alias a2bklbkj='aws backup list-backup-jobs'
+alias a2bklbkjs='aws backup list-backup-job-summaries'
+alias a2bklt='aws backup list-tags'
 
 ### Gcloud command
 alias ggi='gcloud init'

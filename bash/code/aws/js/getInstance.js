@@ -29,6 +29,7 @@ ec2.describeInstances(params, (err, data) => {
     // Print information about each instance
     instances.forEach(instance => {
       console.log("Instance ID:", instance.InstanceId);
+      console.log("Instance image ID:", instance.ImageId);
       console.log("Instance Type:", instance.InstanceType);
       console.log("Instance State:", instance.State.Name);
       console.log("Public IP Address:", instance.PublicIpAddress || "N/A");

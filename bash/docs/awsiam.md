@@ -49,3 +49,37 @@
   ]
 }
 ```
+
+### Ref
+#### EC2
+Instance
+```
+ec2:DescribeInstances
+ec2:RunInstances
+ec2:StartInstances
+ec2:StopInstances
+ec2:TerminateInstances
+```
+
+Tags
+```
+ec2:CreateTags
+ec2:DeleteTags
+```
+
+Security Group
+```
+ec2:DescribeSecurityGroups
+ec2:AuthorizeSecurityGroupIngress
+ec2:AuthorizeSecurityGroupEgress
+ec2:RevokeSecurityGroupIngress
+ec2:RevokeSecurityGroupEgress
+```
+
+Keypair
+```
+ec2:DescribeKeyPairs
+ec2:CreateKeyPair
+ec2:ImportKeyPair
+ec2:DeleteKeyPair
+```

@@ -2051,6 +2051,7 @@ alias bigrpcurl='brew install grpcurl'
 alias bilkd='brew install linkerd'
 alias biopa='brew install opa'
 alias bimc='brew install minio/stable/mc'
+alias bigw='brew install git-flow'
 
 ### Ceph command 
 alias c3='ceph'

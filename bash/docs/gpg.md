@@ -81,3 +81,24 @@ Secret key:
 gpg --delete-secret-key <key_id_or_email>
 gpg --delete-secret-key --force <key_id_or_email>
 ```
+
+### 6. Backup key
+```
+gpg --export --armor <key_id_or_fingerprint> > public_key.asc
+
+```
+
+```
+gpg --export-secret-keys --armor <key_id_or_fingerprint> > private_key.asc
+```
+
+### 7. Restore key
+Public key:
+```
+gpg --import public-keys.asc
+```
+
+Secret key:
+```
+gpg --import secret-keys.asc
+```

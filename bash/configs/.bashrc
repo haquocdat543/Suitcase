@@ -2275,6 +2275,8 @@ alias gpglkfl='gpg --list-secret-keys --keyid-format LONG'
 alias gpgfgk='gpg --full-generate-key'
 alias gpgpw='gpg --passwd'
 alias gpgim='gpg --import'
+alias gpgex='gpg --export --output'
+alias gpgexsk='gpg --export-secret-keys --output'
 
 ### Other command
 alias crleip='curl ifconfig.me' # or curl icanhazip.com

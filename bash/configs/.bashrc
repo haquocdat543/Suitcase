@@ -2278,6 +2278,8 @@ alias gpgpw='gpg --passwd'
 alias gpgim='gpg --import'
 alias gpgex='gpg --export --output'
 alias gpgexsk='gpg --export-secret-keys --output'
+alias gpgdk='gpg --delete-key'
+alias gpgdsk='gpg --delete-secret-key'
 
 ### Other command
 alias crleip='curl ifconfig.me' # or curl icanhazip.com

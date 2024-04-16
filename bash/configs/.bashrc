@@ -1067,6 +1067,8 @@ alias gcen='git config --global user.email "datquocha@notional.ventures"'
 # Git flow
 alias gfi='git flow init'
 alias gffs='git flow feature start'
+alias gffl='git flow feature list'
+alias gfff='git flow feature finish'
 alias gfrs='git flow release start'
 alias gfhs='git flow hotfix start'
 

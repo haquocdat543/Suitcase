@@ -69,3 +69,15 @@ List gpg configuration:
 git config -l | grep gpg
 ```
 
+### 5. Delete key
+key:
+```
+gpg --delete-key <key_id_or_email>
+gpg --delete-key --force <key_id_or_email>
+```
+
+Secret key:
+```
+gpg --delete-secret-key <key_id_or_email>
+gpg --delete-secret-key --force <key_id_or_email>
+```

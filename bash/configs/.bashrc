@@ -1077,6 +1077,9 @@ alias gfff='git flow feature finish'
 alias gfrs='git flow release start'
 alias gfhs='git flow hotfix start'
 
+### Knife command
+alias k4='knife'
+
 ### Chef command
 alias ch2='chef'
 alias ch2sv='chef-server-ctl'

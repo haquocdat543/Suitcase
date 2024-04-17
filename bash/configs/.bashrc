@@ -443,6 +443,7 @@ alias isconfig='go install github.com/freshautomations/sconfig@latest ; cp $HOME
 alias iimc='go install github.com/danielgatis/imgcat@latest ; cp $HOME/go/bin/imgcat /usr/local/bin'
 alias istoml='. $HOME/preconfig/Suitcase/bash/scripts/stomlInstall.sh'
 alias ichef='. $HOME/preconfig/Suitcase/bash/scripts/chefInstall.sh'
+alias fchef='. $HOME/preconfig/Suitcase/bash/scripts/getChef.sh'
 alias igm='git clone https://github.com/informalsystems/gm ; cp -f $HOME/gm/bin/* /usr/local/bin'
 alias ibat='cargo install --locked bat'
 alias icast="curl -L https://foundry.paradigm.xyz | bash ; $HOME/.foundry/bin/foundryup ; export PATH='$PATH:$HOME/.foundry/bin'"

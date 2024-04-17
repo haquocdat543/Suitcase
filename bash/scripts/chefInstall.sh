@@ -1,6 +1,7 @@
 #!/bin/bash
 
 export CHEF="21.10.640"
-wget https://packages.chef.io/files/stable/chef-workstation/${CHEF}/el/8/chef-workstation-${CHEF}-1.el8.x86_64.rpm
-yum localinstall chef-workstation-${CHEF}-1.el8.x86_64.rpm
-rm chef-workstation-${CHEF}-1.el8.x86_64.rpm
+export CENTOS_VERSION="8"
+wget https://packages.chef.io/files/stable/chef-workstation/${CHEF}/el/${CENTOS_VERSION}/chef-workstation-${CHEF}-1.el${CENTOS_VERSION}.x86_64.rpm
+yum localinstall chef-workstation-${CHEF}-1.el${CENTOS_VERSION}.x86_64.rpm
+rm chef-workstation-${CHEF}-1.el${CENTOS_VERSION}.x86_64.rpm

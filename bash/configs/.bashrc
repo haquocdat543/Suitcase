@@ -1077,6 +1077,10 @@ alias gfff='git flow feature finish'
 alias gfrs='git flow release start'
 alias gfhs='git flow hotfix start'
 
+### Chef command
+alias ch2='chef'
+alias ch2sv='chef-server-ctl'
+
 ### Ansible command
 alias a1='ansible'
 alias a1a='ansible all'

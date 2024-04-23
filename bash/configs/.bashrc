@@ -450,6 +450,7 @@ alias ichefsv='. $HOME/preconfig/Suitcase/bash/scripts/chefServerInstall.sh'
 alias gchef='. $HOME/preconfig/Suitcase/bash/scripts/getChef.sh'
 alias igm='git clone https://github.com/informalsystems/gm ; cp -f $HOME/gm/bin/* /usr/local/bin'
 alias ibat='cargo install --locked bat'
+alias isupervisor='yum install -y epel-release ; yum install -y supervisor'
 alias icast="curl -L https://foundry.paradigm.xyz | bash ; $HOME/.foundry/bin/foundryup ; export PATH='$PATH:$HOME/.foundry/bin'"
 alias ihyperlane='npm install -g @hyperlane-xyz/cli'
 alias iawsjs='npm install aws-sdk'

@@ -2160,6 +2160,58 @@ spec:
   coolDown: ${7:60} # Wait 60 seconds for stabilization after scaling
 endsnippet
 
+snippet csttp "OPA constraint template" b
+apiVersion: templates.gatekeeper.sh/v1beta1
+kind: ConstraintTemplate
+metadata:
+  name: ${1:nginx-min-replicas}
+spec:
+  crd:
+    spec:
+      names:
+        kind: ${2:K8sMinReplicaCount}
+  validation:
+    # OPA rego policy definition
+    openAPIV3Schema:
+      properties:
+        min:
+          type: integer
+    rego: |
+      package ${3:nginx-min-replicas}
+
+      violation[{"msg": msg}] {
+        # Check if replicas are less than the minimum
+        provided := input.review.object.spec.replicas
+        required := input.parameters.min
+        if provided < required {
+          msg := sprintf("nginx deployment must have at least %v replicas", [required])
+          err := hold remediation
+        }
+      }
+endsnippet
+
+snippet cst "OPA constraint" b
+apiVersion: constraints.gatekeeper.sh/v1beta1
+kind: Constraint
+metadata:
+  name: ${1:nginx-deployment-min-replicas}
+spec:
+  match:
+    kinds:
+    - apiGroups: ["apps"]
+      kinds: ["Deployment"]
+    selector:
+      matchLabels:
+        app: nginx  # This selects deployments with label "app: nginx"
+  parameters:
+    min: ${2:4}  # Minimum required replicas for Nginx deployment
+  template:
+    reference:
+      kind: ConstraintTemplate
+      apiVersion: templates.gatekeeper.sh/v1beta1
+      name: nginx-min-replicas
+endsnippet
+
 snippet semaphore "Compose file for Ansible UI" b
 services:
   # uncomment this section and comment out the mysql section to use postgres instead of mysql

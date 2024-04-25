@@ -15,22 +15,27 @@ openssl req -x509 -new -nodes -key ca.key -days 100000 -out ca.crt -subj "/CN=ad
 #### 3. Create configuration file
 ```
 cat >server.conf <<EOF
-[req]
-req_extensions = v3_req
-distinguished_name = req_distinguished_name
-[req_distinguished_name]
-[ v3_req ]
+[ req ]
+prompt = no
+req_extensions = v3_ext
+distinguished_name = dn
+
+[ dn ]
+CN = opa.opa.svc
+
+[ v3_ext ]
 basicConstraints = CA:FALSE
 keyUsage = nonRepudiation, digitalSignature, keyEncipherment
 extendedKeyUsage = clientAuth, serverAuth
+subjectAltName = DNS:opa.opa.svc,DNS:opa.opa.svc.cluster,DNS:opa.opa.svc.cluster.local
 EOF
 ```
 
 #### 4. Generate new server key
 ```
 openssl genrsa -out server.key 2048
-openssl req -new -key server.key -out server.csr -subj "/CN=opa.opa.svc" -config server.conf
-openssl x509 -req -in server.csr -CA ca.crt -CAkey ca.key -CAcreateserial -out server.crt -days 100000 -extensions v3_req -extfile server.conf
+openssl req -new -key server.key -sha256 -out server.csr -extensions v3_ext -config server.conf
+openssl x509 -req -in server.csr -sha256 -CA ca.crt -CAkey ca.key -CAcreateserial -out server.crt -days 100000 -extensions v3_ext -extfile server.conf
 ```
 
 #### 5. Create new secret for generated key
@@ -38,7 +43,25 @@ openssl x509 -req -in server.csr -CA ca.crt -CAkey ca.key -CAcreateserial -out s
 kubectl create secret tls opa-server --cert=server.crt --key=server.key
 ```
 
-#### 6. Apply resources file
+#### 6. Build and publish OPA Bundle
+```
+cat > .manifest <<EOF
+{
+    "roots": ["kubernetes/admission", "system"]
+}
+EOF
+```
+
+```
+opa build -b .
+```
+
+We will now serve the OPA bundle using Nginx:
+```
+docker run --rm --name bundle-server -d -p 8888:80 -v ${PWD}:/usr/share/nginx/html:ro nginx:latest
+```
+
+#### 7. Apply resources file
 admission-controller.yaml
 ```
 # Grant OPA/kube-mgmt read-only access to resources. This lets kube-mgmt
@@ -94,9 +117,9 @@ spec:
   - name: https
     protocol: TCP
     port: 443
-    targetPort: 443
+    targetPort: 8443
 ---
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
@@ -121,56 +144,46 @@ spec:
         # authentication and authorization on the daemon. See the Security page for
         # details: https://www.openpolicyagent.org/docs/security.html.
         - name: opa
-          image: openpolicyagent/opa:0.11.0
+          image: openpolicyagent/opa:0.63.0
           args:
             - "run"
             - "--server"
             - "--tls-cert-file=/certs/tls.crt"
             - "--tls-private-key-file=/certs/tls.key"
-            - "--addr=0.0.0.0:443"
+            - "--addr=0.0.0.0:8443"
             - "--addr=http://127.0.0.1:8181"
+            - "--set=services.default.url=http://host.minikube.internal:8888"
+            - "--set=bundles.default.resource=bundle.tar.gz"
+            - "--log-format=json-pretty"
+            - "--set=status.console=true"
+            - "--set=decision_logs.console=true"
           volumeMounts:
             - readOnly: true
               mountPath: /certs
               name: opa-server
+          readinessProbe:
+            httpGet:
+              path: /health?plugins&bundle
+              scheme: HTTPS
+              port: 8443
+            initialDelaySeconds: 3
+            periodSeconds: 5
+          livenessProbe:
+            httpGet:
+              path: /health
+              scheme: HTTPS
+              port: 8443
+            initialDelaySeconds: 3
+            periodSeconds: 5
         - name: kube-mgmt
-          image: openpolicyagent/kube-mgmt:0.8
+          image: openpolicyagent/kube-mgmt:2.0.1
           args:
             - "--replicate-cluster=v1/namespaces"
-            - "--replicate=extensions/v1beta1/ingresses"
+            - "--replicate=networking.k8s.io/v1/ingresses"
       volumes:
         - name: opa-server
           secret:
             secretName: opa-server
----
-kind: ConfigMap
-apiVersion: v1
-metadata:
-  name: opa-default-system-main
-  namespace: opa
-data:
-  main: |
-    package system
-
-    import data.kubernetes.admission
-
-    main = {
-      "apiVersion": "admission.k8s.io/v1beta1",
-      "kind": "AdmissionReview",
-      "response": response,
-    }
-
-    default response = {"allowed": true}
-
-    response = {
-        "allowed": false,
-        "status": {
-            "reason": reason,
-        },
-    } {
-        reason = concat(", ", admission.deny)
-        reason != ""
-    }
 ```
 
 Apply resources:
@@ -178,11 +191,11 @@ Apply resources:
 kubectl apply -f admission-controller.yaml
 ```
 
-#### 6. Create webhook configuration
+#### 8. Create webhook configuration
 ```
 cat > webhook-configuration.yaml <<EOF
 kind: ValidatingWebhookConfiguration
-apiVersion: admissionregistration.k8s.io/v1beta1
+apiVersion: admissionregistration.k8s.io/v1
 metadata:
   name: opa-validating-webhook
 webhooks:
@@ -203,6 +216,8 @@ webhooks:
       service:
         namespace: opa
         name: opa
+    admissionReviewVersions: ["v1"]
+    sideEffects: None
 EOF
 ```
 
@@ -219,5 +234,5 @@ kubectl apply -f webhook-configuration.yaml
 
 Get logs:
 ```
-kubectl logs -l app=opa -c opa
+kubectl logs -l app=opa -c opa -f
 ```

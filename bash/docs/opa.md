@@ -1,6 +1,6 @@
 # OPA
 
-### 1. Installation
+### 1. Installation OPA
 #### 1. Create new namespace
 ```
 kubectl create namespace opa
@@ -235,4 +235,16 @@ kubectl apply -f webhook-configuration.yaml
 Get logs:
 ```
 kubectl logs -l app=opa -c opa -f
+```
+
+### 1. Installation Gatekeeper
+#### 1. Manifests
+```
+kubectl apply -f https://raw.githubusercontent.com/open-policy-agent/gatekeeper/v3.15.0/deploy/gatekeeper.yaml
+```
+
+#### 2. Helm
+```
+helm repo add gatekeeper https://open-policy-agent.github.io/gatekeeper/charts
+helm install gatekeeper/gatekeeper --name-template=gatekeeper --namespace gatekeeper-system --create-namespace
 ```

@@ -2115,6 +2115,27 @@ spec:
     name: ${1:default}
 endsnippet
 
+snippet kedacron "KEDA cron" b
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  name: ${1:AppName}-scaler
+spec:
+  scaleSpec:
+    replicas: ${2:Amount} # Minimum replicas (can be scaled up)
+    selector:
+      matchLabels:
+        app: ${3:Target} # Matches your deployment
+  triggers:
+  - type: cron
+    metadata:
+      timezone: ${4:Asia/Saigon}
+      start: ${5:0 6 * * *} 
+      end: ${6:0 20 * * * }
+      # You can define more complex schedules following cron syntax
+  coolDown: ${7:60} # Wait 60 seconds for stabilization after scaling
+endsnippet
+
 snippet semaphore "Compose file for Ansible UI" b
 services:
   # uncomment this section and comment out the mysql section to use postgres instead of mysql

@@ -554,7 +554,7 @@ backupzipfile=$(s3cmd ls "$bucket"/"$sssfolder"/ | awk '{print $4}')
 s3cmd get $backupzipfile
 
 # Unzip all the files
-gunzip "./$sssfolder.gz"
+gunzip "./$sssfolder"
 
 # Restore it to cluster
 etcdutl snapshot restore --data-dir $recoverfolder/$sssfolder $restorefolder/$sssfolder 

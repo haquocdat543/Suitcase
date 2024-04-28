@@ -2024,6 +2024,7 @@ alias pi='pip install'
 alias pians='pip install ansible'
 alias pipyg='pip install pygments'
 alias pidggsdk='pip install dagger-io'
+alias pis3='pip install s3cmd'
 
 ### brew command
 alias bri='brew install'

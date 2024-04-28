@@ -482,11 +482,11 @@ echo -e "\e[1;32mJobs a goodun\e[00m"
 # mysql -u root -p$mysqlpass
 endsnippet
 
-snippet k8sbk "k8sbk" b
+snippet k8sbk "Kubernetes backup script" b
 #!/bin/bash
 
-# Based on https://gist.github.com/2206527
-
+## BACKUP
+# Create backup folder
 mkdir -p $HOME/.kubernetes/backup
 backupfolder="$HOME/.kubernetes/backup"
 
@@ -495,7 +495,7 @@ mysqlpass="ROOTPASSWORD"
 bucket="s3://bucketname"
 
 # Timestamp (sortable AND readable)
-stamp=`date +"%s-%A-%d-%B-%Y-@-%Hh%Mm%Ss"`
+stamp=`date +"%s-%A-%d-%B-%Y-@-%Hh%Mm"`
 
 # Feedback
 echo -e "Dumping to \e[1;32m$bucket/$stamp/\e[00m"
@@ -504,7 +504,7 @@ echo -e "Dumping to \e[1;32m$bucket/$stamp/\e[00m"
 filename="$stamp"
 backupfile="$backupfolder/$filename.db"
 backupzipfile="$backupfolder/$filename.gz"
-object="$bucket/$stamp/$filename"
+object="$bucket/$stamp/$filename.gz"
 
 # Feedback
 echo -e "\e[1;34m$stamp\e[00m"
@@ -525,25 +525,39 @@ rm -f "$backupzipfile"
 
 # Jobs a goodun
 echo -e "\e[1;32mJobs a goodun\e[00m"
+endsnippet
 
+snippet k8srs "Kubernetes restore script" b
 ### RESTORE
+# Create restore folder
+mkdir -p $HOME/.kubernetes/restore
+mkdir -p $HOME/.kubernetes/recover
+restorefolder="$HOME/.kubernetes/restore"
+recoverfolder="$HOME/.kubernetes/recover"
 
-# Set our variables
-# export mysqlpass="ROOTPASSWORD"
-# export bucket="s3://bucketname"
-# # Get a list of the snapshot dates, newest at the bottom
-# s3cmd ls $bucket | sort
-# 
-# # Set the name of the directory you want to use (ie "1332796733-Monday-26-March-2012-@-22h18m")
-# export s3folder="1234567890-DAY-DD-MONTH-YYYY-@-HHhMMm"
-# # Create a temporary directory and change to it
-# cd $(mktemp -d)
-# # Download all the snapshots
-# s3cmd ls "$bucket"/"$s3folder"/ | grep -o "s3://.*\.gz" | xargs -n 1 -P 10 -I {} s3cmd get {} $backupfolder/$s3folder
-# 
-# # Unzip all the files
-# ls | grep "gz" | xargs -n 1 -P 10 -I {} gunzip {} $backupfolder/$s3folder
-# etcdutl snapshot restore --data-dir $datadir $snapshotdir
+Set our variables
+export mysqlpass="PASSWORD"
+export bucket="s3://BUCKET_NAME"
+
+# Get a list of the snapshot dates, newest at the bottom
+s3cmd ls $bucket | sort
+
+# Set the name of the directory you want to use (ie "1332796733-Monday-26-March-2012-@-22h18m20s")
+echo "ie: 1332796733-Monday-26-March-2012-@-22h18m20s"
+read -p "$(echo -e "Enter backup folder name: [${green2}1234567890-DAY-DD-MONTH-YYYY-@-HHhMMmSSs${nc}]: ")" sssfolder
+#
+# Create a temporary directory and change to it
+cd $restorefolder
+
+# Download all the snapshots
+backupzipfile=$(s3cmd ls "$bucket"/"$sssfolder"/ | awk '{print $4}')
+s3cmd get $backupzipfile
+
+# Unzip all the files
+gunzip "./$sssfolder.gz"
+
+# Restore it to cluster
+etcdutl snapshot restore --data-dir $recoverfolder/$sssfolder $restorefolder/$sssfolder 
 endsnippet
 
 snippet exist "Check exist of binary" b

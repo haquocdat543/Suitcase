@@ -485,30 +485,57 @@ endsnippet
 snippet k8sbk "Kubernetes backup script" b
 #!/bin/bash
 
-# Install etcd binary function
-install_etcd_binary () {
-mkdir /tmp/etcd && cd /tmp/etcd
-rm -rf etcd*
-curl -s https://api.github.com/repos/etcd-io/etcd/releases/latest \
-  | grep browser_download_url \
-  | grep linux-amd64 \
-  | cut -d '"' -f 4 \
-  | wget -i -
-tar xvf etcd-v*.tar.gz
-cd etcd-*/
-sudo mv etcd* /usr/local/bin/
-cd ..
-rm -rf etcd*
+export BINARY_PIP_NAME=s3cmd
+export BINARY_S3CMD_NAME=s3cmd
+export BINARY_ETCD_NAME=etcdctl
+
+# Install s3cmd binary function
+install_pip_binary () {
+  wget https://bootstrap.pypa.io/get-pip.py 
+  python3 get-pip.py
 }
 
-# Check if etcdctl exists
-export BINARY_NAME=etcdctl
+# Install s3cmd binary function
+install_s3cmd_binary () {
+  pip install s3cmd
+}
 
-# Check if "${BINARY_NAME}" command exists using "command -v"
-if command -v ${BINARY_NAME} &> /dev/null; then
-  continue
-else
-  install_etcd_binary
+# Install etcd binary function
+install_etcd_binary () {
+  mkdir /tmp/etcd && cd /tmp/etcd
+  rm -rf etcd*
+  curl -s https://api.github.com/repos/etcd-io/etcd/releases/latest \
+    | grep browser_download_url \
+    | grep linux-amd64 \
+    | cut -d '"' -f 4 \
+    | wget -i -
+  tar xvf etcd-v*.tar.gz
+  cd etcd-*/
+  sudo mv etcd* /usr/local/bin/
+  cd ..
+  rm -rf etcd*
+}
+
+install_if_not_exist () {
+  local BINARY=$1
+  local FUNCTION=$2
+  
+  if command -v ${BINARY} &> /dev/null; then
+    continue
+  else
+    $FUNCTION
+  fi
+}
+
+# Check if binary command exists
+install_if_not_exist pip install_pip_binary
+install_if_not_exist s3cmd install_s3cmd_binary
+install_if_not_exist etcdctl install_etcd_binary
+
+# Chech if s3cmd configured
+if [ ! -f $HOME/.s3cfg ]
+then
+  s3cmd --configure
 fi
 
 ## BACKUP

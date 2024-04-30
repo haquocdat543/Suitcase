@@ -94,6 +94,15 @@ const [count, setCount] = useState();
 ```
 * `count` and `setCount` can be anything.
 
+#### 3. useEffect
+#### 4. useMemo
+#### 5. useCallback
+#### 5. useRef
+#### 6. useReducer
+#### 7. useTransition
+#### 8. useDefferedValue
+#### 8. useContext
+
 ### 2. AngularJS
 
 ### 3. VueJS

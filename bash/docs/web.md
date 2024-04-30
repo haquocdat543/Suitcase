@@ -33,6 +33,65 @@
 <hN> Content </hN>
 ```
 
+##### bold
+```
+<b> Content </b>
+```
+```
+<b>This text is bold</b>
+```
+
+##### italic
+```
+<i> Content </i>
+```
+```
+<i>This text is italic</i>
+```
+
+##### emphasized
+```
+<em>This text is emphasized</em>
+```
+
+##### strong
+```
+<strong> Content </strong>
+```
+
+##### small
+```
+<small> Content </small>
+```
+```
+<small>This is some smaller text.</small>
+```
+
+##### mark ( yellow background )
+```
+<p>Do not forget to buy <mark>milk</mark> today.</p>
+```
+
+##### delete ( middle line through text )
+```
+<p>My favorite color is <del>blue</del> red.</p>
+```
+
+##### insert ( underline throught text )
+```
+<p>My favorite color is <del>blue</del> <ins>red</ins>.</p>
+```
+
+##### subscripted ( appears half a character below the normal line )
+```
+<p>This is <sup>superscripted</sup> text.</p>
+```
+
+##### superscripted ( appears half a character above the normal line, )
+```
+<p>This is <sup>superscripted</sup> text.</p>
+```
+
 ##### paragraph
 ```
 <p> Content </p>

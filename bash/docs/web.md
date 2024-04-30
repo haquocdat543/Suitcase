@@ -266,6 +266,58 @@ Eg ( text-align ):
 <p style="text-align:center;">Centered paragraph.</p>
 ```
 
+#### 3. Comment
+```
+<!-- Write your comments here -->
+```
+```
+<!--
+Write your comments here
+-->
+```
+
+#### 4. Color
+
+Basic colors
+* DodgerBlue
+* Tomato
+* MediumSeaGreen
+* Orange
+* Gray
+* SlateBlue
+* Violet
+* LightGray
+
+##### 1. Background color
+```
+<h1 style="background-color:DodgerBlue;">Hello World</h1>
+<p style="background-color:Tomato;">Lorem ipsum...</p>
+```
+
+##### 2. Text color
+```
+<h1 style="color:Tomato;">Hello World</h1>
+<p style="color:DodgerBlue;">Lorem ipsum...</p>
+<p style="color:MediumSeaGreen;">Ut wisi enim...</p>
+```
+
+##### 3. Border Color
+```
+<h1 style="border:2px solid Tomato;">Hello World</h1>
+<h1 style="border:2px solid DodgerBlue;">Hello World</h1>
+<h1 style="border:2px solid Violet;">Hello World</h1>
+```
+
+##### 4. Color Values
+```
+<h1 style="background-color:rgb(255, 99, 71);">...</h1>
+<h1 style="background-color:#ff6347;">...</h1>
+<h1 style="background-color:hsl(9, 100%, 64%);">...</h1>
+
+<h1 style="background-color:rgba(255, 99, 71, 0.5);">...</h1>
+<h1 style="background-color:hsla(9, 100%, 64%, 0.5);">...</h1>
+```
+
 ### 2. CSS
 * . mean class
 ```

@@ -708,3 +708,14 @@ const pool = new Pool({
 module.exports = pool;
 endsnippet
 # vim:ft=snippets:
+
+snippet func "Web function" b
+function ${1:App}() {
+  return (
+  $2
+  );
+}
+
+export default $1;
+endsnippet
+

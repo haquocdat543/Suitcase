@@ -113,12 +113,22 @@ ___
 npm install express
 ```
 
-### 2. Mongoose
+### 2. Axios
+```
+npm install axios
+```
+
+### 3. Lodash
+```
+npm install lodash
+```
+
+### 4. Mongoose
 ```
 npm install mongoose
 ```
 
-### 3. UUID
+### 5. UUID
 ```
 npm install uuid
 ```

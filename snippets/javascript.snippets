@@ -709,7 +709,7 @@ module.exports = pool;
 endsnippet
 # vim:ft=snippets:
 
-snippet func "Web function" b
+snippet rfn "React function" b
 function ${1:App}() {
   return (
     $2
@@ -719,3 +719,13 @@ function ${1:App}() {
 export default $1;
 endsnippet
 
+snippet rref "React Reference" b
+<a
+  className="${1:App-link}"
+  href="${2:https://reactjs.org}"
+  target="${3:_blank}"
+  rel="${4:noopener noreferrer}"
+>
+  ${5:Learn React}
+</a>
+endsnippet

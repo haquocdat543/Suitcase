@@ -318,18 +318,75 @@ Basic colors
 <h1 style="background-color:hsla(9, 100%, 64%, 0.5);">...</h1>
 ```
 
+#### 5. Form
+##### 1. Form elements 
+* <input>
+* <label>
+* <select>
+* <textarea>
+* <button>
+* <fieldset>
+* <legend>
+* <datalist>
+* <output>
+* <option>
+* <optgroup>
+
+##### 2. Input elements 
+* <input type="button">
+* <input type="checkbox">
+* <input type="color">
+* <input type="date">
+* <input type="datetime-local">
+* <input type="email">
+* <input type="file">
+* <input type="hidden">
+* <input type="image">
+* <input type="month">
+* <input type="number">
+* <input type="password">
+* <input type="radio">
+* <input type="range">
+* <input type="reset">
+* <input type="search">
+* <input type="submit">
+* <input type="tel">
+* <input type="text">
+* <input type="time">
+* <input type="url">
+* <input type="week">
+
+
 ### 2. CSS
-* . mean class
+##### dot ( class )
 ```
 .App {
   text-align: center;
 }
 ```
 
-* # mean id
+##### hash ( id )
 ```
-.App {
+#App-Logo {
   text-align: center;
+}
+```
+
+##### padding
+The CSS padding property defines a padding (space) between the text and the border.
+```
+p {
+  border: 2px solid powderblue;
+  padding: 30px;
+}
+```
+
+##### margin
+The CSS margin property defines a margin (space) outside the border.
+```
+p {
+  border: 2px solid powderblue;
+  margin: 50px;
 }
 ```
 

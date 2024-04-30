@@ -43,3 +43,20 @@ css={{ padding: "2px 4px 2px" }}
 
 ### 3. JAVASCRIPT
 
+___
+## 2. Common library
+### 1. Express
+```
+npm install express
+```
+
+### 2. Mongoose
+```
+npm install mongoose
+```
+
+### 3. UUID
+```
+npm install uuid
+```
+

@@ -73,10 +73,26 @@ css={{ padding: "2px 4px 2px" }}
 ```
 
 ### 3. JAVASCRIPT
-
+#### function
+```
+const function_name = () => {
+  function_logic_block
+  return return_value
+}
+```
 ___
 ## 2. Common framwork
 ### 1. ReactJS
+#### 1. Initialize project
+```
+npx create-react-app ${project_name}
+```
+
+#### 2. useState 
+```
+const [count, setCount] = useState();
+```
+* `count` and `setCount` can be anything.
 
 ### 2. AngularJS
 

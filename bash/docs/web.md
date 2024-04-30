@@ -3,24 +3,68 @@
 ## 1. Basic
 ### 1. HTML
 #### 1. Elements
-h1
+##### head
+```
+<header> Content </header>
+```
+
+##### body
+```
+<body> Content </body>
+```
+
+##### title
+```
+<title> Content </title>
+```
+
+##### heading 1 ( Largest )
 ```
 <h1> Content </h1>
 ```
 
-h2
+##### heading 2 ( Second largest )
 ```
 <h2> Content </h2>
 ```
 
-hN
+##### heading N ( N largest )
 ```
 <hN> Content </hN>
 ```
 
-p
+##### paragraph
 ```
 <p> Content </p>
+```
+```
+<p
+title="I'm a tooltip"
+>
+This is a paragraph.
+</p>
+```
+* The value of the title attribute will be displayed as a tooltip when you mouse over the element:
+
+##### horizontal rule
+```
+<hr>
+```
+```
+<h1>This is heading 1</h1>
+<p>This is some text.</p>
+<hr>
+<h2>This is heading 2</h2>
+<p>This is some other text.</p>
+<hr>
+```
+
+##### break line
+```
+<br>
+```
+```
+<p>This is<br>a paragraph<br>with line breaks.</p>
 ```
 
 ##### button
@@ -34,27 +78,93 @@ Attribute:
 <button onClick={handleClick}> Click me</button>
 ```
 
-#### 2. Attributes
-name ( name of element ):
+##### img
+```
+<img
+src=./link/to/image
+alt="Alternative_Text"
+/>
+```
+* src: image source
+* alt: alternative text
+  * The alt attribute should reflect the `image content`, so users who `cannot see` the image get `an understanding` of what the image contains:
+* width: width
+* height: height
 
-className ( class of element ):
+* If we try to display an image that `does not exist`, the value of the `alt attribute` will be `displayed instead`
+
+##### HTML link
+```
+<a
+href="https://www.w3schools.com"
+>
+This is a link
+</a>
+```
+
+#### 2. Attributes
+##### name ( name of element ):
+```
+name=NavBar
+```
+
+##### className ( class of element ):
 ```
 className=NavBar
 ```
 
-id ( id of element ):
+##### id ( id of element ):
 ```
 id=Navigation-Bar
 ```
 
-placeholder ( text inside a button or input field ):
+##### placeholder ( text inside a button or input field ):
 ```
 placeholder="Your Name"
 ```
 
-css ( css directly inside element ):
+##### css ( css directly inside element ):
 ```
 css={{ padding: "2px 4px 2px" }}
+```
+
+##### style:
+```
+<tagname style="property:value;">
+```
+Eg ( background-color ):
+
+```
+<body style="background-color:powderblue;">
+
+<h1>This is a heading</h1>
+<p>This is a paragraph.</p>
+
+</body>
+```
+
+Eg ( color ):
+```
+<h1 style="color:blue;">This is a heading</h1>
+<p style="color:red;">This is a paragraph.</p>
+```
+
+Eg ( font-family ):
+```
+<h1 style="font-family:verdana;">This is a heading with verdana</h1>
+<p style="font-family:courier;">This is a paragraph with courier.</p>
+```
+
+Eg ( font-size ):
+```
+<h1 style="font-size:300%;">This is a heading</h1>
+<p style="font-size:160%;">This is a paragraph.</p>
+```
+
+Eg ( text-align ):
+```
+<h1 style="text-align:center;">Centered Heading</h1>
+<p style="text-align:center;">Centered paragraph.</p>
 ```
 
 ### 2. CSS

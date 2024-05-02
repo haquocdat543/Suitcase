@@ -65,3 +65,28 @@ vault read auth/approle/role/terraform/role-id
 vault write -f auth/approle/role/terraform/secret-id
 ```
 
+### 6. Provider & secret
+Configure provider:
+```
+provider "vault" {
+  address = "http://server_ip:8200"
+  skip_child_token = true
+
+  auth_login {
+    path = "auth/approle/login"
+
+    parameters = {
+      role_id = ""
+      secret_id = ""
+    }
+  }
+}
+```
+
+Get secret value:
+```
+data "vault_kv_secret_v2" "server_name" {
+  mount = "kv"
+  name = "servername"
+}
+```

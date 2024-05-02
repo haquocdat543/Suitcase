@@ -136,6 +136,7 @@ USA
 ```
 <p> Content </p>
 ```
+
 ```
 <p
 title="I'm a tooltip"
@@ -143,12 +144,14 @@ title="I'm a tooltip"
 This is a paragraph.
 </p>
 ```
+
 * The value of the title attribute will be displayed as a tooltip when you mouse over the element:
 
 ##### horizontal rule
 ```
 <hr>
 ```
+
 ```
 <h1>This is heading 1</h1>
 <p>This is some text.</p>
@@ -162,6 +165,7 @@ This is a paragraph.
 ```
 <br>
 ```
+
 ```
 <p>This is<br>a paragraph<br>with line breaks.</p>
 ```
@@ -184,6 +188,7 @@ src=./link/to/image
 alt="Alternative_Text"
 />
 ```
+
 * src: image source
 * alt: alternative text
   * The alt attribute should reflect the `image content`, so users who `cannot see` the image get `an understanding` of what the image contains:
@@ -231,6 +236,7 @@ css={{ padding: "2px 4px 2px" }}
 ```
 <tagname style="property:value;">
 ```
+
 Eg ( background-color ):
 
 ```
@@ -270,6 +276,7 @@ Eg ( text-align ):
 ```
 <!-- Write your comments here -->
 ```
+
 ```
 <!--
 Write your comments here
@@ -358,6 +365,13 @@ Basic colors
 
 
 ### 2. CSS
+##### dot name ( name )
+```
+p.App {
+  text-align: center;
+}
+```
+
 ##### dot ( class )
 ```
 .App {
@@ -408,18 +422,33 @@ npx create-react-app ${project_name}
 
 #### 2. useState 
 ```
-const [count, setCount] = useState();
+const [state, setState] = useState(initState);
 ```
-* `count` and `setCount` can be anything.
+* `state` and `setState` can be anything.
+* `initState` can be anything [ number, string, callback, function ( return value of function ) ]
 
-#### 3. useEffect
-#### 4. useMemo
-#### 5. useCallback
-#### 5. useRef
-#### 6. useReducer
-#### 7. useTransition
-#### 8. useDefferedValue
-#### 8. useContext
+* state is variable
+* setState is a function
+* prevState is previous state value variable
+
+
+#### 3. Two way binding
+#### 4. Mount and unMount
+#### 6. useEffect
+```
+useEffect(callback)
+useEffect(callback, [])
+useEffect(callback, deps)
+```
+
+#### 7. useLayoutEffect
+#### 8. useMemo
+#### 9. useCallback
+#### 10. useRef
+#### 11. useReducer
+#### 12. useTransition
+#### 13. useDefferedValue
+#### 14. useContext
 
 ### 2. AngularJS
 

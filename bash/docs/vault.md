@@ -91,3 +91,8 @@ data "vault_kv_secret_v2" "server_name" {
   name = "servername"
 }
 ```
+
+Example usage:
+```
+name         = data.vault_kv_secret_v2.server_name.data["servername"]
+```

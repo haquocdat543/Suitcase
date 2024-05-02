@@ -1,43 +1,40 @@
 # Suitcase
 This is my toolbox for speed up workloads
+
 ## 1. Linux
 
 ###   1. Bash alias
 Install bash aliases ( k8s, ansible, git, terraform, docker,... )
 
 ```
-alias up1='bash <(curl -s https://raw.githubusercontent.com/haquocdat543/Suitcase/main/bash/scripts/alias.sh )'
-up1
+curl -Ls -o- https://raw.githubusercontent.com/haquocdat543/Suitcase/main/bash/scripts/alias.sh | bash
 ```
 
 You can view my [aliases](https://github.com/haquocdat543/Suitcase/blob/main/bash/configs/.bashrc)
 ###   2. Vim
 Vim configuration file:
 ```
-alias up2='bash <(curl -s https://raw.githubusercontent.com/haquocdat543/Suitcase/main/bash/scripts/vimconfig.sh )'
-up2
+curl -Ls -o- https://raw.githubusercontent.com/haquocdat543/Suitcase/main/bash/scripts/vimconfig.sh | bash
 ```
 
 You can view my [.vimrc](https://github.com/haquocdat543/Suitcase/blob/main/bash/configs/.vimrc), [init.vim](https://github.com/haquocdat543/Suitcase/blob/main/bash/configs/init.vim), [init.lua](https://github.com/haquocdat543/Suitcase/blob/main/bash/configs/init.lua)
 
 ##   3. Tmux
 ```
-alias up3='bash <(curl -s https://raw.githubusercontent.com/haquocdat543/Suitcase/main/bash/scripts/tmuxconfig.sh )'
-up3
+curl -Ls -o- https://raw.githubusercontent.com/haquocdat543/Suitcase/main/bash/scripts/tmuxconfig.sh | bash
 ```
 You can view my [.tmux.conf](https://github.com/haquocdat543/Suitcase/blob/main/bash/configs/.tmux.conf)
 
 
 ##   4. Emacs
 ```
-alias up4='bash <(curl -s https://raw.githubusercontent.com/haquocdat543/Suitcase/main/bash/scripts/emacsconfig.sh )'
-up4
+curl -Ls -o- https://raw.githubusercontent.com/haquocdat543/Suitcase/main/bash/scripts/emacsconfig.sh | bash
 ```
 You can view my [init.el](https://github.com/haquocdat543/Suitcase/blob/main/bash/configs/init.el)
 
 ##   2. Windows
 ```
-curl -L -o %USERPROFILE%/Desktop/setup.bat https://raw.githubusercontent.com/haquocdat543/Suitcase/main/windows/setup.bat
+curl -Ls -o- %USERPROFILE%/Desktop/setup.bat https://raw.githubusercontent.com/haquocdat543/Suitcase/main/windows/setup.bat
 ```
 After execute, run setup.bat on `Desktop`
 ##   3. Snippets
@@ -58,7 +55,7 @@ It include scripts to install ( lazygit, k9s, nvim, python, ansible, k8s,...) an
 ## 5. Install common tools
 After install `bash aliases`
 ```
-upsss ; iness
+upi
 ```
 
 ## 5. Destroy

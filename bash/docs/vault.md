@@ -19,7 +19,7 @@ vault server -prod -prod-listen-address="0.0.0.0:8200"
 * Copy `server ip address` and access it on `browser` on `port 8200`:
 * Choose `authentication method`: Choose token ->> Copy token ->> Paste token ->> Enter
 
-### 3. Create policy
+### 3. Create policy & role
 terraform policy:
 ```
 vault policy write terraform - <<EOF 
@@ -54,3 +54,14 @@ token_ttl=20m token_max_ttl=30m
 secret_num_id_uses=40
 token_policies=terraform
 ```
+
+### 4. Read value
+```
+vault read auth/approle/role/terraform/role-id
+```
+
+### 5. Write value
+```
+vault write -f auth/approle/role/terraform/secret-id
+```
+

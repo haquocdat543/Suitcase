@@ -1900,8 +1900,10 @@ alias kafl='kubectl apply -f https://github.com/fluxcd/flux2/releases/latest/dow
 alias kdfl='kubectl delete -f https://github.com/fluxcd/flux2/releases/latest/download/install.yaml'
 alias kd='kubectl delete -f'
 alias kggp='kubectl get secret --namespace default grafana -o jsonpath="{.data.admin-password}" | base64 --decode ; echo'
-alias krrd="kubectl run --namespace default my-redis-client --rm --tty -i --restart='Never' --image docker.io/bitnami/redis:6.2.1-debian-10-r0 -- bash" # redis-cli -h my-redis -p 6379
-alias kgdbt="kubectl get secret admin-user -n kubernetes-dashboard -o jsonpath={'.data.token'} | base64 -d" # redis-cli -h my-redis -p 6379
+alias krrd="kubectl run --namespace default my-redis-client --rm --tty -i --restart='Never' --image docker.io/bitnami/redis:6.2.1-debian-10-r0 -- bash"
+alias kgdbt="kubectl get secret admin-user -n kubernetes-dashboard -o jsonpath={'.data.token'} | base64 -d"
+alias kangxctl="kubectl apply -f https://raw.githubusercontent.com/nginxinc/kubernetes-ingress/v3.3.2/deploy/crds.yaml"
+alias kdngxctl="kubectl delete -f https://raw.githubusercontent.com/nginxinc/kubernetes-ingress/v3.3.2/deploy/crds.yaml"
 
 ### Link command
 alias lns='ln -s'

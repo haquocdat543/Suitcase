@@ -69,3 +69,35 @@ WORKSPACE_NAME1.tfstate
 WORKSPACE_NAME2.tfstate
 WORKSPACE_NAME3.tfstate
 ```
+## 5. Provisioner
+### 1. Connection
+```
+connection {
+  type        = "ssh"
+  user        = "ubuntu"
+  private_key = file("~/.ssh/id_rsa")
+  host        = "1.2.3.4"
+}
+```
+
+### 2. File provisioner
+```
+provisioner "file" {
+  source      = "app.py" # source file in current terraform directory
+  destination = "/home/ubuntu/app.py" # destination on server you want to copy file to
+}
+```
+
+### 2. Remote exec provisioner
+```
+provisioner "remote-exec" {
+  inline = [
+    "echo 'Hello world from remote instance'",
+    "sudo apt update -y",
+    "sudo apt-get install -y python3-pip",
+    "cd /home/ubuntu",
+    "sudo pip3 install flask",
+    "sudo python3 app.py &",
+  ]
+}
+```

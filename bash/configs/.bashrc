@@ -1184,7 +1184,13 @@ alias pkbv='packer build -var'
 alias pkpi='packer plugins install'
 alias pkpia='packer plugins install github.com/hashicorp/amazon'
 
-### Terraform command
+### Vault command
+alias vlts='vault server'
+alias vltsd='vault server -dev'
+alias vltsp='vault server -prod'
+alias vltpw='vault policy write'
+
+### Terragrunt command
 alias tgi='terragrunt init'
 alias tgp='terragrunt plan'
 alias tga='terragrunt apply'

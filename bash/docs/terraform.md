@@ -69,7 +69,7 @@ WORKSPACE_NAME1.tfstate
 WORKSPACE_NAME2.tfstate
 WORKSPACE_NAME3.tfstate
 ```
-## 5. Provisioner
+## 5. Provisioner ( compute instance only )
 ### 1. Connection
 ```
 connection {
@@ -88,7 +88,14 @@ provisioner "file" {
 }
 ```
 
-### 2. Remote exec provisioner
+### 3. Local exec provisioner
+```
+provisioner "local-exec" {
+  command = "echo The server's IP address is ${self.private_ip}"
+}
+```
+
+### 4. Remote exec provisioner
 ```
 provisioner "remote-exec" {
   inline = [

@@ -362,6 +362,7 @@ alias k8sgengu='. $HOME/preconfig/Suitcase/bash/scripts/k8sGenGroupUser.sh'
 
 
 ### Documentation
+alias doceks='vim -m $HOME/preconfig/Suitcase/bash/docs/eks.md'
 alias docvault='vim -m $HOME/preconfig/Suitcase/bash/docs/vault.md'
 alias docweb='vim -m $HOME/preconfig/Suitcase/bash/docs/web.md'
 alias docxargs='vim -m $HOME/preconfig/Suitcase/bash/docs/xargs.md'

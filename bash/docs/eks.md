@@ -65,3 +65,29 @@ Delete policy [ need to replace `accountId` ]:
 aws iam delete-policy \
     --policy-arn arn:aws:iam::123456789012:policy/AWSLoadBalancerControllerIAMPolicy
 ```
+#### 2. Test with 2048 game
+Install using manifest from internet:
+```
+kubectl apply -f https://raw.githubusercontent.com/kubernetes-sigs/aws-load-balancer-controller/v2.7.2/docs/examples/2048/2048_full.yaml
+```
+
+Get ingress:
+```
+kubectl get ingress/ingress-2048 -n game-2048
+```
+Output:
+```
+NAME           CLASS    HOSTS   ADDRESS                                                                   PORTS   AGE
+ingress-2048   <none>   *       k8s-game2048-ingress2-xxxxxxxxxx-yyyyyyyyyy.region-code.elb.amazonaws.com   80      5m25s
+```
+
+Check logs if error occured:
+```
+kubectl logs -f -n kube-system -l app.kubernetes.io/instance=aws-load-balancer-controller
+```
+
+Delete 2048 app:
+```
+kubectl delete -f https://raw.githubusercontent.com/kubernetes-sigs/aws-load-balancer-controller/v2.7.2/docs/examples/2048/2048_full.yaml
+```
+

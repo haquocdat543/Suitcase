@@ -54,3 +54,14 @@ Verify that the controller is installed:
 ```
 kubectl get deployment -n kube-system aws-load-balancer-controller
 ```
+
+Delete role stack [ need to replace `clusterName` ]:
+```
+aws cloudformation delete-stack --stack-name eksctl-${clusterName}-addon-iamserviceaccount-kube-system-aws-load-balancer-controller
+```
+
+Delete policy [ need to replace `accountId` ]:
+```
+aws iam delete-policy \
+    --policy-arn arn:aws:iam::123456789012:policy/AWSLoadBalancerControllerIAMPolicy
+```

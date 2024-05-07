@@ -629,7 +629,9 @@ alias s3g='s3cmd get'
 ### AWS command
 ### AWS Configuration
 alias a2c='aws configure'
+alias a2cpr='aws configure $pr'
 alias a2cl='aws configure list'
+alias a2clpr='aws configure list $pr'
 
 ### AWS IAM
 alias a2gci='aws sts get-caller-identity'

@@ -832,7 +832,7 @@ spec:
       targetPort: ${6:8080}
 endsnippet
 
-snippet in "k8s ingress" b
+snippet ing "k8s ingress" b
 piVersion: extensions/v1beta1
 kind: Ingress
 metadata:
@@ -846,6 +846,53 @@ spec:
         backend:
           serviceName: ${4:serviceName} # name of the service inside cluster
           servicePort: ${5:serverPort}
+endsnippet
+
+snippet rrtg "Nginx rewrite target annotation" b
+    nginx.ingress.kubernetes.io/rewrite-target: /
+endsnippet
+
+snippet ingnginx "Nginx Ingress" b
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ${1:service-2048}
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: ${2:/}
+spec:
+  ingressClassName: nginx
+  rules:
+  - http:
+      paths:
+      - path: ${3:/path-2048}
+        pathType: Prefix
+        backend:
+          service:
+            name: ${4:service-2048}
+            port:
+              number: ${5:80}
+endsnippet
+
+snippet ingalb "ALB Ingress" b
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ${1:ingress-2048}
+  annotations:
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: ip
+spec:
+  ingressClassName: alb
+  rules:
+    - http:
+        paths:
+        - path: ${2:/}
+          pathType: Prefix
+          backend:
+            service:
+              name: ${3:service-2048}
+              port:
+                number: ${4:80}
 endsnippet
 
 snippet gce "Test" b

@@ -108,3 +108,10 @@ provisioner "remote-exec" {
   ]
 }
 ```
+
+## 2. Experience
+### 1. Repo setup
+* backend remote repo ( include statefile also )
+* IAM repo
+* projects...
+

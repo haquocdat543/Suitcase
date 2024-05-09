@@ -9,6 +9,7 @@ helm install datadog-operator datadog/datadog-operator
 ```
 
 Create secret for api-key:
+* Bottom left corner `Avatar` ->> `Organization Setting` ->> `API Keys` ->> `New Key`
 ```
 kubectl create secret generic datadog-secret --from-literal api-key=<DATADOG_API_KEY>
 ```

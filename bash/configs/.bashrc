@@ -1822,6 +1822,7 @@ alias kdnp='kubectl delete networkpolicies'
 alias kdsa='kubectl delete serviceaccount'
 alias kdpsp='kubectl delete podsecuritypolicy'
 
+### Kubernetes resources porperty patch script
 alias kpsci='. $HOME/preconfig/Suitcase/bash/scripts/clusterIP.sh'
 alias kpslb='. $HOME/preconfig/Suitcase/bash/scripts/loadBalancer.sh'
 alias kpsnp='. $HOME/preconfig/Suitcase/bash/scripts/nodePort.sh'

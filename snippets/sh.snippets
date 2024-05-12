@@ -305,6 +305,13 @@ snippet 21 ">/dev/null 2>&1" b
 >/dev/null 2>&1
 endsnippet
 
+snippet tt "Title" b
+####################################################################################################
+# $1
+####################################################################################################
+
+endsnippet
+
 snippet s "Test" b
 #!/bin/bash
 
@@ -325,9 +332,23 @@ snippet arg "Argument" b
 ${1:arg1}=$${2:1}
 endsnippet
 
-snippet fn "Func" b
-${1:funcName} () {
+snippet fn "Function" b
+${1:func_name} () {
+
 $2
+
+}
+endsnippet
+
+snippet fn2 "Function 2" b
+${1:func_name} () {
+
+# get parameters
+$2
+
+# logic
+$3
+
 }
 endsnippet
 

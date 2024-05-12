@@ -96,6 +96,18 @@ return $5
 }
 endsnippet
 
+snippet swc "Switch case" b
+switch ${1:day} {
+    case "Monday":
+        fmt.Println("It's Monday.")
+    case "Saturday", "Sunday":
+        fmt.Println("It's the weekend.")
+    default:
+        fmt.Println("Invalid day.")
+    }
+endsnippet
+
+
 # GOCUI 
 snippet gquit "Gocui quit" b
 func quit(g *gocui.Gui, v *gocui.View) error {

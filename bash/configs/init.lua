@@ -30,36 +30,73 @@ vim.opt.cursorline = true
 
 local keymap = vim.keymap
 
+-- System
+keymap.set('n','<leader>ch',':checkhealth ')
 keymap.set('n','+','<C-a>')
 keymap.set('n','-','<C-x>')
 keymap.set('n','<C-a>','gg<M-v>G')
-keymap.set('n','<leader>ii',':PackerInstall<CR>')
-keymap.set('n','<leader>is',':PackerSync<CR>')
-keymap.set('n','<leader>ff',':Files<CR>')
-keymap.set('n','<leader>fg',':Rg<CR>')
-keymap.set('n','<leader>fb',':Buffers<CR>')
-keymap.set('n','<leader>ft',':FloatermNew<CR>')
 keymap.set('n','ZQ',':q!<CR>')
 keymap.set('n','ZZ',':wq!<CR>')
 keymap.set('n','<Leader>hr',':%!xxd<CR> :set filetype=xxd<CR>')
 keymap.set('n','<Leader>hw',':%!xxd -r<CR> :set binary<CR> :set filetype=<CR>')
 keymap.set('n','<Leader>el','yypC')
 keymap.set('n','<Leader>eL','yyPC')
+
+-- System - default file open
 keymap.set('n','<Leader>en',':tabnew ~/.config/nvim/init.lua<CR>')
 keymap.set('n','<Leader>ev',':tabnew ~/.vimrc<CR>')
 keymap.set('n','<Leader>ea',':tabnew ~/.bashrc<CR>')
 keymap.set('n','<leader>nn',':set nopaste<CR>')
 keymap.set('n','<leader>nm',':set paste<CR>')
+
+-- System - navigation
+keymap.set('n','ss',':split<CR><C-w>w')
+keymap.set('n','sv',':vsplit<CR><C-w>w')
+keymap.set('n','sx',':close<CR>')
+keymap.set('n','sw','<C-w>w')
+keymap.set('n','sh','<C-w>h')
+keymap.set('n','sj','<C-w>j')
+keymap.set('n','sk','<C-w>k')
+keymap.set('n','sl','<C-w>l')
+
+-- System - tab navigation
+keymap.set('n','te',':tabedit ')
+keymap.set('n','<leader>to',':tabnew ')
+keymap.set('n','<leader>tx',':tabclose<CR>')
+keymap.set('n','<leader>tn',':tabn<CR>')
+keymap.set('n','<leader>tp',':tabp<CR>')
+keymap.set('n','<leader>ev',':tabnew $MYVIMRC<CR>')
+keymap.set('n','<leader>ea',':tabnew $HOME/.bashrc<CR>')
+
+-- System - terminal 
+keymap.set('n',',tt',':ter<CR>')
+
+-- Package manager
+keymap.set('n','<leader>ii',':PackerInstall<CR>')
+keymap.set('n','<leader>is',':PackerSync<CR>')
+
+-- Finder
+keymap.set('n','<leader>ff',':Files<CR>')
+keymap.set('n','<leader>fg',':Rg<CR>')
+keymap.set('n','<leader>fb',':Buffers<CR>')
+keymap.set('n','<leader>ft',':FloatermNew<CR>')
+
+-- Hop ( movement )
 keymap.set('n','<leader><leader>g',':HopAnywhere<CR>')
 keymap.set('n','<leader><leader>h',':HopWord<CR>')
 keymap.set('n','<leader><leader>l',':HopLine<CR>')
 keymap.set('n','<leader><leader>c',':HopChar1<CR>')
 keymap.set('n','<leader>b','<leader><leader>')
-keymap.set('n','<leader>mm',':Mason<CR>')
+
+-- Lazygit
 keymap.set('n','<leader>ll',':Lazy<CR>')
 keymap.set('n','<leader>lg',':LazyGit<CR>')
-keymap.set('n','<leader>ch',':checkhealth ')
+
+-- Mason ( LSP )
+keymap.set('n','<leader>mm',':Mason<CR>')
 keymap.set('n','<leader>mi',':MasonInstall ')
+
+-- Fugitive git
 keymap.set('n','<leader>gs',':G status<CR>')
 keymap.set('n','<leader>ga',':G add ')
 keymap.set('n','<leader>gA',':G add .<CR>')
@@ -72,12 +109,18 @@ keymap.set('n','<leader>gm',':G merge ')
 keymap.set('n','<leader>gp',':G pull<CR>')
 keymap.set('n','<leader>gP',':G push<CR>')
 keymap.set('n','<leader>gl',':G log<CR>')
-keymap.set('n',',tt',':ter<CR>')
+
+-- Neogit
+keymap.set('n','<leader>ng',':Neogit<CR>')
+
+-- Git blame
 keymap.set('n',',gb',':Git blame<CR>')
 keymap.set('n','<C-b>b',':set backup<CR>')
 keymap.set('n','<C-h>h',':noh<CR>')
 keymap.set('n','<C-q>q',':q!<CR>')
 keymap.set('n','<C-q>w',':wq!<CR>')
+
+-- System - replacement & navigation
 keymap.set('n','<C-c>1',':%s///g<Left><Left><Left>')
 keymap.set('n','<C-c>2',':.,.s///g<Left><Left><Left>')
 keymap.set('n','<C-c>3',':.,0s///g<Left><Left><Left>')
@@ -92,27 +135,25 @@ keymap.set('n','<leader>ww',':w!<CR>')
 keymap.set('n','<C-s>s',':<ESC>w!<CR>')
 keymap.set('n','<A-n>n',':n<CR>')
 keymap.set('n','<A-p>p',':p<CR>')
+
+-- Navigation
 keymap.set('n','<leader>nt',':NERDTreeToggle<CR>')
 keymap.set('n','<leader>db',':Dashboard<CR>')
 keymap.set('n','<leader>tl',':Telescope<CR>')
-keymap.set('n','<leader>to',':tabnew ')
-keymap.set('n','<leader>tx',':tabclose<CR>')
-keymap.set('n','<leader>tn',':tabn<CR>')
-keymap.set('n','<leader>tp',':tabp<CR>')
-keymap.set('n','<leader>ev',':tabnew $MYVIMRC<CR>')
-keymap.set('n','<leader>ea',':tabnew $HOME/.bashrc<CR>')
-
-keymap.set('n','te',':tabedit ')
-keymap.set('n','ss',':split<CR><C-w>w')
-keymap.set('n','sv',':vsplit<CR><C-w>w')
-keymap.set('n','sx',':close<CR>')
-keymap.set('n','sw','<C-w>w')
-keymap.set('n','sh','<C-w>h')
-keymap.set('n','sj','<C-w>j')
-keymap.set('n','sk','<C-w>k')
-keymap.set('n','sl','<C-w>l')
 
 local plugins = {
+ {
+  "NeogitOrg/neogit",
+  dependencies = {
+    "nvim-lua/plenary.nvim",         -- required
+    "sindrets/diffview.nvim",        -- optional - Diff integration
+
+    -- Only one of these is needed, not both.
+    "nvim-telescope/telescope.nvim", -- optional
+    "ibhagwan/fzf-lua",              -- optional
+ },
+  config = true
+ },
  {
   'nvimdev/dashboard-nvim',
   event = 'VimEnter',
@@ -182,6 +223,10 @@ require('tabnine').setup({
   exclude_filetypes = {"TelescopePrompt", "NvimTree"},
   log_file_path = nil, -- absolute path to Tabnine log file
 })
+
+-- init.lua
+local neogit = require('neogit')
+neogit.setup {}
 
 require('nvim-treesitter.configs').setup {
   -- Add languages to be installed here that you want installed for treesitter

@@ -627,6 +627,14 @@ alias ktxc='kubectx -c'
 alias ktxu='kubectx -u'
 alias ktxd='kubectx -d'
 
+### Serverless command
+alias slsdpl='sls deploy'
+alias slsdplf='sls deploy function'
+alias slsi='sls invoke'
+alias slsil='sls invoke local'
+alias slsl='sls logs'
+alias slsr='sls remove'
+
 ### S3 command
 alias s3cf='s3cmd --configure'
 alias s3l='s3cmd ls'

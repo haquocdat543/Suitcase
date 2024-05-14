@@ -628,6 +628,7 @@ alias ktxu='kubectx -u'
 alias ktxd='kubectx -d'
 
 ### Serverless command
+alias slscr='sls create'
 alias slsdpl='sls deploy'
 alias slsdplf='sls deploy function'
 alias slsi='sls invoke'

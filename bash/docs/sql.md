@@ -35,3 +35,14 @@ SELECT COUNT(1) FROM your_table_name
 ```
 SELECT * FROM your_table_name WHERE your_column_name LIKE '%search_pattern%';
 ```
+
+## 6. Update value
+```
+UPDATE table_name
+SET column_name = new_value
+WHERE condition;
+```
+* table_name is the name of the table you want to update.
+* column_name is the name of the column you want to change.
+* new_value is the new value you want to set for the column.
+* condition specifies which rows should be updated. Without a WHERE clause, all rows in the table will be updated.

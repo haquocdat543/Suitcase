@@ -16,3 +16,10 @@ sudo mysql_secure_installation
 ALTER USER 'root'@'localhost' IDENTIFIED BY 'root-password';
 ```
 
+## 4. Count value in a table
+```
+SELECT COUNT(*) FROM your_table_name
+```
+```
+SELECT COUNT(1) FROM your_table_name
+```

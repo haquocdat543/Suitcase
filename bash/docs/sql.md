@@ -36,7 +36,13 @@ SELECT COUNT(1) FROM your_table_name
 SELECT * FROM your_table_name WHERE your_column_name LIKE '%search_pattern%';
 ```
 
-## 6. Update value
+## 6. Fetch value with row limit
+```
+SELECT * FROM table_name LIMIT 10;
+```
+* select `first ten line` from table `table_name`
+
+## 7. Update value
 ```
 UPDATE table_name
 SET column_name = new_value

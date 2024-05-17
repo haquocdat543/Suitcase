@@ -20,6 +20,13 @@ ALTER USER 'root'@'localhost' IDENTIFIED BY 'root-password';
 ```
 SELECT COUNT(*) FROM your_table_name
 ```
+
+```
+SELECT COUNT(*) AS total FROM your_table_name
+```
+* `COUNT(*)` counts all rows in the table.
+* `AS total_count` gives a name to the result column for readability
+
 ```
 SELECT COUNT(1) FROM your_table_name
 ```

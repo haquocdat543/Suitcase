@@ -1936,6 +1936,12 @@ alias kgdbt="kubectl get secret admin-user -n kubernetes-dashboard -o jsonpath={
 alias kangx="kubectl apply -f kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.10.1/deploy/static/provider/cloud/deploy.yaml"
 alias kdngx="kubectl delete -f kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.10.1/deploy/static/provider/cloud/deploy.yaml"
 
+### Hostname command
+alias hstns='host -t ns'
+
+### Dig command
+alias digtt='dig -t txt'
+
 ### Link command
 alias lns='ln -s'
 alias lnfs='ln -f -s'

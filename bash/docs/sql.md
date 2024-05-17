@@ -23,3 +23,8 @@ SELECT COUNT(*) FROM your_table_name
 ```
 SELECT COUNT(1) FROM your_table_name
 ```
+
+## 5. Search by column value
+```
+SELECT * FROM your_table_name WHERE your_column_name LIKE '%search_pattern%';
+```

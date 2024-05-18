@@ -370,6 +370,7 @@ alias k8sgeng='. $HOME/preconfig/Suitcase/bash/scripts/k8sGenGroup.sh'
 alias k8sgengu='. $HOME/preconfig/Suitcase/bash/scripts/k8sGenGroupUser.sh'
 
 ### Documentation
+alias docsls='vim -m $HOME/preconfig/Suitcase/bash/docs/serverless.md'
 alias doca7m='vim -m $HOME/preconfig/Suitcase/bash/docs/a7m.md'
 alias docvim='vim -m $HOME/preconfig/Suitcase/bash/docs/vim.md'
 alias docdtd='vim -m $HOME/preconfig/Suitcase/bash/docs/datadog.md'

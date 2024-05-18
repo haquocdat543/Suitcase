@@ -18,3 +18,14 @@ npm install -g serverlesnstall -g serverlesss
 ```
 serverless config credentials --provider aws --key KEY --secret SECRET --profile PROFILE
 ```
+
+## 3. Sample project
+```
+sls create --template aws-nodejs --path myServerlessProject
+cd myServerlessProject
+```
+
+## 4. Deploy  project
+```
+sls deploy
+```

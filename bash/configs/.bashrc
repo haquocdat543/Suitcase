@@ -1940,6 +1940,7 @@ alias kdngx="kubectl delete -f kubectl apply -f https://raw.githubusercontent.co
 alias ctb='certbot'
 alias ctbcom='certbot certonly --manual'
 alias ctbcrt='certbot certificates'
+alias ctbdcn='certbot delete --cert-name'
 
 ### Hostname command
 alias hstns='host -t ns'

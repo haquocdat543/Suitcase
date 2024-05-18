@@ -29,3 +29,8 @@ cd myServerlessProject
 ```
 sls deploy
 ```
+
+## 5. Remove project
+```
+sls remove
+```

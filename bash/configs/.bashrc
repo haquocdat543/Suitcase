@@ -2458,6 +2458,9 @@ alias nigy='npm install -g yarn'
 alias nigv='ni -g @vue/cli'
 alias yadggsdk='yarn add @dagger.io/dagger --dev'
 alias yagav='yarn global add @vue/cli'
+
+alias nvmi='nvm install'
+
 alias npmi='npm init -y'
 alias mevn='npm install express mongoose body-parser cors --save'
 alias pevn='npm install express pg body-parser cors --save'

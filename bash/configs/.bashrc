@@ -2086,6 +2086,7 @@ alias p3ive='pip3 install virtualenv'
 ### Poetry command
 alias ptri='poetry install'
 alias ptru='poetry update'
+alias ptra='poetry add'
 
 ### Pip command
 alias pi='pip install'

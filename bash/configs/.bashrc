@@ -447,6 +447,7 @@ alias ikustomize='. $HOME/preconfig/Suitcase/bash/scripts/kustomizeInstall.sh'
 alias ikus='. $HOME/preconfig/Suitcase/bash/scripts/kustomizeInstall.sh'
 alias irustup="curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh"
 alias iosmosis='curl -sL https://get.osmosis.zone/install > i.py && python3 i.py'
+alias ipyenv='curl https://pyenv.run | bash'
 alias invm='curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash ; up1'
 alias igaiad='. $HOME/preconfig/Suitcase/bash/scripts/gaiaInstall.sh'
 alias icccli='. $HOME/preconfig/Suitcase/bash/scripts/circleCliInstall.sh'

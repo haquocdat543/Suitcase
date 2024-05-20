@@ -2083,6 +2083,10 @@ alias p3='pip3'
 alias p3i='pip3 install'
 alias p3ive='pip3 install virtualenv'
 
+### Poetry command
+alias ptri='poetry install'
+alias ptru='poetry update'
+
 ### Pip command
 alias pi='pip install'
 alias pians='pip install ansible'

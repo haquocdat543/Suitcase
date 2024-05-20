@@ -2089,6 +2089,8 @@ alias ptri='poetry install'
 alias ptru='poetry update'
 alias ptra='poetry add'
 alias ptrs='poetry show'
+alias ptrl='poetry lock'
+alias ptrlnu='poetry lock --no-update'
 
 ### Pip command
 alias pi='pip install'

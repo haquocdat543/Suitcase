@@ -2083,6 +2083,7 @@ alias p3upp='python3 -m pip install --upgrade pip'
 alias p3='pip3'
 alias p3i='pip3 install'
 alias p3ive='pip3 install virtualenv'
+alias p3ive='pip3 install virtualenv'
 
 ### Poetry command
 alias ptri='poetry install'
@@ -2094,6 +2095,9 @@ alias ptrlnu='poetry lock --no-update'
 
 ### Pip command
 alias pi='pip install'
+alias pir='pip install -r'
+alias pirr='pip install -r requirements'
+alias pirrt='pip install -r requirements --target'
 alias pians='pip install ansible'
 alias pipyg='pip install pygments'
 alias pidggsdk='pip install dagger-io'

@@ -11,6 +11,23 @@ run:
 	./$3.exe
 endsnippet
 
+snippet docker "Makefile for docker build" b
+NAME    := repo_name/image_name
+TAG     := \$\$(git log -1 --pretty=%!H(MISSING))
+IMG     := \${NAME}:\${TAG}
+LATEST  := \${NAME}:latest
+
+build:
+  @docker build -t \${IMG} .
+  @docker tag \${IMG} \${LATEST}
+
+push:
+  @docker push \${NAME}
+
+login:
+  @docker log -u \${DOCKER_USER} \${DOCKER_PASS}
+endsnippet
+
 snippet pn "Phony ( avoid same command and file name )" b
 .PHONY: $1
 endsnippet

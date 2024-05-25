@@ -163,6 +163,8 @@ local plugins = {
   end,
  },
  { 'codota/tabnine-nvim', build = "./dl_binaries.sh" },
+ 'rbgrouleff/bclose.vim',
+ 'francoiscabrol/ranger.vim',
  'wbthomason/packer.nvim',
  'nvim-treesitter/nvim-treesitter',
  'folke/tokyonight.nvim',

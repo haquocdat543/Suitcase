@@ -22,6 +22,46 @@ def switch_case(day):
       print("Invalid day!")
 endsnippet
 
+snippet sample "Sample" b
+import sys, os
+
+####################################################################################################
+# GET INPUT AND VARIABLES
+####################################################################################################
+
+# get first argument as option
+option = sys.argv[1]
+second_arg = sys.argv[2]
+
+# define basic variables
+one = 1
+
+####################################################################################################
+# LOGIC
+####################################################################################################
+
+# 1 - print argument
+def print_arg(content):
+    print(f"{content}")
+
+####################################################################################################
+# SWITCH CASE OPTION
+####################################################################################################
+
+# switch case definition
+def switch_case(option):
+  """Processes option using match-case (Python 3.10+)"""
+  match option:
+    case "1":
+      print("1: Print arg")
+      print_arg(second_arg)
+    case _:
+      print("Invalid option!")
+
+# switch case implementation
+switch_case(option)
+endsnippet
+
 snippet tt "Title" b
 ####################################################################################################
 # $1

@@ -2110,6 +2110,7 @@ alias pidggsdk='pip install dagger-io'
 alias pis3='pip install s3cmd'
 alias pisn='pip install snowflake-cli'
 alias pifl8='python -m pip install flake8'
+alias pirgr='pip install ranger-fm'
 
 ### brew command
 alias bri='brew install'

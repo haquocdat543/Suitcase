@@ -2085,6 +2085,7 @@ alias crr='crontab -r'
 alias ycron='ycr ; secr ; sscr'
 
 ### Python command
+alias py3='python3'
 alias p3upp='python3 -m pip install --upgrade pip'
 alias p3='pip3'
 alias p3i='pip3 install'

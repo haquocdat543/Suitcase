@@ -1,6 +1,36 @@
+####################################################################################################
+# PYTHON NATIVE
+####################################################################################################
+
 snippet im "Import" b
 import $1
 endsnippet
+
+snippet swc "Switch case" b
+def switch_case(day):
+  """Processes a day of the week using match-case (Python 3.10+)"""
+  match day:
+    case "Monday":
+      print("Start of the work week!")
+    case "Tuesday" | "Wednesday" | "Thursday":
+      print("Just another workday...")
+    case "Friday":
+      print("TGIF!")
+    case "Saturday" | "Sunday":
+      print("Weekend! ")
+    case _:
+      print("Invalid day!")
+endsnippet
+
+snippet tt "Title" b
+####################################################################################################
+# $1
+####################################################################################################
+endsnippet
+
+####################################################################################################
+# FREECAD
+####################################################################################################
 
 snippet imfc "Import freecad module" b
 import FreeCAD as App

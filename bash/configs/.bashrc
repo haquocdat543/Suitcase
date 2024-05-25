@@ -1910,6 +1910,7 @@ alias kgea='kubectl get event -A'
 alias kgeas='kubectl get event -A --sort-by'
 alias kttn='kubectl taint node'
 
+alias kdb='kubectl debug'
 alias ktop='kubectl top'
 alias klg='kubectl logs'
 alias kn='kubectl config set-context --current --namespace'

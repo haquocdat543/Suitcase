@@ -2179,6 +2179,7 @@ alias biopa='brew install opa'
 alias bimc='brew install minio/stable/mc'
 alias bigw='brew install git-flow'
 alias bichw='brew install --cask chef-workstation'
+alias bipws='brew install --cask powershell'
 
 ### Ceph command 
 alias c3='ceph'

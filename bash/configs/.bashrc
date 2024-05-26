@@ -2115,6 +2115,7 @@ alias pirgr='pip install ranger-fm'
 alias pinp='pip install numpy'
 alias pipd='pip install pandas'
 alias pimpl='pip install matplotlib'
+alias pipag='pip install pyautogit'
 
 ### brew command
 alias bri='brew install'

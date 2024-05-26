@@ -2112,6 +2112,9 @@ alias pis3='pip install s3cmd'
 alias pisn='pip install snowflake-cli'
 alias pifl8='python -m pip install flake8'
 alias pirgr='pip install ranger-fm'
+alias pinp='pip install numpy'
+alias pipd='pip install pandas'
+alias pimpl='pip install matplotlib'
 
 ### brew command
 alias bri='brew install'

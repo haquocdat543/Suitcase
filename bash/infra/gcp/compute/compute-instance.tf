@@ -1,6 +1,6 @@
 resource "google_compute_instance" "master" {
   name         = "master-instance"
-  machine_type = "n2-standard-2"
+  machine_type = "e2-small"
   zone         = "asia-northeast1-a"
 
   tags = ["http-server"]

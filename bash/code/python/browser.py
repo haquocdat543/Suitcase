@@ -18,6 +18,10 @@ one = 1
 
 # define list of url 
 
+misc = [
+'https://yentrinh.hashnode.dev/',
+]
+
 google = [
 'https://www.google.com',
 'https://www.gmail.com',
@@ -89,6 +93,7 @@ notional = [
 ]
 
 detail = [
+misc,
 google,
 youtube,
 facebook,

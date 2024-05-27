@@ -57,6 +57,7 @@ ai = [
 cloud = [
 'https://www.amazon.com',
 'https://console.cloud.google.com',
+'https://portal.azure.com/',
 ]
 
 github = [

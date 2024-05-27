@@ -112,14 +112,14 @@ def print_array_by_index_v2(array):
 def open_url(url):
   try:
     # print list of urls
-    print_array_by_index(url)
+    print_array_by_index_v2(url)
 
     # get input from user
     number = input("Enter number: ")
     number = int(number)
 
     # open web browser with given number
-    webbrowser.open(url[number])
+    webbrowser.open(url[number][0])
 
   except webbrowser.Error as e:
     print(f"Error opening URL: {e}")
@@ -157,7 +157,7 @@ def switch_case(option):
   match option:
     case "1":
       print("1: Web browser: ")
-      open_url(url)
+      open_url(detail)
     case "2":
       print("2: Browser v2: ")
       open_url_v2(detail)

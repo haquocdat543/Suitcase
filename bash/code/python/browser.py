@@ -12,22 +12,11 @@ option = sys.argv[1]
 # define basic variables
 one = 1
 
-# define list of url
-url = [
-'https://www.google.com',
-'https://www.youtube.com',
-'https://www.facebook.com',
-'https://www.linkedin.com',
-'https://www.wikipedia.org',
-'https://www.pinterest.com',
-'https://aws.amazon.com',
-'https://github.com/haquocdat543/Suitcase.git',
-'https://www.instagram.com',
-'https://www.twitter.com',
-'https://www.tiktok.com',
-'https://www.douyin.com',
-'https://www.gitlab.com',
-]
+####################################################################################################
+# URL DATA
+####################################################################################################
+
+# define list of url 
 
 google = [
 'https://www.google.com',
@@ -41,9 +30,64 @@ youtube = [
 'https://www.youtube.com/@NeuralNine',
 ]
 
+facebook = [
+'https://www.facebook.com',
+]
+
+linkedin = [
+'https://www.linkedin.com',
+]
+
+wikipedia = [
+'https://www.wikipedia.org',
+]
+
+pinterest = [
+'https://www.pinterest.com',
+]
+
+amazon = [
+'https://www.amazon.com',
+]
+
+github = [
+'https://www.github.com',
+]
+
+gitlab = [
+'https://www.gitlab.com',
+]
+
+instagram = [
+'https://www.instagram.com',
+]
+
+twitter = [
+'https://www.twitter.com',
+]
+
+tiktok = [
+'https://www.tiktok.com',
+]
+
+douyin = [
+'https://www.douyin.com',
+]
+
 detail = [
 google,
 youtube,
+facebook,
+linkedin,
+wikipedia,
+pinterest,
+amazon,
+github,
+gitlab,
+instagram,
+twitter,
+tiktok,
+douyin,
 ]
 
 ####################################################################################################

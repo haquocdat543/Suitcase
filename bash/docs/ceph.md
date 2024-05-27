@@ -1,8 +1,8 @@
 # CEPH
 
 ### 1. Architecture
-* Ceph OSD Daemon (OSD) stores data as objects on a storage node
-* Ceph Monitor (MON) maintains a master copy of the cluster map.
+* Ceph OSD Daemon (OSD) [ Object Storage Daemon ] stores data as objects on a storage node
+* Ceph Monitor (MON) [ Monitor ] maintains a master copy of the cluster map.
 * Ceph Manager manager daemon
 
 ### 2. Installation

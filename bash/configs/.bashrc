@@ -543,6 +543,7 @@ alias lcli='lazycli'
 
 ### Code
 alias brs1='py3 $HOME/preconfig/Suitcase/bash/code/python/browser.py 1'
+alias brs2='py3 $HOME/preconfig/Suitcase/bash/code/python/browser.py 2'
 
 ### Qemu command
 alias qms84='qemu-system-x86_64'

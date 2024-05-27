@@ -52,10 +52,15 @@ amazon = [
 
 github = [
 'https://www.github.com',
+'https://www.github.com/haquocdat543/Suitcase.git',
+'https://www.github.com/hqdNotional/blockchain.git',
+'https://www.github.com/notional-labs/cosmosia.git',
 ]
 
 gitlab = [
 'https://www.gitlab.com',
+'https://www.gitlab.com/haquocdat543',
+'https://www.gitlab.com/vba-aeronet-devops',
 ]
 
 instagram = [

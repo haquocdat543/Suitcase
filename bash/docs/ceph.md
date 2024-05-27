@@ -77,8 +77,23 @@ sudo cephadm shell -- ceph status
 ```
 
 ### 4. Expand
+Note: need to install `cephadm` on new server before add to cluster.
+
 Expand:
 ```
 sudo cephadm add-node --hostname *<server.example.com>* --role osd
 ```
 Eg: `sudo cephadm add-node --hostname 10.0.0.3 --role osd`
+
+Orch:
+```
+sudo cephadm shell
+ceph orch host add <hostname> <ip_address>
+```
+Eg: `ceph orch host add server2 10.0.0.4`
+
+Verify new node:
+```
+ceph orch host ls
+ceph status
+```

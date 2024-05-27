@@ -52,7 +52,7 @@ opensuse:
 zypper install -y cephadm
 ```
 
-### 3. Bootstrap
+#### 3. Bootstrap
 bootstrap command:
 ```
 cephadm bootstrap
@@ -76,7 +76,7 @@ After bootstrapping, verify the cluster status using the Ceph CLI.:
 sudo cephadm shell -- ceph status
 ```
 
-### 4. Expand
+#### 4. Expand
 Note: need to install `cephadm` on new server before add to cluster.
 
 Expand:
@@ -96,4 +96,21 @@ Verify new node:
 ```
 ceph orch host ls
 ceph status
+```
+
+### 3. Ceph CLI
+Enable CLI:
+```
+cephadm shell
+```
+
+Enable CLI with shell:
+```
+cephadm shell -- ceph -s
+```
+
+Install dependencies:
+```
+cephadm add-repo --release quincy
+cephadm install ceph-common
 ```

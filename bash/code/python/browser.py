@@ -79,6 +79,15 @@ douyin = [
 'https://www.douyin.com',
 ]
 
+douyin = [
+'https://www.douyin.com',
+]
+
+notional = [
+'https://admin.notional.ventures/rpcs',
+'https://snapshot.notional.ventures/',
+]
+
 detail = [
 google,
 youtube,
@@ -93,6 +102,7 @@ instagram,
 twitter,
 tiktok,
 douyin,
+notional,
 ]
 
 ####################################################################################################

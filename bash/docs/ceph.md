@@ -18,10 +18,15 @@ Ensure the cephadm file is executable:
 chmod +x cephadm
 ```
 
+Copy to PATH:
+```
+cp cephadm /usr/local/bin
+```
+
 To install the packages that provide the cephadm command, run the following commands:
 ```
-./cephadm add-repo --release quincy
-./cephadm install
+sudo cephadm add-repo --release quincy
+sudo cephadm install
 ```
 
 #### 2. Package manager
@@ -55,6 +60,7 @@ cephadm bootstrap
 ```
 cephadm bootstrap --mon-ip *<mon-ip>*
 ```
+Eg: `cephadm bootstrap --mon-ip 10.0.0.2`
 
 bootstrap command if face this error:
 ```
@@ -63,4 +69,9 @@ placement...  Non-zero exit code 22
 ```
 ```
 cephadm bootstrap --mon-ip {monitor IP address} --skip-monitoring-stack
+```
+
+After bootstrapping, verify the cluster status using the Ceph CLI.:
+```
+sudo cephadm shell -- ceph status
 ```

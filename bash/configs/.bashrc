@@ -539,6 +539,9 @@ alias lk='lazykubernetes'
 alias lnpm='lazynpm'
 alias lcli='lazycli'
 
+### Code
+alias brs1='py3 $HOME/preconfig/Suitcase/bash/code/python/browser.py 1'
+
 ### Qemu command
 alias qms84='qemu-system-x86_64'
 alias qms84ek='qemu-system-x86_64 -enable-kvm -cdrom'

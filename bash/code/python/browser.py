@@ -23,8 +23,7 @@ misc = [
 ]
 
 google = [
-'https://www.google.com',
-'https://www.gmail.com',
+'https://www.google.com', 'https://www.gmail.com',
 'https://www.drive.com',
 ]
 
@@ -50,8 +49,14 @@ pinterest = [
 'https://www.pinterest.com',
 ]
 
-amazon = [
+ai = [
+'https://chatgpt.com',
+'https://gemini.google.com/app',
+]
+
+cloud = [
 'https://www.amazon.com',
+'https://console.cloud.google.com',
 ]
 
 github = [
@@ -83,10 +88,6 @@ douyin = [
 'https://www.douyin.com',
 ]
 
-douyin = [
-'https://www.douyin.com',
-]
-
 notional = [
 'https://admin.notional.ventures/rpcs',
 'https://snapshot.notional.ventures/',
@@ -100,7 +101,8 @@ facebook,
 linkedin,
 wikipedia,
 pinterest,
-amazon,
+ai,
+cloud,
 github,
 gitlab,
 instagram,

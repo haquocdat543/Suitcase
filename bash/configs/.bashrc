@@ -652,6 +652,7 @@ alias s3cf='s3cmd --configure'
 alias s3l='s3cmd ls'
 alias s3p='s3cmd put'
 alias s3g='s3cmd get'
+alias s3dl='. $HOME/preconfig/Suitcase/bash/scripts/s3_bucket_download.sh'
 
 ### AWS command
 ### AWS Configuration

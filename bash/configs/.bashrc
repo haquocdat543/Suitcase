@@ -653,6 +653,8 @@ alias s3l='s3cmd ls'
 alias s3p='s3cmd put'
 alias s3g='s3cmd get'
 alias s3dl='. $HOME/preconfig/Suitcase/bash/scripts/s3_bucket_download.sh'
+alias s3ul='. $HOME/preconfig/Suitcase/bash/scripts/s3_object_copy.sh'
+alias s3ro='. $HOME/preconfig/Suitcase/bash/scripts/s3_object_remove.sh'
 
 ### AWS command
 ### AWS Configuration

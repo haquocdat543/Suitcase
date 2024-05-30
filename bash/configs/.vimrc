@@ -66,6 +66,7 @@ colorscheme dracula
 
 map ,tt :ter<CR>
 map ,gb :Git blame<CR>
+map ,ya <Esc>gg"*yG
 map <C-b>b :set backup<CR>
 map <C-h>h :noh<CR>
 map <C-q>1 :q!<CR>

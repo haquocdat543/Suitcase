@@ -226,6 +226,15 @@ require('tabnine').setup({
   log_file_path = nil, -- absolute path to Tabnine log file
 })
 
+-- terraform lsp
+require'lspconfig'.terraformls.setup{}
+vim.api.nvim_create_autocmd({"BufWritePre"}, {
+  pattern = {"*.tf", "*.tfvars"},
+  callback = function()
+    vim.lsp.buf.format()
+  end,
+})
+
 -- init.lua
 local neogit = require('neogit')
 neogit.setup {}

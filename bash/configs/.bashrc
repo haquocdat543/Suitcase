@@ -30,7 +30,7 @@ alias emel='emacs -q $HOME/init.el'
 ### Linux command
 alias mn='cd neovim && make CMAKE_BUILD_TYPE=RelWithDebInfo'
 alias sbrc='source $HOME/.bashrc'
-alias ps11='export PS1="\e[0;33m\u\e[0m\e[0;32m@\h\e[0m \e[1;32m \w \n \$ \e[0m"'
+alias ps11='export PS1="\e[0;33m\u\e[0m\e[0;32m@\h\e[0m \e[1;32m \w \ \$ \e[0m"'
 alias ps12='export PS1="\u@\H >"  \u: haquocdat, \H: aws, @: $'
 alias upn='plug ; yg ; yn ; cm ; sn'
 alias upu='. $HOME/preconfig/Suitcase/bash/scripts/copySuitcase.sh'
@@ -168,6 +168,7 @@ alias .6='cd ../../../../..'
 alias vi="vi"
 alias v="vi"
 alias n="nvim"
+alias nvd="/Applications/neovide.app/Contents/MacOS/neovide"
 alias vnv="vi $HOME/.config/nvim/init.vim"
 alias vil="vi $HOME/.config/nvim/init.lua"
 alias vilk="vi $HOME/Suitcase/bash/link.txt"

@@ -2130,6 +2130,7 @@ alias pipd='pip install pandas'
 alias pimpl='pip install matplotlib'
 alias pipag='pip install pyautogit'
 alias pippy='pip install pyyaml'
+alias pijson='pip install json'
 
 ### brew command
 alias bri='brew install'

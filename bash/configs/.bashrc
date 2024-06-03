@@ -2129,6 +2129,7 @@ alias pinp='pip install numpy'
 alias pipd='pip install pandas'
 alias pimpl='pip install matplotlib'
 alias pipag='pip install pyautogit'
+alias pippy='pip install pyyaml'
 
 ### brew command
 alias bri='brew install'

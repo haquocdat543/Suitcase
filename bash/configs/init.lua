@@ -726,6 +726,15 @@ vim.cmd([[let g:lazygit_config_file_path = '' " custom config file path ]])
 vim.cmd([[set viminfo='100,<1000000,s100000,h]])
 
 vim.cmd[[autocmd BufEnter * lcd %:p:h]]
+vim.cmd[[
+
+augroup Mkdir
+  autocmd!
+  autocmd BufWritePre * call mkdir(expand("<afile>:p:h"), "p")
+augroup END
+
+]]
+
 vim.cmd[[colorscheme tokyonight-night]]
 vim.cmd[[
     highlight RainbowDelimiterRed  guifg=#f4ca0d ctermfg=White

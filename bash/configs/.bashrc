@@ -2324,6 +2324,9 @@ alias vicgt='vim Cargo.toml'
 alias vicgl='vim Cargo.lock'
 alias virs='vim *.rs'
 
+### Rust command [ Rust ]
+alias rse='rustc --explain' # Eg: rustc --explain E0384
+
 ### Nginx commanda
 alias n4v='nginx -V'
 alias n4rl='nginx -s reload'

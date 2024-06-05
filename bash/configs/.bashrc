@@ -2103,6 +2103,7 @@ alias ycron='ycr ; secr ; sscr'
 alias cnv='conan --version'
 alias cnh='conan --help'
 alias cni='conan install'
+alias cnpd='conan profile detect'
 
 ### Python command [ Python ]
 alias py3='python3'

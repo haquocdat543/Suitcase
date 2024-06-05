@@ -72,3 +72,15 @@ snippet dam "Dollar sign At M ( print filename part of the first prerequisite )"
 $(@P)
 endsnippet
 
+snippet hunter "Hunter package manager for C integrated with Cmake" b
+cmake_minimum_required(VERSION 3.1)
+include("cmake/HunterGate.cmake")
+HunterGate(
+    URL "https://github.com/cpp-pm/hunter/archive/v0.23.252.tar.gz"
+    SHA1 "0d002bb5b4d7879e2f76f9a6581e0d54b1b59ecb"
+)
+
+project(MyProject)
+
+# Add your project configuration below
+endsnippet

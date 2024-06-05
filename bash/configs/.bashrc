@@ -215,6 +215,7 @@ alias vigcf='vim $HOME/.gitconfig'
 alias vicf='vim ./configure'
 alias vicfac='vim ./configure.ac'
 alias vim4='vim ./aclocal.m4'
+alias vicnf='vim ./conanfile.txt'
 alias vimkt='vim ./Makefile.tpl'
 alias vimka='vim ./Makefile.am'
 alias vimki='vim ./Makefile.in'
@@ -2091,14 +2092,18 @@ alias sdhn='sudo shutdown -h now'
 alias sdh='sudo shutdown -h'
 alias pmssn='sudo pmset sleepnow'
 
-### Cron command
+### Cron command [ Cronjob ]
 alias virc='vim /etc/cron.d/$CRONJOB'
 alias cre='crontab -e'
 alias crl='crontab -l'
 alias crr='crontab -r'
 alias ycron='ycr ; secr ; sscr'
 
-### Python command
+### Conan command [ C package manager ]
+alias cnv='conan --version'
+alias cni='conan install'
+
+### Python command [ Python ]
 alias py3='python3'
 alias p3upp='python3 -m pip install --upgrade pip'
 alias p3='pip3'
@@ -2106,7 +2111,7 @@ alias p3i='pip3 install'
 alias p3ive='pip3 install virtualenv'
 alias p3ive='pip3 install virtualenv'
 
-### Poetry command
+### Poetry command [ Python package manager ]
 alias ptri='poetry install'
 alias ptru='poetry update'
 alias ptra='poetry add'
@@ -2114,7 +2119,7 @@ alias ptrs='poetry show'
 alias ptrl='poetry lock'
 alias ptrlnu='poetry lock --no-update'
 
-### Pip command
+### Pip command [ Python package manager ]
 alias pi='pip install'
 alias pir='pip install -r'
 alias pirr='pip install -r requirements'

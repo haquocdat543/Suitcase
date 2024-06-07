@@ -2140,6 +2140,12 @@ alias pipag='pip install pyautogit'
 alias pippy='pip install pyyaml'
 alias pijson='pip install json'
 alias piconan='pip install conan'
+alias pit2r='pip install toml-to-requirements'
+
+### Toml to requirements
+alias t2r='toml-to-req'
+alias t2rtf='toml-to-req --toml-file'
+alias t2rtfp='toml-to-req --toml-file pyproject.toml'
 
 ### brew command
 alias bri='brew install'

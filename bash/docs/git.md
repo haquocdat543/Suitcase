@@ -38,3 +38,31 @@ echo "Last commit before push: $last_commit_message"
 # Continue with the push
 exit 0
 ```
+
+### Codecommit [ git-remote-codecommit ]
+#### 1. Installation
+Unix:
+```
+sudo pip install git-remote-codecommit
+```
+
+Window:
+```
+pip install --user git-remote-codecommit
+```
+ 
+#### 2. Download codecommit repository
+Same region as profile configuration:
+```
+git clone codecommit://MyDemoRepo my-demo-repo
+```
+
+Different region as profile configuration:
+```
+git clone codecommit::ap-northeast-1://MyDemoRepo my-demo-repo
+```
+
+With profile configuration:
+```
+git clone codecommit://CodeCommitProfile@MyDemoRepo my-demo-repo
+```

@@ -651,6 +651,7 @@ alias slsi='sls invoke'
 alias slsil='sls invoke local'
 alias slsl='sls logs'
 alias slsr='sls remove'
+alias slspr='sls print'
 
 ### S3 command
 alias s3cf='s3cmd --configure'

@@ -653,6 +653,10 @@ alias slsl='sls logs'
 alias slsr='sls remove'
 alias slspr='sls print'
 
+### Serverless daily command
+alias slsdds='sls deploy --stage dev --region ap-southeast-2'
+alias slsrds='sls remove --stage dev --region ap-southeast-2'
+
 ### S3 command
 alias s3cf='s3cmd --configure'
 alias s3l='s3cmd ls'

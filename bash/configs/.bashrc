@@ -2580,6 +2580,7 @@ alias ycu='yum install curl -y'
 alias ylz4='yum install lz4 -y'
 alias yem='yum install emacs -y'
 alias yd='yum install docker -y'
+alias ysshfs='yum install sshfs -y' # sshfs username@remote_server:/path/to/remote/directory ~/remote_mount
 alias ylib2='sudo dnf -y install ninja-build cmake gcc make unzip gettext curl'
 alias ylib='yum -y install pkgconfig automake gcc zlib-devel pcre-devel xz-devel'
 alias ylib3='yum -y install gcc gcc-c++ gmp gmp-devel make ncurses ncurses-compat-libs xz perl'

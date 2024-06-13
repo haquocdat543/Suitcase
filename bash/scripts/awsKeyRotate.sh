@@ -18,8 +18,14 @@ cyan2='\033[1;36m'
 white='\033[1;37m'
 nc='\033[0m' # No Color
 
-# Check if a profile name is provided, use 'default' if not
-AWS_PROFILE=${1:-default}
+# Check if a profile name is provided
+if [ -z "$1" ]; then
+  echo "Usage: $0 <aws-profile>"
+  exit 1
+fi
+
+# Define variables
+AWS_PROFILE=$1
 
 # Get the current IAM user ARN
 IAM_USER_ARN=$(aws sts get-caller-identity --profile $AWS_PROFILE --query Arn --output text)

@@ -806,6 +806,7 @@ alias a2bklt='aws backup list-tags'
 ### Service quota command
 alias svcqt='. $HOME/preconfig/Suitcase/bash/scripts/quotaRequest.sh'
 alias a2rtt='. $HOME/preconfig/Suitcase/bash/scripts/awsKeyRotate.sh'
+alias a2rtta='. $HOME/preconfig/Suitcase/bash/scripts/rotateAllProfiles.sh'
 
 ### Gcloud command
 alias ggi='gcloud init'

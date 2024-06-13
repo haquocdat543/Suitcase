@@ -803,6 +803,9 @@ alias a2bklbkj='aws backup list-backup-jobs'
 alias a2bklbkjs='aws backup list-backup-job-summaries'
 alias a2bklt='aws backup list-tags'
 
+### Service quota command
+alias svcqt='. $HOME/preconfig/Suitcase/bash/scripts/quotaRequest.sh'
+
 ### Gcloud command
 alias ggi='gcloud init'
 alias ggif='gcloud info'

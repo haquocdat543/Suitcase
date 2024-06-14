@@ -804,6 +804,11 @@ alias a2bklbkj='aws backup list-backup-jobs'
 alias a2bklbkjs='aws backup list-backup-job-summaries'
 alias a2bklt='aws backup list-tags'
 
+### KMS command
+alias a2kmslk='aws kms list-keys'
+alias a2kmsla='aws kms list-aliases'
+alias a2kmsdesk='aws kms describe-key --key-id' # aws kms describe-key --key-id 1234abcd-12ab-34cd-56ef-1234567890ab
+
 ### Log command
 alias a2loggcr='aws logs create-log-group --log-group-name'
 

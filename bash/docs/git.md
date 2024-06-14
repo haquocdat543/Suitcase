@@ -66,3 +66,45 @@ With profile configuration:
 ```
 git clone codecommit://CodeCommitProfile@MyDemoRepo my-demo-repo
 ```
+
+### Git merge tools
+#### 1. vimdiff
+* Git's default merge tool, using the command-line interface.
+* Simple and effective for straightforward merges.
+
+#### 2. meld
+A graphical tool that provides a three-way comparison and merging.
+Available on Linux and Windows.
+
+#### 3. kdiff3
+* A cross-platform tool that supports three-way merges.
+* Provides a graphical interface for resolving conflicts.
+
+#### 4. diffmerge
+* A visual file comparison and merge tool.
+* Cross-platform and integrates well with Git
+
+#### 5. p4merge
+* A merge tool from Perforce, providing a graphical interface.
+* Free and supports complex merging scenarios.
+
+#### 6. tortoisegitmerge
+* Part of the TortoiseGit suite, provides a graphical merge tool for Windows.
+* Intuitive interface for resolving conflicts
+
+#### 7. araxis
+* A professional merge and comparison tool, available on Windows and macOS.
+* Paid software with advanced features
+
+#### 8. bc
+* A powerful comparison tool that supports file and directory comparisons.
+* Available on Windows, macOS, and Linux (requires a license).
+
+#### 9. opendiff
+* A graphical merge tool for macOS, part of the Xcode developer tools.
+* Integrates well with the macOS environment
+
+#### 10. emerge
+* An Emacs-based merge tool for users who prefer Emacs.
+* Provides a text-based interface within Emacs
+

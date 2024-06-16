@@ -2171,6 +2171,10 @@ alias pippy='pip install pyyaml'
 alias pijson='pip install json'
 alias piconan='pip install conan'
 alias pit2r='pip install toml-to-requirements'
+alias pipt='pip install pytorch'
+alias pitsf='pip install tensorflow'
+alias pisp='pip install sympy'
+alias piscikit='pip install scikit-learn'
 
 ### Toml to requirements
 alias t2r='toml-to-req'

@@ -42,6 +42,9 @@ keymap.set('n','<Leader>hw',':%!xxd -r<CR> :set binary<CR> :set filetype=<CR>')
 keymap.set('n','<Leader>el','yypC')
 keymap.set('n','<Leader>eL','yyPC')
 
+-- System - commands
+keymap.set('n','<leader>rg',':registers<CR>')
+
 -- System - default file open
 keymap.set('n','<Leader>en',':tabnew ~/.config/nvim/init.lua<CR>')
 keymap.set('n','<Leader>ev',':tabnew ~/.vimrc<CR>')

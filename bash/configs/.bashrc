@@ -814,6 +814,9 @@ alias a2kmsdesk='aws kms describe-key --key-id' # aws kms describe-key --key-id 
 alias a2loggcr='aws logs create-log-group --log-group-name'
 
 ### Service quota command
+alias a2svcqtls='aws service-quotas list-requested-service-quota-change-history'
+
+### Service quota command
 alias svcqt='. $HOME/preconfig/Suitcase/bash/scripts/quotaRequest.sh'
 alias a2rtt='. $HOME/preconfig/Suitcase/bash/scripts/awsKeyRotate.sh'
 alias a2rttall='. $HOME/preconfig/Suitcase/bash/scripts/rotateAllProfiles.sh'

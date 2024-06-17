@@ -2152,6 +2152,8 @@ alias ptrrqmw='poetry export --format requirements.txt --output requirements.txt
 alias ptrrqm='poetry export --format requirements.txt --output requirements.txt'
 
 ### Pip command [ Python package manager ]
+alias pil='pip list'
+alias pif='pip freeze'
 alias pi='pip install'
 alias pir='pip install -r'
 alias pirr='pip install -r requirements'

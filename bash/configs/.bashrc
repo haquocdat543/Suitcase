@@ -699,6 +699,7 @@ alias a2ec2dri='aws ec2 deregister-image --image-id'
 alias a2ec2dsi='aws ec2 disable-image --image-id'
 alias a2deseps='aws ec2 describe-vpc-endpoint-services'
 alias a2desep='aws ec2 describe-vpc-endpoints'
+alias a2ec2getpk='. $HOME/preconfig/Suitcase/bash/scripts/getEC2Publickey.sh' # <key-pair-name here>
 
 ### AWS BLock Storage
 alias a2ebsdesv='aws ebs describe-volumes'

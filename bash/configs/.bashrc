@@ -2176,6 +2176,7 @@ alias pit2r='pip install toml-to-requirements'
 alias pipt='pip install pytorch'
 alias pitsf='pip install tensorflow'
 alias pisp='pip install sympy'
+alias pigs='pip install gensim'
 alias piscikit='pip install scikit-learn'
 
 ### Toml to requirements

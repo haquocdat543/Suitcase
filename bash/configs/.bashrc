@@ -821,6 +821,8 @@ alias svcqt='. $HOME/preconfig/Suitcase/bash/scripts/quotaRequest.sh'
 alias a2rtt='. $HOME/preconfig/Suitcase/bash/scripts/awsKeyRotate.sh'
 alias a2rttall='. $HOME/preconfig/Suitcase/bash/scripts/rotateAllProfiles.sh'
 
+alias crtexp='. $HOME/preconfig/Suitcase/bash/scripts/certificateExpiration.sh'
+
 ### Gcloud command
 alias ggi='gcloud init'
 alias ggif='gcloud info'

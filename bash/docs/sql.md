@@ -52,3 +52,14 @@ WHERE condition;
 * column_name is the name of the column you want to change.
 * new_value is the new value you want to set for the column.
 * condition specifies which rows should be updated. Without a WHERE clause, all rows in the table will be updated.
+
+# SQL OPS
+from local server:
+```
+mysqldump -u local_user -p local_database | mysql -h remote_host -u remote_user -p remote_database
+```
+
+from files:
+```
+gunzip -c your_dump_file.sql.gz | mysql -h remote.example.com -u remote_user -p remote_db
+```

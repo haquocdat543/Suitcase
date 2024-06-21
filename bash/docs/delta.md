@@ -1,7 +1,7 @@
 # GIT DELTA
 
 ### 1. Installation
-### 2. Configuaation
+### 2. Configuration
 
 $HOME/.gitconfig
 ```
@@ -17,4 +17,12 @@ $HOME/.gitconfig
     navigate = true    # use n and N to move between diff sections
     side-by-side = true
     line-numbers = true
+```
+
+lazygit:
+```
+git:
+  paging:
+    colorArg: always
+    pager: delta --dark --paging=never
 ```

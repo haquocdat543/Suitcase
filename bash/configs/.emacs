@@ -19,3 +19,5 @@
   :ensure t
   :config
   (load-theme 'dracula t))
+(setq display-line-numbers-type 'relative)
+(global-display-line-numbers-mode t)

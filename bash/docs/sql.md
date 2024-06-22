@@ -60,13 +60,20 @@ WHERE condition;
 * condition specifies which rows should be updated. Without a WHERE clause, all rows in the table will be updated.
 
 # SQL OPTIMIZATION
+
 Delete 2 million records from a table:
 ```
-DELETE FROM TABLE_NAME
+DELETE FROM <TABLE_NAME>
 ```
+
 or
 ```
-TRUNCATE FROM TABLE_NAME
+TRUNCATE FROM <TABLE_NAME>
+```
+
+conditional:
+```
+CREATE INDEX <INDEX_NAME> ON <TABLE_NAME(<field>)>
 ```
 
 # SQL OPERATION

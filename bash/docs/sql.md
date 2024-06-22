@@ -59,7 +59,17 @@ WHERE condition;
 * new_value is the new value you want to set for the column.
 * condition specifies which rows should be updated. Without a WHERE clause, all rows in the table will be updated.
 
-# SQL OPS
+# SQL OPTIMIZATION
+Delete 2 million records from a table:
+```
+DELETE FROM TABLE_NAME
+```
+or
+```
+TRUNCATE FROM TABLE_NAME
+```
+
+# SQL OPERATION
 from local server:
 ```
 mysqldump -u local_user -p local_database | mysql -h remote_host -u remote_user -p remote_database

@@ -1,4 +1,10 @@
 # SQL
+## Progress
+
+Check syntax ->> Check meaning ->> Check shared pool:
+* if SHARED_POOL: `HARD_PARSE` ->> 
+* if not SHARED_POOL: `SOFT_PARSE` ->>
+
 ## 1. Run sql file
 ```
 sql> source \home\user\Desktop\test.sql;

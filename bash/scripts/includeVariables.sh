@@ -1,4 +1,4 @@
 #!/bin/bash
 
-sed -i "1s/^/source \$HOME\/preconfig\/Suitcase\/bash\/configs\/.var\n/" ~/.bashrc
+sed -i "1s/^/source \$HOME\/preconfig\/Suitcase\/bash\/configs\/var.sh\n/" ~/.bashrc
 

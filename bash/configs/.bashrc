@@ -544,6 +544,7 @@ alias idk='yd ; sd ; ed'
 alias rmssd='. $HOME/preconfig/Suitcase/bash/scripts/removeSystemd.sh'
 
 alias lg='lazygit'
+alias plg='py3 $HOME/test/draft/python/lazygit.py'
 alias ldk='lazydocker'
 alias lk='lazykubernetes'
 alias lnpm='lazynpm'

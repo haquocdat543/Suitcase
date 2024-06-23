@@ -127,6 +127,8 @@ noremap X "_x
 noremap <Del> "_x
 map <Leader>ev :tabnew $MYVIMRC<CR>
 map <Leader>ea :tabnew ~/.bashrc<CR>
+map <Leader>cr :tabnew ~/.aws/credentials<CR>
+map <Leader>cf :tabnew ~/.aws/config<CR>
 nnoremap <Leader>r1 :exe '%s/${' . @m . '}/' . @n . '/g'<CR>
 nnoremap <Leader>r2 :exe '%s/$(' . @m . ')/' . @n . '/g'<CR>
 

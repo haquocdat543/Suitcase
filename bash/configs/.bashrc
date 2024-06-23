@@ -2252,6 +2252,7 @@ alias bigw='brew install git-flow'
 alias bichw='brew install --cask chef-workstation'
 alias bipws='brew install --cask powershell'
 alias bigej='brew install gitemoji'
+alias bilib='brew install gmp mpfr libmpc isl'
 
 ### Ceph command 
 alias c3='ceph'

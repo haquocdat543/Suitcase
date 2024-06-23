@@ -70,6 +70,8 @@ keymap.set('n','<leader>tn',':tabn<CR>')
 keymap.set('n','<leader>tp',':tabp<CR>')
 keymap.set('n','<leader>ev',':tabnew $MYVIMRC<CR>')
 keymap.set('n','<leader>ea',':tabnew $HOME/.bashrc<CR>')
+keymap.set('n','<leader>cr',':tabnew $HOME/.aws/credentials<CR>')
+keymap.set('n','<leader>cf',':tabnew $HOME/.aws/config<CR>')
 
 -- System - terminal 
 keymap.set('n',',tt',':ter<CR>')

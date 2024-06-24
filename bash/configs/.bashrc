@@ -2258,10 +2258,15 @@ alias bipws='brew install --cask powershell'
 alias bigej='brew install gitemoji'
 alias bilib='brew install gmp mpfr libmpc isl'
 alias bijdk='brew install openjdk'
+alias bip2='brew install php'
 
 ### Java command 
 alias jv='java'
 alias jvv='java -version'
+
+### PHP command 
+alias p2='php'
+alias p2v='php -v'
 
 ### Ceph command 
 alias c3='ceph'

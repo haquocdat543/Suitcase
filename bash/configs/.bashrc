@@ -2257,6 +2257,11 @@ alias bichw='brew install --cask chef-workstation'
 alias bipws='brew install --cask powershell'
 alias bigej='brew install gitemoji'
 alias bilib='brew install gmp mpfr libmpc isl'
+alias bijdk='brew install openjdk'
+
+### Java command 
+alias jv='java'
+alias jvv='java -version'
 
 ### Ceph command 
 alias c3='ceph'

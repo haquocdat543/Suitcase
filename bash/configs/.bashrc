@@ -2557,6 +2557,9 @@ alias nigy='npm install -g yarn'
 alias nigv='ni -g @vue/cli'
 alias yadggsdk='yarn add @dagger.io/dagger --dev'
 alias yagav='yarn global add @vue/cli'
+alias yai='yarn install'
+alias yaifl='yarn install --frozen-lockfile'
+alias yaiflnp='yarn install --frozen-lockfile --no-progress'
 
 alias nvmi='nvm install'
 

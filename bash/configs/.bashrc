@@ -815,6 +815,9 @@ alias a2kmsdesk='aws kms describe-key --key-id' # aws kms describe-key --key-id 
 
 ### Log command
 alias a2loggcr='aws logs create-log-group --log-group-name'
+alias a2logdeslg='aws logs describe-log-groups'
+alias a2logdesls='aws logs describe-log-streams'
+alias a2logdesle='. $HOME/preconfig/Suitcase/bash/scripts/getLogEvents.sh'
 
 ### Service quota command
 alias a2svcqtls='aws service-quotas list-requested-service-quota-change-history'

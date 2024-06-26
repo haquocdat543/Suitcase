@@ -1057,6 +1057,7 @@ alias gta='git tag -a'
 alias gtd='git tag -d'
 ## if you want to push all tags to repo use: git push <remote> <branch> --tags
 ## if you want to delete all tags to repo use: git push --delete <remote> <branch> --tags && git tag -d --tags
+alias gdtg='. $HOME/preconfig/Suitcase/bash/scripts/gitDeleteTag.sh'
 alias gs='git status'
 alias ga='git add'
 alias ga.='git add .'

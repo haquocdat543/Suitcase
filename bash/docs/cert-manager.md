@@ -85,6 +85,7 @@ spec:
 #### 2. ACME
 ##### 1. HTTP01
 ##### 2. DNS01
+###### 1. Cloudflare
 Cloudflare[API TOKEN]:
 ```
 piVersion: v1
@@ -153,4 +154,107 @@ Events:
 
 In this case we recommend [changing your DNS01 self-check nameservers](https://cert-manager.io/docs/configuration/acme/dns01/#setting-nameservers-for-dns01-self-check)
 
+###### 2. Route53
+Route53[IAM]
+```
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": "route53:GetChange",
+      "Resource": "arn:aws:route53:::change/*"
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "route53:ChangeResourceRecordSets",
+        "route53:ListResourceRecordSets"
+      ],
+      "Resource": "arn:aws:route53:::hostedzone/DIKER8JEXAMPLE"
+    },
+    {
+      "Effect": "Allow",
+      "Action": "route53:ListHostedZonesByName",
+      "Resource": "*"
+    }
+  ]
+}
+```
 
+Route53[Cross Account Access]
+```
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "AWS": "arn:aws:iam::XXXXXXXXXXX:role/cert-manager"
+      },
+      "Action": "sts:AssumeRole"
+    }
+  ]
+}
+```
+
+Route53[Trust relationship]
+```
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "Service": "ec2.amazonaws.com"
+      },
+      "Action": "sts:AssumeRole"
+    }
+  ]
+}
+```
+
+Route53[ClusterIssuer]
+```
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt-prod
+spec:
+  acme:
+    ...
+    solvers:
+
+    # example: cross-account zone management for example.com
+    # this solver uses ambient credentials (i.e. inferred from the environment or EC2 Metadata Service)
+    # to assume a role in a different account
+    - selector:
+        dnsZones:
+          - "example.com"
+      dns01:
+        route53:
+          region: us-east-1
+          hostedZoneID: DIKER8JEXAMPLE # optional, see policy above
+          role: arn:aws:iam::YYYYYYYYYYYY:role/dns-manager
+
+    # this solver handles example.org challenges
+    # and uses explicit credentials
+    - selector:
+        dnsZones:
+          - "example.org"
+      dns01:
+        route53:
+          region: eu-central-1
+          # The AWS access key ID can be specified using the literal accessKeyID parameter
+          # or retrieved from a secret using the accessKeyIDSecretRef
+          # If using accessKeyID, omit the accessKeyIDSecretRef parameter and vice-versa
+          accessKeyID: AKIAIOSFODNN7EXAMPLE
+          accessKeyIDSecretRef:
+            name: prod-route53-credentials-secret
+            key: access-key-id
+          secretAccessKeySecretRef:
+            name: prod-route53-credentials-secret
+            key: secret-access-key
+          # you can also assume a role with these credentials
+          role: arn:aws:iam::YYYYYYYYYYYY:role/dns-manager
+```

@@ -839,6 +839,8 @@ vim.cmd([[let g:lazygit_config_file_path = '' " custom config file path ]])
 vim.cmd([[set viminfo='100,<1000000,s100000,h]])
 
 vim.cmd[[autocmd BufEnter * lcd %:p:h]]
+vim.cmd[[autocmd VimEnter * NERDTree | wincmd p]]
+
 vim.cmd[[
 
 augroup Mkdir

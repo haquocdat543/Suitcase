@@ -42,11 +42,13 @@ call plug#end()
 " call vundle#begin()
 " call vundle#end()
 autocmd BufEnter * lcd %:p:h
+autocmd VimEnter * NERDTree | wincmd p
 
 augroup Mkdir
   autocmd!
   autocmd BufWritePre * call mkdir(expand("<afile>:p:h"), "p")
 augroup END
+
 
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsListSnippets="<c-y>"

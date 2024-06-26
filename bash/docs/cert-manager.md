@@ -82,4 +82,56 @@ spec:
     secretName: root-secret
 ```
 
+#### 2. ACME
+##### 1. HTTP01
+##### 2. DNS01
+Cloudflare[API TOKEN]:
+```
+piVersion: v1
+kind: Secret
+metadata:
+  name: cloudflare-api-token-secret
+type: Opaque
+stringData:
+  api-token: <API Token>
+---
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: example-issuer
+spec:
+  acme:
+    ...
+    solvers:
+    - dns01:
+        cloudflare:
+          apiTokenSecretRef:
+            name: cloudflare-api-token-secret
+            key: api-token
+```
 
+Cloudflare[API KEY]:
+```
+apiVersion: v1
+kind: Secret
+metadata:
+  name: cloudflare-api-key-secret
+type: Opaque
+stringData:
+  api-key: <API Key>
+---
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: example-issuer
+spec:
+  acme:
+    ...
+    solvers:
+    - dns01:
+        cloudflare:
+          email: my-cloudflare-acc@example.com
+          apiKeySecretRef:
+            name: cloudflare-api-key-secret
+            key: api-key
+```

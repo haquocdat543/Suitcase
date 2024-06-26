@@ -135,3 +135,22 @@ spec:
             name: cloudflare-api-key-secret
             key: api-key
 ```
+
+Cloudflare[TROUBLESHOOTING]:
+* Actor `com.cloudflare.api.token.xxxx` requires permission `com.cloudflare.api.account.zone.list` to list zones
+- The token lacks the `Zone - Zone - Read` permission
+- cert-manager identified the wrong zone name for the domain due to DNS issues.
+
+In the case of the 2nd issue you will see an error like below:
+```
+Events:
+  Type     Reason        Age              From          Message
+  ----     ------        ----             ----          -------
+  Normal   Started       6s               cert-manager  Challenge scheduled for processing
+  Warning  PresentError  3s (x2 over 3s)  cert-manager  Error presenting challenge: Cloudflare API Error for GET "/zones?name=<TLD>" 
+            Error: 0: Actor 'com.cloudflare.api.token.xxxx' requires permission 'com.cloudflare.api.account.zone.list' to list zones
+```
+
+In this case we recommend [changing your DNS01 self-check nameservers](https://cert-manager.io/docs/configuration/acme/dns01/#setting-nameservers-for-dns01-self-check)
+
+

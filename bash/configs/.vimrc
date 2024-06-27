@@ -43,6 +43,8 @@ call plug#end()
 " call vundle#end()
 autocmd BufEnter * lcd %:p:h
 autocmd VimEnter * NERDTree | wincmd p
+" Close Vim if NERDTree is the only buffer remaining
+autocmd bufenter * if (winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree()) | q | endif
 
 augroup Mkdir
   autocmd!
@@ -104,6 +106,7 @@ nmap sk <C-w>k
 nmap sl <C-w>l
 
 nnoremap <leader>tt :NERDTreeToggle<CR>
+nnoremap <leader>tc :NERDTreeFocus<CR>
 nnoremap <C-t>1 :tabnew 
 nnoremap <C-t>2 :tabo<CR>
 

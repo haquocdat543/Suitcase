@@ -142,11 +142,15 @@ keymap.set('n','<A-n>n',':n<CR>')
 keymap.set('n','<A-p>p',':p<CR>')
 
 -- Navigation
-keymap.set('n','<leader>nt',':NERDTreeToggle<CR>')
+keymap.set('n','<leader>nt',':NvimTreeOpen<CR>')
+-- keymap.set('n','<leader>nt',':NERDTreeToggle<CR>')
 keymap.set('n','<leader>db',':Dashboard<CR>')
 keymap.set('n','<leader>tl',':Telescope<CR>')
 
 local plugins = {
+ {
+ 'nvim-tree/nvim-tree.lua'
+ },
  {
   "NeogitOrg/neogit",
   dependencies = {
@@ -174,7 +178,7 @@ local plugins = {
  'nvim-treesitter/nvim-treesitter',
  'folke/tokyonight.nvim',
  'kdheepak/lazygit.nvim',
- 'ryanoasis/vim-devicons',
+ --'ryanoasis/vim-devicons',
  'phaazon/hop.nvim',
  'Yggdroot/indentLine',
  'ellisonleao/gruvbox.nvim',
@@ -338,6 +342,54 @@ local k = vim.api.nvim_set_keymap
 k("n", "<leader><leader>1", "<Cmd>Telescope find_files<CR>", opt)
 k("n", "<leader><leader>2", "<Cmd>Telescope live_grep<CR>", opt)
 k("n", "<leader><leader>3", "<Cmd>Telescope oldfiles<CR>", opt)
+
+-- disable netrw at the very start of your init.lua
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
+-- optionally enable 24-bit colour
+vim.opt.termguicolors = true
+
+-- empty setup using defaults
+require("nvim-tree").setup()
+
+-- OR setup with some options
+require("nvim-tree").setup({
+  sort = {
+    sorter = "case_sensitive",
+  },
+  view = {
+    width = 30,
+  },
+  renderer = {
+    group_empty = true,
+  },
+  filters = {
+    dotfiles = true,
+  },
+})
+
+local function my_on_attach(bufnr)
+  local api = require "nvim-tree.api"
+
+  local function opts(desc)
+    return { desc = "nvim-tree: " .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
+  end
+
+  -- default mappings
+  api.config.mappings.default_on_attach(bufnr)
+
+  -- custom mappings
+  vim.keymap.set('n', '<C-t>', api.tree.change_root_to_parent,        opts('Up'))
+  vim.keymap.set('n', '?',     api.tree.toggle_help,                  opts('Help'))
+end
+
+-- pass to setup along with your other options
+require("nvim-tree").setup {
+  ---
+  on_attach = my_on_attach,
+  ---
+}
 
 -- terraform lsp
 require'lspconfig'.terraformls.setup{}
@@ -839,10 +891,10 @@ vim.cmd([[let g:lazygit_config_file_path = '' " custom config file path ]])
 vim.cmd([[set viminfo='100,<1000000,s100000,h]])
 
 vim.cmd[[autocmd BufEnter * lcd %:p:h]]
--- Auto open NERDTree when opening Vim
-vim.cmd[[autocmd VimEnter * NERDTree | wincmd p]]
--- Close Vim if NERDTree is the only buffer remaining
-vim.cmd[[autocmd bufenter * if (winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree()) | q | endif]]
+-- vim.cmd[[autocmd VimEnter * NERDTree | wincmd p]]
+-- vim.cmd[[autocmd bufenter * if (winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree()) | q | endif]]
+-- vim.cmd[[autocmd VimEnter * if argc() == 0 | NERDTree | endif]]
+
 
 vim.cmd[[
 
@@ -863,5 +915,4 @@ vim.cmd[[
     highlight RainbowDelimiterViolet guifg=#7dcfff ctermfg=White
     highlight RainbowDelimiterCyan guifg=#f4ca0d ctermfg=White
 ]]
-
 

@@ -839,7 +839,10 @@ vim.cmd([[let g:lazygit_config_file_path = '' " custom config file path ]])
 vim.cmd([[set viminfo='100,<1000000,s100000,h]])
 
 vim.cmd[[autocmd BufEnter * lcd %:p:h]]
+-- Auto open NERDTree when opening Vim
 vim.cmd[[autocmd VimEnter * NERDTree | wincmd p]]
+-- Close Vim if NERDTree is the only buffer remaining
+vim.cmd[[autocmd bufenter * if (winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree()) | q | endif]]
 
 vim.cmd[[
 

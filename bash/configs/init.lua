@@ -142,7 +142,7 @@ keymap.set('n','<A-n>n',':n<CR>')
 keymap.set('n','<A-p>p',':p<CR>')
 
 -- Navigation
-keymap.set('n','<leader>nt',':NvimTreeOpen<CR>')
+keymap.set('n','<leader>nt',':NvimTreeToggle<CR>')
 -- keymap.set('n','<leader>nt',':NERDTreeToggle<CR>')
 keymap.set('n','<leader>db',':Dashboard<CR>')
 keymap.set('n','<leader>tl',':Telescope<CR>')
@@ -355,6 +355,7 @@ require("nvim-tree").setup()
 
 -- OR setup with some options
 require("nvim-tree").setup({
+  auto_reload_on_write = true,
   sort = {
     sorter = "case_sensitive",
   },
@@ -365,7 +366,7 @@ require("nvim-tree").setup({
     group_empty = true,
   },
   filters = {
-    dotfiles = true,
+    dotfiles = false,
   },
 })
 
@@ -915,4 +916,6 @@ vim.cmd[[
     highlight RainbowDelimiterViolet guifg=#7dcfff ctermfg=White
     highlight RainbowDelimiterCyan guifg=#f4ca0d ctermfg=White
 ]]
+
+
 

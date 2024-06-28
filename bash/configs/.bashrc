@@ -2190,6 +2190,8 @@ alias pitsf='pip install tensorflow'
 alias pisp='pip install sympy'
 alias pigs='pip install gensim'
 alias piscikit='pip install scikit-learn'
+alias pigv='pip install graphviz'
+alias pidgr='pip install diagrams'
 
 ### Toml to requirements
 alias t2r='toml-to-req'
@@ -2264,6 +2266,7 @@ alias bigej='brew install gitemoji'
 alias bilib='brew install gmp mpfr libmpc isl'
 alias bijdk='brew install openjdk'
 alias bip2='brew install php'
+alias bigv='brew install graphviz'
 
 ### Java command 
 alias jv='java'

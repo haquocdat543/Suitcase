@@ -2427,6 +2427,9 @@ alias cmk..='cmake ../'
 alias cmkd='cmake -D'
 alias mkgcc='. $HOME/preconfig/Suitcase/bash/scripts/makeGcc.sh'
 
+### d2
+alias d2w='d2 -w' # d2 -w input.d2 out.svg
+
 ### user and group
 alias ua='useradd'
 alias pw='passwd'

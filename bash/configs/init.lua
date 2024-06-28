@@ -143,6 +143,7 @@ keymap.set('n','<A-p>p',':p<CR>')
 
 -- Navigation
 keymap.set('n','<leader>nt',':NvimTreeToggle<CR>')
+keymap.set('n','<leader>nf',':NvimTreeFindFile<CR>')
 -- keymap.set('n','<leader>nt',':NERDTreeToggle<CR>')
 keymap.set('n','<leader>db',':Dashboard<CR>')
 keymap.set('n','<leader>tl',':Telescope<CR>')
@@ -356,6 +357,11 @@ require("nvim-tree").setup()
 -- OR setup with some options
 require("nvim-tree").setup({
   auto_reload_on_write = true,
+  update_focused_file = {
+    enable = true,     -- Enable updating the focused file
+    update_cwd = true, -- Change the root directory of the tree to the current file's directory
+    ignore_list = {}
+  },
   sort = {
     sorter = "case_sensitive",
   },
@@ -896,6 +902,22 @@ vim.cmd[[autocmd BufEnter * lcd %:p:h]]
 -- vim.cmd[[autocmd bufenter * if (winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree()) | q | endif]]
 -- vim.cmd[[autocmd VimEnter * if argc() == 0 | NERDTree | endif]]
 
+-- Auto open nvim-tree on startup
+vim.cmd[[autocmd VimEnter * NvimTreeOpen | wincmd p]]
+vim.cmd[[autocmd bufenter * if (winnr("$") == 1 && &filetype == "nerdtree") | q | endif]]
+
+vim.cmd([[
+  augroup NvimTree
+    autocmd!
+    autocmd VimEnter * ++nested if argc() == 0 | NvimTreeOpen | endif
+    autocmd BufEnter * ++nested if winnr('$') == 1 && bufname() == '' | NvimTreeOpen | wincmd p | endif
+  augroup end
+]])
+
+-- Auto close nvim-tree if it's the last window
+vim.cmd([[
+  autocmd BufEnter * if winnr('$') == 1 && bufname() == 'NvimTree_' . tabpagenr() | quit | endif
+]])
 
 vim.cmd[[
 
@@ -916,6 +938,8 @@ vim.cmd[[
     highlight RainbowDelimiterViolet guifg=#7dcfff ctermfg=White
     highlight RainbowDelimiterCyan guifg=#f4ca0d ctermfg=White
 ]]
+
+
 
 
 

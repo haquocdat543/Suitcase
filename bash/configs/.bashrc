@@ -546,6 +546,9 @@ alias o1='cd ; git clone https://github.com/gpakosz/.tmux.git ; ln -s -f .tmux/.
 alias idk='yd ; sd ; ed'
 alias rmssd='. $HOME/preconfig/Suitcase/bash/scripts/removeSystemd.sh'
 
+### Python application
+alias popt='py3 $HOME/test/draft/python/operation.py'
+
 alias lg='lazygit'
 alias plg='py3 $HOME/test/draft/python/lazygit.py'
 alias ldk='lazydocker'

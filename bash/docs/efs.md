@@ -13,8 +13,11 @@ Instance profile:
 * only from instance's `security group`
 
 ### 3. Create EFS volume
-Please check Network tab for:
+Please check for:
+* Volume size
 * Mount target
+* Access policy
+* Access point
 
 ### 4. Mount EFS volume to EC2 instance
 Mount only ID:

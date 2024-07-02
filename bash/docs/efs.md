@@ -34,3 +34,8 @@ Mount by DNS on specific path:
 ```
 sudo mount -t nfs4 -o nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2,noresvport fs-0ab2026af51de9f31.efs.ap-southeast-1.amazonaws.com:/specific/path efs
 ```
+
+Mount by IP address:
+```
+sudo mount -t nfs4 -o nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2,noresvport 10.2.1.87:/ efs
+```

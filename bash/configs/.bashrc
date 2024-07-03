@@ -377,6 +377,7 @@ alias k8sgeng='. $HOME/preconfig/Suitcase/bash/scripts/k8sGenGroup.sh'
 alias k8sgengu='. $HOME/preconfig/Suitcase/bash/scripts/k8sGenGroupUser.sh'
 
 ### Documentation
+alias docftp='vim -m $HOME/preconfig/Suitcase/bash/docs/ftp.md'
 alias docefs='vim -m $HOME/preconfig/Suitcase/bash/docs/efs.md'
 alias docrandom='vim -m $HOME/preconfig/Suitcase/bash/docs/random.md'
 alias doclzg='vim -m $HOME/preconfig/Suitcase/bash/docs/lazygit.md'

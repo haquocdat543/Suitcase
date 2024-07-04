@@ -27,6 +27,7 @@ vim.opt.showmode = true
 vim.opt.wildmenu = true
 vim.opt.laststatus = 2
 vim.opt.cursorline = true
+vim.opt.conceallevel = 0
 
 local keymap = vim.keymap
 
@@ -144,6 +145,7 @@ keymap.set('n','<A-p>p',':p<CR>')
 -- Navigation
 keymap.set('n','<leader>nt',':NvimTreeToggle<CR>')
 keymap.set('n','<leader>nf',':NvimTreeFindFile<CR>')
+keymap.set('n','<leader>nc',':NvimTreeFocus<CR>')
 -- keymap.set('n','<leader>nt',':NERDTreeToggle<CR>')
 keymap.set('n','<leader>db',':Dashboard<CR>')
 keymap.set('n','<leader>tl',':Telescope<CR>')
@@ -938,8 +940,3 @@ vim.cmd[[
     highlight RainbowDelimiterViolet guifg=#7dcfff ctermfg=White
     highlight RainbowDelimiterCyan guifg=#f4ca0d ctermfg=White
 ]]
-
-
-
-
-

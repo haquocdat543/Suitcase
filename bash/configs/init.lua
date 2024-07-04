@@ -44,7 +44,6 @@ keymap.set('n','<Leader>eL','yyPC')
 
 -- System - commands
 keymap.set('n','<leader>rg',':registers<CR>')
-keymap.set('n','<leader>cc',':set conceallevel=0<CR>')
 
 -- System - default file open
 keymap.set('n','<Leader>en',':tabnew ~/.config/nvim/init.lua<CR>')
@@ -898,6 +897,7 @@ vim.cmd([[let g:lazygit_use_neovim_remote = 1 " fallback to 0 if neovim-remote i
 vim.cmd([[let g:lazygit_use_custom_config_file_path = 0 " config file path is evaluated if this value is 1 ]])
 vim.cmd([[let g:lazygit_config_file_path = '' " custom config file path ]])
 vim.cmd([[set viminfo='100,<1000000,s100000,h]])
+vim.cmd([[autocmd FileType markdown let g:indentLine_enabled=0]])
 
 vim.cmd[[autocmd BufEnter * lcd %:p:h]]
 -- vim.cmd[[autocmd VimEnter * NERDTree | wincmd p]]

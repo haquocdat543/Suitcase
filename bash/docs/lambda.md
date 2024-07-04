@@ -1,6 +1,12 @@
 # AWS Lambda
 
-## 1. Configuration
+## 1. Basic operation
+List function:
+```
+aws lambda list-functions
+```
+
+## 2. Configuration
 ### 1. Get configuration
 Command:
 ```
@@ -16,4 +22,3 @@ Example:
 ```
 aws lambda update-function-configuration --function-name my-function --runtime python3.9
 ```
-

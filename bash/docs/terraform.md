@@ -115,3 +115,5 @@ provisioner "remote-exec" {
 * IAM repo
 * projects...
 
+## 3. Function
+* current_date()

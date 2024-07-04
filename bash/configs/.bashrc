@@ -772,6 +772,7 @@ alias a2clmo='aws cloudformation describe-stacks --query Stacks[].Outputs[*].[Ou
 alias a2lmdi='. $HOME/preconfig/Suitcase/bash/scripts/lambdaInvoke.sh'
 alias a2lmdlf='aws lambda list-functions'
 alias a2lmddf='aws lambda delete-function --function-name'
+alias a2lmdgcf='aws lambda get-function-configuration --function-name'
 
 ### AWS API
 alias a2apigks='aws apigateway get-api-keys'

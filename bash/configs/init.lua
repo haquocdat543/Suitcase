@@ -27,7 +27,6 @@ vim.opt.showmode = true
 vim.opt.wildmenu = true
 vim.opt.laststatus = 2
 vim.opt.cursorline = true
-vim.opt.conceallevel = 0
 
 local keymap = vim.keymap
 
@@ -45,6 +44,7 @@ keymap.set('n','<Leader>eL','yyPC')
 
 -- System - commands
 keymap.set('n','<leader>rg',':registers<CR>')
+keymap.set('n','<leader>cc',':set conceallevel=0<CR>')
 
 -- System - default file open
 keymap.set('n','<Leader>en',':tabnew ~/.config/nvim/init.lua<CR>')

@@ -2439,6 +2439,11 @@ alias mkgcc='. $HOME/preconfig/Suitcase/bash/scripts/makeGcc.sh'
 ### d2
 alias d2w='d2 -w' # d2 -w input.d2 out.svg
 
+### bashly
+alias bli='bashly init'
+alias blv='bashly validate'
+alias blg='bashly generate'
+
 ### user and group
 alias ua='useradd'
 alias pw='passwd'

@@ -2022,6 +2022,7 @@ alias hstns='host -t ns'
 
 ### Dig command
 alias digtt='dig -t txt'
+alias checktls='openssl s_client -connect'
 
 ### Link command
 alias lns='ln -s'

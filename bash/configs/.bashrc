@@ -699,6 +699,7 @@ alias a2iamlg='aws iam list-groups'
 alias a2iamlk='aws iam list-ssh-public-keys'
 alias a2iamulk='. $HOME/preconfig/Suitcase/bash/scripts/iamUploadKey.sh'
 alias a2iamdk='. $HOME/preconfig/Suitcase/bash/scripts/iamDeleteKey.sh'
+alias a2iamlak='aws iam list-access-keys'
 
 ### AWS Compute
 alias a2ec2ti='aws ec2 terminate-instances --instance-ids'

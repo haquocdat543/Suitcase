@@ -1337,6 +1337,7 @@ alias tfdacpt='terraform -chdir=$HOME/preconfig/Suitcase/bash/infra/gcp/compute 
 alias tfiagke='terraform -chdir=$HOME/preconfig/Suitcase/bash/infra/gcp/gke init ; terraform -chdir=$HOME/preconfig/Suitcase/bash/infra/gcp/gke apply --auto-approve'
 alias tfdagke='terraform -chdir=$HOME/preconfig/Suitcase/bash/infra/gcp/gke destroy --auto-approve'
 alias tfia='tfi ; tfaa'
+alias tfid='tfi ; tfda'
 alias tfdia='tfda ; tfi ; tfaa'
 
 ### Docker command

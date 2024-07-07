@@ -24,3 +24,7 @@ GCP KMS:
 ```
 sops --gcp-kms [GPC_KMS_RESOURCE_ID] gcpfile.yaml
 ```
+
+## 3. Configuration files
+```
+```

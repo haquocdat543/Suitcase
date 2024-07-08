@@ -2607,6 +2607,10 @@ alias yai='yarn install'
 alias yaifl='yarn install --frozen-lockfile'
 alias yaiflnp='yarn install --frozen-lockfile --no-progress'
 
+## python environment
+alias peil='pyenv install --list'
+alias pei='pyenv install'
+
 ## node
 alias ndtd='node --trace-deprecation'
 

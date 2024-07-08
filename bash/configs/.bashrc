@@ -495,6 +495,7 @@ alias gchef='. $HOME/preconfig/Suitcase/bash/scripts/getChef.sh'
 alias ipet='. $HOME/preconfig/Suitcase/bash/scripts/installPet.sh'
 alias igm='git clone https://github.com/informalsystems/gm ; cp -f $HOME/gm/bin/* /usr/local/bin'
 alias ibat='cargo install --locked bat'
+alias icb='curl -sSL https://github.com/Slackadays/Clipboard/raw/main/install.sh | sh'
 alias isupervisor='yum install -y epel-release ; yum install -y supervisor'
 alias icast="curl -L https://foundry.paradigm.xyz | bash ; $HOME/.foundry/bin/foundryup ; export PATH='$PATH:$HOME/.foundry/bin'"
 alias ihyperlane='npm install -g @hyperlane-xyz/cli'
@@ -2283,6 +2284,7 @@ alias bilib='brew install gmp mpfr libmpc isl'
 alias bijdk='brew install openjdk'
 alias bip2='brew install php'
 alias bigv='brew install graphviz'
+alias bicb='brew install clipboard'
 
 ### Java command 
 alias jv='java'

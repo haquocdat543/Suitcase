@@ -2282,6 +2282,8 @@ alias bijdk='brew install openjdk'
 alias bip2='brew install php'
 alias bigv='brew install graphviz'
 alias bicb='brew install clipboard'
+alias bieps='brew install espanso'
+alias binavi='brew install navi'
 
 ### Java command 
 alias jv='java'

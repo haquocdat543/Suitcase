@@ -2613,6 +2613,10 @@ alias nvmi='nvm install'
 ## SOPS
 alias s4='sops'
 
+## Pet manager
+alias petl='pet list'
+alias pete='pet edit'
+
 alias npmi='npm init -y'
 alias mevn='npm install express mongoose body-parser cors --save'
 alias pevn='npm install express pg body-parser cors --save'

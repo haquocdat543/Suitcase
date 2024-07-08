@@ -2627,6 +2627,7 @@ alias petn='pet new'
 alias petex='pet exec'
 alias petcf='pet configure'
 alias petv='pet version'
+alias pets='pet sync'
 
 alias npmi='npm init -y'
 alias mevn='npm install express mongoose body-parser cors --save'

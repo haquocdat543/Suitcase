@@ -2607,6 +2607,9 @@ alias yai='yarn install'
 alias yaifl='yarn install --frozen-lockfile'
 alias yaiflnp='yarn install --frozen-lockfile --no-progress'
 
+## node
+alias ndtd='node --trace-deprecation'
+
 ## Node version manager
 alias nvmi='nvm install'
 

@@ -374,6 +374,7 @@ alias k8sgeng='. $HOME/preconfig/Suitcase/bash/scripts/k8sGenGroup.sh'
 alias k8sgengu='. $HOME/preconfig/Suitcase/bash/scripts/k8sGenGroupUser.sh'
 
 ### Documentation
+alias doccb='vim -m $HOME/preconfig/Suitcase/bash/docs/clipboard.md'
 alias docsops='vim -m $HOME/preconfig/Suitcase/bash/docs/sops.md'
 alias doclambda='vim -m $HOME/preconfig/Suitcase/bash/docs/lambda.md'
 alias docftp='vim -m $HOME/preconfig/Suitcase/bash/docs/ftp.md'
@@ -2604,6 +2605,11 @@ alias yagav='yarn global add @vue/cli'
 alias yai='yarn install'
 alias yaifl='yarn install --frozen-lockfile'
 alias yaiflnp='yarn install --frozen-lockfile --no-progress'
+
+## clipboard
+alias cbcp='cb copy'
+alias cbp='cb paste'
+alias cbn='cb note'
 
 ## python environment
 alias peil='pyenv install --list'

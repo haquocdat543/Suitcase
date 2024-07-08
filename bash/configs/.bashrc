@@ -492,6 +492,7 @@ alias ipuppetagent='. $HOME/preconfig/Suitcase/bash/scripts/installPuppetAgent.s
 alias ichef='. $HOME/preconfig/Suitcase/bash/scripts/chefInstall.sh'
 alias ichefsv='. $HOME/preconfig/Suitcase/bash/scripts/chefServerInstall.sh'
 alias gchef='. $HOME/preconfig/Suitcase/bash/scripts/getChef.sh'
+alias ipet='. $HOME/preconfig/Suitcase/bash/scripts/installPet.sh'
 alias igm='git clone https://github.com/informalsystems/gm ; cp -f $HOME/gm/bin/* /usr/local/bin'
 alias ibat='cargo install --locked bat'
 alias isupervisor='yum install -y epel-release ; yum install -y supervisor'

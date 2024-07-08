@@ -2616,6 +2616,8 @@ alias s4='sops'
 ## Pet manager
 alias petl='pet list'
 alias pete='pet edit'
+alias petn='pet new'
+alias petcf='pet configure'
 
 alias npmi='npm init -y'
 alias mevn='npm install express mongoose body-parser cors --save'

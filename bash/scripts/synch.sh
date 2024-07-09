@@ -48,7 +48,7 @@ EOF
 
 # Load or declare environment variables
 if [[ -f env.sh ]]; then
-  sh env.sh
+  source env.sh
 else
   declaration
 fi

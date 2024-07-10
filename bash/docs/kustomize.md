@@ -31,6 +31,13 @@ kustomize build .
 ```
 
 ### 5. Component
+
+|  Overlays     |    External DB       |  Cache   |
+| ------------- |--------------------- | -------- |
+|    prod       |    Yes               | No       |
+|    stag       |    Yes               | No       |
+|    dev        |    Option            | Option   |
+
 ```
 * base
   * kustomization.yaml

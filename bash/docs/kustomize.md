@@ -10,12 +10,26 @@ cd -
 ```
 
 ## 2. Usage
+### 1. Initialization
 Initialize new kustomize file:
 ```
 kustomize init
 ```
 
+### 2. Build
 Build files:
 ```
 kustomize build .
+```
+
+### 3. Overlays - base
+```
+```
+
+### 4. Patch
+```
+```
+
+### 5. Component
+```
 ```

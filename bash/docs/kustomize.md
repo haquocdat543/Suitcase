@@ -9,9 +9,13 @@ mv ~/kustomize /usr/local/bin/kustomize
 cd -
 ```
 
-## 2. Initialization
+## 2. Usage
 Initialize new kustomize file:
 ```
 kustomize init
 ```
 
+Build files:
+```
+kustomize build .
+```

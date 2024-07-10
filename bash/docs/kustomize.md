@@ -32,4 +32,24 @@ kustomize build .
 
 ### 5. Component
 ```
+* base
+  * kustomization.yaml
+  * web-depl.yaml
+  * web-svc.yaml
+* components
+  * cache
+    * kustomization.yaml
+    * cache_cfg.yaml
+    * cache_depl.yaml
+  * external_DB
+    * external_DB_cfg.yaml
+    * external_DB_depl.yaml
+    * kustomization.yaml
+* overlays
+  * dev
+    * kustomization.yaml
+  * stag
+    * kustomization.yaml
+  * prod
+    * kustomization.yaml
 ```

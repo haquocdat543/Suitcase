@@ -2539,6 +2539,9 @@ alias gpgexsk='gpg --export-secret-keys --output'
 alias gpgdk='gpg --delete-key'
 alias gpgdsk='gpg --delete-secret-key'
 
+### SQL command
+alias pgfm='pg_format'
+
 ### Other command
 alias crleip='curl ifconfig.me' # or curl icanhazip.com
 alias dkeitb='. $HOME/preconfig/Suitcase/bash/scripts/dkeitb.sh'

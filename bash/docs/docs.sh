@@ -6,5 +6,5 @@
 ## If preconfig/docs/dock8s.md file exist. Delete and recreate it 
 if [ ! -f ~/preconfig/docs/dock8s.md ]
 then
-	touch ~/preconfig/docs/dock8s.md && curl -s https://raw.githubusercontent.com/haquocdat543/Suitcase/main/bash/docs/dock8s.md | sudo tee -a ~/preconfig/docs/dock8s.md 
+  touch ~/preconfig/docs/dock8s.md && curl -s https://raw.githubusercontent.com/haquocdat543/Suitcase/main/bash/docs/dock8s.md | sudo tee -a ~/preconfig/docs/dock8s.md 
 fi

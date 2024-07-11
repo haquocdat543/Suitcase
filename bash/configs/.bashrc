@@ -2630,6 +2630,9 @@ alias ndtd='node --trace-deprecation'
 ## Node version manager
 alias nvmi='nvm install'
 
+## Random
+alias uuid='uuidgen'
+
 ## SOPS
 alias s4='sops'
 

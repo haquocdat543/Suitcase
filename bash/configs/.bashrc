@@ -2636,6 +2636,10 @@ alias uuid='uuidgen'
 ## SOPS
 alias s4='sops'
 
+## SOPS
+alias n3='navi'
+alias n3p='navi --print'
+
 ## Pet manager
 alias petl='pet list'
 alias pete='pet edit'

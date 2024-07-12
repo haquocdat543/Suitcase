@@ -2217,6 +2217,7 @@ alias t2rtf='toml-to-req --toml-file'
 alias t2rtfp='toml-to-req --toml-file pyproject.toml'
 
 ### brew command
+alias brep='brew bundle dump --file=Brewfile --describe'
 alias bri='brew install'
 alias brr='brew remove'
 alias bru='brew upgrade'

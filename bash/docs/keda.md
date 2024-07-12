@@ -1,6 +1,6 @@
 # KEDA KUBERNETES
 
-## Installation
+## 1. Installation
 ### 1. Helm
 #### 1. Add helm repo
 ```
@@ -29,7 +29,7 @@ microk8s enable keda
 ```
 
 #### 1. Add helm repo
-## Uninstallation
+## 2. Uninstallation
 ### 1. Helm
 #### 1. Install helm repo
 ```
@@ -63,4 +63,26 @@ done
 ### 4. Microk8s
 ```
 microk8s disable keda
+```
+
+## 3. Usage
+Cronjob scale:
+```
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  name: nginx-scaler
+  namespace: default
+spec:
+  scaleTargetRef:
+    podname: nginx-pod
+  minReplicaCount: 1
+  cooldownPeriod: 60
+  triggers:
+  - type: cron
+    metadata:
+      timezone: Asia/Saigon
+      start: 55 14 * * *
+      end: 60 14 * * *
+      desiredReplicas: "5"
 ```

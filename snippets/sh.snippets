@@ -278,11 +278,28 @@ snippet ex "Export" b
 export ${1:VER}="${2:0.40.2}"
 endsnippet
 
+snippet timestamp "Time stamp" b
+)
+endsnippet
+
 snippet arr "Array with multi lines" b
 ${1:SERVERS}=$(cat <<-END
 ${2:35.194.109.115}
 END
 )
+endsnippet
+
+snippet charg "Check arguments" b
+# check arguments
+if [ $# -ne ${1:2} ]; then
+    echo "Usage: $0 <API_KEY> <SCOPE>"
+    echo "Eg: $0 fg5zzn9m30v5nlinig08iroi67hjy4te 10000"
+    exit 1
+fi
+endsnippet
+
+snippet timestamp "Timestamp" b
+STAMP=$(date +"%s-%A-%d-%B-%Y-@-%Hh%Mm%Ss")
 endsnippet
 
 snippet r "Echo and Read" b
@@ -308,7 +325,7 @@ $4=${$4:-$3}
 $5
 endsnippet
 
-snippet 21 ">/dev/null 2>&1" b
+snippet dn ">/dev/null 2>&1" b
 >/dev/null 2>&1
 endsnippet
 

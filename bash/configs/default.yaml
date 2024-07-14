@@ -1,0 +1,137 @@
+####################################################################################################
+# ESPANSO CONFIG FILE
+####################################################################################################
+
+matches:
+  - trigger: ";dps"
+    replace: "docker ps -a"
+
+  - trigger: ";svcls"
+    replace: "docker service ls "
+
+  - trigger: ";svcps"
+    replace: "docker service ps "
+
+  - trigger: ";ec"
+    replace: "export CHAIN="
+
+  - trigger: ";stp"
+    replace: "supervisorctl stop chain"
+
+  - trigger: ";stt"
+    replace: "supervisorctl start chain"
+
+  - trigger: ";tm"
+    replace: "pacman -Syyu --noconfirm tmux; pacman -Sy --noconfirm tmux; tmux new -s upgrade; tmux attach -t upgrade"
+
+  - trigger: ";ctn"
+    replace: |
+      read -p "Enter service name [bitsong]:" service
+      docker service ps $(docker service ls | grep $service | grep -E "rpc_$service\\_" | awk '{print $2}')
+      docker service ps $(docker service ls | grep $service | grep -E "snapshot_$service " | awk '{print $2}')
+      docker service ps $(docker service ls | grep $service | grep -E $service"-archive-sub" | awk '{print $2}')
+
+  - trigger: ";ucf"
+    replace: "curl -Ls -o- https://raw.githubusercontent.com/notional-labs/cosmosia/main/rpc/scripts/update_config.sh | bash -s -- "
+
+  - trigger: ";ugl"
+    replace: "curl -Ls -o- https://raw.githubusercontent.com/hqdNotional/blockchain/main/upgrade_golevel.sh | bash -s -- "
+
+  - trigger: ";upb"
+    replace: "curl -Ls -o- https://raw.githubusercontent.com/notional-labs/cosmosia/main/rpc/scripts/upgrading.sh | bash -s -- "
+
+  - trigger: ";rpc"
+    replace: |
+      read -p "Enter service name [bitsong]:" service
+      docker exec -it $(docker ps -a | grep $service | grep -E "rpc_$service\\_" | awk '{print $1}') /bin/bash
+
+  - trigger: ";sn"
+    replace: |
+      read -p "Enter service name [bitsong]:" service
+      docker exec -it $(docker ps -a | grep $service | grep -E "snapshot_$service\." | awk '{print $1}') /bin/bash
+
+  - trigger: ";ctb"
+    replace: |
+      read -p "Enter container name [bitsong]:" CONTAINER_NAME
+      CONTAINER_ID=$(docker ps -a | grep $CONTAINER_NAME | grep -E "$CONTAINER_NAME" | awk '{print $1}')
+      docker exec $CONTAINER_ID /bin/bash
+
+  - trigger: ";mnp"
+    replace: "curl -Ls -o- https://raw.githubusercontent.com/hqdNotional/blockchain/main/mono_pebble.sh | bash -s -- "
+
+  - trigger: ";mng"
+    replace: "curl -Ls -o- https://raw.githubusercontent.com/hqdNotional/blockchain/main/mono_golevel.sh | bash -s -- "
+
+  - trigger: ";syn"
+    replace: "curl -Ls -o- https://raw.githubusercontent.com/hqdNotional/blockchain/main/check_sync.sh | bash -s -- "
+
+  - trigger: ";sts"
+    replace: "curl localhost:26657/status | jq"
+
+  - trigger: ";log"
+    replace: "tail -f -n100 /var/log/chain.err.log"
+
+  - trigger: ";k8s"
+    replace: "kubernetes"
+
+  - trigger: ";mo"
+    replace: "meaning of "
+
+  - trigger: ";email"
+    replace: "wwwdatha543@gmail.com"
+
+  - trigger: ";ty"
+    replace: "thank you !!!"
+
+  - trigger: ";chem"
+    replace: "Chemistry"
+
+  - trigger: ";aws"
+    replace: "aws.amazon.com"
+
+  - trigger: ";su"
+    replace: "curl -Ls -o- https://raw.githubusercontent.com/haquocdat543/Suitcase/main/bash/scripts/alias.sh | bash"
+
+  - trigger: ";ilu"
+    replace: "I love you !!!"
+
+  - trigger: ";name"
+    replace: "Ha Quoc Dat"
+
+  - trigger: ";addr"
+    replace: "123 Main St, Anytown, AN 12345"
+
+  - trigger: ";sig"
+    replace: |
+      Best regards,
+      Ha Quoc Dat
+      DevOps Engineer
+      Notional Ventures
+
+  # Simple text replacement
+  - trigger: ";espanso"
+    replace: "Hi there!"
+
+  # NOTE: espanso uses YAML to define matches, so pay attention to the indentation!
+
+  # But matches can also be dynamic:
+
+  # Print the current date
+  - trigger: ";date"
+    replace: "{{mydate}}"
+    vars:
+      - name: mydate
+        type: date
+        params:
+          format: "%m/%d/%Y"
+
+  # Print the output of a shell command
+  - trigger: ";print"
+    replace: "{{output}}"
+    vars:
+      - name: output
+        type: shell
+        params:
+          cmd: "echo 'Hello from your shell'"
+
+  # And much more! For more information, visit the docs: https://espanso.org/docs/

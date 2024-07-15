@@ -25,6 +25,14 @@ endglobal
 ###########################################################################
 #                            TextMate Snippets                            #
 ###########################################################################
+snippet gslt "Get selection"
+var ${1:selectedText} = window.getSelection().toString()
+endsnippet
+
+snippet datetime "Date time" b
+var ${1:start} = new Date().getTime();
+endsnippet
+
 snippet get "Get Elements"
 getElement${1/(T)|(C)|.*/(?1:s)(?2:s)/}By${1:T}${1/(T)|(I)|(C).*/(?1:agName)(?2:d)(?3:lassName)/}('$2')
 endsnippet

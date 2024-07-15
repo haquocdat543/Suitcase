@@ -246,8 +246,6 @@ snippet var "Variable" b
 ${1:CONTAINERD_VERSION}="${2:1.7.3}"
 endsnippet
 
-
-
 snippet s1 "Sed type 1" b
 sudo sed -i 's/${1:firstString}/${2:secondString}/g' ${3:Path}
 endsnippet
@@ -292,6 +290,10 @@ if [ $# -ne ${1:2} ]; then
     echo "Eg: $0 fg5zzn9m30v5nlinig08iroi67hjy4te 10000"
     exit 1
 fi
+endsnippet
+
+snippet milisecond "Milisecond" b
+TIMESTAMP_MILISECOND=$(date +%s%3N)
 endsnippet
 
 snippet timestamp "Timestamp" b

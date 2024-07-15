@@ -1,6 +1,13 @@
 # VITESS KUBERNETES
 
-## 1. Installation
+## 1. Components
+* etcd
+* vttablet
+* vtgate
+* vtadmin
+* vtclient
+
+## 2. Installation
 ### 1. Prepare repository
 ```
 git clone https://github.com/vitessio/vitess

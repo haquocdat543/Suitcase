@@ -6,9 +6,11 @@
 * vtgate
 * vtadmin
 * vtclient
+* vtorc
 
 ## 2. Installation on server
-
+```
+```
 
 ## 3. Installation on kubernetes
 ### 1. Prepare repository

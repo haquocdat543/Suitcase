@@ -25,6 +25,10 @@ endglobal
 ###########################################################################
 #                            TextMate Snippets                            #
 ###########################################################################
+snippet wdwo "Window open"
+window.open(${1:url}, '_blank');
+endsnippet
+
 snippet gslt "Get selection"
 var ${1:selectedText} = window.getSelection().toString()
 endsnippet

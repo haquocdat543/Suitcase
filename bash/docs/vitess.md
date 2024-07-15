@@ -7,7 +7,10 @@
 * vtadmin
 * vtclient
 
-## 2. Installation
+## 2. Installation on server
+
+
+## 3. Installation on kubernetes
 ### 1. Prepare repository
 ```
 git clone https://github.com/vitessio/vitess

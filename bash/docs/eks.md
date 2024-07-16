@@ -91,3 +91,28 @@ Delete 2048 app:
 kubectl delete -f https://raw.githubusercontent.com/kubernetes-sigs/aws-load-balancer-controller/v2.7.2/docs/examples/2048/2048_full.yaml
 ```
 
+### 2. Upgrade EKS
+Get cluster information:
+```
+aws eks describe-cluster --name <cluster_name> --query "cluster.version"
+```
+
+Upgrade command:
+```
+aws eks update-cluster-version --name <cluster_name> --kubernetes-version <new_version>
+```
+
+List node group:
+```
+aws eks list-nodegroups --cluster-name <cluster_name>
+```
+
+Check node group version:
+```
+aws eks describe-nodegroup --cluster-name <cluster_name> --nodegroup-name <nodegroup_name> --query "nodegroup.version"
+```
+
+Upgrade node group version:
+```
+aws eks update-nodegroup-version --cluster-name <cluster_name> --nodegroup-name <nodegroup_name> --version <new_version>
+```

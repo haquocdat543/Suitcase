@@ -1514,6 +1514,7 @@ alias kkl='kubectl krew list'
 alias kp='kubectl proxy'
 alias kpf='kubectl port-forward' #<pod-name> <pod-port:host-port>
 alias kl='kubectl label'
+alias klns='kubectl label namespace'
 alias ks='kubectl scale'
 alias kc='kubectl create -f'
 alias kcns='kubectl create namespace'

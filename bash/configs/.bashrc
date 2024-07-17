@@ -1490,6 +1490,7 @@ alias hk3su='hetzner-k3s upgrade'
 ### Kubectl command
 alias oidc='. $HOME/preconfig/Suitcase/bash/scripts/oidc.sh'
 alias expkub='. $HOME/preconfig/Suitcase/bash/scripts/exportKubeConfig.sh'
+alias mgkcf='. $HOME/preconfig/Suitcase/bash/scripts/mergeKubeConfig.sh'
 alias k='kubectl'
 alias kvsak='kubectl view-serviceaccount-kubeconfig'
 alias kaci='kubectl auth can-i'

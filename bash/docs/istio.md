@@ -10,7 +10,7 @@ If you want to inject `side car` to pod in a `namespace` [ ensure that namespace
 kubectl get namespace --show-labels
 ```
 
-### 1 Resources
+### 1 Traffic routing
 VirtualService:
 ```
 apiVersion: networking.istio.io/v1beta1
@@ -19,7 +19,7 @@ metadata:
   name: first-app
   namespace: staging
 spec:
-  hosts
+  hosts:
     - first-app
   http:
     - route:
@@ -48,3 +48,50 @@ spec:
         version: v2
 ```
 
+### 2 Expose service to internet
+VirtualService:
+```
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: first-app
+  namespace: production
+spec:
+  hosts:
+    - app.devopsbyexample.com
+    - second-app
+  gateway:
+    - api
+  http:
+    - match:
+        - uri:
+            prefix: /
+    - route:
+        - destination:
+            host: second-app
+            subset: v1
+          weight: 10
+        - destination:
+            host: second-app
+            subset: v1
+          weight: 90
+```
+
+Gateway:
+```
+apiVersion: networking.istio.io/v1beta1
+kind: Gateway
+metadata:
+  name: api
+  namespace: production
+spec:
+  selector:
+    istio: gateway
+  servers:
+    - port:
+        number: 80
+        name: http
+        protocol: http
+      hosts:
+        - app.devopsbyexample.com
+```

@@ -28,3 +28,23 @@ spec:
             subset: v1
 ```
 
+DestinationRule:
+```
+apiVersion: networking.istio.io/v1beta1
+kind: DestinationRule
+metadata:
+  name: first-app
+  namespace: staging
+spec:
+  host: first-app
+  subsets:
+    - name: v1
+      labels:
+        app: first-app
+        version: v1
+    - name: v2
+      labels:
+        app: first-app
+        version: v2
+```
+

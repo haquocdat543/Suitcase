@@ -117,3 +117,16 @@ provisioner "remote-exec" {
 
 ## 3. Function
 * current_date()
+
+## 4. Tips
+Get aws recommend AMI:
+```
+ aws ssm get-parameters --names /aws/service/ecs/optimized-ami/amazon-linux-2/recommended ap-southeast-2
+```
+
+Get aws recommend AMI [ Terraform ]:
+```
+data "aws_ssm_parameter" "ecs_optimized_ami" {
+  name = "/aws/service/ecs/optimized-ami/amazon-linux-2/recommended"
+}
+```

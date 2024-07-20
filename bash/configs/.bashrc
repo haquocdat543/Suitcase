@@ -1301,11 +1301,17 @@ alias vltpw='vault policy write'
 
 ### Terragrunt command
 alias tgi='terragrunt init'
+alias tgrai='terragrunt run-all init'
 alias tgp='terragrunt plan'
+alias tgrap='terragrunt run-all plan'
 alias tga='terragrunt apply'
+alias tgraa='terragrunt run-all apply'
 alias tgaa='terragrunt apply --auto-approve'
+alias tgraaa='terragrunt run-all apply --auto-approve'
 alias tgd='terragrunt destroy'
+alias tgrad='terragrunt run-all destroy'
 alias tgda='terragrunt destroy --auto-approve'
+alias tgrada='terragrunt run-all destroy --auto-approve'
 
 ### Terraform command
 alias tfcs='. $HOME/preconfig/Suitcase/bash/scripts/cleanState.sh'

@@ -73,3 +73,8 @@ Run nginx without build:
 ```
 docker run -d -p 80:80 --name custom-nginx -v $(pwd)/nginx.conf:/etc/nginx/nginx.conf:ro nginx:alpine
 ```
+
+check result:
+```
+curl http://localhost
+```

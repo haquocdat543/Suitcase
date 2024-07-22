@@ -377,6 +377,9 @@ alias k8sgenu='. $HOME/preconfig/Suitcase/bash/scripts/k8sGenUser.sh'
 alias k8sgeng='. $HOME/preconfig/Suitcase/bash/scripts/k8sGenGroup.sh'
 alias k8sgengu='. $HOME/preconfig/Suitcase/bash/scripts/k8sGenGroupUser.sh'
 
+### Data
+alias datagithub='vim -m $HOME/preconfig/Suitcase/bash/data/github.txt'
+
 ### Documentation
 alias docistio='vim -m $HOME/preconfig/Suitcase/bash/docs/istio.md'
 alias docnetdata='vim -m $HOME/preconfig/Suitcase/bash/docs/netdata.md'

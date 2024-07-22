@@ -1304,6 +1304,7 @@ alias vltspd='vault server -prod -prod-listen-address="0.0.0.0:8200'
 alias vltpw='vault policy write'
 
 ### Terragrunt command
+alias tgfm='terragrunt fmt'
 alias tgi='terragrunt init'
 alias tgrai='terragrunt run-all init'
 alias tgp='terragrunt plan'

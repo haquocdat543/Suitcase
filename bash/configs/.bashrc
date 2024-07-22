@@ -2429,6 +2429,8 @@ alias cblb='cabal build'
 alias cblii='cabal init --interactive'
 
 ### cargo command
+alias cgclp='cargo clippy'
+alias cgclpf='cargo clippy --fix'
 alias cgc='cargo clean'
 alias cga='cargo add'
 alias cgn='cargo new'

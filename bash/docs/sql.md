@@ -59,6 +59,59 @@ WHERE condition;
 * new_value is the new value you want to set for the column.
 * condition specifies which rows should be updated. Without a WHERE clause, all rows in the table will be updated.
 
+## 8. Procedure
+Create new procedure:
+```
+CREATE PROCEDURE procedure_name
+AS
+sql_statement
+GO;
+```
+
+Execute defined procedure:
+```
+EXEC procedure_name;
+```
+
+Example procedure:
+```
+CREATE PROCEDURE SelectAllCustomers
+AS
+SELECT * FROM Customers
+GO;
+```
+
+Example of using defined procedure:
+```
+EXEC SelectAllCustomers;
+```
+
+With one parameter:
+```
+CREATE PROCEDURE SelectAllCustomers @City nvarchar(30)
+AS
+SELECT * FROM Customers WHERE City = @City
+GO;
+```
+
+Execute defined procedure with one precedure:
+```
+EXEC SelectAllCustomers @City = 'London';
+```
+
+With multiple parameters
+```
+CREATE PROCEDURE SelectAllCustomers @City nvarchar(30), @PostalCode nvarchar(10)
+AS
+SELECT * FROM Customers WHERE City = @City AND PostalCode = @PostalCode
+GO;
+```
+
+Execute defined procedure:
+```
+EXEC SelectAllCustomers @City = 'London', @PostalCode = 'WA1 1DP';
+```
+
 # SQL OPTIMIZATION
 
 Delete 2 million records from a table:

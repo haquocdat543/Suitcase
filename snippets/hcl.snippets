@@ -106,7 +106,7 @@ snippet lv "local variable" b
 ${1:var} = local.account_vars.local.${2:value}
 endsnippet
 
-snippet gen "generate" b
+snippet gen "Terragrunt generate" b
 generate "${1:Provider}" {
     path = "${2:provider.tf}"
     if_exists = "${3:overwrite_terragrunt}"
@@ -116,22 +116,49 @@ generate "${1:Provider}" {
 }
 endsnippet
 
-snippet inp "inputs" b
+snippet inp "Terragrunt inputs" b
 inputs {
     $1
 }
 endsnippet
 
-snippet inc "include" b
+snippet inc "Terragrunt include" b
 include "${1:root}"{
     path = find_in_parent_folders()
 }
 endsnippet
 
-snippet tfs "terraform source" b
+snippet tfs "Terragrunt source" b
 terraform {
     source = "${1:link}"
 }
 
 endsnippet
 
+snippet dep "Terragrunt dependency" b
+terraform {
+    source = "${1:link}"
+}
+
+endsnippet
+
+snippet tglcs "Terragrunt local source" b
+terraform_source = {
+  repo   = "git::https://${get_env("GIT_USERNAME")}:${get_env("GIT_ACCESS_TOKEN")}@${local.module_repo}/"
+  module = "/asg"
+  # tag    = "ref=v1.0"
+}
+endsnippet
+
+snippet tglc "Terragrunt local" b
+  # Automatically load environment-level variables
+  common_vars      = read_terragrunt_config(find_in_parent_folders("common.hcl"))
+  environment_vars = read_terragrunt_config(find_in_parent_folders("env.hcl"))
+  region_vars      = read_terragrunt_config(find_in_parent_folders("region.hcl"))
+
+  # Extract out common variables for reuse
+  env         = local.environment_vars.locals.environment
+  region      = local.region_vars.locals.aws_region
+  project     = local.common_vars.locals.project
+  module_repo = local.common_vars.locals.git_module_repo
+endsnippet

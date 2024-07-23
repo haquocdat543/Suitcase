@@ -394,35 +394,47 @@ endsnippet
 snippet nd "Test" b
 if [ ! -d ${1:folderPath} ]
 then
-	${2:mkdir}	
+  ${2:mkdir}	
 fi
 
 $3
 endsnippet
+
 snippet d "Test" b
 if [ -d ${1:folderPath} ]
 then
-	${2:mkdir}	
+  ${2:mkdir}	
 fi
 
 $3
 endsnippet
+
 snippet nf "Test" b
 if [ ! -f ${1:filePath} ]
 then
-	${2:mkdir}	
+  ${2:mkdir}	
 fi
 
 $3
 endsnippet
+
 snippet f "Test" b
 if [ -f ${1:filePath} ]
 then
-	${2:mkdir}	
+  ${2:mkdir}	
 fi
 
 $3
 endsnippet
+
+snippet cdt "Condition" b
+if [[ ${1:true} ]]; then
+  ${2:ls -la}	
+fi
+
+$3
+endsnippet
+
 snippet color "Color" b
 black='\033[0;30m'
 red='\033[0;31m'

@@ -154,6 +154,11 @@ case $OPTION in
     aws_ssm_connect_instance
     ;;
 
+  "install")
+    install_session_manager_plugin
+    ;;
+
+
   *)
     echo -n "Error: Something wrong"
     usage_help

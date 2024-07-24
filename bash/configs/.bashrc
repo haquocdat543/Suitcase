@@ -1041,6 +1041,7 @@ alias gd='git diff'
 alias gds='git diff --staged'
 alias gdt='git log --diff-filter=A --follow --format=%aD -1 --' # Find date/time a file/folder was first added to a Git repository
 alias gle='git log -1 --pretty="format:%aD"' # Find date/time a file/folder was last edit to a Git repository
+alias glbc='. $HOME/preconfig/Suitcase/bash/scripts/getLatestBranchCommit.sh'
 alias gi='git init'
 alias gcl='git clone'
 alias gclrm='git clone --recurse-submodules'

@@ -175,7 +175,8 @@ alias plug="curl -fLo $HOME/.vim/autoload/plug.vim --create-dirs https://raw.git
 alias packernvim="git clone --depth 1 https://github.com/wbthomason/packer.nvim  $HOME/.local/share/nvim/site/pack/packer/start/packer.nvim"
 alias plugin2='git clone https://github.com/VundleVim/Vundle.vim.git $HOME/.vim/bundle/Vundle.vim'
 alias plugin='git clone https://github.com/VundleVim/Vundle.vim.git $HOME/.vim/bundle/Vundle.vim'
-alias cob='ll | wc'
+alias cob="ls -la | wc"
+alias cob1='echo "scale=2; $(ll | wc) - 3 " | bc'
 alias aw='. $HOME/preconfig/Suitcase/bash/scripts/awk.sh'
 alias eag='. $HOME/preconfig/Suitcase/bash/scripts/eag.sh'
 alias sudosp='sudo mysql_secure_installation' # ALTER USER 'root'@'localhost' IDENTIFIED BY 'root-password';
@@ -1571,6 +1572,7 @@ alias kmcrn='kubeadm certs renew'
 alias kmcrnapisv='kubeadm certs renew apiserver'
 alias kmcp='. $HOME/preconfig/Suitcase/bash/scripts/controlplaneCertificate.sh'
 alias kmuc='kubeadm init phase upload-certs --upload-certs'
+alias kgup='kubectl get pods --all-namespaces --field-selector=status.phase!=Running'
 alias kxpl='kubectl explain'
 alias kcp='kubectl copy'
 alias kan='kubectl annotate'

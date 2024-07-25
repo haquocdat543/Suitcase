@@ -657,6 +657,12 @@ alias vlaecm='vela addon chartmeseum'
 alias kdcc='kind create cluster --name'
 alias kddc='kind delete cluster --name'
 
+### K9s command
+alias k9srol='k9s --readonly'
+alias k9si='k9s info'
+alias k9ctx='k9s --context'
+alias k9kcf='k9s --kubeconfig' # PATH/TO/KUBECONFIG/FILE
+
 ### Kubens command
 alias kbn='kubens'
 alias kbnp='kubens -'

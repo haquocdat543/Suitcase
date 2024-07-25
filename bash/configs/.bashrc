@@ -2594,6 +2594,7 @@ alias a2sm='. $HOME/preconfig/Suitcase/bash/scripts/awsSessionManager.sh'
 alias lnsvbm='. $HOME/preconfig/Suitcase/bash/scripts/linux-server-benchmark.sh'
 alias argopw='. $HOME/preconfig/Suitcase/bash/scripts/getArgoCDPassword.sh'
 alias kgpon='. $HOME/preconfig/Suitcase/bash/scripts/getPodOnNode.sh' # <node-name>
+alias kgpron='. $HOME/preconfig/Suitcase/bash/scripts/getPodResourceOnNode.sh' # <node-name>
 alias shn='sudo scutil --set HostName'
 alias slhn='sudo scutil --set LocalHostName'
 alias scn='sudo scutil --set ComputerName'

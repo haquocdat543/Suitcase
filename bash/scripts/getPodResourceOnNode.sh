@@ -1,12 +1,13 @@
 #!/bin/bash
 
-# get first argument as node name
-NODE_NAME=${1}
+# Get the node name from the first argument
+NODE_NAME=$1
 
-# get pod list running on node
-POD_LIST=$(kubectl get pods --all-namespaces --field-selector spec.nodeName=${NODE_NAME} -o custom-columns=NAME:.metadata.name --no-headers)
+# Get the list of pods running on the node, including their namespaces
+POD_LIST=$(kubectl get pods --all-namespaces --field-selector spec.nodeName=${NODE_NAME} -o custom-columns=NAMESPACE:.metadata.namespace,NAME:.metadata.name --no-headers)
 
-# loop for top each pod in a node
-for POD in ${POD_LIST}; do
-  kubectl top pod ${POD} --all-namespaces --no-headers
-done
+# Loop over each pod in the list
+while read -r NAMESPACE POD; do
+  # Get CPU and memory usage for each pod
+  kubectl top pod ${POD} --namespace=${NAMESPACE} --no-headers
+done <<< "$POD_LIST"

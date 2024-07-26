@@ -2438,6 +2438,13 @@ alias cblr='cabal run'
 alias cblb='cabal build'
 alias cblii='cabal init --interactive'
 
+### Rust command [ Rust ]
+alias rs='rustc' # Eg: rustc main.rs
+alias rse='rustc --explain' # Eg: rustc --explain E0384
+
+### Rustup
+alias rstdoc='rustup doc'
+
 ### cargo command
 alias cgclp='cargo clippy'
 alias cgclpf='cargo clippy --fix'
@@ -2454,9 +2461,6 @@ alias cgbc='cargo build --'
 alias vicgt='vim Cargo.toml'
 alias vicgl='vim Cargo.lock'
 alias virs='vim *.rs'
-
-### Rust command [ Rust ]
-alias rse='rustc --explain' # Eg: rustc --explain E0384
 
 ### Nginx commanda
 alias n4v='nginx -V'

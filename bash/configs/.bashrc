@@ -2602,6 +2602,7 @@ alias lnsvbm='. $HOME/preconfig/Suitcase/bash/scripts/linux-server-benchmark.sh'
 alias argopw='. $HOME/preconfig/Suitcase/bash/scripts/getArgoCDPassword.sh'
 alias kgpon='. $HOME/preconfig/Suitcase/bash/scripts/getPodOnNode.sh' # <node-name>
 alias kgpron='. $HOME/preconfig/Suitcase/bash/scripts/getPodResourceOnNode.sh' # <node-name>
+alias kgprons='. $HOME/preconfig/Suitcase/bash/scripts/getPodResourceOnNamespace.sh' # <namespace>
 alias kgnpns='. $HOME/preconfig/Suitcase/bash/scripts/getNodeOfPodInNamespace.sh' # <namespace>
 alias shn='sudo scutil --set HostName'
 alias slhn='sudo scutil --set LocalHostName'

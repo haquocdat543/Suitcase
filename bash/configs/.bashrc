@@ -2612,6 +2612,7 @@ alias kgpron='. $HOME/preconfig/Suitcase/bash/scripts/getPodResourceOnNode.sh' #
 alias kgprons='. $HOME/preconfig/Suitcase/bash/scripts/getPodResourceOnNamespace.sh' # <namespace>
 alias kgnpns='. $HOME/preconfig/Suitcase/bash/scripts/getNodeOfPodInNamespace.sh' # <namespace>
 alias kgpsans='. $HOME/preconfig/Suitcase/bash/scripts/getPodServiceAccountInNamespace.sh' # <namespace>
+alias kgdm='. $HOME/preconfig/Suitcase/bash/scripts/getServiceDomain.sh' # <namespace>
 alias shn='sudo scutil --set HostName'
 alias slhn='sudo scutil --set LocalHostName'
 alias scn='sudo scutil --set ComputerName'

@@ -33,6 +33,8 @@ else
     exit 1
   else
     echo "The IP address for ${INPUT} is: ${IP_ADDRESS}"
-    curl "${URL}/${IP_ADDRESS}"
+    for IP in ${IP_ADDRESS}; do
+      curl "${URL}/${IP}"
+    done
   fi
 fi

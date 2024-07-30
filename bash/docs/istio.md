@@ -10,6 +10,10 @@ If you want to inject `side car` to pod in a `namespace` [ ensure that namespace
 kubectl get namespace --show-labels
 ```
 
+```
+kubectl label namespace <NAMESPACE> istio-injection=enabled
+```
+
 ### 1 Traffic routing
 VirtualService:
 ```

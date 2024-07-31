@@ -276,6 +276,24 @@ snippet ex "Export" b
 export ${1:VER}="${2:0.40.2}"
 endsnippet
 
+snippet helm "Script for helm operation" b
+#!/bin/bash
+
+OPTION=${1}
+
+# OPTION="--dry-run --debug"
+VALUE_PATH="values.yaml" 
+NAME="harbor" 
+CHART_PATH="." 
+NAMESPACE="harbor" 
+ 
+if [[ ${OPTION} == "1" ]]; then
+  helm install ${NAME} ${CHART_PATH} --values ${VALUE_PATH} --namespace ${NAMESPACE}
+else
+  helm uninstall ${NAME} --namespace ${NAMESPACE}
+fi
+endsnippet
+
 snippet arr "Array with multi lines" b
 ${1:SERVERS}=$(cat <<-END
 ${2:35.194.109.115}

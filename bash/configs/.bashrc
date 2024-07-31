@@ -2642,6 +2642,7 @@ alias kgcry='. $HOME/preconfig/Suitcase/bash/scripts/getClusterRoleYaml.sh' # <c
 alias kavis='. $HOME/preconfig/Suitcase/bash/scripts/visor.sh apply' # <operation> (apply/delete)
 alias kdvis='. $HOME/preconfig/Suitcase/bash/scripts/visor.sh delete' # <operation> (apply/delete)
 alias gippvd='. $HOME/preconfig/Suitcase/bash/scripts/getIpCloudProvider.sh' # <operation> (apply/delete)
+alias hmptu='. $HOME/preconfig/Suitcase/bash/scripts/helmPullTemplate.sh --untar' # <operation> Eg: --untar
 alias shn='sudo scutil --set HostName'
 alias slhn='sudo scutil --set LocalHostName'
 alias scn='sudo scutil --set ComputerName'

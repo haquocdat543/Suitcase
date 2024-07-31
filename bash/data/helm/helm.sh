@@ -15,4 +15,5 @@ helm repo add kong https://charts.konghq.com
 helm repo add vault https://helm.releases.hashicorp.com
 helm repo add consul https://helm.releases.hashicorp.com
 helm repo add bitnami oci://registry-1.docker.io/bitnamicharts
+helm repo add karpenter oci://public.ecr.aws/karpenter/karpenter
 helm repo update

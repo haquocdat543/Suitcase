@@ -2645,6 +2645,7 @@ alias gippvd='. $HOME/preconfig/Suitcase/bash/scripts/getIpCloudProvider.sh' # <
 alias hmptu='. $HOME/preconfig/Suitcase/bash/scripts/helmPullTemplate.sh --untar' # <operation> Eg: --untar
 alias hmara='. $HOME/preconfig/Suitcase/bash/data/helm/helm.sh' # Add all helm repo in script
 alias dc64='. $HOME/preconfig/Suitcase/bash/scripts/decodeBase64.sh' # <base64-encoded-text>
+alias kgim='. $HOME/preconfig/Suitcase/bash/scripts/getAllImagesOnK8s.sh'
 alias shn='sudo scutil --set HostName'
 alias slhn='sudo scutil --set LocalHostName'
 alias scn='sudo scutil --set ComputerName'

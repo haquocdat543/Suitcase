@@ -665,6 +665,9 @@ alias k9si='k9s info'
 alias k9ctx='k9s --context'
 alias k9kcf='k9s --kubeconfig' # PATH/TO/KUBECONFIG/FILE
 
+### Openstack
+alias o8='openstack'
+
 ### Kubens command
 alias kbn='kubens'
 alias kbnp='kubens -'

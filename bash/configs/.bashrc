@@ -1588,6 +1588,7 @@ alias kclid='kubectl cluster-info dump'
 alias kx='kubectl exec -it'
 alias kxb='. $HOME/preconfig/Suitcase/bash/scripts/kubeExec.sh /bin/bash' # <pod-name>
 alias kxs='. $HOME/preconfig/Suitcase/bash/scripts/kubeExec.sh /bin/sh' # <pod-name>
+alias kucp='. $HOME/preconfig/Suitcase/bash/scripts/kubeCopy.sh' # <pod-name> <container-name> <local-path> <container-path>
 alias kq='kubectl describe quota'
 alias kar='kubectl api-resources'
 

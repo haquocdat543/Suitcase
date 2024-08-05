@@ -335,6 +335,19 @@ $3=${$3:-$2}
 $4
 endsnippet
 
+snippet terragrunt "Terrragrunt environment" b
+#!/bin/bash
+
+export AWS_PROFILE=""
+export GIT_USERNAME=""
+export GIT_ACCESS_TOKEN=""
+export AWS_ACCESS_KEY_ID=""
+export AWS_SECRET_ACCESS_KEY=""
+
+terragrunt init
+terragrunt run-all apply --terragrunt-non-interactive
+endsnippet
+
 snippet rdc "Read with default" b
 read -p "$(echo -e "$1 [${${2:green2}}$3${nc}]: ")" $4
 $4=${$4:-$3}

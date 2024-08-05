@@ -1594,7 +1594,7 @@ alias kscp='. $HOME/preconfig/Suitcase/bash/scripts/kubeServerCopy.sh' # <local-
 alias kq='kubectl describe quota'
 alias kar='kubectl api-resources'
 alias kgmesh='kubectl get pods --all-namespaces -L istio.io/rev'
-alias kgmesha="kubectl get pods --all-namespaces -L istio.io/rev --no-headers | wc | awk '{print $1}'"
+alias kgmesha='. $HOME/preconfig/Suitcase/bash/scripts/kubeGetMeshAll.sh'
 alias kgnsmesh='kubectl get namespace -L istio-injection'
 
 alias kgpm='kubectl get prometheus'

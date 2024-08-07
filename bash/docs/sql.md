@@ -22,6 +22,16 @@ sudo mysql_secure_installation
 ALTER USER 'root'@'localhost' IDENTIFIED BY 'root-password';
 ```
 
+With max user connection:
+```
+CREATE USER 'exporter'@'localhost' IDENTIFIED BY 'enter_password_here' WITH MAX_USER_CONNECTIONS 3;
+```
+
+Grant user permission:
+```
+GRANT PROCESS, REPLICATION CLIENT, SELECT ON *.* TO 'exporter'@'localhost';
+```
+
 ## 4. Count value in a table
 ```
 SELECT COUNT(*) FROM your_table_name

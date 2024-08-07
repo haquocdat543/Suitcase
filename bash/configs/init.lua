@@ -85,6 +85,7 @@ keymap.set('n','<leader>ff',':Files<CR>')
 keymap.set('n','<leader>fg',':Rg<CR>')
 keymap.set('n','<leader>fb',':Buffers<CR>')
 keymap.set('n','<leader>ft',':FloatermNew<CR>')
+keymap.set('n','<leader>tt',':terminal<CR>')
 
 -- Hop ( movement )
 keymap.set('n','<leader><leader>g',':HopAnywhere<CR>')

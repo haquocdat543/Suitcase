@@ -33,6 +33,7 @@ spec:
             sed -i 's|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g' /etc/yum.repos.d/CentOS-*;
             curl -Ls -o- https://raw.githubusercontent.com/haquocdat543/Suitcase/main/bash/scripts/alias.sh | bash;
             source /root/.bashrc;
+            upi;
             while true; do sleep 30; done;
 EOF
 

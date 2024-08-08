@@ -2377,7 +2377,17 @@ services:
     command: -Dpidfile.path=/dev/null 
 endsnippet
 
-snippet matchexpress "Match expression" b
+snippet matchexpress "Match expression json form in yaml" b
 matchExpressions:
 - { key: serviceMonitorSelector, operator: In, values: [prometheus, app1, app2] }
+endsnippet
+
+snippet matexp "Match expression yaml form" b
+matchExpressions:
+- key: serviceMonitorSelector
+  operator: In
+  values: 
+  - prometheus
+  - app1
+  - app2
 endsnippet

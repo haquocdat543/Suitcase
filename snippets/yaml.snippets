@@ -2391,3 +2391,38 @@ matchExpressions:
   - app1
   - app2
 endsnippet
+
+snippet promrule "Prometheus rules" b
+  - alert: PrometheusJobMissing
+    expr: absent(up{job="prometheus"})
+    for: 0m
+    labels:
+      severity: warning
+    annotations:
+      summary: Prometheus job missing (instance {{ $labels.instance }})
+      description: "A Prometheus job has disappeared\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+endsnippet
+
+snippet prometheusrule "Prometheus rule full yaml file" b
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: mysql-exporter-prometheus-rules
+  namespace: mysql-exporter
+spec:
+  groups:
+  - name: mysql-exporter
+    rules: 
+    - alert: MySQLStorageRunningOut
+      expr: 
+      for: 30s
+      labels:
+        severity: warning
+      annotations:
+        description: DB is run out of storage for 30 seconds
+        summary: DB run out of storage
+        type: Container
+endsnippet
+
+
+

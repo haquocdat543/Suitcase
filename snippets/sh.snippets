@@ -279,18 +279,25 @@ endsnippet
 snippet helm "Script for helm operation" b
 #!/bin/bash
 
-OPTION=${1}
+OPTION=\${1}
 
 # OPTION="--dry-run --debug"
-VALUE_PATH="values.yaml" 
-NAME="harbor" 
+VALUE_PATH="values-dev.yaml" 
+NAME="alertmanager" 
 CHART_PATH="." 
-NAMESPACE="harbor" 
+NAMESPACE="alertmanager" 
  
 if [[ ${OPTION} == "1" ]]; then
   helm install ${NAME} ${CHART_PATH} --values ${VALUE_PATH} --namespace ${NAMESPACE}
-else
+elif [[ ${OPTION} == "2" ]]; then
+  helm upgrade ${NAME} ${CHART_PATH} --values ${VALUE_PATH} --namespace ${NAMESPACE}
+elif [[ ${OPTION} == "3" ]]; then
   helm uninstall ${NAME} --namespace ${NAMESPACE}
+else
+  echo "Please give me correct option"
+  echo "[1] install"
+  echo "[2] upgrade"
+  echo "[3] uninstall"
 fi
 endsnippet
 

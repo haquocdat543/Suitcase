@@ -1,0 +1,10 @@
+#!/bin/bash
+# Perform a git pull --rebase before pushing
+echo "Running git pull --rebase before push"
+git pull --rebase
+
+# Check if the rebase was successful
+if [ $? -ne 0 ]; then
+    echo "Rebase failed. Push aborted."
+    exit 1
+fi

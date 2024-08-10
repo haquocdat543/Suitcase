@@ -2459,3 +2459,42 @@ spec:
         - CreateNamespace=true
         - Validate=false
 endsnippet
+
+snippet argoaio "ArgoCD app all in one" b
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: ${1:<environment>-<application>}
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: ${2:<project>}
+  source:
+    repoURL: {{ .Values.spec.source.repoURL }}
+    targetRevision: {{ .Values.spec.source.targetRevision }}
+    path: apps/ghsv-v2-push-notification
+    helm:
+      valueFiles:
+        - ${3:values-dev.yaml}
+  destination:
+    server: {{ .Values.spec.destination.server }}
+    namespace: ${4:development}
+  syncPolicy:
+    syncOptions:
+      - ApplyOutOfSyncOnly=true
+      - PruneLast=true
+      - CreateNamespace=true
+      - Validate=false
+endsnippet
+
+snippet argoaiovalue"ArgoCD all in one helm values" b
+spec:
+  project: ${1:<project>} # project name
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: ${2:argocd} # namespace name
+  source:
+    repoURL: ${3:Repository-URL} # repository url
+    targetRevision: ${4:main} # branch name or commit hash
+endsnippet
+

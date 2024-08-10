@@ -1189,6 +1189,8 @@ alias gwp='git worktree prune'
 alias gsma='git submodule add'
 alias gsmu='git submodule update'
 alias grm='git rm'
+
+### Git config
 alias gcn='git config --global user.name'
 alias gce='git config --global user.email'
 alias gcus='git config --global user.signingkey'
@@ -1205,6 +1207,10 @@ alias gcnc='git config --global user.name "haquocdat543"'
 alias gcec='git config --global user.email "wwwdatha543@gmail.com"'
 alias gcnn='git config --global user.name "Ha Quoc Dat"'
 alias gcen='git config --global user.email "datquocha@notional.ventures"'
+
+### Git config [ hook ]
+alias gcfgch="git config --global core.hooksPath ~/.git-hooks"
+alias vigh="vim ${HOME}/.git-hooks/pre-push"
 
 ### Git flow
 alias gfi='git flow init'

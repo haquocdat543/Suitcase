@@ -152,6 +152,9 @@ keymap.set('n','<leader>tl',':Telescope<CR>')
 
 local plugins = {
  {
+ 'hsalem7/nvim-k8s'
+ },
+ {
  'nvim-tree/nvim-tree.lua'
  },
  {
@@ -931,7 +934,10 @@ augroup END
 
 ]]
 
-vim.cmd[[colorscheme tokyonight-night]]
+vim.cmd[[let g:vim_k8s_toggle_key_map = '<leader>k9']]
+
+vim.cmd[[colorscheme gruvbox]]
+-- vim.cmd[[colorscheme tokyonight-night]]
 vim.cmd[[
     highlight RainbowDelimiterRed  guifg=#f4ca0d ctermfg=White
     highlight RainbowDelimiterYellow guifg=#9d7cd8 ctermfg=White

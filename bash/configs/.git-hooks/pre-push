@@ -1,4 +1,5 @@
 #!/bin/bash
+
 # Perform a git pull --rebase before pushing
 echo "Running git pull --rebase before push"
 git pull --rebase

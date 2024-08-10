@@ -2424,5 +2424,38 @@ spec:
         type: Container
 endsnippet
 
-
-
+snippet argobootstrap "ArgoCD Bootstrap" b
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  labels:
+    app.kubernetes.io/managed-by: helm
+    app.kubernetes.io/name: argo-cd
+  name: bootstrap
+  namespace: argo-cd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  destination:
+    namespace: argo-cd
+    server: https://kubernetes.default.svc
+  ignoreDifferences:
+  - group: argoproj.io
+    jsonPointers:
+    - /status
+    kind: Application
+  source:
+    path: ${2:aio}
+    repoURL: ${1:Repository-URL}
+    targetRevision: main
+  syncPolicy:
+      automated:
+        prune: true
+        selfHeal: true
+      syncOptions:
+        - ApplyOutOfSyncOnly=true
+        - PruneLast=true
+        - CreateNamespace=true
+        - Validate=false
+endsnippet

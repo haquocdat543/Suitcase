@@ -50,8 +50,7 @@ events {}
 http {
     server {
         listen 80;
-
-        location / {
+location / {
             default_type text/html;
             return 200 "IP Address: $remote_addr\nHostname: $hostname\n";
         }
@@ -78,3 +77,20 @@ check result:
 ```
 curl http://localhost
 ```
+
+## 4. Crawl protection implemented in Kubernetes
+Kubernetes:
+```
+kind: Ingress
+metadata:
+  name: ingress-ghxv-backend
+  annotations:
+    nginx.ingress.kubernetes.io/server-snippet: |
+      if ($request_uri = /robots.txt) {
+          return 444;
+      }
+spec:
+  ingressClassName: nginx
+  rules:
+```
+

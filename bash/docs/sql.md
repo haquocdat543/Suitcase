@@ -149,3 +149,24 @@ from files:
 ```
 gunzip -c your_dump_file.sql.gz | mysql -h remote.example.com -u remote_user -p remote_db
 ```
+
+# SQL EXPORTER
+```
+# /etc/systemd/system/mysql_exporter.service
+
+[Unit]
+Description=Mysql Exporter
+Wants=network-online.target
+After=network-online.target
+
+
+[Service]
+User=root
+Group=root
+Type=simple
+Environment='DATA_SOURCE_NAME=exporter:exporter@(localhost:3306)/'
+ExecStart=/root/mysqld_exporter-0.10.0.linux-amd64/mysqld_exporter
+
+[Install]
+WantedBy=multi-user.target
+```

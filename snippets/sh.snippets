@@ -305,7 +305,7 @@ snippet ansiblerun "Ansible run playbook" b
 #!/bin/bash
 
 INVENTORY_PATH="${1:inventory}"
-JOB_PATH="${2:job.yaml}"
+JOB_PATH="${2:echo.yaml}"
 
 ansible-playbook ${JOB_PATH} -i ${INVENTORY_PATH}
 endsnippet

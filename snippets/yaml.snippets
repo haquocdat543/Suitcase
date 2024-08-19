@@ -2498,3 +2498,12 @@ spec:
     targetRevision: ${4:main} # branch name or commit hash
 endsnippet
 
+snippet ansibleecho "Ansible playbook echo hello world [ test only ]" b
+---
+- name: Echo Hello World on all instances
+  hosts: all
+  tasks:
+    - name: Echo Hello World
+      command: echo "Instance is running ?"
+endsnippet
+

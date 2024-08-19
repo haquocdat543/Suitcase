@@ -37,6 +37,7 @@ Use proxy:
 ssh -i <Remote-key> -o ProxyCommand="ssh -i <Jump-key> -W %h:%p JumpUser@JumpHost -p <Jump-Port>" RemoteUser@RemoteHost
 ```
 
+Setup jump server configuration:
 ```
 Host <Jump-Name>
     hostname <Jump-Host-IP>
@@ -45,4 +46,9 @@ Host <Jump-Name>
     AddKeysToAgent yes
     ForwardAgent yes
     IdentityFile "<Path-2-key>"
+```
+
+After setup configuration for jump server:
+```
+ssh -J <Jump-Name> <Remote-Username>@<Remote-IP>
 ```

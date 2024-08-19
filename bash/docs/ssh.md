@@ -30,3 +30,9 @@ Systemctl restart:
 ```
 sudo systemctl restart ssh
 ```
+
+## 3. Jump & proxy
+Use proxy:
+```
+ssh -i <Remote-key> -o ProxyCommand="ssh -i <Jump-key> -W %h:%p JumpUser@JumpHost -p 22078" RemoteUser@RemoteHost
+```

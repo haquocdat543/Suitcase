@@ -36,3 +36,13 @@ Use proxy:
 ```
 ssh -i <Remote-key> -o ProxyCommand="ssh -i <Jump-key> -W %h:%p JumpUser@JumpHost -p 22078" RemoteUser@RemoteHost
 ```
+
+```
+Host <Jump-Name>
+    hostname <Jump-Host-IP>
+    user <Username>
+    port <Port>
+    AddKeysToAgent yes
+    ForwardAgent yes
+    IdentityFile "<Path-2-key>"
+```

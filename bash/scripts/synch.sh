@@ -6,7 +6,7 @@
 # source ./file.sh
 
 # declaration function
-declaration() {
+declaration () {
 
   # Color declaration
   black='\033[0;30m'
@@ -67,7 +67,7 @@ PATH_2=$3
 ####################################################################################################
 
 # function 1
-list_path() {
+list_path () {
 
   # get parameters
   local LOCATION_PATH=$1
@@ -78,7 +78,7 @@ list_path() {
 }
 
 # function 1
-remove_remote() {
+remove_remote () {
 
   # get parameters
   local LOCATION_PATH=$1
@@ -90,7 +90,7 @@ remove_remote() {
 }
 
 # function 1
-copy_to_remote() {
+copy_to_remote () {
 
   # get parameters
   local PATH_1=$1
@@ -104,7 +104,7 @@ copy_to_remote() {
 }
 
 # function 1
-copy_to_local() {
+copy_to_local () {
 
   # get parameters
   local PATH_1=$1

@@ -52,3 +52,8 @@ After setup configuration for jump server:
 ```
 ssh -J <Jump-Name> <Remote-Username>@<Remote-IP>
 ```
+
+After setup configuration for jump server [ with specific destination host port ]:
+```
+ssh -J <Jump-Name> <Remote-Username>@<Remote-IP> -p <Remote-Port>
+```

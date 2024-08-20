@@ -49,6 +49,7 @@ keymap.set('n','<leader>rg',':registers<CR>')
 keymap.set('n','<Leader>en',':tabnew ~/.config/nvim/init.lua<CR>')
 keymap.set('n','<Leader>ev',':tabnew ~/.vimrc<CR>')
 keymap.set('n','<Leader>ea',':tabnew ~/.bashrc<CR>')
+keymap.set('n','<Leader>ec',':tabnew ~/.ssh/config<CR>')
 keymap.set('n','<leader>nn',':set nopaste<CR>')
 keymap.set('n','<leader>nm',':set paste<CR>')
 

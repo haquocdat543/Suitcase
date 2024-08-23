@@ -1,2 +1,3 @@
 #!/bin/bash
-sudo sed -i 's@alias vi="vi"@alias vi="nvim"@g' ${HOME}/.bashrc
+
+sed -i '' 's/alias vi="vim"/alias vi="nvim"/' ${HOME}/.bashrc

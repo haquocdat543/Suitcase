@@ -1,0 +1,24 @@
+snippet sample "REST API Sample" b
+# Global scope.
+http://host
+
+// Variable declarations (value passed as is).
+foobar = LoremIpsum
+city = Some%20City
+zip = 12345
+population = 42
+restpassword = $SECRET_ENV_VAR
+--
+# End global scope.
+
+--
+GET /city/:city
+
+--
+GET /city/:city/zip/:zip
+
+--
+custom-header :foobar
+POST /city/:city
+{ "population": :population }
+endsnippet

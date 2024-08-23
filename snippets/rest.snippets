@@ -1,6 +1,6 @@
 snippet sample "REST API Sample" b
 # Global scope.
-http://host
+http://host:8200
 
 // Variable declarations (value passed as is).
 foobar = LoremIpsum
@@ -10,6 +10,9 @@ population = 42
 restpassword = $SECRET_ENV_VAR
 --
 # End global scope.
+
+--
+GET /
 
 --
 GET /city/:city

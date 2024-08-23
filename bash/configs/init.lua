@@ -30,6 +30,19 @@ vim.opt.cursorline = true
 
 local keymap = vim.keymap
 
+vim.keymap.set('n', '<leader>S', '<cmd>lua require("spectre").toggle()<CR>', {
+    desc = "Toggle Spectre"
+})
+vim.keymap.set('n', '<leader>sw', '<cmd>lua require("spectre").open_visual({select_word=true})<CR>', {
+    desc = "Search current word"
+})
+vim.keymap.set('v', '<leader>sw', '<esc><cmd>lua require("spectre").open_visual()<CR>', {
+    desc = "Search current word"
+})
+vim.keymap.set('n', '<leader>sp', '<cmd>lua require("spectre").open_file_search({select_word=true})<CR>', {
+    desc = "Search on current file"
+})
+
 -- System
 keymap.set('n','<leader>ch',':checkhealth ')
 keymap.set('n','+','<C-a>')
@@ -41,6 +54,7 @@ keymap.set('n','<Leader>hr',':%!xxd<CR> :set filetype=xxd<CR>')
 keymap.set('n','<Leader>hw',':%!xxd -r<CR> :set binary<CR> :set filetype=<CR>')
 keymap.set('n','<Leader>el','yypC')
 keymap.set('n','<Leader>eL','yyPC')
+keymap.set('n','<Leader>ra',':call ReplaceAll')
 
 -- System - commands
 keymap.set('n','<leader>rg',':registers<CR>')
@@ -137,7 +151,7 @@ keymap.set('n','<C-c>6',':.,.+s///g<Left><Left><Left><Left><Left>')
 keymap.set('n','<C-x>','<C-p><CR>')
 keymap.set('n','<A-j>',':m .+1<CR>==')
 keymap.set('n','<A-k>',':m .-2<CR>==')
-keymap.set('n','<C-a>a',':UltiSnipsEdit<CR>')
+keymap.set('n','<leader>aa',':UltiSnipsEdit<CR>')
 keymap.set('n','<leader>ww',':w!<CR>')
 keymap.set('n','<C-s>s',':<ESC>w!<CR>')
 keymap.set('n','<A-n>n',':n<CR>')
@@ -152,11 +166,18 @@ keymap.set('n','<leader>db',':Dashboard<CR>')
 keymap.set('n','<leader>tl',':Telescope<CR>')
 
 local plugins = {
+'nvim-pack/nvim-spectre',
  {
- 'hsalem7/nvim-k8s'
+ "iamcco/markdown-preview.nvim",
+ cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+ ft = { "markdown" },
+ build = function() vim.fn["mkdp#util#install"]() end,
  },
  {
  'nvim-tree/nvim-tree.lua'
+ },
+ {
+ 'hsalem7/nvim-k8s'
  },
  {
   "NeogitOrg/neogit",
@@ -177,6 +198,15 @@ local plugins = {
     require('dashboard').setup {
     }
   end,
+ },
+ {
+    "nvim-neo-tree/neo-tree.nvim",
+    branch = "v3.x",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+      "MunifTanjim/nui.nvim",
+    }
  },
  { 'codota/tabnine-nvim', build = "./dl_binaries.sh" },
  'rbgrouleff/bclose.vim',
@@ -242,10 +272,32 @@ require('tabnine').setup({
   log_file_path = nil, -- absolute path to Tabnine log file
 })
 
+-- Import the nvim-tree module
+local nvim_tree = require'nvim-tree'
+
+-- Configure nvim-tree
+nvim_tree.setup({
+  -- Your other nvim-tree settings here
+  update_cwd = true,  -- Update the current working directory of nvim-tree
+  respect_buf_cwd = true, -- Use the current buffer's directory rather than the current working directory
+})
+
+require('spectre').setup()
+
 local status_ok, telescope = pcall(require, "telescope")
 if not status_ok then
     return
 end
+
+require("neo-tree").setup({
+      filesystem = {
+        bind_to_cwd = true, -- true creates a 2-way binding between vim's cwd and neo-tree's root
+        cwd_target = {
+          sidebar = "tab",   -- sidebar is when position = left or right
+          current = "window" -- current is when position = current
+        },
+    }
+})
 
 -- local actions = require "telescope.actions"
 -- local trouble = require("trouble.providers.telescope")
@@ -476,7 +528,7 @@ require('nvim-treesitter.configs').setup {
 
   -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
   auto_install = true,
-  ensure_installed = { "c", "lua", "vim", "vimdoc" },
+  ensure_installed = { "c", "lua", "vim", "vimdoc", "helm", "dockerfile", "yaml", "gotmpl" },
   -- open_on_setup = true,
   highlight = { enable = true },
   indent = { enable = true, disable = { 'python' } },
@@ -874,6 +926,16 @@ saga.setup({
   },
 })
 
+local parser_config = require'nvim-treesitter.parsers'.get_parser_configs()
+parser_config.gotmpl = {
+  install_info = {
+    url = "https://github.com/ngalaiko/tree-sitter-go-template",
+    files = {"src/parser.c"},
+  },
+  filetype = "gotmpl",
+  used_by = {"gohtmltmpl", "gotexttmpl", "gotmpl", "yaml"},
+}
+
 vim.o.background = "dark" -- or "light" for light mode
 vim.cmd([[colorscheme gruvbox]])
 vim.cmd([[let g:UltiSnipsExpandTrigger="<tab>"]])
@@ -922,9 +984,7 @@ vim.cmd([[
 ]])
 
 -- Auto close nvim-tree if it's the last window
-vim.cmd([[
-  autocmd BufEnter * if winnr('$') == 1 && bufname() == 'NvimTree_' . tabpagenr() | quit | endif
-]])
+vim.cmd[[ autocmd BufEnter * if winnr('$') == 1 && bufname() == 'NvimTree_' . tabpagenr() | quit | endif ]]
 
 vim.cmd[[
 
@@ -935,10 +995,23 @@ augroup END
 
 ]]
 
+vim.cmd[[augroup filetypedetect
+autocmd BufNewFile,BufRead *.tmpl, if search('{{.\+}}', 'nw') | setlocal filetype=gotmpl | endif
+augroup END]]
+
 vim.cmd[[let g:vim_k8s_toggle_key_map = '<leader>k9']]
 
-vim.cmd[[colorscheme gruvbox]]
--- vim.cmd[[colorscheme tokyonight-night]]
+vim.cmd[[function DisplayName(name)
+  echom "Hello!  My name is:"
+  echom a:name
+endfunction]]
+
+vim.cmd[[function ReplaceAll(old_text, new_text) 
+  execute '%s/' . a:old_text . '/' . a:new_text . '/gc | update'
+endfunction]]
+
+-- vim.cmd[[colorscheme gruvbox]]
+vim.cmd[[colorscheme tokyonight-night]]
 vim.cmd[[
     highlight RainbowDelimiterRed  guifg=#f4ca0d ctermfg=White
     highlight RainbowDelimiterYellow guifg=#9d7cd8 ctermfg=White
@@ -948,3 +1021,4 @@ vim.cmd[[
     highlight RainbowDelimiterViolet guifg=#7dcfff ctermfg=White
     highlight RainbowDelimiterCyan guifg=#f4ca0d ctermfg=White
 ]]
+

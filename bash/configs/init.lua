@@ -419,6 +419,9 @@ vim.opt.termguicolors = true
 
 -- OR setup with some options
 require("nvim-tree").setup({
+   -- Automatically update the tree when changing directories
+  sync_root_with_cwd = true,
+  respect_buf_cwd = true,
   update_cwd = true,
   auto_reload_on_write = true,
   update_focused_file = {

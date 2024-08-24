@@ -162,7 +162,7 @@ keymap.set('n','<A-n>n',':n<CR>')
 keymap.set('n','<A-p>p',':p<CR>')
 
 -- Navigation
-keymap.set('n','<leader>nt',':NvimTreeToggle<CR>')
+keymap.set('n','<leader>nt',':NvimTreeToggle<CR>', { noremap = true, silent = true })
 keymap.set('n','<leader>nf',':NvimTreeFindFile<CR>')
 keymap.set('n','<leader>nc',':NvimTreeFocus<CR>')
 -- keymap.set('n','<leader>nt',':NERDTreeToggle<CR>')

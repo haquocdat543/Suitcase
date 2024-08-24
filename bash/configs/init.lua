@@ -30,6 +30,7 @@ vim.opt.cursorline = true
 
 local keymap = vim.keymap
 
+-- Spectre [ Search and replace ]
 vim.keymap.set('n', '<leader>S', '<cmd>lua require("spectre").toggle()<CR>', {
     desc = "Toggle Spectre"
 })
@@ -42,6 +43,9 @@ vim.keymap.set('v', '<leader>sw', '<esc><cmd>lua require("spectre").open_visual(
 vim.keymap.set('n', '<leader>sp', '<cmd>lua require("spectre").open_file_search({select_word=true})<CR>', {
     desc = "Search on current file"
 })
+
+-- Query { Rest API ]
+keymap.set('n','<leader>xr',':call VrcQuery()<CR>')
 
 -- System
 keymap.set('n','<leader>ch',':checkhealth ')
@@ -166,6 +170,7 @@ keymap.set('n','<leader>db',':Dashboard<CR>')
 keymap.set('n','<leader>tl',':Telescope<CR>')
 
 local plugins = {
+'diepm/vim-rest-console',
 'nvim-pack/nvim-spectre',
  {
  "iamcco/markdown-preview.nvim",
@@ -273,15 +278,15 @@ require('tabnine').setup({
 })
 
 -- Import the nvim-tree module
-local nvim_tree = require'nvim-tree'
+-- local nvim_tree = require'nvim-tree'
 
 -- Configure nvim-tree
-nvim_tree.setup({
-  -- Your other nvim-tree settings here
-  update_cwd = true,  -- Update the current working directory of nvim-tree
-  respect_buf_cwd = true, -- Use the current buffer's directory rather than the current working directory
-})
-
+-- nvim_tree.setup({
+  -- -- Your other nvim-tree settings here
+  -- update_cwd = true,  -- Update the current working directory of nvim-tree
+  -- respect_buf_cwd = true, -- Use the current buffer's directory rather than the current working directory
+-- })
+-- 
 require('spectre').setup()
 
 local status_ok, telescope = pcall(require, "telescope")
@@ -289,15 +294,15 @@ if not status_ok then
     return
 end
 
-require("neo-tree").setup({
-      filesystem = {
-        bind_to_cwd = true, -- true creates a 2-way binding between vim's cwd and neo-tree's root
-        cwd_target = {
-          sidebar = "tab",   -- sidebar is when position = left or right
-          current = "window" -- current is when position = current
-        },
-    }
-})
+-- require("neo-tree").setup({
+      -- filesystem = {
+        -- bind_to_cwd = false, -- true creates a 2-way binding between vim's cwd and neo-tree's root
+        -- cwd_target = {
+          -- sidebar = "tab",   -- sidebar is when position = left or right
+          -- current = "window" -- current is when position = current
+        -- },
+    -- }
+-- })
 
 -- local actions = require "telescope.actions"
 -- local trouble = require("trouble.providers.telescope")
@@ -410,10 +415,11 @@ vim.g.loaded_netrwPlugin = 1
 vim.opt.termguicolors = true
 
 -- empty setup using defaults
-require("nvim-tree").setup()
+-- require("nvim-tree").setup()
 
 -- OR setup with some options
 require("nvim-tree").setup({
+  update_cwd = true,
   auto_reload_on_write = true,
   update_focused_file = {
     enable = true,     -- Enable updating the focused file
@@ -450,11 +456,11 @@ local function my_on_attach(bufnr)
 end
 
 -- pass to setup along with your other options
-require("nvim-tree").setup {
-  ---
-  on_attach = my_on_attach,
-  ---
-}
+-- require("nvim-tree").setup {
+  -- ---
+  -- on_attach = my_on_attach,
+  -- ---
+-- }
 
 -- terraform lsp
 require'lspconfig'.terraformls.setup{}
@@ -1010,6 +1016,13 @@ vim.cmd[[function ReplaceAll(old_text, new_text)
   execute '%s/' . a:old_text . '/' . a:new_text . '/gc | update'
 endfunction]]
 
+vim.g.vrc_set_default_mapping = 0
+vim.g.vrc_response_default_content_type = 'application/json'
+vim.g.vrc_output_butter_name = '_OUTPUT.json'
+vim.g.vrc_auto_format_response_patterns = {
+  json = 'jq'
+}
+
 -- vim.cmd[[colorscheme gruvbox]]
 vim.cmd[[colorscheme tokyonight-night]]
 vim.cmd[[
@@ -1021,4 +1034,3 @@ vim.cmd[[
     highlight RainbowDelimiterViolet guifg=#7dcfff ctermfg=White
     highlight RainbowDelimiterCyan guifg=#f4ca0d ctermfg=White
 ]]
-

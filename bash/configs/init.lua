@@ -975,33 +975,11 @@ vim.cmd([[let g:lazygit_config_file_path = '' " custom config file path ]])
 vim.cmd([[set viminfo='100,<1000000,s100000,h]])
 vim.cmd([[autocmd FileType markdown let g:indentLine_enabled=0]])
 
-vim.cmd[[autocmd BufEnter * lcd %:p:h]]
--- vim.cmd[[autocmd VimEnter * NERDTree | wincmd p]]
--- vim.cmd[[autocmd bufenter * if (winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree()) | q | endif]]
--- vim.cmd[[autocmd VimEnter * if argc() == 0 | NERDTree | endif]]
-
--- Auto open nvim-tree on startup
-vim.cmd[[autocmd VimEnter * NvimTreeOpen | wincmd p]]
-vim.cmd[[autocmd bufenter * if (winnr("$") == 1 && &filetype == "nerdtree") | q | endif]]
-
-vim.cmd([[
-  augroup NvimTree
-    autocmd!
-    autocmd VimEnter * ++nested if argc() == 0 | NvimTreeOpen | endif
-    autocmd BufEnter * ++nested if winnr('$') == 1 && bufname() == '' | NvimTreeOpen | wincmd p | endif
-  augroup end
-]])
-
--- Auto close nvim-tree if it's the last window
-vim.cmd[[ autocmd BufEnter * if winnr('$') == 1 && bufname() == 'NvimTree_' . tabpagenr() | quit | endif ]]
-
 vim.cmd[[
-
 augroup Mkdir
   autocmd!
   autocmd BufWritePre * call mkdir(expand("<afile>:p:h"), "p")
 augroup END
-
 ]]
 
 vim.cmd[[augroup filetypedetect
@@ -1009,15 +987,6 @@ autocmd BufNewFile,BufRead *.tmpl, if search('{{.\+}}', 'nw') | setlocal filetyp
 augroup END]]
 
 vim.cmd[[let g:vim_k8s_toggle_key_map = '<leader>k9']]
-
-vim.cmd[[function DisplayName(name)
-  echom "Hello!  My name is:"
-  echom a:name
-endfunction]]
-
-vim.cmd[[function ReplaceAll(old_text, new_text) 
-  execute '%s/' . a:old_text . '/' . a:new_text . '/gc | update'
-endfunction]]
 
 vim.g.vrc_set_default_mapping = 0
 vim.g.vrc_response_default_content_type = 'application/json'

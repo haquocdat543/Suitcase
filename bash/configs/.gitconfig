@@ -1,5 +1,5 @@
 [core]
-	hooksPath = ~/.git-hooks
+	hooksPath = ${HOME}/.git-hooks
         pager = delta
 [delta]
     navigate = true    # use n and N to move between diff sections

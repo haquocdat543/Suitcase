@@ -1037,3 +1037,14 @@ vim.cmd[[
     highlight RainbowDelimiterViolet guifg=#7dcfff ctermfg=White
     highlight RainbowDelimiterCyan guifg=#f4ca0d ctermfg=White
 ]]
+
+-- Automatically open Nvim Tree when a directory is opened
+vim.cmd([[
+  autocmd BufEnter * if &ft ==# 'netrw' | silent! lua require'nvim-tree'.find_file(true) | endif
+]])
+
+-- Enable concealment for markdown files
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "markdown",
+  command = "setlocal conceallevel=0"
+})

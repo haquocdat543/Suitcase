@@ -1,4 +1,4 @@
-## User specific aliases and functions
+## User specific aliases and functios
 alias rm='rm -f'
 alias cp='cp -rf'
 alias mv='mv -f'
@@ -1664,6 +1664,8 @@ alias kgds='kubectl get ds'
 alias kgsc='kubectl get secret'
 alias kgsc64='. $HOME/preconfig/Suitcase/bash/scripts/decryptSecretAsBase64.sh'
 alias kgc='kubectl get storageclasses'
+alias kgcave='kubectl get storageclass -o custom-columns=NAME:.metadata.name,ALLOWVOLUMEEXPANSION:.allowVolumeExpansion'
+alias kpppvc='. $HOME/preconfig/Suitcase/bash/scripts/patchPrometheusPVC.sh'
 alias kgpv='kubectl get pv'
 alias kgpvc='kubectl get pvc'
 alias kgr='kubectl get role'

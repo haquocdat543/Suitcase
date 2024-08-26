@@ -2487,7 +2487,7 @@ spec:
       - Validate=false
 endsnippet
 
-snippet argoaiovalue"ArgoCD all in one helm values" b
+snippet argoaiovalue "ArgoCD all in one helm values" b
 spec:
   project: ${1:<project>} # project name
   destination:
@@ -2505,5 +2505,14 @@ snippet ansibleecho "Ansible playbook echo hello world [ test only ]" b
   tasks:
     - name: Echo Hello World
       command: echo "Instance is running ?"
+endsnippet
+
+snippet dockercompose "Sample docker compose" b
+version: '3'
+services:
+  ${1:certificate_check}:
+    build:
+      context: .
+      dockerfile: Dockerfile
 endsnippet
 

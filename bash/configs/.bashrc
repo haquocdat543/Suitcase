@@ -1157,7 +1157,7 @@ alias glop="git log --graph --abbrev-commit --decorate --color --format=format:'
 alias glau="git log --format='%aN' | sort | uniq"
 alias gp='git push'
 alias gpgp='git push; git push' # this is for [ git pull --rebase before push ]
-alias gpf='git push --force'
+alias gpf='git push --force-with-lease'
 alias gpu='git push -u'
 alias gpod='git push origin --delete'
 alias gpom='git push origin main'

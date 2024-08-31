@@ -183,6 +183,7 @@ alias eag='. $HOME/preconfig/Suitcase/bash/scripts/eag.sh'
 alias sudosp='sudo mysql_secure_installation' # ALTER USER 'root'@'localhost' IDENTIFIED BY 'root-password';
 alias epas='sudo sed -i "s/PasswordAuthentication no/PasswordAuthentication yes/g" /etc/ssh/sshd_config ; sudo service ssh restart'
 alias extf='. $HOME/preconfig/Suitcase/bash/scripts/exportTFVar.sh'
+alias ual='. $HOME/preconfig/Suitcase/bash/scripts/unAlias.sh'
 alias ag='ag --hidden'
 alias virclc='vim /etc/rc.local'
 alias vigmt='$HOME/.gm/gm.toml'

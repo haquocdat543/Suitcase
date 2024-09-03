@@ -604,6 +604,13 @@ alias z='zoxide'
 alias batlt='bat --list-themes'
 
 ### Flux command
+alias a5='argocd'
+alias a5lg='argocd app login'
+alias a5al='argocd app list'
+alias a5ag='argocd app get'
+alias a5asy='argocd app sync'
+
+### Flux command
 alias flv='flux --version'
 alias flrc='flux reconcile'
 alias flrck='flux reconcile kustomization'

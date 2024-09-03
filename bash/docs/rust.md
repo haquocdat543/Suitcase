@@ -35,3 +35,10 @@ rustc --explain E0798
 ```
 
 * Note: At the time I write this, there are 798 error code totally.
+
+### 2. Build
+Optimize level on release:
+```
+RUSTFLAGS='-C opt-level=3' cargo build --release
+```
+

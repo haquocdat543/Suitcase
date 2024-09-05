@@ -22,7 +22,7 @@ function git::repository::pull::preconfig () {
 
   LOCAL_PATH="${HOME}/preconfig/repositories/${REPOSITORY_NAME}"
 
-  if [ -d "${DIRECTORY}" ]; then
+  if [ -d "${LOCAL_PATH}" ]; then
     echo "Repository already exist ->> Pull latest commits"
     git::repository::pull ${LOCAL_PATH}
   else
@@ -36,7 +36,7 @@ function git::repository::pull::home () {
 
   LOCAL_PATH="${HOME}/${REPOSITORY_NAME}"
 
-  if [ -d "${DIRECTORY}" ]; then
+  if [ -d "${LOCAL_PATH}" ]; then
     echo "Repository already exist ->> Pull latest commits"
     git::repository::pull ${LOCAL_PATH}
   else

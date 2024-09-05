@@ -334,6 +334,20 @@ snippet timestamp "Timestamp" b
 STAMP=$(date +"%s-%A-%d-%B-%Y-@-%Hh%Mm%Ss")
 endsnippet
 
+snippet dockerbuild "Docker build" b
+#!/bin/bash
+
+NAME=""
+TAG=$(git rev-parse HEAD)
+FULLNAME="${NAME}:${TAG}"
+USERNAME=""
+PASSWORD=""
+
+docker login -u ${USERNAME} -p ${PASSWORD} registry.ghsv.vn
+docker build -f Dockerfile . -t ${FULLNAME}
+docker push ${FULLNAME}
+endsnippet
+
 snippet r "Echo and Read" b
 echo "$1"
 read $2

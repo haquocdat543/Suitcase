@@ -13,26 +13,9 @@ function git::repository::pull () {
   DIRECTORY=${1}
 
   cd ${DIRECTORY}
-  git reset --hard HEAD~1
-  git reset --hard HEAD~1
-  git reset --hard HEAD~1
-  git reset --hard HEAD~1
-  git reset --hard HEAD~1
-  git reset --hard HEAD~1
-  git reset --hard HEAD~1
-  git reset --hard HEAD~1
-  git reset --hard HEAD~1
-  git reset --hard HEAD~1
-  git pull origin main -f
+  git reset --hard HEAD~10
   cd -
   
-}
-
-function git::repository::exist () {
-
-  DIRECTORY=${1}
-  FUNCTION=${2}
-
 }
 
 function git::repository::pull::preconfig () {

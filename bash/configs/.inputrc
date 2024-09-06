@@ -1,0 +1,27 @@
+# Enable case-insensitive completion
+set completion-ignore-case on
+
+# Enable history search as you type
+"\e[A": history-search-backward
+"\e[B": history-search-forward
+
+# Set the default completion mode to "menu"
+set completion-menu yes
+
+# Enable reverse search with Ctrl-r
+"\C-r": reverse-search-history
+
+# Customize the behavior of Tab for autocompletion
+set show-all-if-ambiguous on
+set menu-completion on
+
+# Enable colored prompt in the terminal
+set colored-stats on
+
+# Customize key bindings
+"\C-a": beginning-of-line
+"\C-e": end-of-line
+"\C-k": kill-line
+"\C-y": yank
+"\C-p": history-search-backward
+"\C-n": history-search-forward

@@ -9,10 +9,11 @@ if not vim.loop.fs_stat(lazypath) then
     lazypath,
   })
 end
+
 vim.opt.rtp:prepend(lazypath)
 
-vim.cmd('autocmd!')
-vim.g.mapleader = ' '
+vim.g.mapleader = " " -- for normal mode
+vim.g.maplocalleader = " " -- for local leader mappings
 vim.opt.title = true
 vim.opt.hlsearch = true
 vim.opt.history = 200
@@ -32,42 +33,46 @@ local keymap = vim.keymap
 
 -- Spectre [ Search and replace ]
 vim.keymap.set('n', '<leader>S', '<cmd>lua require("spectre").toggle()<CR>', {
-    desc = "Toggle Spectre"
+    desc = "Toggle Spectre",
 })
 vim.keymap.set('n', '<leader>sw', '<cmd>lua require("spectre").open_visual({select_word=true})<CR>', {
-    desc = "Search current word"
+    desc = "Search current word",
 })
 vim.keymap.set('v', '<leader>sw', '<esc><cmd>lua require("spectre").open_visual()<CR>', {
-    desc = "Search current word"
+    desc = "Search current word",
 })
 vim.keymap.set('n', '<leader>sp', '<cmd>lua require("spectre").open_file_search({select_word=true})<CR>', {
-    desc = "Search on current file"
+    desc = "Search on current file",
 })
 
 -- Query { Rest API ]
-keymap.set('n','<leader>xr',':call VrcQuery()<CR>')
+keymap.set('n',',xr',':call VrcQuery()<CR>')
 
 -- System
-keymap.set('n','<leader>ch',':checkhealth ')
+keymap.set('n',',ch',':checkhealth ')
 keymap.set('n','+','<C-a>')
 keymap.set('n','-','<C-x>')
 keymap.set('n','<C-a>','gg<M-v>G')
 keymap.set('n','ZQ',':q!<CR>')
 keymap.set('n','ZZ',':wq!<CR>')
-keymap.set('n','<Leader>hr',':%!xxd<CR> :set filetype=xxd<CR>')
-keymap.set('n','<Leader>hw',':%!xxd -r<CR> :set binary<CR> :set filetype=<CR>')
-keymap.set('n','<Leader>el','yypC')
-keymap.set('n','<Leader>eL','yyPC')
-keymap.set('n','<Leader>ra',':call ReplaceAll')
+keymap.set('n','<leader>hr',':%!xxd<CR> :set filetype=xxd<CR>')
+keymap.set('n','<leader>hw',':%!xxd -r<CR> :set binary<CR> :set filetype=<CR>')
+keymap.set('n','<leader>el','yypC')
+keymap.set('n','<leader>eL','yyPC')
+keymap.set('n','<leader>ra',':call ReplaceAll')
+
+-- Map ESC
+keymap.set('i','<C-x>','<Esc><Esc>')
+-- keymap.set('i', '<Esc>', '<Esc><Esc>')
 
 -- System - commands
 keymap.set('n','<leader>rg',':registers<CR>')
 
 -- System - default file open
-keymap.set('n','<Leader>en',':tabnew ~/.config/nvim/init.lua<CR>')
-keymap.set('n','<Leader>ev',':tabnew ~/.vimrc<CR>')
-keymap.set('n','<Leader>ea',':tabnew ~/.bashrc<CR>')
-keymap.set('n','<Leader>ec',':tabnew ~/.ssh/config<CR>')
+keymap.set('n','<leader>en',':tabnew ~/.config/nvim/init.lua<CR>')
+keymap.set('n','<leader>ev',':tabnew ~/.vimrc<CR>')
+keymap.set('n','<leader>ea',':tabnew ~/.bashrc<CR>')
+keymap.set('n','<leader>ec',':tabnew ~/.ssh/config<CR>')
 keymap.set('n','<leader>nn',':set nopaste<CR>')
 keymap.set('n','<leader>nm',':set paste<CR>')
 
@@ -82,7 +87,7 @@ keymap.set('n','sk','<C-w>k')
 keymap.set('n','sl','<C-w>l')
 
 -- System - tab navigation
-keymap.set('n','te',':tabedit ')
+keymap.set('n','<leader>te',':tabedit ')
 keymap.set('n','<leader>to',':tabnew ')
 keymap.set('n','<leader>tx',':tabclose<CR>')
 keymap.set('n','<leader>tn',':tabn<CR>')
@@ -93,7 +98,7 @@ keymap.set('n','<leader>cr',':tabnew $HOME/.aws/credentials<CR>')
 keymap.set('n','<leader>cf',':tabnew $HOME/.aws/config<CR>')
 
 -- System - terminal 
-keymap.set('n',',tt',':ter<CR>')
+keymap.set('n','<leader>tt',':ter<CR>')
 
 -- Package manager
 keymap.set('n','<leader>ii',':PackerInstall<CR>')
@@ -111,7 +116,7 @@ keymap.set('n','<leader><leader>g',':HopAnywhere<CR>')
 keymap.set('n','<leader><leader>h',':HopWord<CR>')
 keymap.set('n','<leader><leader>l',':HopLine<CR>')
 keymap.set('n','<leader><leader>c',':HopChar1<CR>')
-keymap.set('n','<leader>b','<leader><leader>')
+keymap.set('n','<leader>b',',,')
 
 -- Lazygit
 keymap.set('n','<leader>ll',':Lazy<CR>')
@@ -139,7 +144,7 @@ keymap.set('n','<leader>gl',':G log<CR>')
 keymap.set('n','<leader>ng',':Neogit<CR>')
 
 -- Git blame
-keymap.set('n',',gb',':Git blame<CR>')
+keymap.set('n','<leader>gb',':Git blame<CR>')
 keymap.set('n','<C-b>b',':set backup<CR>')
 keymap.set('n','<C-h>h',':noh<CR>')
 keymap.set('n','<C-q>q',':q!<CR>')
@@ -162,7 +167,7 @@ keymap.set('n','<A-n>n',':n<CR>')
 keymap.set('n','<A-p>p',':p<CR>')
 
 -- Navigation
-keymap.set('n','<leader>nt',':NvimTreeToggle<CR>', { noremap = true, silent = true })
+keymap.set('n','<leader>nt',':NvimTreeToggle<CR>')
 keymap.set('n','<leader>nf',':NvimTreeFindFile<CR>')
 keymap.set('n','<leader>nc',':NvimTreeFocus<CR>')
 -- keymap.set('n','<leader>nt',':NERDTreeToggle<CR>')
@@ -170,6 +175,7 @@ keymap.set('n','<leader>db',':Dashboard<CR>')
 keymap.set('n','<leader>tl',':Telescope<CR>')
 
 local plugins = {
+ { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
 'diepm/vim-rest-console',
 'nvim-pack/nvim-spectre',
  {
@@ -226,7 +232,6 @@ local plugins = {
  'ellisonleao/gruvbox.nvim',
  { 'junegunn/fzf', run = ":call fzf#install()" },
  { 'junegunn/fzf.vim' },
- 'easymotion/vim-easymotion',
  'nvim-tree/nvim-tree.lua',
  'nvim-tree/nvim-web-devicons', -- optional,
  'voldikss/vim-floaterm',
@@ -266,6 +271,41 @@ local status, lualine = pcall(require, "lualine")
 if not status then
   return
 end
+
+require('git').setup({
+  default_mappings = true, -- NOTE: `quit_blame` and `blame_commit` are still merged to the keymaps even if `default_mappings = false`
+
+  keymaps = {
+    -- Open blame window
+    blame = "<leader>gb",
+    -- Close blame window
+    quit_blame = "q",
+    -- Open blame commit
+    blame_commit = "<CR>",
+    -- Quit blame commit
+    quit_blame_commit = "q",
+    -- Open file/folder in git repository
+    browse = "<leader>go",
+    -- Open pull request of the current branch
+    open_pull_request = "<leader>gp",
+    -- Create a pull request with the target branch is set in the `target_branch` option
+    create_pull_request = "<leader>gn",
+    -- Opens a new diff that compares against the current index
+    diff = "<leader>gd",
+    -- Close git diff
+    diff_close = "<leader>gD",
+    -- Revert to the specific commit
+    revert = "<leader>gr",
+    -- Revert the current file to the specific commit
+    revert_file = "<leader>gR",
+  },
+  -- Default target branch when create a pull request
+  target_branch = "master",
+  -- Private gitlab hosts, if you use a private gitlab, put your private gitlab host here
+  private_gitlabs = { "https://xxx.git.com" },
+  -- Enable winbar in all windows created by this plugin
+  winbar = false,
+})
 
 require('tabnine').setup({
   disable_auto_comment=true,
@@ -587,10 +627,10 @@ require('nvim-treesitter.configs').setup {
     swap = {
       enable = true,
       swap_next = {
-        ['<leader>a'] = '@parameter.inner',
+        [',a'] = '@parameter.inner',
       },
       swap_previous = {
-        ['<leader>A'] = '@parameter.inner',
+        [',A'] = '@parameter.inner',
       },
     },
   },
@@ -752,13 +792,13 @@ local on_attach = function(client, bufnr)
   opts.desc = "Show LSP type definitions"
   keymap.set("n", "gt", "<cmd>Telescope lsp_type_definitions<CR>", opts)
   opts.desc = "See available code actions"
-  keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts)
+  keymap.set({ "n", "v" }, ",ca", vim.lsp.buf.code_action, opts)
   opts.desc = "Smart rename"
-  keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
+  keymap.set("n", ",rn", vim.lsp.buf.rename, opts)
   opts.desc = "Show buffer diagnostics"
-  keymap.set("n", "<leader>D", "<cmd>Telescope diagnostics bufnr=0<CR>", opts)
+  keymap.set("n", ",D", "<cmd>Telescope diagnostics bufnr=0<CR>", opts)
   opts.desc = "Show line diagnostics"
-  keymap.set("n", "<leader>d", vim.diagnostic.open_float, opts)
+  keymap.set("n", ",d", vim.diagnostic.open_float, opts)
   opts.desc = "Go to previous diagnostic"
   keymap.set("n", "[d", vim.diagnostic.goto_prev, opts)
   opts.desc = "Go to next diagnostic"
@@ -766,7 +806,7 @@ local on_attach = function(client, bufnr)
   opts.desc = "Show documentation for what is under cursor"
   keymap.set("n", "K", vim.lsp.buf.hover, opts)
   opts.desc = "Restart LSP"
-  keymap.set("n", "<leader>rs", ":LspRestart<CR>", opts)
+  keymap.set("n", ",rs", ":LspRestart<CR>", opts)
 end
 
 local capabilities = cmp_nvim_lsp.default_capabilities()
@@ -810,11 +850,8 @@ lspconfig["go"].setup({
 })
 
 -- Mason and lsp configuration. See https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#gopls
--- Note: Need to install lsp in Mason and add its confiuration here
--- Go
 require'lspconfig'.gopls.setup{}
 
--- Rust
 require'lspconfig'.rust_analyzer.setup{
   settings = {
     ['rust-analyzer'] = {
@@ -1030,7 +1067,7 @@ vim.cmd[[augroup filetypedetect
 autocmd BufNewFile,BufRead *.tmpl, if search('{{.\+}}', 'nw') | setlocal filetype=gotmpl | endif
 augroup END]]
 
-vim.cmd[[let g:vim_k8s_toggle_key_map = '<leader>k9']]
+vim.g.vim_k8s_toggle_key_map = ',k9'
 
 vim.cmd[[function DisplayName(name)
   echom "Hello!  My name is:"
@@ -1049,7 +1086,9 @@ vim.g.vrc_auto_format_response_patterns = {
 }
 
 -- vim.cmd[[colorscheme gruvbox]]
-vim.cmd[[colorscheme tokyonight-night]]
+-- vim.cmd[[colorscheme tokyonight-night]]
+vim.cmd[[colorscheme catppuccin]]
+
 vim.cmd[[
     highlight RainbowDelimiterRed  guifg=#f4ca0d ctermfg=White
     highlight RainbowDelimiterYellow guifg=#9d7cd8 ctermfg=White
@@ -1070,3 +1109,4 @@ vim.api.nvim_create_autocmd("FileType", {
   pattern = "markdown",
   command = "setlocal conceallevel=0"
 })
+

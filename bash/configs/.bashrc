@@ -2691,6 +2691,7 @@ alias hmara='. $HOME/preconfig/Suitcase/bash/data/helm/helm.sh' # Add all helm r
 alias dc64='. $HOME/preconfig/Suitcase/bash/scripts/decodeBase64.sh' # <base64-encoded-text>
 alias kgim='. $HOME/preconfig/Suitcase/bash/scripts/getAllImagesOnK8s.sh'
 alias sshfw='. $HOME/preconfig/Suitcase/bash/scripts/sshForward.sh'
+alias baca='. $HOME/preconfig/Suitcase/bash/scripts/BasicCalculator.sh'
 alias shn='sudo scutil --set HostName'
 alias slhn='sudo scutil --set LocalHostName'
 alias scn='sudo scutil --set ComputerName'

@@ -265,3 +265,14 @@ if err != nil {
 }$3
 endsnippet
 
+snippet cmd "Cobra command" b
+var rootCmd = &cobra.Command{
+	Use:   "mycli",
+	Short: "MyCLI is a simple command line tool",
+	Long:  "MyCLI is a simple command line tool built with Cobra for demonstration purposes",
+	Run: func(cmd *cobra.Command, args []string) {
+		fmt.Println("Hello from MyCLI!")
+	},
+}
+endsnippet
+

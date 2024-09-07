@@ -843,10 +843,10 @@ lspconfig["tailwindcss"].setup({
   on_attach = on_attach,
 })
 
--- configure tailwindcss server
-lspconfig["go"].setup({
-  capabilities = capabilities,
-  on_attach = on_attach,
+-- configure gpls server
+lspconfig["gopls"].setup({
+capabilities = capabilities,
+on_attach = on_attach,
 })
 
 -- Mason and lsp configuration. See https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#gopls

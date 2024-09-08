@@ -806,3 +806,9 @@ case \$OP in
 esac
 endsnippet
 
+snippet gobuild "Golang build" b
+go mod init ${1:name}
+go mod tidy
+go build
+endsnippet
+

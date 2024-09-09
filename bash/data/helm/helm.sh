@@ -3,7 +3,7 @@
 helm repo add harbor https://helm.goharbor.io
 helm repo add istio https://istio-release.storage.googleapis.com/charts
 helm repo add kiali https://kiali.org/helm-charts
-helm repo add jeknkins https://charts.jenkins.io
+helm repo add jenkins https://charts.jenkins.io
 helm repo add argocd https://argoproj.github.io/argo-helm
 helm repo add jetstack https://charts.jetstack.io
 helm repo add elastic https://helm.elastic.co

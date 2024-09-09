@@ -282,10 +282,12 @@ snippet helm "Script for helm operation" b
 OPTION=\${1}
 
 # OPTION="--dry-run --debug"
-VALUE_PATH="values-dev.yaml" 
-NAME="alertmanager" 
+# VALUE_PATH="values-override.yaml" 
+VALUE_PATH="values.yaml" 
+NAME="jenkins" 
 CHART_PATH="." 
-NAMESPACE="alertmanager" 
+NAMESPACE="jenkins" 
+REPOSITORY="jenkins/jenkins" 
  
 if [[ ${OPTION} == "1" ]]; then
   helm install ${NAME} ${CHART_PATH} --values ${VALUE_PATH} --namespace ${NAMESPACE}
@@ -293,11 +295,14 @@ elif [[ ${OPTION} == "2" ]]; then
   helm upgrade ${NAME} ${CHART_PATH} --values ${VALUE_PATH} --namespace ${NAMESPACE}
 elif [[ ${OPTION} == "3" ]]; then
   helm uninstall ${NAME} --namespace ${NAMESPACE}
+elif [[ ${OPTION} == "4" ]]; then
+  helm template ${NAME} ${REPOSITORY} -f ${VALUE_PATH} > template.yaml
 else
   echo "Please give me correct option"
-  echo "[1] install"
-  echo "[2] upgrade"
-  echo "[3] uninstall"
+  echo "[1] install [ install resources with current helm values ]"
+  echo "[2] upgrade [ upgrade resources with new helm values"
+  echo "[3] uninstall [ uninstall all resources ]"
+  echo "[4] template [ generate manifest file ]"
 fi
 endsnippet
 

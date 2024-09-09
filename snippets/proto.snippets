@@ -1,0 +1,21 @@
+snippet sample "Sample gRPC" b
+syntax = "proto3";
+
+package example;
+
+service Greeter {
+  // Simple RPC method to greet
+  rpc SayHello (HelloRequest) returns (HelloReply);
+}
+
+// Request message
+message HelloRequest {
+  string name = 1;
+}
+
+// Response message
+message HelloReply {
+  string message = 1;
+}
+endsnippet
+

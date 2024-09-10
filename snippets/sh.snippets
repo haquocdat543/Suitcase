@@ -284,25 +284,28 @@ OPTION=\${1}
 # OPTION="--dry-run --debug"
 # VALUE_PATH="values-override.yaml" 
 VALUE_PATH="values.yaml" 
-NAME="jenkins" 
+RELEASE_NAME="jenkins" 
 CHART_PATH="." 
 NAMESPACE="jenkins" 
 REPOSITORY="jenkins/jenkins" 
  
 if [[ ${OPTION} == "1" ]]; then
-  helm install ${NAME} ${CHART_PATH} --values ${VALUE_PATH} --namespace ${NAMESPACE}
+  helm install ${RELEASE_NAME} ${CHART_PATH} --values ${VALUE_PATH} --namespace ${NAMESPACE}
 elif [[ ${OPTION} == "2" ]]; then
-  helm upgrade ${NAME} ${CHART_PATH} --values ${VALUE_PATH} --namespace ${NAMESPACE}
+  helm upgrade ${RELEASE_NAME} ${CHART_PATH} --values ${VALUE_PATH} --namespace ${NAMESPACE}
 elif [[ ${OPTION} == "3" ]]; then
-  helm uninstall ${NAME} --namespace ${NAMESPACE}
+  helm uninstall ${RELEASE_NAME} --namespace ${NAMESPACE}
 elif [[ ${OPTION} == "4" ]]; then
-  helm template ${NAME} ${REPOSITORY} -f ${VALUE_PATH} > template.yaml
+  helm rollback ${RELEASE_NAME}
+elif [[ ${OPTION} == "5" ]]; then
+  helm template ${RELEASE_NAME} ${REPOSITORY} -f ${VALUE_PATH} > template.yaml
 else
   echo "Please give me correct option"
   echo "[1] install [ install resources with current helm values ]"
   echo "[2] upgrade [ upgrade resources with new helm values"
   echo "[3] uninstall [ uninstall all resources ]"
-  echo "[4] template [ generate manifest file ]"
+  echo "[4] rollback [ rollback to previous version ]"
+  echo "[5] template [ generate manifest file ]"
 fi
 endsnippet
 

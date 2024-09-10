@@ -2151,8 +2151,10 @@ alias kzfn='kustomize fn'
 
 ### Helm command
 alias vicy='vim ./Chart.yaml'
-alias hmcr='helm create'
-alias hmra='helm repo add'
+alias hmcr='helm create' # Create new chart
+alias hms='helm search' # Search <repository-name>
+alias hmsh='helm search hub' # Search for repository on Artifact Hub [ https://artifacthub.io/ ]
+alias hmra='helm repo add' 
 alias hmrs='helm repo search'
 alias hmrastb='helm repo add stable https://charts.helm.sh/stable '
 alias hmrabnm='helm repo add bitnami https://charts.bitnami.com/bitnami'

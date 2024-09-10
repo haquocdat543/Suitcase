@@ -376,14 +376,30 @@ endsnippet
 snippet terragrunt "Terrragrunt environment" b
 #!/bin/bash
 
+OPTION=\${1}
+
 export AWS_PROFILE=""
 export GIT_USERNAME=""
 export GIT_ACCESS_TOKEN=""
 export AWS_ACCESS_KEY_ID=""
 export AWS_SECRET_ACCESS_KEY=""
 
-terragrunt init
-terragrunt run-all apply --terragrunt-non-interactive
+if [[ ${OPTION} == "1" ]]; then
+  terragrunt init
+  terragrunt run-all plan --terragrunt-non-interactive
+elif [[ ${OPTION} == "2" ]]; then 
+  terragrunt init
+  terragrunt run-all apply --terragrunt-non-interactive
+elif [[ ${OPTION} == "3" ]]; then 
+  terragrunt init
+  terragrunt run-all destroy --terragrunt-non-interactive
+else
+  echo "Please give me correct option"
+  echo "[1] plan [ Initialize and plan ]"
+  echo "[2] apply [ Initialize and apply ]"
+  echo "[3] destroy [ Initialize and destroy ]"
+fi
+
 endsnippet
 
 snippet rdc "Read with default" b

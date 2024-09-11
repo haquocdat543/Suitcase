@@ -17,7 +17,7 @@ pacman -Sy --noconfirm git
 # Set up environment variables
 GIT_REMOTE_URL="https://github.com/haquocdat543/Suitcase.git"
 
-DESTINATION_DIRECTORY="${HOME}/Suitcase"
+DESTINATION_DIRECTORY="${HOME}/preconfig/Suitcase"
 
 # Clone git suitcase repository
 git clone ${GIT_REMOTE_URL} ${DESTINATION_DIRECTORY}

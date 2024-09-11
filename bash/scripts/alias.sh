@@ -87,3 +87,5 @@ fi
 rm -rf ${RUN_COMMAND_BACKUP}
 
 cat ${SUITCASE_RUN_COMMAND} | tee -a ${RUN_COMMAND} ; clear ; source ${RUN_COMMAND}
+
+set +x

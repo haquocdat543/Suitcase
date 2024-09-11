@@ -29,7 +29,8 @@ alias emel='emacs -q $HOME/init.el'
 
 ### Linux command
 alias mn='cd neovim && make CMAKE_BUILD_TYPE=RelWithDebInfo'
-alias sbrc='source $HOME/.bashrc'
+alias sbsh='source $HOME/.bashrc'
+alias sbzh='source $HOME/.zshrc'
 alias ps11='export PS1="\e[0;33m\u\e[0m\e[0;32m@\h\e[0m \e[1;32m \w \ \$ \e[0m"'
 alias ps12='export PS1="\u@\H >"  \u: haquocdat, \H: aws, @: $'
 alias upn='plug ; yg ; yn ; cm ; sn'
@@ -748,9 +749,9 @@ alias a2iamlak='aws iam list-access-keys'
 
 ### AWS Compute
 alias a2ec2ti='aws ec2 terminate-instances --instance-ids'
-alias a2ec2tic='aws ec2 terminate-instances --instance-ids $(aws ec2 describe-instances --query 'Reservations[*].Instances[*].[InstanceId]' --filters Name=instance-state-name,Values=running --output text)'
-alias a2ec2sic='aws ec2 stop-instances --instance-ids $(aws ec2 describe-instances --query 'Reservations[*].Instances[*].[InstanceId]' --filters Name=instance-state-name,Values=running --output text)'
-alias a2ec2li='aws ec2 describe-instances --query 'Reservations[*].Instances[*].[InstanceId]' --filters Name=instance-state-name,Values=running --output text'
+alias a2ec2tic='aws ec2 terminate-instances --instance-ids $(aws ec2 describe-instances --query "Reservations[*].Instances[*].[InstanceId]" --filters "Name=instance-state-name,Values=running" --output text)'
+alias a2ec2sic='aws ec2 stop-instances --instance-ids $(aws ec2 describe-instances --query "Reservations[*].Instances[*].[InstanceId]" --filters "Name=instance-state-name,Values=running" --output text)'
+alias a2ec2li='aws ec2 describe-instances --query "Reservations[*].Instances[*].[InstanceId]" --filters "Name=instance-state-name,Values=running" --output text'
 alias a2ec2di='aws ec2 describe-instances'
 alias a2ec2leni='aws ec2 describe-network-interfaces'
 alias a2ec2deni='aws ec2 delete-network-interface --network-interface-id'

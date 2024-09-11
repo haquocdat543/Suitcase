@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -x
+
 # Update and install git for CentOS
 yum update -y
 yum install -y git

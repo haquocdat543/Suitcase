@@ -608,6 +608,9 @@ alias z='zoxide'
 ### Bat command
 alias batlt='bat --list-themes'
 
+### Gitleaks command
+alias g7='gitleaks detect --report-path gitleaks-report.json' # This will save the report in a file called gitleaks-report.json
+
 ### Flux command
 alias a5='argocd'
 alias a5lg='argocd app login'

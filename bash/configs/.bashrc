@@ -29,8 +29,7 @@ alias emel='emacs -q $HOME/init.el'
 
 ### Linux command
 alias mn='cd neovim && make CMAKE_BUILD_TYPE=RelWithDebInfo'
-alias sbsh='source $HOME/.bashrc'
-alias sbzh='source $HOME/.zshrc'
+alias sbrc='. $HOME/preconfig/Suitcase/bash/scripts/sourceRunCommand.sh'
 alias ps11='export PS1="\e[0;33m\u\e[0m\e[0;32m@\h\e[0m \e[1;32m \w \ \$ \e[0m"'
 alias ps12='export PS1="\u@\H >"  \u: haquocdat, \H: aws, @: $'
 alias upn='plug ; yg ; yn ; cm ; sn'

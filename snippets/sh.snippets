@@ -276,6 +276,41 @@ snippet ex "Export" b
 export ${1:VER}="${2:0.40.2}"
 endsnippet
 
+snippet nvm "Node version manager" b
+#!/bin/sh
+
+set -x
+
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+nvm install 20.9.0
+nvm use 20.9.0
+yarn install --frozen-lockfile
+#!/bin/sh
+
+set -x
+
+# Ensure install node version manager
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
+
+# Specify node version
+NODE_VERSION="20.9.0"
+
+# Ensure environment variables
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# Node version install and use
+nvm install ${NODE_VERSION}
+nvm use ${NODE_VERSION}
+yarn install --frozen-lockfile
+endsnippet
+
 snippet helm "Script for helm operation" b
 #!/bin/bash
 

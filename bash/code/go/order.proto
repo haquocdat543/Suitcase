@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package proto;
+
+option go_package = "./;proto";
+
+service OrderService {
+	rpc NewOrder(NewOrderRequest) returns (NewOrderResponse) {};
+}
+
+message NewOrderRequest {
+	string orderRequest = 1;
+}
+
+message NewOrderResponse {
+	string orderResponse = 2;
+}

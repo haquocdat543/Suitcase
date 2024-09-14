@@ -602,9 +602,6 @@ alias rsc='rsync -avz -e'
 ### Ranger command
 alias rgr='ranger'
 
-### Zoxide command
-alias z='zoxide'
-
 ### Bat command
 alias batlt='bat --list-themes'
 

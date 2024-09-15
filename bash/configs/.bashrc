@@ -516,7 +516,7 @@ alias gchef='. $HOME/preconfig/Suitcase/bash/scripts/getChef.sh'
 alias ipet='. $HOME/preconfig/Suitcase/bash/scripts/installPet.sh'
 alias igm='git clone https://github.com/informalsystems/gm ; cp -f $HOME/gm/bin/* /usr/local/bin'
 alias ibat='cargo install --locked bat'
-alias izoxide='cargo install zoxide'
+alias izoxide='curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh' # eval "$(zoxide init bash)"
 alias icb='curl -sSL https://github.com/Slackadays/Clipboard/raw/main/install.sh | sh'
 alias isupervisor='yum install -y epel-release ; yum install -y supervisor'
 alias icast="curl -L https://foundry.paradigm.xyz | bash ; $HOME/.foundry/bin/foundryup ; export PATH='$PATH:$HOME/.foundry/bin'"

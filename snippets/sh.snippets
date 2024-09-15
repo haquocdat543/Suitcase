@@ -384,6 +384,7 @@ snippet dockerbuild "Docker build" b
 
 NAME=""
 TAG=$(git rev-parse HEAD)
+TAG_SHORT=$(git rev-parse --short HEAD)
 FULLNAME="${NAME}:${TAG}"
 REGISTRY_SERVER=""
 USERNAME=""

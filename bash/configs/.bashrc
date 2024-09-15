@@ -2272,10 +2272,10 @@ alias cnpd='conan profile detect'
 ### Python command [ Python ]
 alias py3='python3'
 alias p3upp='python3 -m pip install --upgrade pip'
-alias p3='pip3'
-alias p3i='pip3 install'
-alias p3ive='pip3 install virtualenv'
-alias p3ive='pip3 install virtualenv'
+alias pi3='pip3'
+alias pi3i='pip3 install'
+alias pi3ive='pip3 install virtualenv'
+alias pi3ive='pip3 install virtualenv'
 
 ### Poetry command [ Python package manager ]
 alias ptri='poetry install'

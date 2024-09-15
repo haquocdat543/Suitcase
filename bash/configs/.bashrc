@@ -2648,6 +2648,11 @@ alias csggkp='cosign generate keypair'
 alias csgs='cosign sign'
 alias csgsk='cosign sign --key'
 
+### Password store
+alias p3='pass'
+alias p3i='pass init'
+alias p3gi='pass git init'
+
 ### GPG key
 alias gpgae='gpg --armor --export'
 alias gpglk='gpg --list-keys'

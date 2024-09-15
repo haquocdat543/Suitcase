@@ -2655,6 +2655,8 @@ alias p3gi='pass git init'
 alias p3g='pass generate'
 alias p3s='pass show'
 alias p3is='pass insert'
+alias p3f='pass find'
+alias p3ed='pass edit'
 
 ### GPG key
 alias gpgae='gpg --armor --export'

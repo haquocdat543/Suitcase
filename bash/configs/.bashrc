@@ -2671,7 +2671,7 @@ alias gpgpw='gpg --passwd'
 alias gpgim='gpg --import'
 alias gpgex='gpg --export --output'
 alias gpgexsk='gpg --export-secret-keys --output'
-alias gpgdk='gpg --edit-key'
+alias gpgek='gpg --edit-key'
 alias gpgdk='gpg --delete-key'
 alias gpgdsk='gpg --delete-secret-key'
 

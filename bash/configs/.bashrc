@@ -2657,6 +2657,9 @@ alias p3s='pass show'
 alias p3is='pass insert'
 alias p3f='pass find'
 alias p3ed='pass edit'
+alias p3gr='pass grep'
+alias p3rm='pass rm'
+alias p3mv='pass mv'
 
 ### GPG key
 alias gpgae='gpg --armor --export'

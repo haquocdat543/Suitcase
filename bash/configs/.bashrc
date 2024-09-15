@@ -2652,6 +2652,9 @@ alias csgsk='cosign sign --key'
 alias p3='pass'
 alias p3i='pass init'
 alias p3gi='pass git init'
+alias p3g='pass generate'
+alias p3s='pass show'
+alias p3is='pass insert'
 
 ### GPG key
 alias gpgae='gpg --armor --export'

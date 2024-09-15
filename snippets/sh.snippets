@@ -385,10 +385,11 @@ snippet dockerbuild "Docker build" b
 NAME=""
 TAG=$(git rev-parse HEAD)
 FULLNAME="${NAME}:${TAG}"
+REGISTRY_SERVER=""
 USERNAME=""
 PASSWORD=""
 
-docker login -u ${USERNAME} -p ${PASSWORD} registry.ghsv.vn
+echo ${PASSWORD}| docker login --username ${USERNAME} --password-stdin ${REGISTRY_SERVER}
 docker build -f Dockerfile . -t ${FULLNAME}
 docker push ${FULLNAME}
 endsnippet

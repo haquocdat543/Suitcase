@@ -104,7 +104,7 @@ gpg --output private.gpg --armor --export-secret-keys google@gmail.com
 ### 7. Restore key
 Private:
 ```
-gpg --import private.gpg
+gpg --import private.asc
 ```
 ```
 gpg --import private.gpg
@@ -112,8 +112,24 @@ gpg --import private.gpg
 
 Public key:
 ```
-gpg --import public.gpg
+gpg --import public.asc
 ```
 ```
 gpg --import public.gpg
+```
+
+### 8. Trust edit
+Edit key:
+```
+gpg --edit-keys google@gmail.com
+```
+
+Action on key:
+```
+trust
+```
+
+Choose trust level:
+```
+5
 ```

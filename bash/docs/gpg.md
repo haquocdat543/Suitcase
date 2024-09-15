@@ -83,22 +83,37 @@ gpg --delete-secret-key --force <key_id_or_email>
 ```
 
 ### 6. Backup key
+Finger print:
 ```
 gpg --export --armor <key_id_or_fingerprint> > public_key.asc
-
+```
+Email:
+```
+gpg --output public.gpg --armor --export google@gmail.com
 ```
 
+Finger print:
 ```
 gpg --export-secret-keys --armor <key_id_or_fingerprint> > private_key.asc
 ```
+Email:
+```
+gpg --output private.gpg --armor --export-secret-keys google@gmail.com
+```
 
 ### 7. Restore key
-Public key:
+Private:
 ```
-gpg --import public-keys.asc
+gpg --import private.gpg
+```
+```
+gpg --import private.gpg
 ```
 
-Secret key:
+Public key:
 ```
-gpg --import secret-keys.asc
+gpg --import public.gpg
+```
+```
+gpg --import public.gpg
 ```

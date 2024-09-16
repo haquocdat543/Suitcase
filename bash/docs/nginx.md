@@ -94,3 +94,8 @@ spec:
   rules:
 ```
 
+## 5. Certbot renewal
+```
+DOMAIN="your-domain-point-to-nginx-server"
+certbot --nginx -d ${DOMAIN} --non-interactive --agree-tos --email wwwdatha543@gmail.com --redirect
+```

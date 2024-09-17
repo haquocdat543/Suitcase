@@ -313,6 +313,21 @@ nvm use ${NODE_VERSION}
 yarn install --frozen-lockfile
 endsnippet
 
+snippet psql "Script for psql" b
+#!/bin/bash
+
+HOST=""
+USERNAME=""
+PASSWORD=""
+DATABASE=""
+
+docker run -it --rm \
+  postgres:latest psql \
+  -h ${HOST} \
+  -U ${USERNAME} \
+  -d ${DATABASE}
+endsnippet
+
 snippet helm "Script for helm operation" b
 #!/bin/bash
 

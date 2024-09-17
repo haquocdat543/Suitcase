@@ -276,6 +276,10 @@ snippet ex "Export" b
 export ${1:VER}="${2:0.40.2}"
 endsnippet
 
+snippet pass "Password store" b
+\$(pass show ${1:github})
+endsnippet
+
 snippet sls "Serverless" b
 #!/bin/bash
 

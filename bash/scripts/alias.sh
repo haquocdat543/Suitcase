@@ -14,6 +14,10 @@ apt install -y git
 pacman -Syu --noconfirm
 pacman -Sy --noconfirm git
 
+# Update and install git for Alpine
+apk update
+apk install git
+
 # Set up environment variables
 GIT_REMOTE_URL="https://github.com/haquocdat543/Suitcase.git"
 

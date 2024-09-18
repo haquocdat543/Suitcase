@@ -2713,6 +2713,7 @@ alias dc64='. $HOME/preconfig/Suitcase/bash/scripts/decodeBase64.sh' # <base64-e
 alias kgim='. $HOME/preconfig/Suitcase/bash/scripts/getAllImagesOnK8s.sh'
 alias sshfw='. $HOME/preconfig/Suitcase/bash/scripts/sshForward.sh'
 alias baca='. $HOME/preconfig/Suitcase/bash/scripts/BasicCalculator.sh'
+alias ecsexec='. $HOME/preconfig/Suitcase/bash/scripts/ecsExec.sh' # <Cluster-name> <Task-id> <Container-name> <CMD> # Service need to set enable-execute-command to true # Service role and exec role must have enough permission [ ssmmessages:*, ssm:UpdateInstanceInformation, ecs:ExecuteCommand, kms:Decrypt ]
 alias shn='sudo scutil --set HostName'
 alias slhn='sudo scutil --set LocalHostName'
 alias scn='sudo scutil --set ComputerName'

@@ -401,16 +401,19 @@ endsnippet
 snippet dockerbuild "Docker build" b
 #!/bin/bash
 
+set -x
+
 NAME=""
-TAG=$(git rev-parse HEAD)
-TAG_SHORT=$(git rev-parse --short HEAD)
-FULLNAME="${NAME}:${TAG}"
+COMMIT_HASH_TAG=$(git rev-parse HEAD)
+# SHORT_COMMIT_HASH_TAG=$(git rev-parse --short HEAD)
+CUSTOM_TAG=""
 REGISTRY_SERVER=""
-USERNAME=""
-PASSWORD=""
+FULLNAME="${REGISTRY_SERVER}/${NAME}:${CUSTOM_TAG}"
+USERNAME="" # Replace with your username
+PASSWORD="" # Replace with your password
 
 echo ${PASSWORD}| docker login --username ${USERNAME} --password-stdin ${REGISTRY_SERVER}
-docker build -f Dockerfile . -t ${FULLNAME}
+docker build --platform=linux/amd64 -f Dockerfile . -t ${FULLNAME}
 docker push ${FULLNAME}
 endsnippet
 

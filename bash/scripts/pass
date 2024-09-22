@@ -2,6 +2,7 @@
 
 OPTION=${1}
 SECOND_OPTION=${2}
+ALL_OPTIONS=${@}
 
 DEFAULT_DIRECTORY="${HOME}/.password-store"
 GPG_OPTIONS="--batch --quiet -d"
@@ -68,11 +69,39 @@ elif [[ ${OPTION} == "insert" ]]; then
 
 	git -C ${DEFAULT_DIRECTORY} add "${FULL_DIRECTORY}.gpg"
 	if [[ ${KEY_EXISTS} == true ]]; then
-		git -C ${DEFAULT_DIRECTORY} commit -m "update password for ${RELATIVE_PATH} to store."
+		git -C ${DEFAULT_DIRECTORY} commit -m "update secret for ${RELATIVE_PATH} to store."
 	else
-		git -C ${DEFAULT_DIRECTORY} commit -m "insert password for ${RELATIVE_PATH} to store."
+		git -C ${DEFAULT_DIRECTORY} commit -m "password for ${RELATIVE_PATH} to store."
 	fi
 
+elif [[ ${OPTION} == "rm" ]]; then
+
+	# setup env
+	KEY_PATH=${FULL_DIRECTORY}
+	KEY_PART=$(basename "$KEY_PATH")
+	DIRECTORY_PART=$(dirname "$KEY_PATH")
+
+	if [ -s "${KEY_PATH}.gpg" ]; then
+		KEY_EXISTS=true
+	fi
+
+	git -C ${DEFAULT_DIRECTORY} rm "${FULL_DIRECTORY}.gpg"
+	if [[ ${KEY_EXISTS} == true ]]; then
+		git -C ${DEFAULT_DIRECTORY} commit -m "delete secret for ${RELATIVE_PATH} to store."
+	        echo "Delete key ${KEY_PATH} sucessfully !"
+	else
+		"Key ${KEY_PATH} does not exists"
+	fi
+
+elif [[ ${OPTION} == "git" ]]; then
+
+	# setup env
+	KEY_PATH=${FULL_DIRECTORY}
+	KEY_PART=$(basename "$KEY_PATH")
+	DIRECTORY_PART=$(dirname "$KEY_PATH")
+
+        set -- "${@:2}"
+	git -C ${DEFAULT_DIRECTORY} ${@}
 else
 	# tree default directory
 	tree ${DEFAULT_DIRECTORY}

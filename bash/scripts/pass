@@ -49,6 +49,10 @@ elif [[ ${OPTION} == "insert" ]]; then
 	KEY_PART=$(basename "$KEY_PATH")
 	DIRECTORY_PART=$(dirname "$KEY_PATH")
 
+	if [ -s "${KEY_PATH}.gpg" ]; then
+		KEY_EXISTS=true
+	fi
+
 	# confirm secret
 	get_secret
 
@@ -63,7 +67,11 @@ elif [[ ${OPTION} == "insert" ]]; then
 	echo "Encrypted ${KEY_PATH} sucessfully !"
 
 	git -C ${DEFAULT_DIRECTORY} add "${FULL_DIRECTORY}.gpg"
-	git -C ${DEFAULT_DIRECTORY} commit -m "Add given password for ${RELATIVE_PATH} to store."
+	if [[ ${KEY_EXISTS} == true ]]; then
+		git -C ${DEFAULT_DIRECTORY} commit -m "update password for ${RELATIVE_PATH} to store."
+	else
+		git -C ${DEFAULT_DIRECTORY} commit -m "insert password for ${RELATIVE_PATH} to store."
+	fi
 
 else
 	# tree default directory

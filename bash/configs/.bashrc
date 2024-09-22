@@ -2649,7 +2649,6 @@ alias csgs='cosign sign'
 alias csgsk='cosign sign --key'
 
 ### Password store
-alias p3='pass'
 alias p3i='pass init'
 alias p3gi='pass git init'
 alias p3g='pass generate'
@@ -2660,6 +2659,7 @@ alias p3ed='pass edit'
 alias p3gr='pass grep'
 alias p3rm='pass rm'
 alias p3mv='pass mv'
+alias p3='. $HOME/preconfig/Suitcase/bash/scripts/pass'
 
 ### GPG key
 alias gpgae='gpg --armor --export'

@@ -35,6 +35,13 @@ elif [[ ${OPTION} == "fzf" ]]; then
 	KEY_PATH=$(find ${DEFAULT_DIRECTORY} -path "${DEFAULT_DIRECTORY}/.git" -prune -o -type f -print | fzf)
 	gpg ${GPG_OPTIONS} ${KEY_PATH}
 
+elif [[ ${OPTION} == "cp" ]]; then
+
+	# tree default directory with fzf
+	KEY_PATH=$(find ${DEFAULT_DIRECTORY} -path "${DEFAULT_DIRECTORY}/.git" -prune -o -type f -print | fzf)
+	echo $(gpg ${GPG_OPTIONS} ${KEY_PATH}) | pbcopy
+	echo "Copy ${KEY_PATH} to clipboard successfully !"
+
 elif [[ ${OPTION} == "insert" ]]; then
 
 	# setup env

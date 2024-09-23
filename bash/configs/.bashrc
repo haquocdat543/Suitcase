@@ -2664,6 +2664,8 @@ alias p3c='. $HOME/preconfig/Suitcase/bash/scripts/pass cp'
 alias p3f='. $HOME/preconfig/Suitcase/bash/scripts/pass fzf'
 alias p3i='. $HOME/preconfig/Suitcase/bash/scripts/pass insert'
 alias p3r='. $HOME/preconfig/Suitcase/bash/scripts/pass rm'
+alias p3g='. $HOME/preconfig/Suitcase/bash/scripts/pass git'
+alias p3gp='. $HOME/preconfig/Suitcase/bash/scripts/pass git push'
 
 ### GPG key
 alias gpgae='gpg --armor --export'

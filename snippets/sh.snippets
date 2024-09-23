@@ -317,6 +317,22 @@ nvm use ${NODE_VERSION}
 yarn install --frozen-lockfile
 endsnippet
 
+snippet mongoclient "Script for connect" b
+#!/bin/bash
+
+MONGO_HOST=""
+MONGO_PORT=""
+MONGO_INITDB_ROOT_USERNAME=""
+MONGO_INITDB_ROOT_PASSWORD=""
+
+docker run -it --rm --name mongo-client \
+mongo:latest mongo \
+--host ${MONGO_HOST} \
+--port ${MONGO_PORT} \
+-u ${MONGO_INITDB_ROOT_USERNAME} \
+-p ${MONGO_INITDB_ROOT_PASSWORD}
+endsnippet
+
 snippet psql "Script for psql" b
 #!/bin/bash
 

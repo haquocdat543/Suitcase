@@ -71,7 +71,7 @@ elif [[ ${OPTION} == "insert" ]]; then
 	if [[ ${KEY_EXISTS} == true ]]; then
 		git -C ${DEFAULT_DIRECTORY} commit -m "update secret for ${RELATIVE_PATH} to store."
 	else
-		git -C ${DEFAULT_DIRECTORY} commit -m "password for ${RELATIVE_PATH} to store."
+		git -C ${DEFAULT_DIRECTORY} commit -m "create password for ${RELATIVE_PATH} to store."
 	fi
 
 elif [[ ${OPTION} == "rm" ]]; then

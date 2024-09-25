@@ -25,6 +25,10 @@ spec:
       containers:
       - name: postgres-visor
         image: postgres:latest
+        command: ["/bin/bash", "-c", "--"]
+        args: 
+          - |
+            while true; do sleep 30; done;
 EOF
 
 echo "${YAML_CONFIG}" | kubectl ${OPERATION} -f - 

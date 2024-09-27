@@ -11,6 +11,17 @@ run:
 	./$3.exe
 endsnippet
 
+snippet golang "Makefile for golang build" b
+build:
+	echo "Compiling for every OS and Platform"
+	GOOS=linux GOARCH=arm64 go build -o bin/linux/cronjob main.go
+	GOOS=darwin GOARCH=arm64 go build -o bin/darwin/cronjob main.go
+
+clean:
+	echo "Clean binary directory"
+	rm -rf bin
+endsnippet
+
 snippet docker "Makefile for docker build" b
 NAME    := repo_name/image_name
 TAG     := \$\$(git log -1 --pretty=%!H(MISSING))

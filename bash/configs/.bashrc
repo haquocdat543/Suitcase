@@ -515,6 +515,7 @@ alias ichef='. $HOME/preconfig/Suitcase/bash/scripts/chefInstall.sh'
 alias ichefsv='. $HOME/preconfig/Suitcase/bash/scripts/chefServerInstall.sh'
 alias gchef='. $HOME/preconfig/Suitcase/bash/scripts/getChef.sh'
 alias ipet='. $HOME/preconfig/Suitcase/bash/scripts/installPet.sh'
+alias ible='. $HOME/preconfig/Suitcase/bash/scripts/ble.sh'
 alias igm='git clone https://github.com/informalsystems/gm ; cp -f $HOME/gm/bin/* /usr/local/bin'
 alias ibat='cargo install --locked bat'
 alias izoxide='curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh' # eval "$(zoxide init bash)"

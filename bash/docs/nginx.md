@@ -125,3 +125,15 @@ server {
 ```
 client_max_body_size 100M;
 ```
+
+## 8. Configure whitelist for ip address
+```
+# Allow access from specific IP address
+allow 203.0.113.1;
+
+# Block access for all other IPs
+deny all;
+
+# Proxy settings, or other configuration here
+```
+

@@ -119,3 +119,9 @@ server {
     ssl_certificate_key /etc/letsencrypt/live/<domain>/privkey.pem;
 }
 ```
+
+## 7. Configure request body size
+* Default is 1MB
+```
+client_max_body_size 100M;
+```

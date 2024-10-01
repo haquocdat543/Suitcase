@@ -1,5 +1,6 @@
 # EKS
 
+## 1. AWS CLI
 ### 1. AWS Loadbalancer Controller
 #### 1. Install using Helm
 
@@ -115,4 +116,28 @@ aws eks describe-nodegroup --cluster-name <cluster_name> --nodegroup-name <nodeg
 Upgrade node group version:
 ```
 aws eks update-nodegroup-version --cluster-name <cluster_name> --nodegroup-name <nodegroup_name> --version <new_version>
+```
+
+## 2. EKSCTL
+Create cluster with configuration:
+```
+eksctl create cluster -f cluster.yaml
+```
+
+Configuration for cluster [ cluster.yaml ]:
+```
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+
+metadata:
+  name: basic-cluster
+  region: eu-north-1
+
+nodeGroups:
+  - name: ng-1
+    instanceType: m5.large
+    desiredCapacity: 10
+  - name: ng-2
+    instanceType: m5.xlarge
+    desiredCapacity: 2
 ```

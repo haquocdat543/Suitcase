@@ -130,14 +130,17 @@ apiVersion: eksctl.io/v1alpha5
 kind: ClusterConfig
 
 metadata:
-  name: basic-cluster
-  region: eu-north-1
+  name: KubeCenter
+  region: ap-southeast-1
 
 nodeGroups:
-  - name: ng-1
+  - name: platform
     instanceType: m5.large
-    desiredCapacity: 10
-  - name: ng-2
+    desiredCapacity: 8
+  - name: development
     instanceType: m5.xlarge
     desiredCapacity: 2
+  - name: production
+    instanceType: m5.xlarge
+    desiredCapacity: 4
 ```

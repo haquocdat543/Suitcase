@@ -99,3 +99,23 @@ spec:
 DOMAIN="your-domain-point-to-nginx-server"
 certbot --nginx -d ${DOMAIN} --non-interactive --agree-tos --email wwwdatha543@gmail.com --redirect
 ```
+
+## 6. Configure domain use ssl certification
+```
+server {
+    listen 443 ssl;
+    server_name <domain>;
+
+    location / {
+        proxy_pass http://127.0.0.1:3000;  # Replace with your backend service port
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+
+    # SSL configuration
+    ssl_certificate /etc/letsencrypt/live/<domain>/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/<domain>/privkey.pem;
+}
+```

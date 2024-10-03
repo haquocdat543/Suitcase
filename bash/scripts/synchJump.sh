@@ -96,9 +96,9 @@ case $OP in
     ;;
   *)
     echo "Only support following operations:"
-    echo "ls: list files and folders [ sh ${0} <HOSTCONFIG> ls <PATH> ]"
-    echo "rr: remote remote files and folders [ sh ${0} <HOSTCONFIG> rr <PATH> ]"
-    echo "cpr: copy files and folders from local to remote [ sh ${0} <HOSTCONFIG> cpr <PATH1> <PATH2> ]"
-    echo "cpl: copy files and folders from remote to local [ sh ${0} <HOSTCONFIG> rr <PATH1> <PATH2> ]"
+    echo "ls: list files and folders [ synj <HOSTCONFIG> ls <serverpath> ]"
+    echo "rr: remote remote files and folders [ synj <HOSTCONFIG> rr <serverpath> ]"
+    echo "cpr: copy files and folders from local to remote [ synj cpr <HOSTCONFIG> <localpath> <serverpath> ]"
+    echo "cpl: copy files and folders from remote to local [ synj cpl <HOSTCONFIG> <serverpath> <localpath> ]"
     ;;
 esac

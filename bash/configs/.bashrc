@@ -392,6 +392,9 @@ alias datagithub='vim -m $HOME/preconfig/Suitcase/bash/data/github.txt'
 alias datastex='vim -m $HOME/preconfig/Suitcase/bash/data/stackexchange.txt'
 
 ### Documentation
+alias doccron='vim -m $HOME/preconfig/Suitcase/bash/docs/cron.md'
+alias docmongo='vim -m $HOME/preconfig/Suitcase/bash/docs/mongo.md'
+alias doctraefik='vim -m $HOME/preconfig/Suitcase/bash/docs/traefik.md'
 alias docfirewall='vim -m $HOME/preconfig/Suitcase/bash/docs/firewall.md'
 alias docistio='vim -m $HOME/preconfig/Suitcase/bash/docs/istio.md'
 alias docnetdata='vim -m $HOME/preconfig/Suitcase/bash/docs/netdata.md'

@@ -2516,3 +2516,16 @@ services:
       dockerfile: Dockerfile
 endsnippet
 
+snippet mongo "Docker compose mongo" b
+  mongo:
+    image: mongo
+    networks:
+      - external_network
+    env_file: .env
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: 'root'
+      MONGO_INITDB_ROOT_PASSWORD: 'secret'
+    ports:
+      - 27017:27017
+endsnippet

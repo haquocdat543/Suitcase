@@ -5,7 +5,7 @@ import { createHyperSubLayers, app, open } from "./utils";
 const rules: KarabinerRules[] = [
   // I've been using my pinky way too often for all they keyboard
   // shortcuts and after months, my hand is starting to hurt, moving the
-  // hyper key from caps_lock to my thumb
+  // hyper key from right_shift to my thumb
   //
   // I tried using spacebar as the hyper key but cannot type well
   {
@@ -18,7 +18,7 @@ const rules: KarabinerRules[] = [
           modifiers: {
             // All of these are right_command
             mandatory: [
-              "caps_lock",
+              "right_shift",
             ],
           },
         },
@@ -36,7 +36,7 @@ const rules: KarabinerRules[] = [
           modifiers: {
             // All of these are right_command
             mandatory: [
-              "caps_lock",
+              "right_shift",
             ],
           },
         },
@@ -54,7 +54,7 @@ const rules: KarabinerRules[] = [
           modifiers: {
             // All of these are right_command
             mandatory: [
-              "caps_lock",
+              "right_shift",
             ],
           },
         },
@@ -72,7 +72,7 @@ const rules: KarabinerRules[] = [
           modifiers: {
             // All of these are right_command
             mandatory: [
-              "caps_lock",
+              "right_shift",
             ],
           },
         },
@@ -90,7 +90,7 @@ const rules: KarabinerRules[] = [
           modifiers: {
             // All of these are right_command
             mandatory: [
-              "caps_lock",
+              "right_shift",
             ],
           },
         },
@@ -108,7 +108,7 @@ const rules: KarabinerRules[] = [
           modifiers: {
             // All of these are right_command
             mandatory: [
-              "caps_lock",
+              "right_shift",
             ],
           },
         },
@@ -126,7 +126,7 @@ const rules: KarabinerRules[] = [
           modifiers: {
             // All of these are right_command
             mandatory: [
-              "caps_lock",
+              "right_shift",
             ],
           },
         },
@@ -144,7 +144,7 @@ const rules: KarabinerRules[] = [
           modifiers: {
             // All of these are right_command
             mandatory: [
-              "caps_lock",
+              "right_shift",
             ],
           },
         },
@@ -180,7 +180,7 @@ const rules: KarabinerRules[] = [
           modifiers: {
             // All of these are right_command
             mandatory: [
-              "caps_lock",
+              "right_shift",
             ],
           },
         },
@@ -192,19 +192,37 @@ const rules: KarabinerRules[] = [
         type: "basic",
       },
       {
-        description: "Open Neovide with caps lock + N",
+        description: "Open Discord with right shift + D",
         from: {
-          key_code: "n",
+          key_code: "d",
           modifiers: {
             // All of these are right_command
             mandatory: [
-              "caps_lock",
+              "right_command",
             ],
           },
         },
         to: [
           {
-            shell_command: "open -a 'neovide'",
+            shell_command: "open -a 'Discord'",
+          },
+        ],
+        type: "basic",
+      },
+      {
+        description: "Open Visual studio code with right shift + V",
+        from: {
+          key_code: "v",
+          modifiers: {
+            // All of these are right_command
+            mandatory: [
+              "right_shift",
+            ],
+          },
+        },
+        to: [
+          {
+            shell_command: "open -a 'Visual Studio Code'",
           },
         ],
         type: "basic",
@@ -212,14 +230,14 @@ const rules: KarabinerRules[] = [
     ],
   },
 
-  // // In case you want to use caps_lock as hyper
+  // // In case you want to use right_shift as hyper
   // // This is the way I did it before
   // {
   //   description: "Caps Lock -> Hyper Key",
   //   manipulators: [
   //     {
   //       from: {
-  //         key_code: "caps_lock",
+  //         key_code: "right_shift",
   //       },
   //       to: [
   //         {
@@ -237,14 +255,14 @@ const rules: KarabinerRules[] = [
   //   ],
   // },
 
-  // When I press caps_lock I want it to hit escape, but if I leave it
+  // When I press right_shift I want it to hit escape, but if I leave it
   // pressed, it will be used as shift
   // {
-    // description: "caps_lock -> shift and escape",
+    // description: "right_shift -> shift and escape",
     // manipulators: [
       // {
         // from: {
-          // key_code: "caps_lock",
+          // key_code: "right_shift",
         // },
         // to: [
           // {
@@ -261,17 +279,17 @@ const rules: KarabinerRules[] = [
     // ],
   // },
 
-  // sometimes I press right_command+caps_lock by mistake and caps lock turn on,
+  // sometimes I press right_command+right_shift by mistake and caps lock turn on,
   // and I don't want that
   // Notice that I set the modifier keys to all the keys that right_command
   // represents, tried using right_command and it never worked, even if I
   // put this above the hyper declaration
   {
-    description: "right_command+caps_lock -> null",
+    description: "right_command+right_shift -> null",
     manipulators: [
       {
         from: {
-          key_code: "caps_lock",
+          key_code: "right_shift",
           modifiers: {
             // All of these are right_command
             mandatory: [
@@ -294,11 +312,11 @@ const rules: KarabinerRules[] = [
   },
 
   {
-    description: "left_shift+caps_lock -> null",
+    description: "left_shift+right_shift -> null",
     manipulators: [
       {
         from: {
-          key_code: "caps_lock",
+          key_code: "right_shift",
           modifiers: {
             mandatory: ["left_shift"],
           },
@@ -314,14 +332,14 @@ const rules: KarabinerRules[] = [
     ],
   },
 
-  // sometimes I press shift+caps_lock by mistake and caps lock turn on,
+  // sometimes I press shift+right_shift by mistake and caps lock turn on,
   // and I don't want that
   {
-    description: "left_command+caps_lock -> null",
+    description: "left_command+right_shift -> null",
     manipulators: [
       {
         from: {
-          key_code: "caps_lock",
+          key_code: "right_shift",
           modifiers: {
             mandatory: ["left_command"],
           },
@@ -481,11 +499,11 @@ const rules: KarabinerRules[] = [
   },
 
   {
-    description: "right_option+caps_lock -> null",
+    description: "right_option+right_shift -> null",
     manipulators: [
       {
         from: {
-          key_code: "caps_lock",
+          key_code: "right_shift",
           modifiers: {
             mandatory: ["right_option"],
           },
@@ -1079,4 +1097,3 @@ fs.writeFileSync(
     2
   )
 );
-

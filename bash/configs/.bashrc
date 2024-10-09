@@ -1554,6 +1554,9 @@ alias hk3sdc='hetzner-k3s delete --config' # place the the config.yaml file at t
 alias hk3sr='hetzner-k3s releases'
 alias hk3su='hetzner-k3s upgrade'
 
+### Istio command
+alias istioinsight='. $HOME/preconfig/Suitcase/bash/scripts/istioInsight.sh'
+
 ### Kubectl command
 alias oidc='. $HOME/preconfig/Suitcase/bash/scripts/oidc.sh'
 alias expkub='. $HOME/preconfig/Suitcase/bash/scripts/exportKubeConfig.sh'

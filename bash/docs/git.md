@@ -67,6 +67,13 @@ With profile configuration:
 git clone codecommit://CodeCommitProfile@MyDemoRepo my-demo-repo
 ```
 
+### Tips
+#### 1. Revert multiple commits
+```
+git checkout -f <Commit-Hash> -- . # checkout that revision over the top of local files
+git commit -a
+```
+
 ### Git merge tools
 #### 1. vimdiff
 * Git's default merge tool, using the command-line interface.

@@ -12,3 +12,5 @@ aws ecs execute-command --cluster ${CLUSTER_NAME} \
 --container ${CONTAINER_NAME} \
 --interactive \
 --command ${CMD}
+
+set +x

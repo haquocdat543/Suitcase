@@ -55,8 +55,12 @@ CURRENT_DATETIME=$(date "+%d-%m-%y|%H:%M:%S")
 function add {
 	local CATEGORY=${1}
 	local DATE=${2}
+	local GROUP=${3}
 
 	if [[ ${CATEGORY} == "daily" ]]; then
 		mkdir -p ${TODO_DIRECTORY}/${DAILY_DIRECTORY}/${DATE}
+		if [[ -z ${GROUP} ]]; then
+			GROUP="notitle"
+		fi
 	fi
 }

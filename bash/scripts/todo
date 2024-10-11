@@ -8,3 +8,13 @@ MONTH_DIRECTORY="month"
 YEAR_DIRECTORY="year"
 DAILY_DIRECTORY="daily"
 
+# Basic option
+# add - add new task
+# miss - list all missed tasks
+# remain - list all remain tasks
+# done - list all done tasks
+
+# Basic argument
+# --date [ specific date ]
+# --range [ range date ]
+# --category [ category of tasks ]

@@ -1,38 +1,49 @@
 # Nginx
+
 ## 1. Context
-* Event
-* Http
-* Server
-* Upstream
-* Location
+
+- Event
+- Http
+- Server
+- Upstream
+- Location
 
 ## 1. Kubernetes nginx controller
+
 Install using manifest from internet:
+
 ```
 kubectl apply -f https://raw.githubusercontent.com/nginxinc/kubernetes-ingress/v3.5.0/deploy/crds.yaml
 ```
 
 Delete using manifest from internet:
+
 ```
 kubectl delete -f https://raw.githubusercontent.com/nginxinc/kubernetes-ingress/v3.5.0/deploy/crds.yaml
 ```
 
 ## 2. Docker nginx
+
 that show:
-* Server address
-* Server hostname 
-* Date
-* URI
+
+- Server address
+- Server hostname
+- Date
+- URI
+
 ```
 docker run -p 80:80 -d nginxdemos/hello"
 ```
 
 ## 3. Build docker nginx image
+
 that show:
-* Server address
-* Server hostname 
+
+- Server address
+- Server hostname
 
 Dockerfile:
+
 ```
 # Dockerfile
 FROM nginx:alpine
@@ -43,6 +54,7 @@ EXPOSE 80
 ```
 
 nginx.conf:
+
 ```
 # nginx.conf
 events {}
@@ -59,27 +71,33 @@ location / {
 ```
 
 build image:
+
 ```
 docker build -t custom-nginx .
 ```
 
 Run nginx from built image:
+
 ```
 docker run -d -p 80:80 custom-nginx
 ```
 
 Run nginx without build:
+
 ```
 docker run -d -p 80:80 --name custom-nginx -v $(pwd)/nginx.conf:/etc/nginx/nginx.conf:ro nginx:alpine
 ```
 
 check result:
+
 ```
 curl http://localhost
 ```
 
 ## 4. Crawl protection implemented in Kubernetes
+
 Kubernetes:
+
 ```
 kind: Ingress
 metadata:
@@ -95,12 +113,14 @@ spec:
 ```
 
 ## 5. Certbot renewal
+
 ```
-DOMAIN="your-domain-point-to-nginx-server"
+DOMAIN="*.icapasia.com"
 certbot --nginx -d ${DOMAIN} --non-interactive --agree-tos --email wwwdatha543@gmail.com --redirect
 ```
 
 ## 6. Configure domain use ssl certification
+
 ```
 server {
     listen 443 ssl;
@@ -121,12 +141,15 @@ server {
 ```
 
 ## 7. Configure request body size
-* Default is 1MB
+
+- Default is 1MB
+
 ```
 client_max_body_size 100M;
 ```
 
 ## 8. Configure whitelist for ip address
+
 ```
 # Allow access from specific IP address
 allow 203.0.113.1;
@@ -137,3 +160,26 @@ deny all;
 # Proxy settings, or other configuration here
 ```
 
+## 9. SSL configuration
+```
+listen 443 ssl; # managed by Certbot
+ssl_certificate /etc/letsencrypt/live/domain/fullchain.pem; # managed by Certbot
+ssl_certificate_key /etc/letsencrypt/live/domain/privkey.pem; # managed by Certbot
+include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
+ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
+```
+
+```
+server {
+    if ($host = <domain>) {
+        return 301 https://$host$request_uri;
+    } # managed by Certbot
+
+
+    listen 80;
+    server_name <domain>;
+    return 404; # managed by Certbot
+
+
+}
+```

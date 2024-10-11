@@ -49,6 +49,10 @@ vim.keymap.set('n', '<leader>sp', '<cmd>lua require("spectre").open_file_search(
 keymap.set('n', ',xr', ':call VrcQuery()<CR>')
 
 -- System
+keymap.set('n', '<leader>pa', '"*p')
+keymap.set('n', '<leader>ya', 'gg"*yG\'\'')
+
+-- System
 keymap.set('n', ',ch', ':checkhealth ')
 keymap.set('n', '+', '<C-a>')
 keymap.set('n', '-', '<C-x>')
@@ -63,7 +67,9 @@ keymap.set('n', '<leader>ra', ':call ReplaceAll')
 
 -- Map ESC
 keymap.set('i', '<C-x>', '<Esc><Esc>')
--- keymap.set('i', '<Esc>', '<Esc><Esc>')
+
+-- Nvimtree - resize
+keymap.set('n', '<leader><leader>v', ':vertical res ')
 
 -- System - commands
 keymap.set('n', '<leader>rg', ':registers<CR>')
@@ -318,11 +324,13 @@ vim.api.nvim_set_keymap('n', '<leader>p', '', {
 	noremap = true,
 	silent = true,
 	callback = function()
+		vim.cmd('write')
 		vim.lsp.buf.format({
 			async = true,
 			cmd = prettier.formatCommand,
 			env = prettier.env,
 		})
+		vim.cmd('write')
 	end
 })
 
@@ -974,6 +982,12 @@ lspconfig["jsonls"].setup({
 	on_attach = on_attach,
 })
 
+-- configure terraformls server
+lspconfig["terraformls"].setup({
+	capabilities = capabilities,
+	on_attach = on_attach,
+})
+
 -- configure groovy language server
 lspconfig["groovyls"].setup({
 	capabilities = capabilities,
@@ -992,6 +1006,18 @@ lspconfig["clangd"].setup({
 	on_attach = on_attach,
 })
 
+-- configure sqlls server
+lspconfig["sqlls"].setup({
+	capabilities = capabilities,
+	on_attach = on_attach,
+})
+
+-- configure clangd server
+lspconfig["pyright"].setup({
+	capabilities = capabilities,
+	on_attach = on_attach,
+})
+
 -- Mason and lsp configuration. See https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#gopls
 require 'lspconfig'.gopls.setup {}
 
@@ -999,7 +1025,7 @@ require 'lspconfig'.clangd.setup {}
 
 require 'lspconfig'.efm.setup {
 	init_options = { documentFormatting = true },
-	filetypes = { 'python', 'cpp', 'lua', 'go', 'rust', 'bash', 'sh' },
+	filetypes = { 'python', 'cpp', 'lua', 'go', 'rust', 'bash', 'sh', 'groovy' },
 	settings = {
 		rootMarkers = { ".git/" },
 		languages = {
@@ -1017,7 +1043,13 @@ require 'lspconfig'.efm.setup {
 
 require'lspconfig'.bashls.setup{}
 
+require'lspconfig'.sqlls.setup{}
+
 require 'lspconfig'.bufls.setup {}
+
+require 'lspconfig'.pyright.setup {}
+
+require 'lspconfig'.terraformls.setup {}
 
 require 'lspconfig'.jsonls.setup {}
 

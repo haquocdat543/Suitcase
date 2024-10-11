@@ -181,3 +181,16 @@ WHERE       (t.typrelid = 0 OR (SELECT c.relkind = 'c' FROM pg_catalog.pg_class 
 AND     NOT EXISTS(SELECT 1 FROM pg_catalog.pg_type el WHERE el.oid = t.typelem AND el.typarray = t.oid)
 AND     n.nspname NOT IN ('pg_catalog', 'information_schema');
 ```
+
+# POSTGRESQL
+move db:
+
+create dump:
+```
+pg_dump dbname | gzip > filename.gz
+```
+
+reload:
+```
+gunzip -c filename.gz | psql dbname
+

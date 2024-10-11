@@ -1,0 +1,10 @@
+#!/bin/bash
+
+# Setup basic directory information
+TODO_DIRECTORY="${HOME}/.todo"
+LIFE_DIRECTORY="life"
+WEEK_DIRECTORY="week"
+MONTH_DIRECTORY="month"
+YEAR_DIRECTORY="year"
+DAILY_DIRECTORY="daily"
+

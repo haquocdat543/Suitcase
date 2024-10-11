@@ -8,6 +8,14 @@ MONTH_DIRECTORY="month"
 YEAR_DIRECTORY="year"
 DAILY_DIRECTORY="daily"
 
+# options & arguments
+OPTION=${1}
+ARGUMENT=${2}
+
+CURRENT_DATE=$(date "+%d-%m-%y")
+CURRENT_TIME=$(date "+%H:%M:%S")
+CURRENT_DATETIME=$(date "+%d-%m-%y|%H:%M:%S")
+
 # Basic option
 # add - add new task
 # miss - list all missed tasks

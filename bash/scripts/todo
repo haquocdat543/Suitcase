@@ -31,9 +31,11 @@ CURRENT_DATETIME=$(date "+%d-%m-%y|%H:%M:%S")
 # .todo
 # ├── daily
 # │     ├── 11-10-2004
+# │     │   ├── notitle
 # │     │   ├── first-company
 # │     │   └── second-firm
 # │     └── 12-10-2004
+# │         ├── notitle
 # │         ├── first-organization
 # │         └── second-enterprise
 # │

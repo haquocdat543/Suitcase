@@ -12,12 +12,14 @@ DAILY_DIRECTORY="daily"
 OPTION=${1}
 ARGUMENT=${2}
 
+# date & time
 CURRENT_DATE=$(date "+%d-%m-%y")
 CURRENT_TIME=$(date "+%H:%M:%S")
 CURRENT_DATETIME=$(date "+%d-%m-%y|%H:%M:%S")
 
 # Basic option
 # add - add new task
+# list - list all tasks
 # miss - list all missed tasks
 # remain - list all remain tasks
 # done - list all done tasks
@@ -45,6 +47,16 @@ CURRENT_DATETIME=$(date "+%d-%m-%y|%H:%M:%S")
 # └── life
 
 # Deadline type
-# Never 
+# Never
 # specific date [ 30-10-2024 ]
 # range from current date [ 2w ]
+
+# functions
+function add {
+	local CATEGORY=${1}
+	local DATE=${2}
+
+	if [[ ${CATEGORY} == "daily" ]]; then
+		mkdir -p ${TODO_DIRECTORY}/${DAILY_DIRECTORY}/${DATE}
+	fi
+}

@@ -48,6 +48,7 @@ CURRENT_DATETIME=$(date "+%d-%m-%y|%H:%M:%S")
 
 # Deadline type
 # Never
+# Unknown yet
 # specific date [ 30-10-2024 ]
 # range from current date [ 2w ]
 
@@ -55,9 +56,9 @@ CURRENT_DATETIME=$(date "+%d-%m-%y|%H:%M:%S")
 # yaml
 # task name
 # description
-# detail action
-# fix after done
+# detail action [ user write ]
 # deadline
+# done or not
 
 # functions
 function add {

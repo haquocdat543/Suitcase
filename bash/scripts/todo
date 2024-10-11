@@ -18,3 +18,18 @@ DAILY_DIRECTORY="daily"
 # --date [ specific date ]
 # --range [ range date ]
 # --category [ category of tasks ]
+
+# Directory structure
+# .todo
+# ├── daily
+# │     ├── 11-10-2004
+# │     │   ├── first-company
+# │     │   └── second-firm
+# │     └── 12-10-2004
+# │         ├── first-organization
+# │         └── second-enterprise
+# │
+# ├── week
+# ├── month
+# ├── year
+# └── life

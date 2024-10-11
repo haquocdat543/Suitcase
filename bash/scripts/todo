@@ -51,6 +51,14 @@ CURRENT_DATETIME=$(date "+%d-%m-%y|%H:%M:%S")
 # specific date [ 30-10-2024 ]
 # range from current date [ 2w ]
 
+# file description
+# yaml
+# task name
+# description
+# detail action
+# fix after done
+# deadline
+
 # functions
 function add {
 	local CATEGORY=${1}

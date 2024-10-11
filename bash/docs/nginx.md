@@ -183,3 +183,9 @@ server {
 
 }
 ```
+
+## 10. Cronjob for nginx
+Every month:
+```
+0 0 1 * * /usr/bin/certbot renew --quiet --nginx
+```

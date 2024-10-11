@@ -33,3 +33,8 @@ DAILY_DIRECTORY="daily"
 # ├── month
 # ├── year
 # └── life
+
+# Deadline type
+# Never 
+# specific date [ 30-10-2024 ]
+# range from current date [ 2w ]

@@ -138,4 +138,10 @@ if [[ ${OPTION} == "add" ]]; then
 	add ${CATEGORY} ${CURRENT_DATE} ${GROUP}
 elif [[ ${OPTION} == "list" ]]; then
 	list ${CATEGORY} ${CURRENT_DATE} ${GROUP}
+elif [[ ${OPTION} == "remain" ]]; then
+	remain
+elif [[ ${OPTION} == "miss" ]]; then
+	miss
+elif [[ ${OPTION} == "done" ]]; then
+	done
 fi

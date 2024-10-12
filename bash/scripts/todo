@@ -82,7 +82,6 @@ CURRENT_DATETIME=$(date "+%d-%m-%y|%H:%M:%S")
 
 # functions
 function add {
-	set -x
 
 	local CATEGORY=${1}
 	local DATE=${2}
@@ -117,11 +116,26 @@ EOT
 		fi
 	fi
 
-	set -x
 }
+
+function list {
+	local CATEGORY=${1}
+	local DATE=${2}
+	local GROUP=${3}
+
+	if [[ ${CATEGORY} == "daily" ]]; then
+
+		if [[ -z ${GROUP} ]]; then
+			GROUP="notitle"
+			cat "${TODO_DIRECTORY}/${DAILY_DIRECTORY}/${CURRENT_DATE}/${GROUP}.yaml" | yq -r '.[].name'
+		fi
+	fi
+}
+
+
 
 if [[ ${OPTION} == "add" ]]; then
 	add ${CATEGORY} ${CURRENT_DATE} ${GROUP}
 elif [[ ${OPTION} == "list" ]]; then
-	list
+	list ${CATEGORY} ${CURRENT_DATE} ${GROUP}
 fi

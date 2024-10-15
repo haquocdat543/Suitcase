@@ -39,6 +39,29 @@ login:
   @docker log -u \${DOCKER_USER} \${DOCKER_PASS}
 endsnippet
 
+snippet helm "Helm operation" b
+## Basic configuration
+VALUE="${1:override.yaml}"
+RELEASE="${2:jenkins}"
+CHART="${3:.}"
+NAMESPACE="${4:monitoring}"
+REPO="${5:jenkins/jenkins}"
+
+## Template
+TEMPLATE="${6:template.yaml}"
+
+install:
+	helm install $(RELEASE) $(CHART) --values $(VALUE) --namespace $(NAMESPACE)
+upgrade:
+	helm upgrade $(RELEASE) $(CHART) --values $(VALUE) --namespace $(NAMESPACE)
+uninstall:
+	helm uninstall $(RELEASE) --namespace $(NAMESPACE)
+rollback:
+	helm rollback $(RELEASE)
+template:
+	helm template $(RELEASE) $(REPO) -f $(VALUE) > $(TEMPLATE)
+endsnippet
+
 snippet pn "Phony ( avoid same command and file name )" b
 .PHONY: $1
 endsnippet

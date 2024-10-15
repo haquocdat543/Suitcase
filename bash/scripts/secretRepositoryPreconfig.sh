@@ -14,6 +14,7 @@ function git::repository::pull () {
 
   cd ${DIRECTORY}
   git reset --hard HEAD~10
+  git pull
   cd -
   
 }
@@ -38,7 +39,8 @@ function git::repository::pull::home () {
 
   if [ -d "${LOCAL_PATH}" ]; then
     echo "Repository already exist ->> Pull latest commits"
-    git::repository::pull ${LOCAL_PATH}
+    ## git::repository::pull ${LOCAL_PATH}
+    git pull
   else
     echo "Repository does not exist ->> Clone repository "
     git clone ${GIT_URL} ${LOCAL_PATH}

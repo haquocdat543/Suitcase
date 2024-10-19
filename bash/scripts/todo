@@ -199,7 +199,7 @@ function add {
 
 	### define yaml
 	YAML=$(
-cat <<EOT
+		cat <<EOT
 ---
 group: 
 name: 
@@ -227,6 +227,7 @@ EOT
 		echo "Continue"
 	else
 		echo ${VALIDATE}
+		rm -rf "${CURRENT_TIME_FILE}"
 		echo "Exiting..."
 		exec bash
 	fi

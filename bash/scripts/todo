@@ -21,6 +21,7 @@ NC='\033[0m' # No Color
 
 # Setup basic directory information
 TODO_DIRECTORY="${HOME}/.todo"
+TODO_GIT_DIRECTORY="${HOME}/.todo/.git"
 LIFE_DIRECTORY="life"
 WEEK_DIRECTORY="week"
 MONTH_DIRECTORY="month"
@@ -28,120 +29,207 @@ YEAR_DIRECTORY="year"
 DAILY_DIRECTORY="daily"
 
 # options & arguments
-OPTION=${1}
-CATEGORY=${2}
-ARGUMENT=${2}
+COMMAND="${1}"
+OPTION="${2}"
+ARGUMENT="${3}"
+
+# --today ->> today
+# --day ->> specific date
+# --range ->> from date to date
 
 # date & time
-CURRENT_DATE=$(date "+%d-%m-%y")
+CURRENT_DATE=$(date "+%d-%m-%Y")
+CURRENT_DAY=$(date "+%d")
+CURRENT_MONTH=$(date "+%m")
+CURRENT_YEAR=$(date "+%Y")
 CURRENT_TIME=$(date "+%H:%M:%S")
-CURRENT_DATETIME=$(date "+%d-%m-%y|%H:%M:%S")
+CURRENT_DATETIME=$(date "+%d-%m-%Y|%H:%M:%S")
 
-# Basic option
-# add - add new task
-# list - list all tasks
-# miss - list all missed tasks
-# remain - list all remain tasks
-# done - list all done tasks
+# Today variables
+CURRENT_DATETIME_DIRECTORY="${TODO_DIRECTORY}/$(date "+%d-%m-%Y|%H:%M:%S")"
+CURRENT_DATE_DIRECTORY="${TODO_DIRECTORY}/${CURRENT_YEAR}/${CURRENT_MONTH}/${CURRENT_DAY}"
+CURRENT_TIME_FILE="${TODO_DIRECTORY}/${CURRENT_YEAR}/${CURRENT_MONTH}/${CURRENT_DAY}/$(date "+%H:%M:%S")"
 
-# Basic argument
-# --date [ specific date ]
-# --range [ range date ]
-# --category [ category of tasks ]
+function day {
+	local INPUT=${1}
 
-# Directory structure
-# .todo
-# ├── daily
-# │     ├── 11-10-2004
-# │     │   ├── notitle
-# │     │   ├── first-company
-# │     │   └── second-firm
-# │     └── 12-10-2004
-# │         ├── notitle
-# │         ├── first-organization
-# │         └── second-enterprise
-# │
-# ├── week
-# ├── month
-# ├── year
-# └── life
+	# date formats:
+	# 20/10/2024 [ full ]
+	# 20/10 [ current year ]
+	# 20 [ current month and year ]
 
-# Deadline type
-# Never
-# Unknown yet
-# specific date [ 30-10-2024 ]
-# range from current date [ 2w ]
+	DAY_MONTH_YEAR_PATTERN="^[0-9]{1,2}/[0-9]{1,2}/[0-9]{4}$"
+	DAY_MONTH_PATTERN="^[0-9]{1,2}/[0-9]{1,2}$"
+	DAY_PATTERN="^[0-9]{1,2}$"
 
-# file description
-# yaml
-# task name
-# description
-# detail action [ user write ]
-# deadline
-# done or not
-
-# functions
-function add {
-
-	local CATEGORY=${1}
-	local DATE=${2}
-	local GROUP=${3}
-
-	if [[ ${CATEGORY} == "daily" ]]; then
-
-		mkdir -p ${TODO_DIRECTORY}/${DAILY_DIRECTORY}/${CURRENT_DATE}
-
-		read -p "$(echo -e "Enter name [${GREEN2}name${NC}]: ")" NAME
-		NAME=${NAME:-name}
-		read -p "$(echo -e "Enter description [${GREEN2}description${NC}]: ")" DESCRIPTION
-		DESCRIPTION=${DESCRIPTION:-notitle}
-		read -p "$(echo -e "Enter detail [${GREEN2}detail${NC}]: ")" DETAIL
-		DETAIL=${DETAIL:-notitle}
-		read -p "$(echo -e "Enter deadline [${GREEN2}1w${NC}]: ")" DEADLINE
-		DEADLINE=${DEADLINE:-1w}
-
-		if [[ -z ${GROUP} ]]; then
-			GROUP="notitle"
-			YAML=$(
-				cat <<EOT
-- name: ${NAME}
-  description: ${DESCRIPTION}
-  detail: ${DETAIL}
-  deadline: ${DEADLINE}
-  complete: false
-
-EOT
-			)
-			echo "${YAML}" >>"${TODO_DIRECTORY}/${DAILY_DIRECTORY}/${CURRENT_DATE}/${GROUP}.yaml"
-		fi
+	if [[ ${INPUT} =~ ${DAY_MONTH_YEAR_PATTERN} ]]; then
+		DATE=${INPUT}
+	elif [[ ${INPUT} =~ ${DAY_MONTH_PATTERN} ]]; then
+		CURRENT_YEAR=$(date "+%Y")
+		DATE="${INPUT}/${CURRENT_YEAR}"
+	elif [[ ${INPUT} =~ ${DAY_PATTERN} ]]; then
+		CURRENT_YEAR=$(date "+%Y")
+		CURRENT_MONTH=$(date "+%m")
+		DATE="${INPUT}/${CURRENT_MONTH}/${CURRENT_YEAR}"
+	else
+		echo "Invalid date format."
+		return 1
 	fi
 
+	echo "Parsed date: ${DATE}"
+}
+
+function month {
+	local INPUT=${1}
+
+	# date formats:
+	# 10/2024 [ full type ]
+	# 10 [ current year ]
+
+	MONTH_YEAR_PATTERN="^[0-9]{1,2}/[0-9]{4}$"
+	MONTH_PATTERN="^[0-9]{1,2}$"
+
+	if [[ ${INPUT} =~ ${MONTH_YEAR_PATTERN} ]]; then
+		DATE=${INPUT}
+	elif [[ ${INPUT} =~ ${MONTH_PATTERN} ]]; then
+		CURRENT_YEAR=$(date "+%Y")
+		DATE="${INPUT}/${CURRENT_YEAR}"
+		els
+		echo "Invalid month format."
+		return 1
+	fi
+
+	echo "Parsed month: ${DATE}"
+}
+
+function day_range {
+	local FIRST_INPUT=${1}
+	local SECOND_INPUT=${2}
+
+	day ${FIRST_INPUT}
+	FIRST_DATE=${DATE}
+	day ${SECOND_INPUT}
+	SECOND_DATE=${DATE}
+}
+
+function check {
+
+	if [[ ! -d ${TODO_DIRECTORY} ]]; then
+		echo "Your ${TODO_DIRECTORY} directory does not exist"
+		echo "Exiting..."
+		exit
+		if [[ ! -d ${TODO_GIT_DIRECTORY} ]]; then
+			echo "Your ${TODO_DIRECTORY} is not a git directory"
+			echo "Exiting..."
+			exit
+		else
+			echo "Git exists in todo directory"
+		fi
+	else
+		echo "Idea directory exist"
+	fi
 }
 
 function list {
-	local CATEGORY=${1}
-	local DATE=${2}
-	local GROUP=${3}
 
-	if [[ ${CATEGORY} == "daily" ]]; then
+	local OPTION=${1}
+	local ARGUMENT=${2}
+	# today [ default ]
 
-		if [[ -z ${GROUP} ]]; then
-			GROUP="notitle"
-			cat "${TODO_DIRECTORY}/${DAILY_DIRECTORY}/${CURRENT_DATE}/${GROUP}.yaml" | yq -r '.[].name'
+	if [[ -z ${OPTION} ]]; then
+		IDEAS=$(ls ${CURRENT_DATE_DIRECTORY})
+		echo "Today [${CURRENT_DATE}]"
+		INDEX=1
+		for TIME in ${IDEAS}; do
+			CONTENT=$(cat ${CURRENT_DATE_DIRECTORY}/${TIME})
+			echo -e "${INDEX} - ${YELLOW}[${TIME}]${NC}: ${GREEN}[${CONTENT}]${NC}"
+			INDEX=$((${INDEX} + 1))
+		done
+
+	# day [ specific date ]
+	elif [[ ${OPTION} == "day" ]]; then
+		day ${ARGUMENT}
+		SPECIFIC_DATE=${DATE}
+		SPECIFIC_DATE_DIRECTORY="${TODO_DIRECTORY}/${SPECIFIC_DATE}"
+
+		# check specific date directory
+		if [[ ! -d ${SPECIFIC_DATE_DIRECTORY} ]]; then
+			echo "Date [${SPECIFIC_DATE}] does not contain anything"
+		else
+			IDEAS=$(ls ${SPECIFIC_DATE_DIRECTORY})
+			echo "Date [${CURRENT_DATE}]"
+			INDEX=1
+			for TIME in ${IDEAS}; do
+				CONTENT=$(cat ${SPECIFIC_DATE_DIRECTORY}/${TIME})
+				echo -e "${INDEX} - ${YELLOW}[${TIME}]${NC}: ${GREEN}[${CONTENT}]${NC}"
+				INDEX=$((${INDEX} + 1))
+			done
+		fi
+	elif [[ ${OPTION} == "month" ]]; then
+		if [[ -z ${ARGUMENT} ]]; then
+			SPECIFIC_MONTH_DIRECTORY="${TODO_DIRECTORY}/${CURRENT_YEAR}/${CURRENT_MONTH}"
+			DAYS=$(ls ${SPECIFIC_MONTH_DIRECTORY})
+			for DAY in ${DAYS}; do
+				SPECIFIC_DATE_DIRECTORY="${TODO_DIRECTORY}/${CURRENT_YEAR}/${CURRENT_MONTH}/${DAY}"
+				IDEAS=$(ls ${SPECIFIC_DATE_DIRECTORY})
+				echo "Date [${CURRENT_DATE}]"
+				INDEX=1
+				for TIME in ${IDEAS}; do
+					CONTENT=$(cat ${SPECIFIC_DATE_DIRECTORY}/${TIME})
+					echo -e "${INDEX} - ${YELLOW}[${TIME}]${NC}: ${GREEN}[${CONTENT}]${NC}"
+					INDEX=$((${INDEX} + 1))
+				done
+			done
 		fi
 	fi
+	# range [ date to date ]
+
 }
 
+function add {
 
+	echo "Please enter idea"
+	read IDEA
+	mkdir -p ${CURRENT_DATE_DIRECTORY}
+	echo ${IDEA} >>${CURRENT_TIME_FILE}
+	git -C ${TODO_DIRECTORY} add ${CURRENT_TIME_FILE}
+	git -C ${TODO_DIRECTORY} commit -m "Add new idea @ ${CURRENT_DATETIME}"
+}
 
-if [[ ${OPTION} == "add" ]]; then
-	add ${CATEGORY} ${CURRENT_DATE} ${GROUP}
-elif [[ ${OPTION} == "list" ]]; then
-	list ${CATEGORY} ${CURRENT_DATE} ${GROUP}
-elif [[ ${OPTION} == "remain" ]]; then
-	remain
-elif [[ ${OPTION} == "miss" ]]; then
-	miss
-elif [[ ${OPTION} == "done" ]]; then
-	done
-fi
+function push {
+	git -C ${TODO_DIRECTORY} push
+}
+
+function pull {
+	git -C ${TODO_DIRECTORY} pull --rebase
+}
+
+case ${COMMAND} in
+"add")
+	echo "### [ADD NEW IDEA] ###"
+	check
+	add
+	;;
+"list" | "Wednesday" | "Thursday")
+	echo "### [LIST IDEAS] ###"
+	check
+	list ${OPTION} ${ARGUMENT}
+	;;
+"push")
+	echo "### [PUSH IDEAS] ###"
+	check
+	push
+	;;
+"pull")
+	echo "### [PULL IDEAS] ###"
+	check
+	pull
+	;;
+*)
+	echo "Options guideline"
+	echo "add: to add new idea"
+	echo "list: to list today ideas"
+	echo "push: to push ideas"
+	echo "pull[rebase]: to pull ideas"
+	;;
+esac

@@ -221,7 +221,7 @@ EOT
 	if yq eval 'select(. == null or . == "")' ${CURRENT_TIME_FILE} >/dev/null; then
 		echo "Invalid YAML [ contains empty or missing values ]"
 		echo "Exiting..."
-		exit
+		exec bash
 	else
 		echo "Valid YAML"
 		echo "Continue"

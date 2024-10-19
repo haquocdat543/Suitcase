@@ -142,7 +142,10 @@ function list {
 		INDEX=1
 		for TIME in ${JOBS}; do
 			CONTENT=$(cat ${CURRENT_DATE_DIRECTORY}/${TIME})
-			echo -e "${INDEX} - ${YELLOW}[${TIME}]${NC}: ${GREEN}[${CONTENT}]${NC}"
+
+			echo -e "${INDEX} - ${YELLOW}[${TIME}]${NC}:"
+			echo -e "${GREEN}${CONTENT}${NC}"
+
 			INDEX=$((${INDEX} + 1))
 		done
 
@@ -161,7 +164,10 @@ function list {
 			INDEX=1
 			for TIME in ${JOBS}; do
 				CONTENT=$(cat ${SPECIFIC_DATE_DIRECTORY}/${TIME})
-				echo -e "${INDEX} - ${YELLOW}[${TIME}]${NC}: ${GREEN}[${CONTENT}]${NC}"
+
+			        echo -e "${INDEX} - ${YELLOW}[${TIME}]${NC}:"
+			        echo -e "${GREEN}${CONTENT}${NC}"
+
 				INDEX=$((${INDEX} + 1))
 			done
 		fi
@@ -176,7 +182,10 @@ function list {
 				INDEX=1
 				for TIME in ${JOBS}; do
 					CONTENT=$(cat ${SPECIFIC_DATE_DIRECTORY}/${TIME})
-					echo -e "${INDEX} - ${YELLOW}[${TIME}]${NC}: ${GREEN}[${CONTENT}]${NC}"
+
+			                echo -e "${INDEX} - ${YELLOW}[${TIME}]${NC}:"
+			                echo -e "${GREEN}${CONTENT}${NC}"
+
 					INDEX=$((${INDEX} + 1))
 				done
 			done
@@ -191,6 +200,7 @@ function add {
 	### define yaml
 	YAML=$(
 cat <<EOT
+group: 
 name: 
 description: 
 task: 
@@ -209,13 +219,13 @@ EOT
 
 	### validate yaml
 	if yq eval 'select(. == null or . == "")' ${CURRENT_TIME_FILE} >/dev/null; then
-           echo "Invalid YAML [ contains empty or missing values ]"
-           echo "Exiting..."
-           exit
-        else
-           echo "Valid YAML"
-           echo "Continue"
-        fi
+		echo "Invalid YAML [ contains empty or missing values ]"
+		echo "Exiting..."
+		exit
+	else
+		echo "Valid YAML"
+		echo "Continue"
+	fi
 
 	### git operation
 	git -C ${TODO_DIRECTORY} add ${CURRENT_TIME_FILE}

@@ -208,13 +208,13 @@ EOT
 	vim "${CURRENT_TIME_FILE}"
 
 	### validate yaml
-	if yq eval '.' ${CURRENT_TIME_FILE} >/dev/null; then
-           echo "Valid YAML"
-           echo "Continue"
-        else
-           echo "Invalid YAML"
+	if yq eval 'select(. == null or . == "")' ${CURRENT_TIME_FILE} >/dev/null; then
+           echo "Invalid YAML [ contains empty or missing values ]"
            echo "Exiting..."
            exit
+        else
+           echo "Valid YAML"
+           echo "Continue"
         fi
 
 	### git operation

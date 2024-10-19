@@ -29,9 +29,9 @@ YEAR_DIRECTORY="year"
 DAILY_DIRECTORY="daily"
 
 # options & arguments
-COMMAND=${1}
-OPTION=${2}
-ARGUMENT=${3}
+COMMAND="${1}"
+OPTION="${2}"
+ARGUMENT="${3}"
 
 # --today ->> today
 # --day ->> specific date

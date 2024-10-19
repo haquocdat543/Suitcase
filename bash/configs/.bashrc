@@ -2683,6 +2683,7 @@ alias csgsk='cosign sign --key'
 alias kid='. $HOME/preconfig/Suitcase/bash/scripts/keepidea'
 alias kidl='. $HOME/preconfig/Suitcase/bash/scripts/keepidea list'
 alias kida='. $HOME/preconfig/Suitcase/bash/scripts/keepidea add'
+alias kidp='. $HOME/preconfig/Suitcase/bash/scripts/keepidea push'
 
 ### Password store
 alias passi='pass init'

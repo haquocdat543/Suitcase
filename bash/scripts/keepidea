@@ -64,14 +64,14 @@ function list {
 			done
 		fi
 	else
-			IDEAS=$(ls ${CURRENT_DATE_DIRECTORY})
-			for IDEA in ${IDEAS}; do
-				INDEX=1
-				CONTENT=$(cat ${CURRENT_DATE_DIRECTORY}/${IDEA})
-				echo "Today [${CURRENT_DATE}]"
-				echo "${INDEX} - [${IDEA}]: [${CONTENT}]"
-				((INDEX++))
-			done
+		IDEAS=$(ls ${CURRENT_DATE_DIRECTORY})
+		for IDEA in ${IDEAS}; do
+			INDEX=1
+			CONTENT=$(cat ${CURRENT_DATE_DIRECTORY}/${IDEA})
+			echo "Today [${CURRENT_DATE}]"
+			echo "${INDEX} - [${IDEA}]: [${CONTENT}]"
+			((INDEX++))
+		done
 	fi
 }
 
@@ -99,18 +99,37 @@ function add {
 	fi
 }
 
+function push {
+	if [[ ! -d ${IDEA_DIRECTORY} ]]; then
+		mkdir -p ${IDEA_DIRECTORY}
+		if [[ ! -d ${IDEA_GIT_DIRECTORY} ]]; then
+			git init -C ${IDEA_DIRECTORY}
+		else
+
+			git -C ${IDEA_DIRECTORY} push
+		fi
+	else
+		git -C ${IDEA_DIRECTORY} push
+	fi
+}
+
 case ${OPTION} in
-  "add")
-    echo "### [ADD NEW IDEA] ###"
-    add
-    ;;
-  "list" | "Wednesday" | "Thursday")
-    echo "### [LIST IDEAS] ###"
-    list
-    ;;
-  *)
-    echo "Options guideline"
-    echo "add: to add new idea"
-    echo "list: to list today ideas"
-    ;;
+"add")
+	echo "### [ADD NEW IDEA] ###"
+	add
+	;;
+"list" | "Wednesday" | "Thursday")
+	echo "### [LIST IDEAS] ###"
+	list
+	;;
+"push")
+	echo "### [PUSH IDEAS] ###"
+	push
+	;;
+*)
+	echo "Options guideline"
+	echo "add: to add new idea"
+	echo "list: to list today ideas"
+	echo "push: to push ideas"
+	;;
 esac

@@ -54,8 +54,8 @@ function day {
 	local INPUT=${1}
 
 	# date formats:
-	# 20-10-2024 [ full ]
-	# 20-10 [ current year ]
+	# 20/10/2024 [ full ]
+	# 20/10 [ current year ]
 	# 20 [ current month and year ]
 
 	DAY_MONTH_YEAR_PATTERN="^[0-9]{1,2}/[0-9]{1,2}/[0-9]{4}$"
@@ -77,6 +77,29 @@ function day {
 	fi
 
 	echo "Parsed date: ${DATE}"
+}
+
+function month {
+	local INPUT=${1}
+
+	# date formats:
+	# 10/2024 [ full type ]
+	# 10 [ current year ]
+
+	MONTH_YEAR_PATTERN="^[0-9]{1,2}/[0-9]{4}$"
+	MONTH_PATTERN="^[0-9]{1,2}$"
+
+	if [[ ${INPUT} =~ ${MONTH_YEAR_PATTERN} ]]; then
+		DATE=${INPUT}
+	elif [[ ${INPUT} =~ ${MONTH_PATTERN} ]]; then
+		CURRENT_YEAR=$(date "+%Y")
+		DATE="${INPUT}/${CURRENT_YEAR}"
+	els
+		echo "Invalid month format."
+		return 1
+	fi
+
+	echo "Parsed month: ${DATE}"
 }
 
 function day_range {

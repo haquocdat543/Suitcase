@@ -237,6 +237,33 @@ EOT
 	git -C ${TODO_DIRECTORY} commit -m "Add new job @ ${CURRENT_DATETIME}"
 }
 
+function update {
+	### basic input
+	local TIME=${1}
+
+	### basic information
+	SPECIFIC_TIME_FILE="${TODO_DIRECTORY}/${CURRENT_YEAR}/${CURRENT_MONTH}/${CURRENT_DAY}/${TIME}.yaml"
+	vim ${SPECIFIC_TIME_FILE}
+
+	### validate yaml
+	YAML_LINT_OPTION="{extends: default, rules: {empty-values: {level: error}}}"
+	VALIDATE=$(yamllint -d "${YAML_LINT_OPTION}" ${SPECIFIC_TIME_FILE})
+
+	if [[ -z ${VALIDATE} ]]; then
+		echo "Valid YAML"
+		echo "Continue"
+	else
+		echo ${VALIDATE}
+		git -C ${TODO_DIRECTORY}
+		echo "Exiting..."
+		exec bash
+	fi
+
+	### git operation
+	git -C ${TODO_DIRECTORY} add ${SPECIFIC_TIME_FILE}
+	git -C ${TODO_DIRECTORY} commit -m "Update job [${TIME}] @ ${CURRENT_DATETIME}}"
+}
+
 function push {
 	git -C ${TODO_DIRECTORY} push
 }
@@ -251,10 +278,15 @@ case ${COMMAND} in
 	check
 	add
 	;;
-"list" | "Wednesday" | "Thursday")
+"list")
 	echo "### [LIST JOBS] ###"
 	check
 	list ${OPTION} ${ARGUMENT}
+	;;
+"update")
+	echo "### [UPDATE JOBS] ###"
+	check
+	update
 	;;
 "push")
 	echo "### [PUSH JOBS] ###"
@@ -270,6 +302,7 @@ case ${COMMAND} in
 	echo "Options guideline"
 	echo "add: to add new job"
 	echo "list: to list today jobs"
+	echo "update: to update job"
 	echo "push: to push jobs"
 	echo "pull[rebase]: to pull jobs"
 	;;

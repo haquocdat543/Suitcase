@@ -50,7 +50,7 @@ CURRENT_TIME_FILE=${IDEA_DIRECTORY}/${CURRENT_DATE}/$(date "+%H:%M:%S")
 function day {
 	local INPUT=${1}
 
-	# date
+	# date formats:
 	# 20-10-2024 [ full ]
 	# 20-10 [ current year ]
 	# 20 [ current month and year ]
@@ -68,7 +68,12 @@ function day {
 		CURRENT_YEAR=$(date "+%y")
 		CURRENT_MONTH=$(date "+%m")
 		DATE="${INPUT}-${CURRENT_MONTH}-${CURRENT_YEAR}"
+	else
+		echo "Invalid date format."
+		return 1
 	fi
+
+	echo "Parsed date: ${DATE}"
 }
 
 function day_range {

@@ -41,7 +41,7 @@ CURRENT_DATETIME=$(date "+%d-%m-%y|%H:%M:%S")
 # Today variables
 CURRENT_DATETIME_DIRECTORY=${IDEA_DIRECTORY}/$(date "+%d-%m-%y|%H:%M:%S")
 CURRENT_DATE_DIRECTORY=${IDEA_DIRECTORY}/$(date "+%d-%m-%y")
-CURRENT_TIME_FILE=${IDEA_DIRECTORY}/$(date "+%H:%M:%S")
+CURRENT_TIME_FILE=${IDEA_DIRECTORY}/${CURRENT_DATE}/$(date "+%H:%M:%S")
 
 function list {
 
@@ -54,6 +54,14 @@ function list {
 			echo "Exiting..."
 			exit
 		else
+			IDEAS=$(ls ${CURRENT_DATE_DIRECTORY})
+			for IDEA in ${IDEAS}; do
+				INDEX=1
+				CONTENT=$(cat ${CURRENT_TIME_FILE})
+				echo "Today [${CURRENT_DATE}]"
+				echo "${INDEX} - [${IDEA}]: [${CONTENT}]"
+				((INDEX++))
+			done
 		fi
 	else
 	fi
@@ -74,11 +82,11 @@ function add {
 			git -C ${IDEA_DIRECTORY} commit "Add new idea @ ${CURRENT_DATETIME}"
 		fi
 	else
-			echo "Please enter idea"
-			read IDEA
-			mkdir -p ${CURRENT_DATE_DIRECTORY}
-			echo ${IDEA} >>${CURRENT_TIME_FILE}
-			git -C ${IDEA_DIRECTORY} add ${CURRENT_TIME_FILE}
-			git -C ${IDEA_DIRECTORY} commit "Add new idea @ ${CURRENT_DATETIME}"
+		echo "Please enter idea"
+		read IDEA
+		mkdir -p ${CURRENT_DATE_DIRECTORY}
+		echo ${IDEA} >>${CURRENT_TIME_FILE}
+		git -C ${IDEA_DIRECTORY} add ${CURRENT_TIME_FILE}
+		git -C ${IDEA_DIRECTORY} commit "Add new idea @ ${CURRENT_DATETIME}"
 	fi
 }

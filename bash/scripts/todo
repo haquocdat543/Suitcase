@@ -48,7 +48,7 @@ CURRENT_DATETIME=$(date "+%d-%m-%Y|%H:%M:%S")
 # Today variables
 CURRENT_DATETIME_DIRECTORY="${TODO_DIRECTORY}/$(date "+%d-%m-%Y|%H:%M:%S")"
 CURRENT_DATE_DIRECTORY="${TODO_DIRECTORY}/${CURRENT_YEAR}/${CURRENT_MONTH}/${CURRENT_DAY}"
-CURRENT_TIME_FILE="${TODO_DIRECTORY}/${CURRENT_YEAR}/${CURRENT_MONTH}/${CURRENT_DAY}/$(date "+%H:%M:%S")"
+CURRENT_TIME_FILE="${TODO_DIRECTORY}/${CURRENT_YEAR}/${CURRENT_MONTH}/${CURRENT_DAY}/$(date "+%H:%M:%S").yaml"
 
 function day {
 	local INPUT=${1}
@@ -126,7 +126,7 @@ function check {
 			echo "Git exists in todo directory"
 		fi
 	else
-		echo "Idea directory exist"
+		echo "Todo directory exist"
 	fi
 }
 
@@ -188,10 +188,36 @@ function list {
 
 function add {
 
-	echo "Please enter idea"
-	read IDEA
+	### define yaml
+	YAML=$(
+cat <<EOT
+name: 
+description: 
+task: 
+ - 
+work: 
+ - init
+deadline: 
+complete: false
+EOT
+	)
+
+	### validate yaml
 	mkdir -p ${CURRENT_DATE_DIRECTORY}
-	echo ${IDEA} >>${CURRENT_TIME_FILE}
+	echo "${YAML}" >>"${CURRENT_TIME_FILE}"
+	vim "${CURRENT_TIME_FILE}"
+
+	### validate yaml
+	if yq eval '.' ${CURRENT_TIME_FILE} >/dev/null; then
+           echo "Valid YAML"
+           echo "Continue"
+        else
+           echo "Invalid YAML"
+           echo "Exiting..."
+           exit
+        fi
+
+	### git operation
 	git -C ${TODO_DIRECTORY} add ${CURRENT_TIME_FILE}
 	git -C ${TODO_DIRECTORY} commit -m "Add new idea @ ${CURRENT_DATETIME}"
 }

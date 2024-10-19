@@ -2679,6 +2679,11 @@ alias csggkp='cosign generate keypair'
 alias csgs='cosign sign'
 alias csgsk='cosign sign --key'
 
+### KeepIdea 
+alias kid='. $HOME/preconfig/Suitcase/bash/scripts/keepidea'
+alias kidl='. $HOME/preconfig/Suitcase/bash/scripts/keepidea list'
+alias kida='. $HOME/preconfig/Suitcase/bash/scripts/keepidea add'
+
 ### Password store
 alias passi='pass init'
 alias passgi='pass git init'

@@ -57,13 +57,21 @@ function list {
 			IDEAS=$(ls ${CURRENT_DATE_DIRECTORY})
 			for IDEA in ${IDEAS}; do
 				INDEX=1
-				CONTENT=$(cat ${CURRENT_TIME_FILE})
+				CONTENT=$(cat ${CURRENT_DATE_DIRECTORY}/${IDEA})
 				echo "Today [${CURRENT_DATE}]"
 				echo "${INDEX} - [${IDEA}]: [${CONTENT}]"
 				((INDEX++))
 			done
 		fi
 	else
+			IDEAS=$(ls ${CURRENT_DATE_DIRECTORY})
+			for IDEA in ${IDEAS}; do
+				INDEX=1
+				CONTENT=$(cat ${CURRENT_DATE_DIRECTORY}/${IDEA})
+				echo "Today [${CURRENT_DATE}]"
+				echo "${INDEX} - [${IDEA}]: [${CONTENT}]"
+				((INDEX++))
+			done
 	fi
 }
 
@@ -79,7 +87,7 @@ function add {
 			mkdir -p ${CURRENT_DATE_DIRECTORY}
 			echo ${IDEA} >>${CURRENT_TIME_FILE}
 			git -C ${IDEA_DIRECTORY} add ${CURRENT_TIME_FILE}
-			git -C ${IDEA_DIRECTORY} commit "Add new idea @ ${CURRENT_DATETIME}"
+			git -C ${IDEA_DIRECTORY} commit -m "Add new idea @ ${CURRENT_DATETIME}"
 		fi
 	else
 		echo "Please enter idea"
@@ -87,6 +95,22 @@ function add {
 		mkdir -p ${CURRENT_DATE_DIRECTORY}
 		echo ${IDEA} >>${CURRENT_TIME_FILE}
 		git -C ${IDEA_DIRECTORY} add ${CURRENT_TIME_FILE}
-		git -C ${IDEA_DIRECTORY} commit "Add new idea @ ${CURRENT_DATETIME}"
+		git -C ${IDEA_DIRECTORY} commit -m "Add new idea @ ${CURRENT_DATETIME}"
 	fi
 }
+
+case ${OPTION} in
+  "add")
+    echo "### [ADD NEW IDEA] ###"
+    add
+    ;;
+  "list" | "Wednesday" | "Thursday")
+    echo "### [LIST IDEAS] ###"
+    list
+    ;;
+  *)
+    echo "Options guideline"
+    echo "add: to add new idea"
+    echo "list: to list today ideas"
+    ;;
+esac

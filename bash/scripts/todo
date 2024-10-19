@@ -165,8 +165,8 @@ function list {
 			for TIME in ${JOBS}; do
 				CONTENT=$(cat ${SPECIFIC_DATE_DIRECTORY}/${TIME})
 
-			        echo -e "${INDEX} - ${YELLOW}[${TIME}]${NC}:"
-			        echo -e "${GREEN}${CONTENT}${NC}"
+				echo -e "${INDEX} - ${YELLOW}[${TIME}]${NC}:"
+				echo -e "${GREEN}${CONTENT}${NC}"
 
 				INDEX=$((${INDEX} + 1))
 			done
@@ -183,8 +183,8 @@ function list {
 				for TIME in ${JOBS}; do
 					CONTENT=$(cat ${SPECIFIC_DATE_DIRECTORY}/${TIME})
 
-			                echo -e "${INDEX} - ${YELLOW}[${TIME}]${NC}:"
-			                echo -e "${GREEN}${CONTENT}${NC}"
+					echo -e "${INDEX} - ${YELLOW}[${TIME}]${NC}:"
+					echo -e "${GREEN}${CONTENT}${NC}"
 
 					INDEX=$((${INDEX} + 1))
 				done
@@ -200,6 +200,7 @@ function add {
 	### define yaml
 	YAML=$(
 cat <<EOT
+---
 group: 
 name: 
 description: 
@@ -218,13 +219,16 @@ EOT
 	vim "${CURRENT_TIME_FILE}"
 
 	### validate yaml
-	if yq eval 'select(. == null or . == "")' ${CURRENT_TIME_FILE} >/dev/null; then
-		echo "Invalid YAML [ contains empty or missing values ]"
-		echo "Exiting..."
-		exec bash
-	else
+	YAML_LINT_OPTION="{extends: default, rules: {empty-values: {level: error}}}"
+	VALIDATE=$(yamllint -d "${YAML_LINT_OPTION}" ${CURRENT_TIME_FILE})
+
+	if [[ -z ${VALIDATE} ]]; then
 		echo "Valid YAML"
 		echo "Continue"
+	else
+		echo ${VALIDATE}
+		echo "Exiting..."
+		exec bash
 	fi
 
 	### git operation

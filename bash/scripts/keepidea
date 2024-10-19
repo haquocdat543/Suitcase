@@ -38,13 +38,13 @@ ARGUMENT=${3}
 # --range ->> from date to date
 
 # date & time
-CURRENT_DATE=$(date "+%d-%m-%y")
+CURRENT_DATE=$(date "+%d-%m-%Y")
 CURRENT_TIME=$(date "+%H:%M:%S")
-CURRENT_DATETIME=$(date "+%d-%m-%y|%H:%M:%S")
+CURRENT_DATETIME=$(date "+%d-%m-%Y|%H:%M:%S")
 
 # Today variables
-CURRENT_DATETIME_DIRECTORY=${IDEA_DIRECTORY}/$(date "+%d-%m-%y|%H:%M:%S")
-CURRENT_DATE_DIRECTORY=${IDEA_DIRECTORY}/$(date "+%d-%m-%y")
+CURRENT_DATETIME_DIRECTORY=${IDEA_DIRECTORY}/$(date "+%d-%m-%Y|%H:%M:%S")
+CURRENT_DATE_DIRECTORY=${IDEA_DIRECTORY}/$(date "+%d-%m-%Y")
 CURRENT_TIME_FILE=${IDEA_DIRECTORY}/${CURRENT_DATE}/$(date "+%H:%M:%S")
 
 function day {
@@ -62,10 +62,10 @@ function day {
 	if [[ ${INPUT} =~ ${DAY_MONTH_YEAR_PATTERN} ]]; then
 		DATE=${INPUT}
 	elif [[ ${INPUT} =~ ${DAY_MONTH_PATTERN} ]]; then
-		CURRENT_YEAR=$(date "+%y")
+		CURRENT_YEAR=$(date "+%Y")
 		DATE="${INPUT}-${CURRENT_YEAR}"
 	elif [[ ${INPUT} =~ ${DAY_PATTERN} ]]; then
-		CURRENT_YEAR=$(date "+%y")
+		CURRENT_YEAR=$(date "+%Y")
 		CURRENT_MONTH=$(date "+%m")
 		DATE="${INPUT}-${CURRENT_MONTH}-${CURRENT_YEAR}"
 	else

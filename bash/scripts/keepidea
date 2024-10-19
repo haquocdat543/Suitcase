@@ -55,9 +55,9 @@ function day {
 	# 20-10 [ current year ]
 	# 20 [ current month and year ]
 
-	DAY_MONTH_YEAR_PATTERN="^[0-9]{2}-[0-9]{2}-[0-9]{4}$"
-	DAY_MONTH_PATTERN="^[0-9]{2}-[0-9]{2}$"
-	DAY_PATTERN="^[0-9]{2}$"
+	DAY_MONTH_YEAR_PATTERN="^[0-9]{1,2}-[0-9]{1,2}-[0-9]{4}$"
+	DAY_MONTH_PATTERN="^[0-9]{1,2}-[0-9]{1,2}$"
+	DAY_PATTERN="^[0-9]{1,2}$"
 
 	if [[ ${INPUT} =~ ${DAY_MONTH_YEAR_PATTERN} ]]; then
 		DATE=${INPUT}
@@ -122,7 +122,7 @@ function list {
 
 	# day [ specific date ]
 	elif [[ ${OPTION} == "day" ]]; then
-		date ${ARGUMENT}
+		day ${ARGUMENT}
 		SPECIFIC_DATE=${DATE}
 		SPECIFIC_DATE_DIRECTORY="${IDEA_DIRECTORY}/${SPECIFIC_DATE}"
 

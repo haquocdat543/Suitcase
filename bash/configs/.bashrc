@@ -2679,6 +2679,11 @@ alias csggkp='cosign generate keypair'
 alias csgs='cosign sign'
 alias csgsk='cosign sign --key'
 
+### Todo
+alias tda='. $HOME/preconfig/Suitcase/bash/scripts/todo add'
+alias tdl='. $HOME/preconfig/Suitcase/bash/scripts/todo list'
+alias tdu='. $HOME/preconfig/Suitcase/bash/scripts/todo update'
+
 ### KeepIdea 
 alias kid='. $HOME/preconfig/Suitcase/bash/scripts/keepidea'
 alias kidl='. $HOME/preconfig/Suitcase/bash/scripts/keepidea list'

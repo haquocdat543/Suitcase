@@ -92,10 +92,10 @@ function check {
 			echo "Exiting..."
 			exit
 		else
-			continue
+			echo "Git exists in idea directory"
 		fi
 	else
-		continue
+		echo "Idea directory exist"
 	fi
 }
 

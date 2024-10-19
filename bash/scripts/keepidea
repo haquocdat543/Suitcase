@@ -39,13 +39,16 @@ ARGUMENT="${3}"
 
 # date & time
 CURRENT_DATE=$(date "+%d-%m-%Y")
+CURRENT_DAY=$(date "+%d")
+CURRENT_MONTH=$(date "+%m")
+CURRENT_YEAR=$(date "+%Y")
 CURRENT_TIME=$(date "+%H:%M:%S")
 CURRENT_DATETIME=$(date "+%d-%m-%Y|%H:%M:%S")
 
 # Today variables
-CURRENT_DATETIME_DIRECTORY=${IDEA_DIRECTORY}/$(date "+%d-%m-%Y|%H:%M:%S")
-CURRENT_DATE_DIRECTORY=${IDEA_DIRECTORY}/$(date "+%d-%m-%Y")
-CURRENT_TIME_FILE=${IDEA_DIRECTORY}/${CURRENT_DATE}/$(date "+%H:%M:%S")
+CURRENT_DATETIME_DIRECTORY="${IDEA_DIRECTORY}/$(date "+%d-%m-%Y|%H:%M:%S")"
+CURRENT_DATE_DIRECTORY="${IDEA_DIRECTORY}/${CURRENT_YEAR}/${CURRENT_MONTH}/${CURRENT_DAY}"
+CURRENT_TIME_FILE="${IDEA_DIRECTORY}/${CURRENT_YEAR}/${CURRENT_MONTH}/${CURRENT_DAY}/$(date "+%H:%M:%S")"
 
 function day {
 	local INPUT=${1}
@@ -55,19 +58,19 @@ function day {
 	# 20-10 [ current year ]
 	# 20 [ current month and year ]
 
-	DAY_MONTH_YEAR_PATTERN="^[0-9]{1,2}-[0-9]{1,2}-[0-9]{4}$"
-	DAY_MONTH_PATTERN="^[0-9]{1,2}-[0-9]{1,2}$"
+	DAY_MONTH_YEAR_PATTERN="^[0-9]{1,2}/[0-9]{1,2}/[0-9]{4}$"
+	DAY_MONTH_PATTERN="^[0-9]{1,2}/[0-9]{1,2}$"
 	DAY_PATTERN="^[0-9]{1,2}$"
 
 	if [[ ${INPUT} =~ ${DAY_MONTH_YEAR_PATTERN} ]]; then
 		DATE=${INPUT}
 	elif [[ ${INPUT} =~ ${DAY_MONTH_PATTERN} ]]; then
 		CURRENT_YEAR=$(date "+%Y")
-		DATE="${INPUT}-${CURRENT_YEAR}"
+		DATE="${INPUT}/${CURRENT_YEAR}"
 	elif [[ ${INPUT} =~ ${DAY_PATTERN} ]]; then
 		CURRENT_YEAR=$(date "+%Y")
 		CURRENT_MONTH=$(date "+%m")
-		DATE="${INPUT}-${CURRENT_MONTH}-${CURRENT_YEAR}"
+		DATE="${INPUT}/${CURRENT_MONTH}/${CURRENT_YEAR}"
 	else
 		echo "Invalid date format."
 		return 1

@@ -55,22 +55,22 @@ function list {
 			exit
 		else
 			IDEAS=$(ls ${CURRENT_DATE_DIRECTORY})
+			echo "Today [${CURRENT_DATE}]"
 			for IDEA in ${IDEAS}; do
 				INDEX=1
 				CONTENT=$(cat ${CURRENT_DATE_DIRECTORY}/${IDEA})
-				echo "Today [${CURRENT_DATE}]"
 				echo "${INDEX} - [${IDEA}]: [${CONTENT}]"
-				((INDEX++))
+				INDEX=$((${INDEX} + 1))
 			done
 		fi
 	else
 		IDEAS=$(ls ${CURRENT_DATE_DIRECTORY})
+		echo "Today [${CURRENT_DATE}]"
 		for IDEA in ${IDEAS}; do
 			INDEX=1
 			CONTENT=$(cat ${CURRENT_DATE_DIRECTORY}/${IDEA})
-			echo "Today [${CURRENT_DATE}]"
 			echo "${INDEX} - [${IDEA}]: [${CONTENT}]"
-			((INDEX++))
+			INDEX=$((${INDEX} + 1))
 		done
 	fi
 }

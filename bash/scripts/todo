@@ -204,9 +204,9 @@ function add {
 group: 
 name: 
 description: 
-task: 
+task:
   - 
-work: 
+work:
   - init
 deadline: 
 complete: false

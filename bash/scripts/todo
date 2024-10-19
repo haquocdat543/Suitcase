@@ -137,10 +137,10 @@ function list {
 	# today [ default ]
 
 	if [[ -z ${OPTION} ]]; then
-		IDEAS=$(ls ${CURRENT_DATE_DIRECTORY})
+		JOBS=$(ls ${CURRENT_DATE_DIRECTORY})
 		echo "Today [${CURRENT_DATE}]"
 		INDEX=1
-		for TIME in ${IDEAS}; do
+		for TIME in ${JOBS}; do
 			CONTENT=$(cat ${CURRENT_DATE_DIRECTORY}/${TIME})
 			echo -e "${INDEX} - ${YELLOW}[${TIME}]${NC}: ${GREEN}[${CONTENT}]${NC}"
 			INDEX=$((${INDEX} + 1))
@@ -156,10 +156,10 @@ function list {
 		if [[ ! -d ${SPECIFIC_DATE_DIRECTORY} ]]; then
 			echo "Date [${SPECIFIC_DATE}] does not contain anything"
 		else
-			IDEAS=$(ls ${SPECIFIC_DATE_DIRECTORY})
+			JOBS=$(ls ${SPECIFIC_DATE_DIRECTORY})
 			echo "Date [${CURRENT_DATE}]"
 			INDEX=1
-			for TIME in ${IDEAS}; do
+			for TIME in ${JOBS}; do
 				CONTENT=$(cat ${SPECIFIC_DATE_DIRECTORY}/${TIME})
 				echo -e "${INDEX} - ${YELLOW}[${TIME}]${NC}: ${GREEN}[${CONTENT}]${NC}"
 				INDEX=$((${INDEX} + 1))
@@ -171,10 +171,10 @@ function list {
 			DAYS=$(ls ${SPECIFIC_MONTH_DIRECTORY})
 			for DAY in ${DAYS}; do
 				SPECIFIC_DATE_DIRECTORY="${TODO_DIRECTORY}/${CURRENT_YEAR}/${CURRENT_MONTH}/${DAY}"
-				IDEAS=$(ls ${SPECIFIC_DATE_DIRECTORY})
+				JOBS=$(ls ${SPECIFIC_DATE_DIRECTORY})
 				echo "Date [${CURRENT_DATE}]"
 				INDEX=1
-				for TIME in ${IDEAS}; do
+				for TIME in ${JOBS}; do
 					CONTENT=$(cat ${SPECIFIC_DATE_DIRECTORY}/${TIME})
 					echo -e "${INDEX} - ${YELLOW}[${TIME}]${NC}: ${GREEN}[${CONTENT}]${NC}"
 					INDEX=$((${INDEX} + 1))
@@ -219,7 +219,7 @@ EOT
 
 	### git operation
 	git -C ${TODO_DIRECTORY} add ${CURRENT_TIME_FILE}
-	git -C ${TODO_DIRECTORY} commit -m "Add new idea @ ${CURRENT_DATETIME}"
+	git -C ${TODO_DIRECTORY} commit -m "Add new job @ ${CURRENT_DATETIME}"
 }
 
 function push {
@@ -232,30 +232,30 @@ function pull {
 
 case ${COMMAND} in
 "add")
-	echo "### [ADD NEW IDEA] ###"
+	echo "### [ADD NEW JOB] ###"
 	check
 	add
 	;;
 "list" | "Wednesday" | "Thursday")
-	echo "### [LIST IDEAS] ###"
+	echo "### [LIST JOBS] ###"
 	check
 	list ${OPTION} ${ARGUMENT}
 	;;
 "push")
-	echo "### [PUSH IDEAS] ###"
+	echo "### [PUSH JOBS] ###"
 	check
 	push
 	;;
 "pull")
-	echo "### [PULL IDEAS] ###"
+	echo "### [PULL JOBS] ###"
 	check
 	pull
 	;;
 *)
 	echo "Options guideline"
-	echo "add: to add new idea"
-	echo "list: to list today ideas"
-	echo "push: to push ideas"
-	echo "pull[rebase]: to pull ideas"
+	echo "add: to add new job"
+	echo "list: to list today jobs"
+	echo "push: to push jobs"
+	echo "pull[rebase]: to pull jobs"
 	;;
 esac

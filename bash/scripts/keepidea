@@ -71,6 +71,16 @@ function day {
 	fi
 }
 
+function day_range {
+	local FIRST_INPUT=${1}
+	local SECOND_INPUT=${2}
+
+	day ${FIRST_INPUT}
+	FIRST_DATE=${DATE}
+	day ${SECOND_INPUT}
+	SECOND_DATE=${DATE}
+}
+
 function list {
 
 	if [[ ! -d ${IDEA_DIRECTORY} ]]; then

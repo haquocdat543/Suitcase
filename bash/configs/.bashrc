@@ -2335,6 +2335,12 @@ alias t2rtf='toml-to-req --toml-file'
 alias t2rtfp='toml-to-req --toml-file pyproject.toml'
 
 ### brew command
+alias nixei='nix-env -i'
+alias nixeq='nix-env -q'
+alias nixeu='nix-env -u'
+alias nixee='nix-env -e'
+
+### brew command
 alias brep='brew bundle dump --file=Brewfile --describe'
 alias bri='brew install'
 alias brr='brew remove'

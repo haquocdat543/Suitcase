@@ -39,7 +39,7 @@ TIME="${2}"
 # --range ->> from date to date
 
 # date & time
-CURRENT_DATE=$(date "+%Y-%m-%d")
+CURRENT_DATE=$(date "+%Y/%m/%d")
 CURRENT_DAY=$(date "+%d")
 CURRENT_MONTH=$(date "+%m")
 CURRENT_YEAR=$(date "+%Y")
@@ -152,9 +152,9 @@ function datetime_compare {
 	EPOCH2=$(date -j -f "%Y/%m/%d|%H:%M:%S" "${INPUT2}" "+%s")
 
 	# missed time
-	MISSED_TIME=$((EPOCH1 + EPOCH2))
-	FINISH_TIME=$((EPOCH1 + EPOCH2))
-	REMAIN_TIME=$((EPOCH2 + EPOCH1))
+	MISSED_TIME=$(date -r "$((EPOCH1 + EPOCH2))" "+%Y/%m/%d|%H:%M:%S")
+	FINISH_TIME=$(date -r "$((EPOCH1 + EPOCH2))" "+%Y/%m/%d|%H:%M:%S")
+	REMAIN_TIME=$(date -r "$((EPOCH2 + EPOCH1))" "+%Y/%m/%d|%H:%M:%S")
 
 	# Compare the two epoch values
 	if [[ $EPOCH1 -gt $EPOCH2 ]]; then
@@ -217,7 +217,7 @@ function list {
 			echo "Date [${SPECIFIC_DATE}] does not contain anything"
 		else
 			JOBS=$(ls ${SPECIFIC_DATE_DIRECTORY})
-			echo "Date [${CURRENT_DATE}]"
+			echo "Date [${SPECIFIC_DATE_DIRECTORY}]"
 			INDEX=1
 			for TIME in ${JOBS}; do
 				CONTENT=$(cat ${SPECIFIC_DATE_DIRECTORY}/${TIME})
@@ -238,7 +238,7 @@ function list {
 					echo "Date [${SPECIFIC_DATE}] does not contain anything"
 				else
 					JOBS=$(ls ${SPECIFIC_DATE_DIRECTORY})
-					echo "Date [${CURRENT_DATE}]"
+					echo "Date [${SPECIFIC_DATE_DIRECTORY}]"
 					INDEX=1
 					for TIME in ${JOBS}; do
 						CONTENT=$(cat ${SPECIFIC_DATE_DIRECTORY}/${TIME})
@@ -297,12 +297,12 @@ function miss {
 			echo "Date [${SPECIFIC_DATE}] does not contain anything"
 		else
 			JOBS=$(ls ${SPECIFIC_DATE_DIRECTORY})
-			echo "Date [${CURRENT_DATE}]"
+			echo "Date [${SPECIFIC_DATE_DIRECTORY}]"
 			INDEX=1
 			for TIME in ${JOBS}; do
-				CONTENT=$(cat ${CURRENT_DATE_DIRECTORY}/${TIME})
-				FINISH=$(yq '.complete' ${CURRENT_DATE_DIRECTORY}/${TIME})
-				DEADLINE=$(yq '.deadline' ${CURRENT_DATE_DIRECTORY}/${TIME})
+				CONTENT=$(cat ${SPECIFIC_DATE_DIRECTORY}/${TIME})
+				FINISH=$(yq '.complete' ${SPECIFIC_DATE_DIRECTORY}/${TIME})
+				DEADLINE=$(yq '.deadline' ${SPECIFIC_DATE_DIRECTORY}/${TIME})
 				if [[ ${FINISH} == "true" ]]; then
 					INDEX=$((${INDEX} + 1))
 					continue
@@ -334,9 +334,9 @@ function miss {
 					echo "Date [${SPECIFIC_DATE_DIRECTORY}]"
 					INDEX=1
 					for TIME in ${JOBS}; do
-						CONTENT=$(cat ${CURRENT_DATE_DIRECTORY}/${TIME})
-						FINISH=$(yq '.complete' ${CURRENT_DATE_DIRECTORY}/${TIME})
-						DEADLINE=$(yq '.deadline' ${CURRENT_DATE_DIRECTORY}/${TIME})
+						CONTENT=$(cat ${SPECIFIC_DATE_DIRECTORY}/${TIME})
+						FINISH=$(yq '.complete' ${SPECIFIC_DATE_DIRECTORY}/${TIME})
+						DEADLINE=$(yq '.deadline' ${SPECIFIC_DATE_DIRECTORY}/${TIME})
 						if [[ ${FINISH} == "true" ]]; then
 							INDEX=$((${INDEX} + 1))
 							continue
@@ -408,7 +408,7 @@ function remain {
 			for TIME in ${JOBS}; do
 				CONTENT=$(cat ${SPECIFIC_MONTH_DIRECTORY}/${TIME})
 				FINISH=$(yq '.complete' ${SPECIFIC_MONTH_DIRECTORY}/${TIME})
-				DEADLINE=$(yq '.deadline' ${CURRENT_DATE_DIRECTORY}/${TIME})
+				DEADLINE=$(yq '.deadline' ${SPECIFIC_DATE_DIRECTORY}/${TIME})
 				if [[ ${FINISH} == "true" ]]; then
 					INDEX=$((${INDEX} + 1))
 					continue
@@ -502,12 +502,12 @@ function finish {
 			echo "Date [${SPECIFIC_DATE}] does not contain anything"
 		else
 			JOBS=$(ls ${SPECIFIC_DATE_DIRECTORY})
-			echo "Date [${CURRENT_DATE}]"
+			echo "Date [${SPECIFIC_DATE_DIRECTORY}]"
 			INDEX=1
 			for TIME in ${JOBS}; do
 				CONTENT=$(cat ${SPECIFIC_DATE_DIRECTORY}/${TIME})
-				FINISH=$(yq '.complete' ${CURRENT_DATE_DIRECTORY}/${TIME})
-				DEADLINE=$(yq '.deadline' ${CURRENT_DATE_DIRECTORY}/${TIME})
+				FINISH=$(yq '.complete' ${SPECIFIC_DATE_DIRECTORY}/${TIME})
+				DEADLINE=$(yq '.deadline' ${SPECIFIC_DATE_DIRECTORY}/${TIME})
 				if [[ ${FINISH} == "false" ]]; then
 					INDEX=$((${INDEX} + 1))
 					continue
@@ -529,12 +529,12 @@ function finish {
 					echo "Date [${SPECIFIC_DATE}] does not contain anything"
 				else
 					JOBS=$(ls ${SPECIFIC_DATE_DIRECTORY})
-					echo "Date [${CURRENT_DATE}]"
+					echo "Date [${SPECIFIC_DATE_DIRECTORY}]"
 					INDEX=1
 					for TIME in ${JOBS}; do
 						CONTENT=$(cat ${SPECIFIC_DATE_DIRECTORY}/${TIME})
-						FINISH=$(yq '.complete' ${CURRENT_DATE_DIRECTORY}/${TIME})
-						DEADLINE=$(yq '.deadline' ${CURRENT_DATE_DIRECTORY}/${TIME})
+						FINISH=$(yq '.complete' ${SPECIFIC_DATE_DIRECTORY}/${TIME})
+						DEADLINE=$(yq '.deadline' ${SPECIFIC_DATE_DIRECTORY}/${TIME})
 						if [[ ${FINISH} == "false" ]]; then
 							INDEX=$((${INDEX} + 1))
 							continue

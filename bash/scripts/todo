@@ -153,14 +153,14 @@ function datetime_compare {
 
 	# missed time
 	MISSED_TIME=$((EPOCH1 + EPOCH2))
-	DONE_TIME=$((EPOCH1 + EPOCH2))
+	FINISH_TIME=$((EPOCH1 + EPOCH2))
 	REMAIN_TIME=$((EPOCH2 + EPOCH1))
 
 	# Compare the two epoch values
 	if [[ $EPOCH1 -gt $EPOCH2 ]]; then
 		MISSED="true"
 		MISSED_TIME=${MISSED_TIME}
-		DONE_TIME=${DONE_TIME}
+		FINISH_TIME=${FINISH_TIME}
 	elif [[ $EPOCH1 -lt $EPOCH2 ]]; then
 		MISSED="false"
 		REMAIN_TIME=${REMAIN_TIME}
@@ -459,7 +459,7 @@ function finish {
 				INDEX=$((${INDEX} + 1))
 				continue
 			else
-				echo -e "${INDEX} - ${YELLOW}[${TIME}]${NC}:"
+				echo -e "${INDEX} - ${CYAN}Finish[${FINISH_TIME}]${NC} - @ ${YELLOW}[${TIME}]${NC}:"
 				echo -e "${GREEN}${CONTENT}${NC}"
 				INDEX=$((${INDEX} + 1))
 			fi
@@ -486,7 +486,7 @@ function finish {
 					INDEX=$((${INDEX} + 1))
 					continue
 				else
-					echo -e "${INDEX} - ${YELLOW}[${TIME}]${NC}:"
+					echo -e "${INDEX} - ${CYAN}Finish[${FINISH_TIME}]${NC} - @ ${YELLOW}[${TIME}]${NC}:"
 					echo -e "${GREEN}${CONTENT}${NC}"
 					INDEX=$((${INDEX} + 1))
 				fi
@@ -509,7 +509,7 @@ function finish {
 						INDEX=$((${INDEX} + 1))
 						continue
 					else
-						echo -e "${INDEX} - ${YELLOW}[${TIME}]${NC}:"
+						echo -e "${INDEX} - ${CYAN}Finish[${FINISH_TIME}]${NC} - @ ${YELLOW}[${TIME}]${NC}:"
 						echo -e "${GREEN}${CONTENT}${NC}"
 						INDEX=$((${INDEX} + 1))
 					fi
@@ -613,6 +613,11 @@ case ${COMMAND} in
 	echo "### [MISSED JOBS] ###"
 	check
 	miss ${OPTION} ${ARGUMENT}
+	;;
+"remain")
+	echo "### [REMAIN JOBS] ###"
+	check
+	remain ${OPTION} ${ARGUMENT}
 	;;
 "finish")
 	echo "### [FINISHED JOBS] ###"

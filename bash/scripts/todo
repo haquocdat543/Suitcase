@@ -151,11 +151,19 @@ function datetime_compare {
 	# Second date-time: 2024-10-10 10:15:00
 	EPOCH2=$(date -j -f "%Y/%m/%d|%H:%M:%S" "${INPUT2}" "+%s")
 
+        # missed time
+        MISSED_TIME=$((EPOCH1 + EPOCH2))
+        DONE_TIME=$((EPOCH1 + EPOCH2))
+        REMAIN_TIME=$((EPOCH2 + EPOCH1))
+
 	# Compare the two epoch values
 	if [[ $EPOCH1 -gt $EPOCH2 ]]; then
 		MISSED="true"
+		MISSED_TIME=${MISSED_TIME}
+		DONE_TIME=${DONE_TIME}
 	elif [[ $EPOCH1 -lt $EPOCH2 ]]; then
 		MISSED="false"
+		REMAIN_TIME=${REMAIN_TIME}
 	else
 		echo "Both date-times are the same."
 	fi

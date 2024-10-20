@@ -2529,3 +2529,27 @@ snippet mongo "Docker compose mongo" b
     ports:
       - 27017:27017
 endsnippet
+
+snippet mongoclientonk8s "Mongo Client on kubernetes" b
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mongodb-client
+  labels:
+    app: mongo-client
+spec:
+  containers:
+  - name: mongodb-client
+    image: mongo:latest  # You can use the MongoDB image version you need
+    command: [ "sleep", "3600" ]  # Keep the pod running
+    env:
+    - name: MONGO_URI
+      valueFrom:
+        secretKeyRef:
+          name: mongodb-exporter-secrets 
+          key: mongodb-uri
+    ports:
+    - containerPort: 27017
+      name: mongo
+  restartPolicy: Never
+endsnippet

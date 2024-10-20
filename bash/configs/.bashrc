@@ -520,6 +520,7 @@ alias ipet='. $HOME/preconfig/Suitcase/bash/scripts/installPet.sh'
 alias ible='. $HOME/preconfig/Suitcase/bash/scripts/ble.sh'
 alias igm='git clone https://github.com/informalsystems/gm ; cp -f $HOME/gm/bin/* /usr/local/bin'
 alias ibat='cargo install --locked bat'
+alias inixasroot='. $HOME/preconfig/Suitcase/bash/scripts/installNixAsRoot.sh'
 alias inix='sh <(curl -L https://nixos.org/nix/install)'
 alias izoxide='curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh' # eval "$(zoxide init bash)"
 alias icb='curl -sSL https://github.com/Slackadays/Clipboard/raw/main/install.sh | sh'

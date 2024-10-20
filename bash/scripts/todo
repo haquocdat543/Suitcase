@@ -275,6 +275,86 @@ function miss {
 
 }
 
+function finish {
+
+	local OPTION=${1}
+	local ARGUMENT=${2}
+	# today [ default ]
+
+	if [[ -z ${OPTION} ]]; then
+		JOBS=$(ls ${CURRENT_DATE_DIRECTORY})
+		echo "Today [${CURRENT_DATE}]"
+		INDEX=1
+		for TIME in ${JOBS}; do
+			CONTENT=$(cat ${CURRENT_DATE_DIRECTORY}/${TIME})
+			FINISH=$(yq '.complete' ${CURRENT_DATE_DIRECTORY}/${TIME})
+			DEADLINE=$(yq '.deadline' ${CURRENT_DATE_DIRECTORY}/${TIME})
+			if [[ ${FINISH} == "false" ]]; then
+				INDEX=$((${INDEX} + 1))
+				continue
+			else
+				echo -e "${INDEX} - ${YELLOW}[${TIME}]${NC}:"
+				echo -e "${GREEN}${CONTENT}${NC}"
+				INDEX=$((${INDEX} + 1))
+			fi
+		done
+
+	# day [ specific date ]
+	elif [[ ${OPTION} == "day" ]]; then
+		day ${ARGUMENT}
+		SPECIFIC_DATE=${DATE}
+		SPECIFIC_DATE_DIRECTORY="${TODO_DIRECTORY}/${SPECIFIC_DATE}"
+
+		# check specific date directory
+		if [[ ! -d ${SPECIFIC_DATE_DIRECTORY} ]]; then
+			echo "Date [${SPECIFIC_DATE}] does not contain anything"
+		else
+			JOBS=$(ls ${SPECIFIC_DATE_DIRECTORY})
+			echo "Date [${CURRENT_DATE}]"
+			INDEX=1
+			for TIME in ${JOBS}; do
+				CONTENT=$(cat ${SPECIFIC_DATE_DIRECTORY}/${TIME})
+				FINISH=$(yq '.complete' ${CURRENT_DATE_DIRECTORY}/${TIME})
+				DEADLINE=$(yq '.deadline' ${CURRENT_DATE_DIRECTORY}/${TIME})
+				if [[ ${FINISH} == "false" ]]; then
+					INDEX=$((${INDEX} + 1))
+					continue
+				else
+					echo -e "${INDEX} - ${YELLOW}[${TIME}]${NC}:"
+					echo -e "${GREEN}${CONTENT}${NC}"
+					INDEX=$((${INDEX} + 1))
+				fi
+			done
+		fi
+	elif [[ ${OPTION} == "month" ]]; then
+		if [[ -z ${ARGUMENT} ]]; then
+			SPECIFIC_MONTH_DIRECTORY="${TODO_DIRECTORY}/${CURRENT_YEAR}/${CURRENT_MONTH}"
+			DAYS=$(ls ${SPECIFIC_MONTH_DIRECTORY})
+			for DAY in ${DAYS}; do
+				SPECIFIC_DATE_DIRECTORY="${TODO_DIRECTORY}/${CURRENT_YEAR}/${CURRENT_MONTH}/${DAY}"
+				JOBS=$(ls ${SPECIFIC_DATE_DIRECTORY})
+				echo "Date [${CURRENT_DATE}]"
+				INDEX=1
+				for TIME in ${JOBS}; do
+					CONTENT=$(cat ${SPECIFIC_DATE_DIRECTORY}/${TIME})
+					FINISH=$(yq '.complete' ${CURRENT_DATE_DIRECTORY}/${TIME})
+					DEADLINE=$(yq '.deadline' ${CURRENT_DATE_DIRECTORY}/${TIME})
+					if [[ ${FINISH} == "false" ]]; then
+						INDEX=$((${INDEX} + 1))
+						continue
+					else
+						echo -e "${INDEX} - ${YELLOW}[${TIME}]${NC}:"
+						echo -e "${GREEN}${CONTENT}${NC}"
+						INDEX=$((${INDEX} + 1))
+					fi
+				done
+			done
+		fi
+	fi
+	# range [ date to date ]
+
+}
+
 function add {
 
 	### define yaml
@@ -367,6 +447,11 @@ case ${COMMAND} in
 	echo "### [MISSED JOBS] ###"
 	check
 	miss ${OPTION} ${ARGUMENT}
+	;;
+"finish")
+	echo "### [FINISHED JOBS] ###"
+	check
+	finish ${OPTION} ${ARGUMENT}
 	;;
 "update")
 	echo "### [UPDATE JOBS] ###"

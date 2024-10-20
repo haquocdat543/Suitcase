@@ -151,10 +151,10 @@ function datetime_compare {
 	# Second date-time: 2024-10-10 10:15:00
 	EPOCH2=$(date -j -f "%Y/%m/%d|%H:%M:%S" "${INPUT2}" "+%s")
 
-        # missed time
-        MISSED_TIME=$((EPOCH1 + EPOCH2))
-        DONE_TIME=$((EPOCH1 + EPOCH2))
-        REMAIN_TIME=$((EPOCH2 + EPOCH1))
+	# missed time
+	MISSED_TIME=$((EPOCH1 + EPOCH2))
+	DONE_TIME=$((EPOCH1 + EPOCH2))
+	REMAIN_TIME=$((EPOCH2 + EPOCH1))
 
 	# Compare the two epoch values
 	if [[ $EPOCH1 -gt $EPOCH2 ]]; then
@@ -269,9 +269,16 @@ function miss {
 				INDEX=$((${INDEX} + 1))
 				continue
 			else
-				echo -e "${INDEX} - ${YELLOW}[${TIME}]${NC}:"
-				echo -e "${GREEN}${CONTENT}${NC}"
-				INDEX=$((${INDEX} + 1))
+				datetime_compare ${CURRENT_DATETIME} ${CURRENT_DATE} | ${DEADLINE}
+				if [[ ${MISSED} == "false" ]]; then
+					continue
+					INDEX=$((${INDEX} + 1))
+				else
+					echo -e "${INDEX} - ${CYAN}Missed[${MISSED_TIME}]${NC} - @ ${YELLOW}[${TIME}]${NC}:"
+					echo -e "${GREEN}${CONTENT}${NC}"
+					INDEX=$((${INDEX} + 1))
+				fi
+
 			fi
 		done
 
@@ -289,16 +296,23 @@ function miss {
 			echo "Date [${CURRENT_DATE}]"
 			INDEX=1
 			for TIME in ${JOBS}; do
-				CONTENT=$(cat ${SPECIFIC_DATE_DIRECTORY}/${TIME})
+				CONTENT=$(cat ${CURRENT_DATE_DIRECTORY}/${TIME})
 				FINISH=$(yq '.complete' ${CURRENT_DATE_DIRECTORY}/${TIME})
 				DEADLINE=$(yq '.deadline' ${CURRENT_DATE_DIRECTORY}/${TIME})
 				if [[ ${FINISH} == "true" ]]; then
 					INDEX=$((${INDEX} + 1))
 					continue
 				else
-					echo -e "${INDEX} - ${YELLOW}[${TIME}]${NC}:"
-					echo -e "${GREEN}${CONTENT}${NC}"
-					INDEX=$((${INDEX} + 1))
+					datetime_compare ${CURRENT_DATETIME} ${CURRENT_DATE} | ${DEADLINE}
+					if [[ ${MISSED} == "false" ]]; then
+						continue
+						INDEX=$((${INDEX} + 1))
+					else
+						echo -e "${INDEX} - ${CYAN}Missed[${MISSED_TIME}]${NC} - @ ${YELLOW}[${TIME}]${NC}:"
+						echo -e "${GREEN}${CONTENT}${NC}"
+						INDEX=$((${INDEX} + 1))
+					fi
+
 				fi
 			done
 		fi
@@ -306,24 +320,25 @@ function miss {
 		if [[ -z ${ARGUMENT} ]]; then
 			SPECIFIC_MONTH_DIRECTORY="${TODO_DIRECTORY}/${CURRENT_YEAR}/${CURRENT_MONTH}"
 			DAYS=$(ls ${SPECIFIC_MONTH_DIRECTORY})
-			for DAY in ${DAYS}; do
-				SPECIFIC_DATE_DIRECTORY="${TODO_DIRECTORY}/${CURRENT_YEAR}/${CURRENT_MONTH}/${DAY}"
-				JOBS=$(ls ${SPECIFIC_DATE_DIRECTORY})
-				echo "Date [${CURRENT_DATE}]"
-				INDEX=1
-				for TIME in ${JOBS}; do
-					CONTENT=$(cat ${SPECIFIC_DATE_DIRECTORY}/${TIME})
-					FINISH=$(yq '.complete' ${CURRENT_DATE_DIRECTORY}/${TIME})
-					DEADLINE=$(yq '.deadline' ${CURRENT_DATE_DIRECTORY}/${TIME})
-					if [[ ${FINISH} == "true" ]]; then
-						INDEX=$((${INDEX} + 1))
+			for TIME in ${JOBS}; do
+				CONTENT=$(cat ${CURRENT_DATE_DIRECTORY}/${TIME})
+				FINISH=$(yq '.complete' ${CURRENT_DATE_DIRECTORY}/${TIME})
+				DEADLINE=$(yq '.deadline' ${CURRENT_DATE_DIRECTORY}/${TIME})
+				if [[ ${FINISH} == "true" ]]; then
+					INDEX=$((${INDEX} + 1))
+					continue
+				else
+					datetime_compare ${CURRENT_DATETIME} ${CURRENT_DATE} | ${DEADLINE}
+					if [[ ${MISSED} == "false" ]]; then
 						continue
+						INDEX=$((${INDEX} + 1))
 					else
-						echo -e "${INDEX} - ${YELLOW}[${TIME}]${NC}:"
+						echo -e "${INDEX} - ${CYAN}Missed[${MISSED_TIME}]${NC} - @ ${YELLOW}[${TIME}]${NC}:"
 						echo -e "${GREEN}${CONTENT}${NC}"
 						INDEX=$((${INDEX} + 1))
 					fi
-				done
+
+				fi
 			done
 		fi
 	fi

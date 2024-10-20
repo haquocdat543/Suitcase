@@ -152,9 +152,10 @@ function datetime_compare {
 	EPOCH2=$(date -j -f "%Y/%m/%d|%H:%M:%S" "${INPUT2}" "+%s")
 
 	# missed time
-	MISSED_TIME=$(date -r "$((EPOCH1 - EPOCH2))" "+%Y/%m/%d|%H:%M:%S")
-	FINISH_TIME=$(date -r "$((EPOCH1 - EPOCH2))" "+%Y/%m/%d|%H:%M:%S")
-	REMAIN_TIME=$(date -r "$((EPOCH2 - EPOCH1))" "+%Y/%m/%d|%H:%M:%S")
+	SEVEN_HOURS=25200
+	MISSED_TIME=$(date -r "$((EPOCH1 - EPOCH2 - SEVEN_HOURS))" "+%Y/%m/%d|%H:%M:%S")
+	FINISH_TIME=$(date -r "$((EPOCH1 - EPOCH2 - SEVEN_HOURS))" "+%Y/%m/%d|%H:%M:%S")
+	REMAIN_TIME=$(date -r "$((EPOCH2 - EPOCH1 - SEVEN_HOURS))" "+%Y/%m/%d|%H:%M:%S")
 
 	# Compare the two epoch values
 	if [[ $EPOCH1 -gt $EPOCH2 ]]; then

@@ -59,19 +59,19 @@ function day {
 	# 20/10 [ current year ]
 	# 20 [ current month and year ]
 
-	DAY_MONTH_YEAR_PATTERN="^[0-9]{1,2}/[0-9]{1,2}/[0-9]{4}$"
-	DAY_MONTH_PATTERN="^[0-9]{1,2}/[0-9]{1,2}$"
+	YEAR_MONTH_DAY_PATTERN="^[0-9]{4}/[0-9]{1,2}/[0-9]{1,2}$"
+	MONTH_DAY_PATTERN="^[0-9]{1,2}/[0-9]{1,2}$"
 	DAY_PATTERN="^[0-9]{1,2}$"
 
-	if [[ ${INPUT} =~ ${DAY_MONTH_YEAR_PATTERN} ]]; then
+	if [[ ${INPUT} =~ ${YEAR_MONTH_DAY_PATTERN} ]]; then
 		DATE=${INPUT}
-	elif [[ ${INPUT} =~ ${DAY_MONTH_PATTERN} ]]; then
+	elif [[ ${INPUT} =~ ${MONTH_DAY_PATTERN} ]]; then
 		CURRENT_YEAR=$(date "+%Y")
-		DATE="${INPUT}/${CURRENT_YEAR}"
+		DATE="${CURRENT_YEAR}/${INPUT}"
 	elif [[ ${INPUT} =~ ${DAY_PATTERN} ]]; then
 		CURRENT_YEAR=$(date "+%Y")
 		CURRENT_MONTH=$(date "+%m")
-		DATE="${INPUT}/${CURRENT_MONTH}/${CURRENT_YEAR}"
+		DATE="${CURRENT_YEAR}/${CURRENT_MONTH}/${INPUT}"
 	else
 		echo "Invalid date format."
 		return 1
@@ -87,14 +87,14 @@ function month {
 	# 10/2024 [ full type ]
 	# 10 [ current year ]
 
-	MONTH_YEAR_PATTERN="^[0-9]{1,2}/[0-9]{4}$"
+	YEAR_MONTH_PATTERN="^[0-9]{1,2}/[0-9]{4}$"
 	MONTH_PATTERN="^[0-9]{1,2}$"
 
 	if [[ ${INPUT} =~ ${MONTH_YEAR_PATTERN} ]]; then
 		DATE=${INPUT}
 	elif [[ ${INPUT} =~ ${MONTH_PATTERN} ]]; then
 		CURRENT_YEAR=$(date "+%Y")
-		DATE="${INPUT}/${CURRENT_YEAR}"
+		DATE="${CURRENT_YEAR}/${INPUT}"
 		els
 		echo "Invalid month format."
 		return 1

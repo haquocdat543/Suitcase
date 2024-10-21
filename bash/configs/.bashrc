@@ -2721,7 +2721,8 @@ alias psf='. $HOME/preconfig/Suitcase/bash/scripts/pass fzf'
 alias psi='. $HOME/preconfig/Suitcase/bash/scripts/pass insert'
 alias psr='. $HOME/preconfig/Suitcase/bash/scripts/pass rm'
 alias psg='. $HOME/preconfig/Suitcase/bash/scripts/pass git'
-alias psgp='. $HOME/preconfig/Suitcase/bash/scripts/pass git push'
+alias psp='. $HOME/preconfig/Suitcase/bash/scripts/pass git push'
+alias pspl='. $HOME/preconfig/Suitcase/bash/scripts/pass git pull'
 
 ### GPG key
 alias gpgae='gpg --armor --export'

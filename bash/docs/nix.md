@@ -30,4 +30,15 @@ Search package
 nix-env search "regex"
 ```
 
+### 1. nix shell
+Experimentally:
+```
+nix-shell -p grafana
+```
+
+Experimentally run command:
+```
+nix-shell -p python3 --run "python3 --version"
+```
+
 ## 2. Configuration

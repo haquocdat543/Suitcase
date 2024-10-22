@@ -49,7 +49,13 @@ docker run -p 9092:9092 apache/kafka:3.8.0
 ```
 
 ## 3. Interaction
-### 1. Shell
+### 1. Shell - Kafka
+List all topics:
+```
+KAFKA_HOST="localhost:9092"
+kafka-topics.sh --bootstrap-server ${KAFKA_HOST} --list
+```
+
 Create topic:
 ```
 TOPIC_NAME="quickstart-events"
@@ -76,4 +82,10 @@ Read event from topic:
 TOPIC_NAME="quickstart-events"
 KAFKA_HOST="localhost:9092"
 bin/kafka-console-consumer.sh --topic ${TOPIC_NAME} --from-beginning --bootstrap-server ${KAFKA_HOST}
+```
+
+### 2. Shell - Zookeeper
+```
+ZOOKEEPER_HOST="localhost:2181"
+kafka-topics.sh --zookeeper ${ZOOKEEPER_HOST} --list
 ```

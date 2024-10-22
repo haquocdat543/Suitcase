@@ -63,23 +63,32 @@ template:
 endsnippet
 
 snippet terragrunt "Terragrunt" b
-AWS_ACCESS_KEY_ID= := $(shell pass ghsv/aws/access_key)
-AWS_SECRET_ACCESS_KEY= := $(shell pass ghsv/aws/secret_key)
-GIT_USERNAME=""
-GIT_ACCESS_TOKEN := $(shell pass ghsv/github_token/terragrunt)
+AWS_PROFILE=default
+AWS_ACCESS_KEY_ID=$(shell pass ghsv/aws/access_key)
+AWS_SECRET_ACCESS_KEY=$(shell pass ghsv/aws/secret_key)
+GIT_USERNAME=haquocdat543
+GIT_ACCESS_TOKEN=$(shell pass ghsv/github_token/terragrunt)
 
+export AWS_PROFILE
 export AWS_ACCESS_KEY_ID
 export AWS_SECRET_ACCESS_KEY
 export GIT_USERNAME
 export GIT_ACCESS_TOKEN
 
+.PHONY: plan apply destroy
+
 plan:
+	@echo "Running terragrunt plan"
 	terragrunt init
 	terragrunt run-all plan --terragrunt-non-interactive
+
 apply:
+	@echo "Running terragrunt apply"
 	terragrunt init
 	terragrunt run-all apply --terragrunt-non-interactive
+
 destroy:
+	@echo "Running terragrunt destroy"
 	terragrunt init
 	terragrunt run-all destroy --terragrunt-non-interactive
 endsnippet

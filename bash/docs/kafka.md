@@ -50,6 +50,7 @@ docker run -p 9092:9092 apache/kafka:3.8.0
 
 ## 3. Operation
 ### 1. Shell - Kafka
+#### 1. Topics
 List all topics:
 ```
 KAFKA_HOST="localhost:9092"
@@ -84,7 +85,15 @@ KAFKA_HOST="localhost:9092"
 bin/kafka-console-consumer.sh --topic ${TOPIC_NAME} --from-beginning --bootstrap-server ${KAFKA_HOST}
 ```
 
+#### 2. User and Client
+```
+USER_NAME="user1"
+KAFKA_HOST="localhost:9092"
+bin/kafka-configs.sh --bootstrap-server localhost:9092 --describe --entity-type users --entity-name user1
+```
+
 ### 2. Shell - Zookeeper
+#### 1. Topics
 ```
 ZOOKEEPER_HOST="localhost:2181"
 kafka-topics.sh --zookeeper ${ZOOKEEPER_HOST} --list

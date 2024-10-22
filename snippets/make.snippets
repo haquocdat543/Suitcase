@@ -62,6 +62,21 @@ template:
 	helm template $(RELEASE) $(REPO) -f $(VALUE) > $(TEMPLATE)
 endsnippet
 
+snippet terragrunt "Terragrunt" b
+GIT_USERNAME=""
+GIT_ACCESS_TOKEN := $(pass ghsv/github_token/terragrunt)
+
+plan:
+	terragrunt init
+	terragrunt run-all plan --terragrunt-non-interactive
+apply:
+	terragrunt init
+	terragrunt run-all apply --terragrunt-non-interactive
+destroy:
+	terragrunt init
+	terragrunt run-all destroy --terragrunt-non-interactive
+endsnippet
+
 snippet pn "Phony ( avoid same command and file name )" b
 .PHONY: $1
 endsnippet

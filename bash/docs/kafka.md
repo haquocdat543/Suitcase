@@ -48,7 +48,7 @@ bin/kafka-server-start.sh config/server.properties
 docker run -p 9092:9092 apache/kafka:3.8.0
 ```
 
-## 3. Interaction
+## 3. Operation
 ### 1. Shell - Kafka
 List all topics:
 ```

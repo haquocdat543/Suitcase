@@ -17,7 +17,7 @@ KAKFA_TAR=$(ls -1 | grep kafka)
 tar -xvzf ${KAKFA_TAR}
 ```
 
-## Initialize cluster
+## 2. Initialize cluster
 ### 1. Kafka with KRaft
 Generate UID:
 ```
@@ -46,4 +46,34 @@ bin/kafka-server-start.sh config/server.properties
 ### 3. Kafka with Docker
 ```
 docker run -p 9092:9092 apache/kafka:3.8.0
+```
+
+## 3. Interaction
+### 1. Shell
+Create topic:
+```
+TOPIC_NAME="quickstart-events"
+KAFKA_HOST="localhost:9092"
+bin/kafka-topics.sh --create --topic ${TOPIC_NAME} --bootstrap-server ${KAFKA_HOST}
+```
+
+Describe topic:
+```
+TOPIC_NAME="quickstart-events"
+KAFKA_HOST="localhost:9092"
+bin/kafka-topics.sh --describe --topic ${TOPIC_NAME} --bootstrap-server ${KAFKA_HOST}
+```
+
+Write event to topic:
+```
+TOPIC_NAME="quickstart-events"
+KAFKA_HOST="localhost:9092"
+bin/kafka-console-producer.sh --topic ${TOPIC_NAME} --bootstrap-server ${KAFKA_HOST}
+```
+
+Read event from topic:
+```
+TOPIC_NAME="quickstart-events"
+KAFKA_HOST="localhost:9092"
+bin/kafka-console-consumer.sh --topic ${TOPIC_NAME} --from-beginning --bootstrap-server ${KAFKA_HOST}
 ```

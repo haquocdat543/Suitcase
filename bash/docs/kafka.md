@@ -89,7 +89,7 @@ bin/kafka-console-consumer.sh --topic ${TOPIC_NAME} --from-beginning --bootstrap
 ```
 USER_NAME="user1"
 KAFKA_HOST="localhost:9092"
-bin/kafka-configs.sh --bootstrap-server localhost:9092 --describe --entity-type users --entity-name user1
+bin/kafka-configs.sh --bootstrap-server ${KAFKA_HOST} --describe --entity-type users --entity-name ${USER_NAME}
 ```
 
 ### 2. Shell - Zookeeper

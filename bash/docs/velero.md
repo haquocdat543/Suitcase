@@ -22,3 +22,10 @@ Get backups
 ```
 velero backup get
 ```
+
+Create backup 
+```
+BACKUP_NAME=""
+NAMESPACE=""
+velero backup create ${BACKUP_NAME} --include-namespaces ${NAMESPACE} --wait
+```

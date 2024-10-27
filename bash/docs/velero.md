@@ -29,3 +29,9 @@ BACKUP_NAME=""
 NAMESPACE=""
 velero backup create ${BACKUP_NAME} --include-namespaces ${NAMESPACE} --wait
 ```
+
+Restore backup 
+```
+BACKUP_NAME=""
+velero restore create --from-backup=${BACKUP_NAME} --wait
+```

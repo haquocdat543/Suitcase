@@ -16,3 +16,9 @@ velero install \
   --default-volumes-to-restic
 ```
 
+## USAGE
+* AWS:
+Get backups
+```
+velero backup get
+```

@@ -12,4 +12,5 @@ else
 	cd ${LOCAL_PATH}
 	git pull
 	export PATH="${PATH}:${LOCAL_PATH}"
+	cd -
 fi

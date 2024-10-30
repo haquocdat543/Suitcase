@@ -1142,6 +1142,7 @@ alias gap='git add --patch'
 alias gac='gaa ; gc'
 alias gau='git add -u'
 alias gcp='git cherry-pick'
+alias gnk='git reset --hard HEAD && git clean -fd' # git nuke
 alias g1='git reset --soft HEAD~1'
 alias g0='git reset --hard HEAD~1'
 alias g2='git reset --'

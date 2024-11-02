@@ -81,3 +81,19 @@ Restart-Service -Name $serviceName
 ```
 Get-ExecutionPolicy -List
 ```
+
+### Get process [ ps ]
+```
+Get-Process
+```
+
+### Start process
+```
+Start-Process
+```
+
+### Stop process
+```
+Stop-Process
+```
+

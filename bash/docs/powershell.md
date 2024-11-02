@@ -1,6 +1,17 @@
 # POWERSHELL
 
-## Downdload file
+## Command
+### List directory items
+```
+Get-ChildItem
+```
+
+with path:
+```
+$directoryPath = "C:\Path\To\Directory"
+Get-ChildItem -Path $directoryPath
+```
+
 ### Downdload file
 ```powershell
 Invoke-WebRequest Invoke-WebRequest ${FILE_URL}

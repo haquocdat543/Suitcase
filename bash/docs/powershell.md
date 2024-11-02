@@ -16,3 +16,9 @@ Expand-Archive -Path ~\${FILE_NAME}
 $name = "myname"
 Write-Output "Your name is $name."
 ```
+
+### Start service
+```
+$serviceName = "wuauserv"  # Windows Update service
+Start-Service -Name $serviceName
+```

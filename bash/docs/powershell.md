@@ -153,3 +153,14 @@ Remove-LocalUser
 Get-LocalGroup
 ```
 
+## Environment management
+### Get environment variable
+```
+Get-EnvironmentVariable
+```
+
+### Set environment variable
+```
+Set-EnvironmentVariable
+```
+

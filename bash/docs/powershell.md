@@ -1,7 +1,7 @@
 # POWERSHELL
 
 ## Command
-### List directory items
+### List directory items [ ls ]
 ```
 Get-ChildItem
 ```
@@ -12,23 +12,48 @@ $directoryPath = "C:\Path\To\Directory"
 Get-ChildItem -Path $directoryPath
 ```
 
-### Downdload file
+### Set location [ cd ]
+```
+Set-Location
+```
+
+### Copy item [ cp ]
+```
+Copy-Item
+```
+
+### Move item [ mv ]
+```
+Move-Item
+```
+
+### Remove item [ rm ]
+```
+Remove-Item
+```
+
+### New item [ touch ]
+```
+New-Item
+```
+
+### Downdload file [ wget ]
 ```powershell
 Invoke-WebRequest Invoke-WebRequest ${FILE_URL}
 ```
 
-### Extract file
+### Extract file [ unzip ]
 ```
 Expand-Archive -Path ~\${FILE_NAME}
 ```
 
-### Write output
+### Write output [ echo ]
 ```
 $name = "myname"
 Write-Output "Your name is $name."
 ```
 
-### Start, stop, restart service
+### Start, stop, restart service [ systemctl ]
 Start:
 ```
 $serviceName = "wuauserv"  # Windows Update service
@@ -47,7 +72,7 @@ $serviceName = "wuauserv"  # Windows Update service
 Restart-Service -Name $serviceName
 ```
 
-### Set execution policy
+### Set execution policy [ chmod ]
 ```
 Get-ExecutionPolicy -List
 ```

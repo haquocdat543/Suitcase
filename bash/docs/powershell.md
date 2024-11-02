@@ -132,3 +132,24 @@ Get-NetIPAddress
 Get-NetAdapter
 ```
 
+## User and group management
+### Get list of local users [ cat /etc/passwd ]
+```
+Get-LocalUser
+```
+
+### Create new local user [ useradd ]
+```
+New-LocalUser
+```
+
+### Remove user
+```
+Remove-LocalUser
+```
+
+### Get list of local groups
+```
+Get-LocalGroup
+```
+

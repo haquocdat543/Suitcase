@@ -48,12 +48,6 @@ Invoke-WebRequest Invoke-WebRequest ${FILE_URL}
 Expand-Archive -Path ~\${FILE_NAME}
 ```
 
-### Write output [ echo ]
-```
-$name = "myname"
-Write-Output "Your name is $name."
-```
-
 ## Service operations
 ### Start, stop, restart service [ systemctl ]
 Get:
@@ -162,5 +156,43 @@ Get-EnvironmentVariable
 ### Set environment variable
 ```
 Set-EnvironmentVariable
+```
+
+## File content and text processing
+### Read file content
+```
+Get-Content
+```
+
+### Write file content
+```
+Set-Content
+```
+
+### Append content to file
+```
+Add-Content
+```
+
+### Select string
+```
+Select-String
+```
+
+## Date & console
+### Clear console
+```
+Clear-Host
+```
+
+### Get date
+```
+Get-Date
+```
+
+### Write output [ echo ]
+```
+$name = "myname"
+Write-Output "Your name is $name."
 ```
 

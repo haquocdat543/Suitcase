@@ -1,6 +1,7 @@
 # POWERSHELL
 
 ## Command
+## File Operations
 ### List directory items [ ls ]
 ```
 Get-ChildItem
@@ -53,6 +54,7 @@ $name = "myname"
 Write-Output "Your name is $name."
 ```
 
+## Service operations
 ### Start, stop, restart service [ systemctl ]
 Get:
 ```
@@ -82,6 +84,7 @@ Restart-Service -Name $serviceName
 Get-ExecutionPolicy -List
 ```
 
+## Process management
 ### Get process [ ps ]
 ```
 Get-Process
@@ -95,5 +98,21 @@ Start-Process
 ### Stop process
 ```
 Stop-Process
+```
+
+## System information
+### Get command
+```
+Get-Command
+```
+
+### Get help
+```
+Get-Help
+```
+
+### Get event log
+```
+Get-EventLog
 ```
 

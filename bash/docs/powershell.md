@@ -54,6 +54,11 @@ Write-Output "Your name is $name."
 ```
 
 ### Start, stop, restart service [ systemctl ]
+Get:
+```
+Get-Service
+```
+
 Start:
 ```
 $serviceName = "wuauserv"  # Windows Update service

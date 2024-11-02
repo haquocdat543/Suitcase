@@ -116,3 +116,19 @@ Get-Help
 Get-EventLog
 ```
 
+## Network operations
+### Test connection [ ping ] 
+```
+Test-Connection
+```
+
+### Get network ip addresses 
+```
+Get-NetIPAddress
+```
+
+### Get network adapter
+```
+Get-NetAdapter
+```
+

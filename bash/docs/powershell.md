@@ -10,3 +10,9 @@ Invoke-WebRequest Invoke-WebRequest ${FILE_URL}
 ```
 Expand-Archive -Path ~\${FILE_NAME}
 ```
+
+### Write output
+```
+$name = "myname"
+Write-Output "Your name is $name."
+```

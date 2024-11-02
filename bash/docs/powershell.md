@@ -22,3 +22,8 @@ Write-Output "Your name is $name."
 $serviceName = "wuauserv"  # Windows Update service
 Start-Service -Name $serviceName
 ```
+
+### Set execution policy
+```
+Get-ExecutionPolicy -List
+```

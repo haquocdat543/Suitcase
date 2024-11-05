@@ -3,6 +3,9 @@
 ## PostgreSQL
 This config allow connect to a PostgreSQL on private subnet from internet
 ```
+vim /etc/haproxy/haproxy.cfg
+```
+```
 frontend postgres_front
     bind *:5432
     mode tcp

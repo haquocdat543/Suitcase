@@ -1259,6 +1259,9 @@ alias gfff='git flow feature finish'
 alias gfrs='git flow release start'
 alias gfhs='git flow hotfix start'
 
+### Linux's network
+alias lnw='ls /sys/class/net'
+
 ### Iptables
 alias i7l='iptables -L -v -n --line-numbers'
 alias i7lnat='iptables -L -v -n --line-numbers -t nat'

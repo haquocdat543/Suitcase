@@ -189,3 +189,14 @@ Every month:
 ```
 0 0 1 * * /usr/bin/certbot renew --quiet --nginx
 ```
+
+## 11. Redirect domain
+```
+server {
+    listen 80;
+    listen 443 ssl;
+    server_name first.domain;
+
+    return 301 https://second.domain$request_uri;
+}
+```

@@ -56,3 +56,14 @@ sudo iptables -t nat -A PREROUTING -d PUBLIC_IP -p tcp --dport 5432 -j DNAT --to
 ```
 sudo iptables -A FORWARD -p tcp -d 10.0.1.10 --dport 5432 -m state --state NEW,ESTABLISHED,RELATED -j ACCEPT
 ```
+
+### 2. Limit connections
+Limit on port 80
+```
+sudo iptables -A INPUT -p tcp --dport 80 -m connlimit --connlimit-above 100 -j REJECT
+```
+
+Limit on port 5432
+```
+sudo iptables -A INPUT -p tcp --dport 5432 -m connlimit --connlimit-above 1000 -j REJECT
+```

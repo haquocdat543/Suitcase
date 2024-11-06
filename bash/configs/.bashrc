@@ -1259,6 +1259,13 @@ alias gfff='git flow feature finish'
 alias gfrs='git flow release start'
 alias gfhs='git flow hotfix start'
 
+### Iptables
+alias i7l='iptables -L -v -n --line-numbers'
+alias i7lnat='iptables -L -v -n --line-numbers -t nat'
+alias i7lsc='iptables -L -v -n --line-numbers -t security'
+alias i7lmg='iptables -L -v -n --line-numbers -t mangle'
+alias i7lraw='iptables -L -v -n --line-numbers -t raw'
+
 ### Knife command
 alias k4='knife'
 

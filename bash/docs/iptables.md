@@ -67,3 +67,9 @@ Limit on port 5432
 ```
 sudo iptables -A INPUT -p tcp --dport 5432 -m connlimit --connlimit-above 1000 -j REJECT
 ```
+
+### 3. Ridrect port
+443 to 80 [ Nginx ]
+```
+sudo iptables -A INPUT -p tcp --dport 443 -j REDIRECT --to-port 80
+```

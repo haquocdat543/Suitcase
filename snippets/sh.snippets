@@ -913,3 +913,17 @@ go mod tidy
 go build
 endsnippet
 
+snippet ghsc "Github secrets and variables" b
+#!/bin/bash
+
+export GH_TOKEN=""
+
+USERNAME=""
+REPOSITORY=""
+
+gh variable list --repo ${USERNAME}/${REPOSITORY}
+gh variable set AWS_REGION --repo ${USERNAME}/${REPOSITORY} --body ap-southeast-1
+
+gh secret list --repo ${USERNAME}/${REPOSITORY}
+gh secret set AWS_ACCESS_KEY_ID  --repo ${USERNAME}/${REPOSITORY} --body $(pass show vba/aws/access_key)
+endsnippet

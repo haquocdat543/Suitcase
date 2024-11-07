@@ -11,6 +11,35 @@ run:
 	./$3.exe
 endsnippet
 
+snippet ghsc "Github variables & secrets [ CLI ]" b
+GH_TOKEN=$(shell pass tungvv-vba/food-fe-be/access_token)
+USERNAME=
+REPOSITORY=
+
+export GH_TOKEN
+
+.PHONY: lv ls sv ss dv ds
+
+lv:
+	@echo "List variables"
+	gh variable list --repo $(USERNAME)/$(REPOSITORY)
+ls:
+	@echo "List secrets"
+	gh secret list --repo $(USERNAME)/$(REPOSITORY)
+sv:
+	@echo "Set variables"
+	gh variable set AWS_REGION --repo ${USERNAME}/${REPOSITORY} --body ap-southeast-1
+ss:
+	@echo "Set secrets"
+	gh secret set AWS_REGION --repo ${USERNAME}/${REPOSITORY} --body ap-southeast-1
+dv:
+	@echo "Delete variables"
+	gh variable delete AWS_REGION --repo ${USERNAME}/${REPOSITORY}
+ds:
+	@echo "Delete secrets"
+	gh secret delete AWS_REGION --repo ${USERNAME}/${REPOSITORY}
+endsnippet
+
 snippet golang "Makefile for golang build" b
 build:
 	echo "Compiling for every OS and Platform"

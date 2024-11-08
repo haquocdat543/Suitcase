@@ -1116,6 +1116,7 @@ alias gcfa='. $HOME/preconfig/Suitcase/bash/scripts/gitAddAlias.sh'
 alias glt='git ls-tree'
 alias glth='git ls-tree HEAD'
 alias gcfp='git cat-file -p'
+alias gtg='git commit --allow-empty -m "chore: trigger"' # Trigger
 alias gcae="git commit --allow-empty -m"
 alias gcam='git commit --amend'
 alias gcamm='git commit --amend -m'

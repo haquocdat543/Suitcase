@@ -74,7 +74,7 @@ VALUE="${1:override.yaml}"
 RELEASE="${2:jenkins}"
 CHART="${3:.}"
 NAMESPACE="${4:monitoring}"
-REPO="${5:jenkins/jenkins}"
+REPO="${5:jenkins/jenkins}" # jenkins/jenkins or . [ local template ]
 
 ## Template
 TEMPLATE="${6:template.yaml}"

@@ -9,3 +9,8 @@ Strict:
 ```
 nest new --strict
 ```
+
+## Controller
+```
+ nest g controller [name]
+```

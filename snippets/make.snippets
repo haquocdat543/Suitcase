@@ -120,6 +120,10 @@ destroy:
 	@echo "Running terragrunt destroy"
 	terragrunt init
 	terragrunt run-all destroy --terragrunt-non-interactive
+output:
+	@echo "Running terragrunt output"
+	terragrunt init
+	terragrunt run-all output --terragrunt-non-interactive
 endsnippet
 
 snippet pn "Phony ( avoid same command and file name )" b

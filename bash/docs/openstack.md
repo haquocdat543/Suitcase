@@ -18,3 +18,9 @@ Openstack vs AWS:
 * Freezer - Backup
 * Sahara - EMR
 * Searchlight - SageMaker
+
+### Configuration
+Ensure credential:
+```
+source ~/my-cloud-openrc.sh
+```

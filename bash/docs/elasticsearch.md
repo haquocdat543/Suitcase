@@ -16,6 +16,14 @@ Cluster settings:
 ```
 GET _cluster/settings
 ```
+## Index
+Add document
+```
+PUT my-index-000001/_doc/1
+{
+  "my_field": 5
+}
+```
 
 ## Alias
 * A `data stream alias` points to one or more `data streams`.

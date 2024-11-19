@@ -1,7 +1,13 @@
 # ELASTICSEARCH
 
+
 ## API
-### Info
+### Common
+```
+GET _all
+```
+
+### Cluster info
 Cluster health:
 ```
 GET _cluster/health

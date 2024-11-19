@@ -124,3 +124,59 @@ View alias after _alias to view its data streams or indices:
 ```
 GET _alias/logs
 ```
+
+## Scripts
+Source:
+```
+GET my-index-000001/_search
+{
+  "script_fields": {
+    "my_doubled_field": {
+      "script": { 
+        "source": "doc['my_field'].value * params['multiplier']", 
+        "params": {
+          "multiplier": 2
+        }
+      }
+    }
+  }
+}
+```
+
+Post to Stored:
+```
+POST _scripts/calculate-score
+{
+  "script": {
+    "lang": "painless",
+    "source": "Math.log(_score * 2) + params['my_modifier']"
+  }
+}
+```
+
+Get from Stored:
+```
+GET _scripts/calculate-score
+```
+
+Use stored script in query:
+```
+GET my-index-000001/_search
+{
+  "query": {
+    "script_score": {
+      "query": {
+        "match": {
+            "message": "some message"
+        }
+      },
+      "script": {
+        "id": "calculate-score", 
+        "params": {
+          "my_modifier": 2
+        }
+      }
+    }
+  }
+}
+```

@@ -186,3 +186,46 @@ GET my-index-000001/_search
   }
 }
 ```
+
+Delete stored script:
+```
+DELETE _scripts/calculate-score
+```
+
+Example:
+- Create new index and document:
+```
+PUT my-index-000001/_doc/1
+{
+  "counter" : 1,
+  "tags" : ["red"]
+}
+```
+
+- Increment counter by 4:
+```
+POST my-index-000001/_update/1
+{
+  "script" : {
+    "source": "ctx._source.counter += params.count",
+    "lang": "painless",
+    "params" : {
+      "count" : 4
+    }
+  }
+}
+```
+
+- Add more element to tag array:
+```
+POST my-index-000001/_update/1
+{
+  "script": {
+    "source": "ctx._source.tags.add(params['tag'])",
+    "lang": "painless",
+    "params": {
+      "tag": "blue"
+    }
+  }
+}
+```

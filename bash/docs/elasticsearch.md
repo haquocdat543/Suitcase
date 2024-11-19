@@ -101,3 +101,18 @@ POST _aliases
   ]
 }
 ```
+
+View aliases:
+```
+GET _alias
+```
+
+View aliases of [ data stream or index]:
+```
+GET my-data-stream/_alias
+```
+
+View alias after _alias to view its data streams or indices:
+```
+GET _alias/logs
+```

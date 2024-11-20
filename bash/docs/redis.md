@@ -25,6 +25,14 @@ redis-cli -a <AUTHENTICATE_TOKEN> COMMAND
 redis-cli -a <AUTHENTICATE_TOKEN> INFO replication
 ```
 
+## SEARCH WILDCARD KEYS
+```
+export REDIS_PASSWORD=
+export DB=0
+export REGEX=get_last_index_
+redis-cli -a ${REDIS_PASSWORD} -n ${DB} KEYS "${REGEX}*"
+```
+
 ## DELETE WILDCARD KEYS
 ```
 export REDIS_PASSWORD=

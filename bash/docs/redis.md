@@ -2,27 +2,32 @@
 
 ## LOGIN
 ```
-redis-cli -a <AUTHENTICATE_TOKEN> 
+export REDIS_PASSWORD=
+redis-cli -a ${REDIS_PASSWORD}
 ```
 
 ## GET ALL DATABASE
 ```
-redis-cli -a <AUTHENTICATE_TOKEN> info keyspace
+export REDIS_PASSWORD=
+redis-cli -a ${REDIS_PASSWORD} info keyspace
 ```
 
 ## GET ALL KEYS
 ```
-redis-cli -a <AUTHENTICATE_TOKEN> KEYS *
+export REDIS_PASSWORD=
+redis-cli -a ${REDIS_PASSWORD} KEYS *
 ```
 
 ## GET ALL COMMAND
 ```
-redis-cli -a <AUTHENTICATE_TOKEN> COMMAND
+export REDIS_PASSWORD=
+redis-cli -a ${REDIS_PASSWORD} COMMAND
 ```
 
 ## GET ROLE [ MASTER / SALVE ]
 ```
-redis-cli -a <AUTHENTICATE_TOKEN> INFO replication
+export REDIS_PASSWORD=
+redis-cli -a ${REDIS_PASSWORD} INFO replication
 ```
 
 ## SEARCH WILDCARD KEYS

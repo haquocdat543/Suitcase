@@ -1,5 +1,10 @@
 # ELASTICSEARCH
 
+## Setup
+Run locally:
+```
+curl -fsSL https://elastic.co/start-local | sh
+```
 
 ## API
 ### Common

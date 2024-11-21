@@ -91,6 +91,33 @@ template:
 	helm template $(RELEASE) $(REPO) -f $(VALUE) > $(TEMPLATE)
 endsnippet
 
+snippet terraform "Terraform" b
+AWS_PROFILE=default
+
+export AWS_PROFILE
+
+.PHONY: plan apply destroy
+
+plan:
+	@echo "Running terraform plan"
+	terraform init
+	terraform plan
+
+apply:
+	@echo "Running terraform apply"
+	terraform init
+	terraform apply
+
+destroy:
+	@echo "Running terraform destroy"
+	terraform init
+	terraform destroy
+output:
+	@echo "Running terraform output"
+	terraform init
+	terraform output
+endsnippet
+
 snippet terragrunt "Terragrunt" b
 AWS_PROFILE=default
 AWS_ACCESS_KEY_ID=$(shell pass ghsv/aws/access_key)

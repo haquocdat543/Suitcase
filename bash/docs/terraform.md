@@ -130,3 +130,30 @@ data "aws_ssm_parameter" "ecs_optimized_ami" {
   name = "/aws/service/ecs/optimized-ami/amazon-linux-2/recommended"
 }
 ```
+
+## Import using import block
+1. First create/choose an resource without terraform [ UI, CLI, CDK, CloudFormation,... ]
+
+2. Add import block to your terraform code
+```
+import {
+  to = aws_instance.web # change resource name
+  id = "i-12345678"     # change resource id
+}
+```
+
+3. Generate config
+```
+TF_FILE_NAME="ec2.tf"
+terraform plan -generate-config-out="${TF_FILE_NAME}"
+```
+
+4. Plan import new resource
+```
+terraform plan
+```
+
+5. Apply import new resource
+```
+terraform apply
+```

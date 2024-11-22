@@ -116,6 +116,10 @@ output:
 	@echo "Running terraform output"
 	terraform init
 	terraform output
+gen:
+	@echo "Generate terraform config"
+	terraform init
+	terraform plan -generate-config-out=generated.tf
 endsnippet
 
 snippet terragrunt "Terragrunt" b

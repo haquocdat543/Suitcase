@@ -183,6 +183,7 @@ AND     n.nspname NOT IN ('pg_catalog', 'information_schema');
 ```
 
 # POSTGRESQL
+## DATA OPERATIONS
 move db:
 
 create dump:
@@ -193,4 +194,13 @@ pg_dump dbname | gzip > filename.gz
 reload:
 ```
 gunzip -c filename.gz | psql dbname
+```
 
+## CONFIG OPERATIONS
+```
+vim /etc/postgresql/13/main/postgresql.conf   # For Debian/Ubuntu
+```
+
+```
+vim /var/lib/pgsql/13/data/postgresql.conf   # For RedHat/CentOS
+```

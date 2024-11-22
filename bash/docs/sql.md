@@ -204,3 +204,53 @@ vim /etc/postgresql/13/main/postgresql.conf   # For Debian/Ubuntu
 ```
 vim /var/lib/pgsql/13/data/postgresql.conf   # For RedHat/CentOS
 ```
+
+* `log_statement`: Controls which SQL statements are logged.
+```
+log_statement = 'all'  # Log all SQL statements. Options: 'none', 'ddl', 'mod', 'all'
+```
+
+* `max_connections`: Specifies the maximum number of concurrent connections.
+```
+max_connections = 200  # Set the maximum number of database connections
+```
+
+* `shared_buffers`: The amount of memory the database server uses for shared memory buffers.
+```
+shared_buffers = 1GB  # Adjust depending on available memory on your server
+```
+
+* `work_mem`: The amount of memory to be used by each query operation (like sorts or joins).
+```
+work_mem = 16MB  # Size of memory for each query sort operation
+```
+
+* `effective_cache_size`: The effective size of the disk cache used by PostgreSQL to optimize queries.
+```
+effective_cache_size = 4GB  # Typically set to 50-75% of your server's RAM
+```
+
+* `maintenance_work_mem`: The memory allocated for maintenance operations like VACUUM and CREATE INDEX.
+```
+maintenance_work_mem = 256MB  # The amount of memory used for maintenance operations
+```
+
+* `autovacuum`: Enable or disable the automatic vacuuming of tables.
+```
+autovacuum = on  # Make sure this is turned on for automatic cleanup
+```
+
+* `log_min_duration_statement`: Specifies the minimum execution time for a query to be logged.
+```
+log_min_duration_statement = 1000  # Log queries taking longer than 1 second
+```
+
+* `timezone`: Set the server time zone.
+```
+timezone = 'UTC'  # Set to your preferred timezone
+```
+
+* `synchronous_commit`: Controls whether the server waits for confirmation that a transaction has been written to disk.
+```
+synchronous_commit = on  # Ensures durability but may slow performance
+```

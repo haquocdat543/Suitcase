@@ -392,6 +392,7 @@ alias datagithub='vim -m $HOME/preconfig/Suitcase/bash/data/github.txt'
 alias datastex='vim -m $HOME/preconfig/Suitcase/bash/data/stackexchange.txt'
 
 ### Documentation
+alias docairflow='vim -m $HOME/preconfig/Suitcase/bash/docs/airflow.md'
 alias docsftp='vim -m $HOME/preconfig/Suitcase/bash/docs/sftp.md'
 alias doces='vim -m $HOME/preconfig/Suitcase/bash/docs/doces.md'
 alias docopenstack='vim -m $HOME/preconfig/Suitcase/bash/docs/openstack.md'

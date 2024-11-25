@@ -2871,6 +2871,7 @@ alias yagav='yarn global add @vue/cli'
 alias yai='yarn install'
 alias yaifl='yarn install --frozen-lockfile'
 alias yaiflnp='yarn install --frozen-lockfile --no-progress'
+alias yagmgsh='yarn add global mongosh'
 
 ## lua
 alias l7='luarocks'

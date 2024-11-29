@@ -1,47 +1,45 @@
-# REDIS
+# MONGO
 
-## LOGIN
-```
-export REDIS_PASSWORD=
-redis-cli -a ${REDIS_PASSWORD}
-```
+## 1. Dump
+Using container:
+- Init container:
+``````
+docker run -it --rm -v $(pwd)/mongo-backup:/backup:rw mongo /bin/bash
+``````
 
-## GET ALL DATABASE
-```
-export REDIS_PASSWORD=
-redis-cli -a ${REDIS_PASSWORD} info keyspace
-```
+- Create dump
+``````
+mongodump --uri="<URI>" --db <DB> --collection <COLLECTION> --out /path/to/directory
+``````
 
-## GET ALL KEYS
-```
-export REDIS_PASSWORD=
-redis-cli -a ${REDIS_PASSWORD} KEYS *
-```
+- Combination:
+``````
+URI="mongodb+srv://PomUcdUsr:3k1K1SXcC4casmtrk41@staging-pom-ucd-serverl.yhhpkj7.mongodb.net/?retryWrites=true&w=majority"
+DB_NAME="pom_ucd"
+COLLECTION_NAME=""
+DIRECTORY="/backup"
+mongodump --uri="${URI}" --db ${DB_NAME}
+``````
 
-## GET ALL COMMAND
+### FULL DATABASE
 ```
-export REDIS_PASSWORD=
-redis-cli -a ${REDIS_PASSWORD} COMMAND
+docker run -it --rm -v $(pwd)/mongo-backup:/backup:rw mongo /bin/bash
 ```
-
-## GET ROLE [ MASTER / SALVE ]
 ```
-export REDIS_PASSWORD=
-redis-cli -a ${REDIS_PASSWORD} INFO replication
-```
-
-## SEARCH WILDCARD KEYS
-```
-export REDIS_PASSWORD=
-export DB=0
-export REGEX=get_last_index_
-redis-cli -a ${REDIS_PASSWORD} -n ${DB} KEYS "${REGEX}*"
+URI=""
+DB_NAME=""
+DIRECTORY="/backup"
+mongodump --uri="${URI}" --db ${DB_NAME} --out ${DIRECTORY}
 ```
 
-## DELETE WILDCARD KEYS
+### SPECIFIC COLLECTION
 ```
-export REDIS_PASSWORD=
-export DB=0
-export REGEX=get_last_index_
-redis-cli -a ${REDIS_PASSWORD} -n ${DB} KEYS "${REGEX}*" | xargs -I {} redis-cli -a ${REDIS_PASSWORD} -n ${DB} DEL {}
+docker run -it --rm -v $(pwd)/mongo-backup:/backup:rw mongo /bin/bash
+```
+```
+URI=""
+DB_NAME=""
+DIRECTORY="/backup"
+COLLECTION_NAME=""
+mongodump --uri="${URI}" --db ${DB_NAME} --collection ${COLLECTION_NAME} --out ${DIRECTORY}
 ```

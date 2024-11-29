@@ -23,6 +23,7 @@ mongodump --uri="${URI}" --db ${DB_NAME}
 
 ### FULL DATABASE
 ```
+sudo rm -rf ${PWD}/mongo-backup
 docker run -it --rm -v $(pwd)/mongo-backup:/backup:rw mongo /bin/bash
 ```
 ```
@@ -34,12 +35,13 @@ mongodump --uri="${URI}" --db ${DB_NAME} --out ${DIRECTORY}
 
 ### SPECIFIC COLLECTION
 ```
+sudo rm -rf ${PWD}/mongo-backup
 docker run -it --rm -v $(pwd)/mongo-backup:/backup:rw mongo /bin/bash
 ```
 ```
 URI=""
 DB_NAME=""
-DIRECTORY="/backup"
 COLLECTION_NAME=""
+DIRECTORY="/backup"
 mongodump --uri="${URI}" --db ${DB_NAME} --collection ${COLLECTION_NAME} --out ${DIRECTORY}
 ```

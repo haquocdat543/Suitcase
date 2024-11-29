@@ -2809,7 +2809,6 @@ alias kgim='. $HOME/preconfig/Suitcase/bash/scripts/getAllImagesOnK8s.sh'
 alias sshfw='. $HOME/preconfig/Suitcase/bash/scripts/sshForward.sh'
 alias baca='. $HOME/preconfig/Suitcase/bash/scripts/BasicCalculator.sh'
 alias ecsexec='. $HOME/preconfig/Suitcase/bash/scripts/ecsExec.sh' # <Cluster-name> <Task-id> <Container-name> <CMD> # Service need to set enable-execute-command to true # Service role and exec role must have enough permission [ ssmmessages:*, ssm:UpdateInstanceInformation, ecs:ExecuteCommand, kms:Decrypt ]
-escexec vbatechs-dev arn:aws:ecs:ap-southeast-1:550053149076:task/vbatechs-dev/750ff4c239db477784fed62d5740fe77 vbatechs-dev-food-backend-ec2-container /bin/bash
 alias shn='sudo scutil --set HostName'
 alias slhn='sudo scutil --set LocalHostName'
 alias scn='sudo scutil --set ComputerName'

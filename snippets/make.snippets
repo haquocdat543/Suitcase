@@ -155,6 +155,10 @@ output:
 	@echo "Running terragrunt output"
 	terragrunt init
 	terragrunt run-all output --terragrunt-non-interactive
+sensitive:
+	@echo "Running terragrunt output"
+	terragrunt init
+	terragrunt run-all output --terragrunt-non-interactive -json > sensitive.json
 endsnippet
 
 snippet pn "Phony ( avoid same command and file name )" b

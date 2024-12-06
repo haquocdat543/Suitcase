@@ -89,6 +89,10 @@ rollback:
 	helm rollback $(RELEASE)
 template:
 	helm template $(RELEASE) $(REPO) -f $(VALUE) > $(TEMPLATE)
+value:
+	helm show values $(REPO) > values.yaml
+chart:
+	helm show chart $(REPO) > Chart.yaml
 endsnippet
 
 snippet terraform "Terraform" b

@@ -163,6 +163,10 @@ sensitive:
 	@echo "Running terragrunt output"
 	terragrunt init
 	terragrunt run-all output --terragrunt-non-interactive -json > sensitive.json
+fmt:
+	@echo "Running terragrunt fmthcl"
+	terragrunt hclfmt
+format: fmt
 endsnippet
 
 snippet pn "Phony ( avoid same command and file name )" b

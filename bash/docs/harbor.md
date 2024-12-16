@@ -4,7 +4,7 @@ Container registry
 
 ## 1. Installation
 ### 1. Helm
-```
+```bash
 helm repo add harbor https://helm.goharbor.io
 helm fetch harbor/harbor --untar
 helm install my-release harbor/

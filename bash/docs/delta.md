@@ -4,7 +4,7 @@
 ### 2. Configuration
 
 $HOME/.gitconfig
-```
+```toml
 [init]
     defaultBranch = master
 [core]
@@ -20,7 +20,7 @@ $HOME/.gitconfig
 ```
 
 lazygit:
-```
+```yaml
 git:
   paging:
     colorArg: always

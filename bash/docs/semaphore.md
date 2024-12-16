@@ -5,7 +5,7 @@
 ### 1. Docker compose
 
 Write content to `docker-compose.yaml`:
-```
+```yaml
 services:
   # uncomment this section and comment out the mysql section to use postgres instead of mysql
   #postgres:
@@ -63,12 +63,12 @@ volumes:
 ```
 
 Generate random secret key:
-```
+```bash
 head -c32 /dev/urandom | base64
 ```
 
 ### 2. Initialize
-```
+```bash
 sudo docker-compose up -d
 docker ps -a
 ```

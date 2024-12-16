@@ -3,7 +3,7 @@
 ## 1. API
 ### 1. Script
 #### 1. Slack
-```
+```bash
 #!/bin/bash
 
 # Variables
@@ -16,7 +16,7 @@ curl -X POST -H 'Content-type: application/json' \
 ```
 
 #### 2. Telegram
-```
+```bash
 #!/bin/bash
 
 # Variables

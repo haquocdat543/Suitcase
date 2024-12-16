@@ -1,7 +1,7 @@
 # LAZYGIT
 
 ### 1. Configuration
-```
+```yaml
 git:
   paging:
     colorArg: always

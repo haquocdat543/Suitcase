@@ -46,7 +46,7 @@
 * In AWS you apply the `least privilege principle`: don’t give `more permissions` than a `user needs` 
 
 Sample:
-```
+```json
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -89,7 +89,7 @@ AdministratorAccess:
 ```
 
 PowerUserAccess:
-```
+```json
 {
   "Version" : "2012-10-17",
   "Statement" : [
@@ -120,7 +120,7 @@ PowerUserAccess:
 
 ###### 3. User managed
 BucketAccesser
-```
+```json
 {
     "Version": "2012-10-17",
     "Statement": [
@@ -182,7 +182,7 @@ BucketAccesser
 * IAM Permission Boundaries are supported for `users` and `roles` (not groups)
 * Advanced feature to use a managed policy to set the `maximum permissions` an `IAM entity` can get. 
 AWS IAM Boundary;
-```
+```json
 {
     "Version": "2012-10-17",
     "Statement": [
@@ -200,7 +200,7 @@ AWS IAM Boundary;
 ```
 
 IAM Entity policy;
-```
+```json
 {
     "Version": "2012-10-17",
     "Statement": [
@@ -332,7 +332,7 @@ JwIDAQAB
 
 * Trust relationship ( `who` can `assume` this role ):
 Example:
-```
+```json
 i{
   "Version": "2012-10-17",
   "Statement": [

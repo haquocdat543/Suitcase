@@ -2,34 +2,34 @@
 
 ## Setup
 Run locally:
-```
+```bash
 curl -fsSL https://elastic.co/start-local | sh
 ```
 
 ## API
 ### Common
-```
+```bash
 GET _all
 ```
 
 ### Cluster info
 Cluster health:
-```
+```bash
 GET _cluster/health
 ```
 
 Cluster state:
-```
+```bash
 GET _cluster/state
 ```
 
 Cluster settings:
-```
+```bash
 GET _cluster/settings
 ```
 ## Index
 Add document
-```
+```bash
 PUT my-index-000001/_doc/1
 {
   "my_field": 5
@@ -41,7 +41,7 @@ PUT my-index-000001/_doc/1
 * An `index alias` points to one or more `indices`.
 
 Add an alias [ one index ]:
-```
+```bash
 POST _aliases
 {
   "actions": [
@@ -56,7 +56,7 @@ POST _aliases
 ```
 
 Add an alias [ multiple indices ]:
-```
+```bash
 POST _aliases
 {
   "actions": [
@@ -71,7 +71,7 @@ POST _aliases
 ```
 
 Remove and alias [ one index ]:
-```
+```bash
 POST _aliases
 {
   "actions": [
@@ -86,7 +86,7 @@ POST _aliases
 ```
 
 Add an alias [ multiple indices ]:
-```
+```bash
 POST _aliases
 {
   "actions": [
@@ -101,7 +101,7 @@ POST _aliases
 ```
 
 Multiple actions:
-```
+```bash
 POST _aliases
 {
   "actions": [
@@ -122,23 +122,23 @@ POST _aliases
 ```
 
 View aliases:
-```
+```bash
 GET _alias
 ```
 
 View aliases of [ data stream or index]:
-```
+```bash
 GET my-data-stream/_alias
 ```
 
 View alias after _alias to view its data streams or indices:
-```
+```bash
 GET _alias/logs
 ```
 
 ## Scripts
 Source:
-```
+```bash
 GET my-index-000001/_search
 {
   "script_fields": {
@@ -155,7 +155,7 @@ GET my-index-000001/_search
 ```
 
 Post to Stored:
-```
+```bash
 POST _scripts/calculate-score
 {
   "script": {
@@ -166,12 +166,12 @@ POST _scripts/calculate-score
 ```
 
 Get from Stored:
-```
+```bash
 GET _scripts/calculate-score
 ```
 
 Use stored script in query:
-```
+```bash
 GET my-index-000001/_search
 {
   "query": {
@@ -193,13 +193,13 @@ GET my-index-000001/_search
 ```
 
 Delete stored script:
-```
+```bash
 DELETE _scripts/calculate-score
 ```
 
 Example:
 - Create new index and document:
-```
+```bash
 PUT my-index-000001/_doc/1
 {
   "counter" : 1,
@@ -208,7 +208,7 @@ PUT my-index-000001/_doc/1
 ```
 
 - Increment counter by 4:
-```
+```bash
 POST my-index-000001/_update/1
 {
   "script" : {
@@ -222,7 +222,7 @@ POST my-index-000001/_update/1
 ```
 
 - Add more element to tag array:
-```
+```bash
 POST my-index-000001/_update/1
 {
   "script": {

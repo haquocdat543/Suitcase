@@ -4,7 +4,7 @@ karpenter is a tool use to auto scale node amount on EKS cluster
 ## 1. Installation
 Provisioner:
  
-```
+```yaml
 ---
 apiVersion: karpenter.sh/v1alpha5
 kind: Provisioner
@@ -43,7 +43,7 @@ spec:
 ```
 
 Deployment with high resources requests:
-```
+```yaml
 ---
 apiVersion: apps/v1
 kind: Deployment

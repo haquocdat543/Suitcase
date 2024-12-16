@@ -3,23 +3,23 @@
 ### 1. Installation
 #### 1. Manifest
 Apply manifest:
-```
+```bash
 kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.15.0/cert-manager.yaml
 ```
 
 Get resources:
-```
+```bash
 kubectl get pods --namespace cert-manager
 ```
 
 #### 2. Helm
 Add helm repository:
-```
+```bash
 helm repo add jetstack https://charts.jetstack.io --force-update
 ```
 
 Apply helm:
-```
+```bash
 helm install \
   cert-manager jetstack/cert-manager \
   --namespace cert-manager \
@@ -29,7 +29,7 @@ helm install \
 ```
 
 Apply helm ( with option ):
-```
+```bash
 helm install \
   cert-manager jetstack/cert-manager \
   --namespace cert-manager \
@@ -42,7 +42,7 @@ helm install \
 
 ### 2. Implementation
 #### 1. Self signed
-```
+```yaml
 apiVersion: v1
 kind: Namespace
 metadata:
@@ -87,7 +87,7 @@ spec:
 ##### 2. DNS01
 ###### 1. Cloudflare
 Cloudflare[API TOKEN]:
-```
+```yaml
 piVersion: v1
 kind: Secret
 metadata:
@@ -112,7 +112,7 @@ spec:
 ```
 
 Cloudflare[API KEY]:
-```
+```yaml
 apiVersion: v1
 kind: Secret
 metadata:
@@ -156,7 +156,7 @@ In this case we recommend [changing your DNS01 self-check nameservers](https://c
 
 ###### 2. Route53
 Route53[IAM]
-```
+```json
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -183,7 +183,7 @@ Route53[IAM]
 ```
 
 Route53[Cross Account Access]
-```
+```json
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -199,7 +199,7 @@ Route53[Cross Account Access]
 ```
 
 Route53[Trust relationship]
-```
+```json
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -215,7 +215,7 @@ Route53[Trust relationship]
 ```
 
 Route53[ClusterIssuer]
-```
+```yaml
 apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
 metadata:

@@ -1,7 +1,7 @@
 # Link
 
 ## Create symbolic link
-```
-ls -s /origin /target
+```bash
+ls -s /origin /targetbash
 ```
 * `/origin` and `/target` can be `file` or `folder`

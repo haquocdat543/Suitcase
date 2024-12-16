@@ -3,7 +3,7 @@ Meaning: to govern in `Greek`
 
 ## 1. Types
 #### 1. Validation
-```
+```yaml
 apiVersion: kyverno.io/v1
 kind: ClusterPolicy
 metadata:
@@ -25,7 +25,7 @@ spec:
             team: "?*"
 ```
 #### 2. Mutate
-```
+```yaml
 apiVersion: kyverno.io/v1
 kind: ClusterPolicy
 metadata:
@@ -45,7 +45,7 @@ spec:
             +(team): brav
 ```
 #### 3. Generate
-```
+```yaml
 apiVersion: kyverno.io/v1
 kind: ClusterPolicy
 metadata:
@@ -69,7 +69,7 @@ spec:
         name: regcred
 ```
 #### 4. Verify image
-```
+```yaml
 apiVersion: kyverno.io/v1 
 kind: ClusterPolicy 
 metadata: 

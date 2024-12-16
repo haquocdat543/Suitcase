@@ -15,18 +15,18 @@
 
 #### 2. Example ( print last commit before push )
 Change directory to git hooks folder:
-```
+```bash
 cd /path/to/your/repo/.git/hooks
 ```
 
 Create new file:
-```
+```bash
 touch pre-push
 chmod +x pre-push
 ```
 
 `pre-push` content:
-```
+```bash
 #!/bin/sh
 
 # Get the last commit message
@@ -42,34 +42,34 @@ exit 0
 ### Codecommit [ git-remote-codecommit ]
 #### 1. Installation
 Unix:
-```
+```bash
 sudo pip install git-remote-codecommit
 ```
 
 Window:
-```
+```bash
 pip install --user git-remote-codecommit
 ```
  
 #### 2. Download codecommit repository
 Same region as profile configuration:
-```
+```bash
 git clone codecommit://MyDemoRepo my-demo-repo
 ```
 
 Different region as profile configuration:
-```
+```bash
 git clone codecommit::ap-northeast-1://MyDemoRepo my-demo-repo
 ```
 
 With profile configuration:
-```
+```bash
 git clone codecommit://CodeCommitProfile@MyDemoRepo my-demo-repo
 ```
 
 ### Tips
 #### 1. Revert multiple commits
-```
+```bash
 git checkout -f <Commit-Hash> -- . # checkout that revision over the top of local files
 git commit -a
 ```

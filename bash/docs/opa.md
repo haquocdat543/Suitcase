@@ -2,18 +2,18 @@
 
 ### 1. Installation OPA
 #### 1. Create new namespace
-```
+```bash
 kubectl create namespace opa
 ```
 
 #### 2. Generate new key
-```
+```bash
 openssl genrsa -out ca.key 2048
 openssl req -x509 -new -nodes -key ca.key -days 100000 -out ca.crt -subj "/CN=admission_ca"
 ```
 
 #### 3. Create configuration file
-```
+```bash
 cat >server.conf <<EOF
 [ req ]
 prompt = no
@@ -32,19 +32,19 @@ EOF
 ```
 
 #### 4. Generate new server key
-```
+```bash
 openssl genrsa -out server.key 2048
 openssl req -new -key server.key -sha256 -out server.csr -extensions v3_ext -config server.conf
 openssl x509 -req -in server.csr -sha256 -CA ca.crt -CAkey ca.key -CAcreateserial -out server.crt -days 100000 -extensions v3_ext -extfile server.conf
 ```
 
 #### 5. Create new secret for generated key
-```
+```bash
 kubectl create secret tls opa-server --cert=server.crt --key=server.key
 ```
 
 #### 6. Build and publish OPA Bundle
-```
+```bash
 cat > .manifest <<EOF
 {
     "roots": ["kubernetes/admission", "system"]
@@ -52,18 +52,18 @@ cat > .manifest <<EOF
 EOF
 ```
 
-```
+```bash
 opa build -b .
 ```
 
 We will now serve the OPA bundle using Nginx:
-```
+```bash
 docker run --rm --name bundle-server -d -p 8888:80 -v ${PWD}:/usr/share/nginx/html:ro nginx:latest
 ```
 
 #### 7. Apply resources file
 admission-controller.yaml
-```
+```yaml
 # Grant OPA/kube-mgmt read-only access to resources. This lets kube-mgmt
 # replicate resources into OPA so they can be used in policies.
 kind: ClusterRoleBinding
@@ -187,12 +187,12 @@ spec:
 ```
 
 Apply resources:
-```
+```bash
 kubectl apply -f admission-controller.yaml
 ```
 
 #### 8. Create webhook configuration
-```
+```bash
 cat > webhook-configuration.yaml <<EOF
 kind: ValidatingWebhookConfiguration
 apiVersion: admissionregistration.k8s.io/v1
@@ -222,29 +222,29 @@ EOF
 ```
 
 Label namespaces:
-```
+```bash
 kubectl label ns kube-system openpolicyagent.org/webhook=ignore
 kubectl label ns opa openpolicyagent.org/webhook=ignore
 ```
 
 Apply configuration resources:
-```
+```bash
 kubectl apply -f webhook-configuration.yaml
 ```
 
 Get logs:
-```
+```bash
 kubectl logs -l app=opa -c opa -f
 ```
 
 ### 1. Installation Gatekeeper
 #### 1. Manifests
-```
+```bash
 kubectl apply -f https://raw.githubusercontent.com/open-policy-agent/gatekeeper/v3.15.0/deploy/gatekeeper.yaml
 ```
 
 #### 2. Helm
-```
+```bash
 helm repo add gatekeeper https://open-policy-agent.github.io/gatekeeper/charts
 helm install gatekeeper/gatekeeper --name-template=gatekeeper --namespace gatekeeper-system --create-namespace
 ```

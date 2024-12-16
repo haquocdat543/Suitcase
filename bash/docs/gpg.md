@@ -1,7 +1,7 @@
 # GPG
 
 ### 1. Generate new key
-```
+```bash
 gpg --full-generate-key
 ```
 * select what `kind` of key you want:
@@ -29,12 +29,12 @@ gpg --full-generate-key
 * Comment: `Whatever you want`
 
 ### 2. List key
-```
+```bash
 gpg --list-secret-keys --keyid-format=long
 ```
 
 Output
-```
+```bash
 /Users/hubot/.gnupg/secring.gpg
 ------------------------------------
 sec   4096R/3AA5C34371567BD2 2016-03-10 [expires: 2017-03-10]
@@ -43,98 +43,98 @@ ssb   4096R/4BB6D45482678BE3 2016-03-10
 ```
 
 ### 3. Prints the GPG key ID, in ASCII armor format
-```
+```bash
 gpg --armor --export 3AA5C34371567BD2
 ```
 
 Output:
-```
+```bash
 -----BEGIN PGP PUBLIC KEY BLOCK-----
 -----END PGP PUBLIC KEY BLOCK-----
 ```
 
 ### 4. Add public GPG key to Github account
-```
+```bash
 git config --global user.signingkey 3AA5C34371567BD2
 ```
 
-```
+```bash
 echo "test" | gpg --clearsign
 export GPG_TTY=$(tty)
 echo "test" | gpg --clearsign
 ```
 
 List gpg configuration:
-```
+```bash
 git config -l | grep gpg
 ```
 
 ### 5. Delete key
 key:
-```
+```bash
 gpg --delete-key <key_id_or_email>
 gpg --delete-key --force <key_id_or_email>
 ```
 
 Secret key:
-```
+```bash
 gpg --delete-secret-key <key_id_or_email>
 gpg --delete-secret-key --force <key_id_or_email>
 ```
 
 ### 6. Backup key
 Finger print:
-```
+```bash
 gpg --export --armor <key_id_or_fingerprint> > public_key.asc
 ```
 Email:
-```
+```bash
 gpg --output public.gpg --armor --export google@gmail.com
 ```
 
 Finger print:
-```
+```bash
 gpg --export-secret-keys --armor <key_id_or_fingerprint> > private_key.asc
 ```
 Email:
-```
+```bash
 gpg --output private.gpg --armor --export-secret-keys google@gmail.com
 ```
 
 ### 7. Restore key
 Private:
-```
+```bash
 gpg --import private.asc
 ```
-```
+```bash
 gpg --import private.gpg
 ```
 
 Public key:
-```
+```bash
 gpg --import public.asc
 ```
-```
+```bash
 gpg --import public.gpg
 ```
 
 ### 8. Trust edit
 Edit key:
-```
+```bash
 gpg --edit-keys google@gmail.com
 ```
 
 Action on key:
-```
+```bash
 trust
 ```
 
 Choose trust level:
-```
+```bash
 5
 ```
 
 Choose trust level:
-```
+```bash
 save
 ```

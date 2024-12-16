@@ -3,17 +3,17 @@
 ## UFW
 ### 1. Command
 List with number:
-```
+```bash
 ufw status numbered
 ```
 
 Delete by number:
-```
+```bash
 ufw delete <number>
 ```
 
 Add rule:
-```
+```bash
 ufw status <action> from <source> proto <protocol> to <destination> port <port>
 ```
 * action: [ allow / deny ]

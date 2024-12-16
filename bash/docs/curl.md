@@ -3,21 +3,21 @@
 ## Options and flags
 #### 1. -d, --data <data>: Sends POST data in the request body.
 This example sends a POST request with form data containing name and email to the specified API endpoint.
-```
+```bash
 curl -d "name=John Doe&email=johndoe@example.com" https://api.example.com/users
 ```
 #### 2. -F, --form <name=content>: Sends form data with a specific name and value
 This example uploads a file named myfile.txt using the file field in a multipart form data upload
-```
+```bash
 curl -F "file=@myfile.txt" https://upload.example.com/files
 ```
 #### 3. -G, --get: Use the GET request method (default)
-```
+```bash
 curl https://www.example.com/  # Fetches a web page using GET
 ```
 #### 4. -H, --header <header>: Sets a custom request header
 This example sets an authorization header with an API key for accessing a protected resource
-```
+```bash
 curl -H "Authorization: Bearer YOUR_API_KEY" https://api.example.com/data
 ```
 #### 5. -i, --include: Includes the HTTP header in the output
@@ -25,19 +25,19 @@ curl -H "Authorization: Bearer YOUR_API_KEY" https://api.example.com/data
 #### 6. -L, --location: Follows redirects (useful for automatically following links)
 
 #### 7. -o, --output <file>: Outputs the response to a file.
-```
+```bash
 curl -o index.html https://www.example.com/  # Saves the downloaded page as index.html
 ```
 #### 8. -O, --remote-name: Outputs the response with the suggested filename from the server
 #### 9. -s, --silent: Suppresses output except for errors.
 #### 10. -u, --user <user:password>: Sets username and password for basic authentication
-```
+```bash
 curl -u username:password https://protected.example.com/
 ```
 #### 11. -v, --verbose: Increases verbosity for detailed information about the transfer process
 Like any other tools
 #### 12. -X, --request <method>: Sets the HTTP request method (e.g., POST, PUT, DELETE)
-```
+```bash
 curl -X DELETE https://api.example.com/data/123  # Sends a DELETE request to remove a resource
 ```
 #### 13. -a, --basic: Enables basic authentication (use -u for credentials)
@@ -47,21 +47,21 @@ curl -X DELETE https://api.example.com/data/123  # Sends a DELETE request to rem
 #### 17. --negotiate: Enables Negotiate authentication.
 #### 18. --ntlm: Enables NTLM authentication.
 #### 19. -C, --continue-at <offset>: Resumes an interrupted download from a specific byte offset
-```
+```bash
 curl -C 1024 https://largefile.com  # Resumes download from byte 1024 onwards
 ```
 #### 20. -f, --fail: Fails on HTTP errors (exits with a non-zero code)
 #### 21. --limit-rate <rate>: Limits the transfer rate (bytes per second) to avoid overwhelming the server
 #### 22. --limit-rate <rate>: Limits the transfer rate (bytes per second) to avoid overwhelming the server
-```
+```bash
 curl --limit-rate 1024 https://largefile.com  # Limits download speed to 1 KB/s
 ```
 #### 23. -m, --max-time <seconds>: Sets the maximum allowed time for the operation (prevents hanging requests)
-```
+```bash
 curl -m 30 https://slowserver.com  # Times out after 30 seconds
 ```
 #### 24. --progress-bar: Displays a progress bar during transfers for visual feedback
 #### 25. -g, --glob: Enables filename globbing for uploading multiple files matching a pattern
-```
+```bash
 curl -g uploads/*.txt https://upload.example.com/  # Up
 ```

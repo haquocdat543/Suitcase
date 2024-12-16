@@ -3,11 +3,11 @@
 ## HELP
 If you want more info about specific command, just add `-h` at the end:
 Eg:
-```
+```bash
 kubectl create role -h
 ```
 Output:
-```
+```bash
 Create a role with single rule.
 
 Examples:
@@ -106,7 +106,7 @@ The `master node`, which hosts the `Kubernetes Control Plane` that `controls and
 * The `Kubernetes Service Proxy` (kube-proxy), which `load-balances` network `traffic` between `application` components
 
 ### 1. Checking the status of the Control Plane components
-```
+```bash
 kubectl get componentstatuses
 ```
 
@@ -117,7 +117,7 @@ kubectl get componentstatuses
 * The `Control Plane components`, as well as `kube-proxy`, can either be `deployed` on the `system directly` or they `can run as pods`.
 * The `Kubelet` is the `only component` that `always runs` as a `regular system component`, and it’s the `Kubelet` that then `runs all` the `other components as pods`. To run the `Control Plane components` as `pods`, the `Kubelet` is also `deployed` on the `master`. The next listing shows pods in the `kube-system namespace` in a `cluster created with kubeadm`, which is explained in appendix B
 
-```
+```bash
 kubectl get po -o custom-columns=POD:metadata.name,NODE:spec.nodeName --sort-by spec.nodeName -n kube-system
 ```
 
@@ -127,22 +127,22 @@ kubectl get po -o custom-columns=POD:metadata.name,NODE:spec.nodeName --sort-by 
 
 ### 4. how resources are stored in etcd
 * Kubernetes stores all its data in etcd under `/registry`. The following listing shows a `list of keys` stored under `/registry`.
-```
+```bash
 etcdctl ls /registry
 ```
 
 Pods:
-```
+```bash
 etcdctl ls /registry/pods
 ```
 
 Pods in default namespace:
-```
+```bash
 etcdctl ls /registry/pods/default
 ```
 
 Specific pods in default namespace:
-```
+```bash
 etcdctl get /registry/pods/default/kubia-xxxx
 ```
 ### 5. ensuring consistency when etcd is clustered
@@ -236,7 +236,7 @@ All these `controllers` operate on the `API objects` through the API server. The
 * Runs containers
 
 get real events:
-```
+```bash
 kubectl get events --watch
 ```
 
@@ -297,19 +297,19 @@ By now, you know that each pod gets its own `unique IP address` and can communic
 * Must they be scaled together or individually? 
 
 #### 6. Use kubectl explain
-```
+```bash
 kubectl explain pods
 ```
-```
+```bash
 kubectl explain pod.spec
 ```
 
 Command
-```
+```bash
 kubectl create pod firstpod --image=nginx
 ```
 Yaml:
-```
+```yaml
 apiVersion: v1
 kind: Pod
 metadata:
@@ -322,16 +322,16 @@ spec:
     - containerPort: 80
 ```
 Apply yaml:
-```
+```bash
 kubectl apply -f $POD_FILE
 ```
 
 Command
-```
+```bash
 kubectl create pod firstpod --image=nginx
 ```
 Yaml:
-```
+```yaml
 apiVersion: v1
 kind: Pod
 metadata:
@@ -344,16 +344,16 @@ spec:
     - containerPort: 80
 ```
 Apply yaml:
-```
+```bash
 kubectl apply -f $POD_FILE
 ```
 Get pod:
-```
+```bash
 kubectl get pod
 ```
 
 Selection node:
-```
+```yaml
 spec:
   nodeSelector:
     gpu: "true"  
@@ -378,7 +378,7 @@ Excess reason:
 * When a `cluster node fails`, it `creates replacement replicas` for `all the pods` that `were running` on the `failed node` (those that were `under` the `ReplicationController’s control`).
 * It enables easy `horizontal scaling` of pods—both `manual` and `automatic`
 
-```
+```yaml
 apiVersion: v1
 kind: ReplicationController
 metadata:
@@ -400,7 +400,7 @@ template:
 ```
 
 Apply resources:
-```
+```bash
 kubectl create -f kubia-rc.yaml
 ```
 
@@ -417,19 +417,19 @@ it would make `all the pods` fall out of the `scope` of the `ReplicationControll
 Changing a ReplicationController’s `pod template` only `affects pods` `created afterward` and has `no effect` on `existing pods`
 
 ### 7. Scale RC
-```
+```bash
 kubectl scale rc kubia --replicas=10
 ```
 
 ### 8. Scale RC by edit
-```
+```bash
 kubectl edit rc kubia
 ```
 When you `save the` file and `close the editor`, the `ReplicationController is updated` and `it immediately scales` the number of pods to `10`:
 
 ### 9. Delete RC only and pods still alive
 Deleting a replication controller with `--cascade=false` leaves pods `unmanaged`.
-```
+```bash
 kubectl delete rc kubia --cascade=false
 ```
 
@@ -443,7 +443,7 @@ Conclusion:
 ### 2. Liveness probe
 Kubernetes can probe a container using one of the three mechanisms:
 * An HTTP GET probe performs an HTTP GET request on the container’s IP address, a port and path you specify. If the probe receives a response 2xx or 3xx, it is living
-```
+```yaml
 apiVersion: v1
 kind: pod
 metadata:
@@ -458,18 +458,18 @@ spec:
        port: 8080  
 ```
  
-```
+```bash
 kubectl get po kubia-liveness
 ```
 The `RESTARTS` column shows that the pod’s container has `been restarted once` (if you wait another `minute and a half`, it gets `restarted again`, and then the `cycle continues indefinitely`).
 
 Get log from previous run:
-```
+```bash
 kubectl logs mypod --previous
 ```
 
 Add delay to http probe
-```
+```yaml
 initialDelaySeconds: 15
 ```
 
@@ -480,7 +480,7 @@ initialDelaySeconds: 15
 * An `Exec` probe, where a `process is executed`. The container’s status is `determined` by the `process’ exit status code`.
 * An `HTTP GET` probe, which sends an `HTTP GET request` to the container and the `HTTP status code` of the response determines whether the container is `ready or not`.
 * A `TCP Socket` probe, which opens a `TCP connection` to a `specified port` of the container. If the connection is `established`, the container is `considered ready`
-```
+```yaml
 apiVersion: v1
 kind: ReplicationController
 ...
@@ -502,7 +502,7 @@ template:
 
 ### 1. Differences from ReplicaController
 * The `main improvements` of R`eplicaSets` over `ReplicationControllers` are their `more expressive` `label selectors`. You intentionally used the simpler matchLabels selector in the first ReplicaSet example to see that ReplicaSets are no different from ReplicationControllers. Now, you’ll rewrite the selector to use the `more powerful matchExpressions` property, as shown in the following listing.
-```
+```yaml
 selector:
   matchExpressions:
   - key: app
@@ -517,17 +517,17 @@ selector:
   * `DoesNotExist`—Pod `must not include` a label with the `specified key`. The values property must not be specified.
 
 Full command:
-```
+```bash
 kubectl create replicaset firstrs --image=nginx
 ```
 
 Short command:
-```
+```bash
 kubectl create rs firstrs--image=nginx
 ```
 
 Yaml:
-```
+```yaml
 apiVersion: apps/v1
 kind: ReplicaSet
 metadata:
@@ -552,12 +552,12 @@ spec:
 ```
 
 Apply yaml:
-```
+```bash
 kubectl apply -f $REPLICASET_FILE
 ```
 
 Get replicaset:
-```
+```bash
 kubectl get rs
 ```
 ## 3. Deployment
@@ -574,89 +574,89 @@ kubectl get rs
 
 ##### 3. Update the version of the app
 Get deployments:
-```
+```bash
 kubectl get deployments
 ```
 
 Get pods:
-```
+```bash
 kubectl get pods
 ```
 
 Describe pods:
-```
+```bash
 kubectl describe pods
 ```
 
 To `update` the `image` of the application to `version 2`, use the `set image` subcommand, followed by the `deployment name` and the `new image version`:
-```
+```bash
 kubectl set image deployments/kubernetes-bootcamp kubernetes-bootcamp=docker.io/jocatalin/kubernetes-bootcamp:v2
 ```
 
 Check the status of the new Pods, and view the old one terminating with the get pods subcommand
-```
+```bash
 kubectl get pods
 ```
 
 ##### 4. Verify an update
 First, check that the app is `running`. To find the `exposed IP address` and `port`, run the describe service command:
-```
+```bash
 kubectl describe services/kubernetes-bootcamp
 ```
 
 You can also `confirm` the update by `running` the rollout status subcommand:
-```
+```bash
 kubectl rollout status deployments/kubernetes-bootcamp
 ```
 
-```
+```bash
 kubectl describe pods
 ```
 
 ##### 5. Roll back an update
 Let’s perform `nother update`, and try to `deploy` an image tagged with `v10`:
-```
+```bash
 kubectl set image deployments/kubernetes-bootcamp kubernetes-bootcamp=gcr.io/google-samples/kubernetes-bootcamp:v10
 ```
-```
+```bash
 kubectl get deployments
 ```
 Notice that the output doesn't list the `desired number` of available Pods. Run the get pods subcommand to list all Pods:
-```
+```bash
 kubectl get pods
 ```
 Notice that some of the Pods have a status of `ImagePullBackOff`
 
 
 Perform rollout:
-```
+```bash
 kubectl rollout undo deployments/kubernetes-bootcamp
 ```
-```
+```bash
 kubectl get pods
 ```
-```
+```bash
 kubectl describe pods
 ```
 
 Delete deployment:
-```
+```bash
 kubectl delete deployments/kubernetes-bootcamp services/kubernetes-bootcamp
 ```
 ##### 6. Revision
 Check rollout history [ revision ]:
-```
+```bash
 kubectl rollout history deployments/kubernetes-bootcamp
 ```
 `Default amount` of revision is `10`. You can adjust amount using `revisionHistoryLimit`
 
 To rollback to a `specific revision` use:
-```
+```bash
 kubectl rollout undo deployments/kubernetes-bootcamp --to-revision=2
 ```
 
 ##### 7. maxsurge and maxunavailable properties
-```
+```yaml
 spec:
   strategy:
     rollingUpdate:
@@ -669,21 +669,21 @@ spec:
 
 ##### 8. Pausing the rollout process
 After the `bad experience` with `version 3` of `your app`, imagine you’ve now `fixed the bug` and `pushed version 4` of your image. You’re a little apprehensive about rolling it out across all your pods the way you did before. What you want is to run a `single v4 pod` next to your `existing v2 pods` and see how it behaves with `only a fraction` of `all your users`. Then, once you’re sure `everything’s okay`, you can `replace all` the old pods with new ones. 
-```
+```bash
 kubectl set image deployment kubia nodejs=luksa/kubia:v4
 ```
 
-```
+```bash
 kubectl rollout pause deployment kubia
 ```
 
 ##### 9. kubectl rollout resume deployment kubia
-```
+```bash
 kubectl rollout resume deployment kubia
 ```
 
 ##### 10. Blocking rollouts of bad versions
-```
+```yaml
 apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
@@ -714,13 +714,13 @@ spec:
 * The fact that the `deployment` is `stuck` is a `good thing`, because if it had `continued replacing` the `old pods` with the `new ones`, you’d end up with a completely non-working service, like you did when you first `rolled out version 3`, when you weren’t using the `readiness probe`. But now, with the `readiness probe` in place, there was virtually `no negative impact` on your `users`. `A few users` may have experienced the internal server error, but that’s not as big of a problem as if the rollout had `replaced all pods` with the faulty version 3.
 
 ##### 11. configuring a deadline for the rollout
-```
+```yaml
 spec:
   progressDeadlineSeconds: 10m
 ```
 
 Eg:
-```
+```bash
 kubectl create deployment firstdpl --image=nginx --replicas=3
 ```
 ## 4. DaemonSets
@@ -735,7 +735,7 @@ kubectl create deployment firstdpl --image=nginx --replicas=3
 * A DaemonSet deploys pods to `all nodes` in the cluster, unless you specify that the pods should only run on a `subset of all the nodes`. This is done by specifying the `nodeSelector property` in the `pod template`, which is part of the DaemonSet definition (similar to the pod template in a ReplicaSet or ReplicationController). 
 
 Example:
-```
+```yaml
 apiVersion: apps/v1beta2
 kind: DaemonSet
 metadata:
@@ -759,7 +759,7 @@ template:
 
 ### 3. adding the required label to your node(s)
 Now, add the `disk=ssd` label to one of `your nodes` like this:
-```
+```bash
 kubectl label node NewNode disk=ssd
 ```
 If you have `multiple nodes` and you add the `same label` to further nodes, you’ll see the DaemonSet `spin up pods` for `each of them`. 
@@ -767,18 +767,18 @@ If you have `multiple nodes` and you add the `same label` to further nodes, you�
 ### 4. Removing  the required label to your node(s)
 imagine you’ve made a `mistake` and have `mislabeled` one of the nodes. It has a `spinning disk drive`, `not an SSD`. What `happens` if you `change` the `node’s label`?
 
-```
+```bash
 kubectl label node minikube disk=hdd --overwrite
 ```
 The pod is being `terminated`. But you knew that was going to happen, right? This wraps up your exploration of DaemonSets, so you may want to delete your `ssd-monitor DaemonSet`. If you still have any other daemon pods running, you’ll see that deleting the DaemonSet deletes those pods as well. 
 
 Eg:
-```
+```bash
 kubectl create daemonsets firstdms --image=fluentd
 ```
 ## 5. StatefulSets
 Eg:
-```
+```bash
 kubectl create statefulsets firststs --image=mysql --replicas=3
 ```
 ## 6. Service
@@ -802,12 +802,12 @@ kubectl create statefulsets firststs --image=mysql --replicas=3
 
 ### 4. discovering services through environment variables
 * When a pod is `started`, Kubernetes `initializes` a `set of environment variables` pointing to `each service` that `exists at that moment`. If you `create the service` `before` creating the `client pods`, processes in those pods `can get the IP address and port` of the service by `inspecting` their `environment variables`. 
-```
+```bash
 kubectl exec kubia-xxxxx env
 ```
 
 Output:
-```
+```bash
 PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 HOSTNAME=kubia-3inly
 KUBERNETES_SERVICE_HOST=10.111.240.1
@@ -824,44 +824,44 @@ KUBIA_SERVICE_PORT=80
 
 ### 6. connecting to the service through its fqdn
 * To revisit the `frontend-backend` example, a frontend pod can `connect` to the `backenddatabase` service by `opening a connection` to the `following FQDN`
-```
+```bash
 backend-database.default.svc.cluster.local
 ```
 * `backend-database` corresponds to the `service name`, `default` stands for the `namespace` the service is defined in, and `svc.cluster.local` is a `onfigurable` cluster domain suffix used in all cluster local service names. 
 
 ### 7. running a shell in a pod’s container
-```
+```bash
 curl http://kubia.default.svc.cluster.local
 ```
 
-```
+```bash
 curl http://kubia.default
 ```
 
-```
+```bash
 curl http://kubia
 ```
 
-```
+```bash
 cat /etc/resolv.conf
 ```
 
 ### 8. understanding why you can’t ping a service ip
 Inside container:
-```
+```bash
 ping kubia
 ```
 * `curl-ing` the `service works`, but `pinging` it `doesn’t`. That’s because the service’s `cluster IP` is a `virtual IP`, and only has meaning when combined with the service port
 
 ### 9. Endpoint
 * An Endpoints resource (yes, plural) is a `list of IP addresses` and `ports` exposing a service. The Endpoints resource is like any other` Kubernetes resource`, so you can `display its basic` info with `kubectl` get:
-```
+```bash
 kubectl get endpoints kubia
 ```
 
 ### 10. Manually configuring service endpoints
 Service:
-```
+```yaml
 apiVersion: v1
 kind: Service
 metadata:
@@ -871,7 +871,7 @@ metadata:
 ```
 
 Endpoint:
-```
+```yaml
 apiVersion: v1
 kind: Endpoints
 metadata:
@@ -885,7 +885,7 @@ subsets:
 ```
 
 ### 11. Creating an alias for an external service
-```
+```yaml
 apiVersion: v1
 kind: Service
 metadata:
@@ -898,7 +898,7 @@ spec:
 ```
 
 ### 12. preventing unnecessary network hops
-```
+```yaml
 spec:
   externalTrafficPolicy: Local
 ```
@@ -906,7 +906,7 @@ spec:
 ### 13. Creating a headless service
 * You’ve seen how services can be used to provide a `stable IP address` allowing clients to `connect to pods` (or other `endpoints`) backing each service. `Each connection` to the service is `forwarded` to one randomly selected backing pod. But what if the client needs to `connect to all` of `those pods`?
 * For a client to connect to `all pods`, it needs to `figure out` the the `IP` of `each individual pod`.
-```
+```yaml
 apiVersion: v1
 kind: Service
 metadata:
@@ -921,18 +921,18 @@ spec:
 ```
 
 ### 14. understanding dns a records returned for a headless service
-```
+```bash
 kubectl exec dnsutils nslookup kubia-headless
 ```
 
 ### 15. Discovering all pods—even those that aren’t ready
-```
+```yaml
 kind: Service
 metadata:
  annotations: service.alpha.kubernetes.io/tolerate-unready-endpoints: "true"
 ```
 
-```
+```yaml
 apiVersion: v1
 kind: Service
 spec:
@@ -940,7 +940,7 @@ spec:
 ```
 
 yaml:
-```
+```yaml
 apiVersion: v1
 kind: Service
 metadata:
@@ -957,22 +957,22 @@ spec:
 ### 1. Configuring Ingress to handle TLS traffic
 
 creating a tls certificate for the ingress:
-```
+```bash
 openssl genrsa -out tls.key 2048
 openssl req -new -x509 -key tls.key -out tls.cert -days 360 -subj /CN=kubia.example.com
 ```
 
 Create secret like this:
-```
+```bash
 kubectl create secret tls tls-secret --cert=tls.cert --key=tls.key
 ```
 
 Signing certificates through the CertificateSigningRequest resource:
-```
+```bash
 kubectl certificate approve <name of the CSR>
 ```
 
-```
+```yaml
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
@@ -993,12 +993,12 @@ spec:
 ```
 
 Curl 
-```
+```bash
 curl -k -v https://kubia.example.com/kubia
 ```
 
 yaml:
-```
+```yaml
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
@@ -1020,7 +1020,7 @@ spec:
 ```
 ## 8. Network Policy
 yaml:
-```
+```yaml
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
@@ -1061,18 +1061,18 @@ spec:
 
 ### 1. creating a serviceaccount
 Command line:
-```
+```bash
 kubectl create serviceaccount foo
 ```
 
 Describe sa:
-```
+```bash
 kubectl describe sa foo
 ```
 * You can see that a `custom token Secret` has been created and associated with the `ServiceAccount`. If you look at the `Secret’s data` with `kubectl` describe secret `foo-token-xxxxx`, you’ll see it contains the same items (the `CA certificate`, `namespace`, and `token`) as the `default ServiceAccount’s does` (the token itself will obviously be different), as shown in the following listing.
 
 Inspect custom service account secret:
-```
+```bash
 kubectl describe secret foo-token-xxxxx
 ```
 
@@ -1081,7 +1081,7 @@ kubectl describe secret foo-token-xxxxx
 * If the ServiceAccount is `annotated` with `this annotation`, any pods using it `can mount only` the `ServiceAccount’s mountable` Secrets they can’t use any other Secret.
 
 ### 3. understanding a serviceaccount’s image pull secrets
-```
+```yaml
 apiVersion: v1
 kind: ServiceAccount
 metadata:
@@ -1091,7 +1091,7 @@ imagePullSecrets:
 ```
 
 ### 4. Assigning a ServiceAccount to a pod
-```
+```yaml
 apiVersion: v1
 kind: Pod
 metadata:
@@ -1107,17 +1107,17 @@ spec:
 ```
 
 Test:
-```
+```bash
 kubectl exec -it curl-custom-sa -c main 
 cat /var/run/secrets/kubernetes.io/serviceaccount/token
 ```
 
-```
+```bash
 kubectl exec -it curl-custom-sa -c main curl localhost:8001/api/v1/pods
 ```
 
 yaml:
-```
+```yaml
 piVersion: v1
 kind: ServiceAccount
 metadata:
@@ -1129,12 +1129,12 @@ metadata:
 ```
 ## 10. Role
 ### 1. Enable RBAC
-```
+```bash
 kubectl delete clusterrolebinding permissive-binding
 ```
 
 
-```
+```yaml
 piVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
@@ -1150,7 +1150,7 @@ Verbs: [ get, watch, list, create, update, delete, patch ]
 
 ## 11. RoleBinding
 ### 1. including serviceaccounts from other namespaces in a rolebinding
-```
+```yaml
 subjects:
 - kind: ServiceAccount
   name: default
@@ -1161,7 +1161,7 @@ subjects:
 * A `RoleBinding` referencing a `ClusterRole` `doesn’t grant access` to `clusterlevel` resources.
 
 yaml:
-```
+```yaml
 apiVersion: rbac.authorization.k8s.io/v1
 # This role binding allows "jane" to read pods in the "default" namespace.
 # You need to already have a Role named "pod-reader" in that namespace.
@@ -1186,28 +1186,28 @@ roleRef:
 * A `ClusterRoleBinding` and `ClusterRole` grants `permission` to resources across `all namespaces`.
 
 ### 1. allowing access to non-resource url
-```
+```bash
 kubectl get clusterrole system:discovery -o yaml
 kubectl get clusterrolebinding system:discovery -o yaml
 ```
 
 ### 2. using clusterroles to grant access to resources in specific namespaces
 * ClusterRoles `don’t always` need to be `bound` with `cluster-level ClusterRoleBindings`. They can also be `bound` with `regular`, `namespaced RoleBindings`. You’ve already started looking at predefined ClusterRoles, so let’s look at another one called view, which is shown in the following listing.
-```
+```bash
 kubectl get clusterrole view -o yaml
 ```
 
 ### 3. Understanding default ClusterRoles and ClusterRoleBindings
 * Kubernetes comes with a `default set` of `ClusterRoles` and `ClusterRoleBindings`, which are `updated every time` the `API server starts`. This `ensures` `all` the `default roles` and `bindings` are `recreated` if you `mistakenly` `delete` them or if a `newer version` of Kubernetes uses a `different configuration` of cluster `roles` and `bindings`.
-```
+```bash
 kubectl get clusterrolebindings
 ```
 
-```
+```bash
 kubectl get clusterroles
 ```
 
-```
+```yaml
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
@@ -1223,7 +1223,7 @@ rules:
 ```
 ## 13. ClusterRoleBinding
 yaml:
-```
+```yaml
 apiVersion: rbac.authorization.k8s.io/v1
 # This cluster role binding allows anyone in the "manager" group to read secrets in any namespace.
 kind: ClusterRoleBinding
@@ -1247,7 +1247,7 @@ Regardless if you’re using a `ConfigMap` to store `configuration data` or not,
 ### 1. Passing command-line arguments to containers
 * In all the `examples so far`, you’ve created containers that ran the `default command` defined in the `container image`, but Kubernetes allows `overriding the command` as part of the `pod’s container` definition when you want to run a `different executable` instead of the `one specified in the image`, or want to run it with a `different set` of `command-line arguments`.
 Example bash:
-```
+```bash
 #!/bin/bash
 trap "exit" SIGINT
 INTERVAL=$1
@@ -1262,7 +1262,7 @@ done
 ```
 
 Example dockerfile:
-```
+```dockerfile
 FROM ubuntu:latest
 RUN apt-get update ; apt-get -y install fortune
 ADD fortuneloop.sh /bin/fortuneloop.sh
@@ -1271,21 +1271,21 @@ CMD ["10"]
 ```
 
 Build:
-```
+```bash
 docker build -t docker.io/luksa/fortune:args .
 docker push docker.io/luksa/fortune:args
 ```
 
 Run:
-```
+```bash
 docker run -it docker.io/luksa/fortune:args
 ```
-```
+```bash
 Configured to generate new fortune every 15 secon
 ```
 
 ### 2. Overriding the command and arguments in Kubernetes
-```
+```yaml
 kind: Pod
 spec:
   containers:
@@ -1296,7 +1296,7 @@ spec:
 * In `most cases`, you’ll only `set custom arguments` and `rarely override` the command (except in `general-purpose` images such as `busybox`, which `doesn’t define` an `ENTRYPOINT` at all). 
 
 ### 3. running the fortune pod with a custom interval
-```
+```yaml
 apiVersion: v1
 kind: Pod
 metadata:
@@ -1312,7 +1312,7 @@ spec:
 ```
 
 ### 4. Setting environment variables for a container
-```
+```yaml
 kind: Pod
 spec:
   containers:
@@ -1324,7 +1324,7 @@ spec:
 ```
 
 ### 5. Referring to other environment variables in a variable’s value
-```
+```yaml
 env:
 - name: FIRST_VAR
   value: "foo"
@@ -1335,30 +1335,30 @@ env:
 ### 6. Creating a ConfigMap
 ### 1. From literal
 * `ConfigMap keys` must be a `valid DNS subdomain` (they may only contain `alphanumeric characters`, `dashes`, `underscores`, and `dots`). They may optionally `include a leading dot`.
-```
+```bash
 kubectl create configmap fortune-config --from-literal=sleep-interval=25
 ```
-```
+```bash
 kubectl create configmap myconfigmap --from-literal=foo=bar --from-literal=bar=baz --from-literal=one=two
 ```
 
 ### 2. creating a configmap entry from the contents of a file
-```
+```bash
 kubectl create configmap my-config --from-file=config-file.conf
 ```
 
 ### 3. creating a configmap from files in a directory
-```
+```bash
 kubectl create configmap my-config --from-file=/path/to/dir
 ```
 
 ### 4. combining different options
-```
+```bash
 kubectl create configmap my-config  --from-file=foo.json --from-file=bar=foobar.conf --from-file=config-opts/ --from-literal=some=thing
 ```
 
 ### 5. Passing a ConfigMap entry to a container as an environment variable
-```
+```yaml
 apiVersion: v1
 kind: Pod
 metadata:
@@ -1378,7 +1378,7 @@ spec:
 
 ### 6. Passing all entries of a ConfigMap as environment variables at once
 * When your ConfigMap contains `more than` just a `few entries`, it becomes `tedious` and `error-prone` to create `environment variables` from each entry `individually`. Luckily, Kubernetes version 1.6 provides a way to expose `all entries` of a ConfigMap as `environment variables`
-```
+```yaml
 spec:
   containers:
   - image: some-image
@@ -1391,7 +1391,7 @@ spec:
 * NOTE: The prefix is optional, so if you omit it the environment variables will have the same name as the keys. 
 
 ### 7. Passing a ConfigMap entry as a command-line argument
-```
+```yaml
 apiVersion: v1
 kind: Pod
 metadata:
@@ -1413,7 +1413,7 @@ spec:
 ### 8. Using a configMap volume to expose ConfigMap entries as files
 * Passing configuration options as `environment variables` or `command-line arguments` is usually used for `short variable values`. A ConfigMap, as you’ve seen, can also contain `whole config files`. When you want to expose those to the container, you can use one of the `special volume types`
 Nginx config file:
-```
+```nginx
 server {
  listen              80;
  server_name         www.kubia-example.com;
@@ -1429,14 +1429,14 @@ server {
 ```
 
 Create configmap:
-```
+```bash
 kubectl create configmap nginx-config --from-file=configmap-files
 ```
 
 ### 9. using the configmap's entries in a volume 
 
 Map as volume:
-```
+```yaml
 apiVersion: v1
 kind: Pod
 metadata:
@@ -1456,7 +1456,7 @@ spec:
 ```
 
 ### 10. setting the file permissions for files in a configmap volume
-```
+```yaml
 volumes:
   - name: config
     configMap:
@@ -1466,22 +1466,22 @@ volumes:
 
 ### 11. Updating an app’s config without having to restart the app
 * Be aware that as I’m writing this, it takes a `surprisingly long time` for the files to be `updated after` you update the ConfigMap (it can take up to `one whole minute`).
-```
+```bash
 kubectl edit configmap fortune-config
 ```
-```
+```bash
 kubectl exec fortune-configmap-volume -c web-server
 cat /etc/nginx/conf.d/my-nginx-config.conf
 ```
 
 Restart nginx:
-```
+```bash
 kubectl exec fortune-configmap-volume -c web-server -- nginx -s reload
 ```
 
 ### 12. understanding how the files are updated atomically
 * You may wonder what happens if an app can `detect config file changes` on its own and reloads them before Kubernetes has finished `updating all` the `files` in the `configMap volume`. Luckily, this can’t happen, because all the files are `updated atomically`, which means all updates occur at once
-```
+```bash
 kubectl exec -it fortune-configmap-volume -c web-server -- ls -lA /etc/nginx/conf.d
 ```
 * As you can see, the files in the `mounted configMap volume` are `symbolic links` pointing to `files` in the `..data` dir. The `..data` dir is also a `symbolic link` pointing to a directory called `..4984_09_04_something`. `When` the ConfigMap is `updated,` Kubernetes creates a `new directory like this`, writes all the files to it, and then `re-links` the `..data symbolic link` to the `new directory`, effectively `changing all files` `at once`
@@ -1493,7 +1493,7 @@ kubectl exec -it fortune-configmap-volume -c web-server -- ls -lA /etc/nginx/con
  * If the app does support `reloading`, `modifying` the ConfigMap usually isn’t such a big deal, but you do need to be `aware` that because files in the ConfigMap volumes `aren’t updated synchronously` across `all running instances`, the files in `individual pods` may be `out of sync` for up to a `whole minute`.
 
 yaml:
-```
+```yaml
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -1514,7 +1514,7 @@ data:
 ```
 
 Reference:
-```
+```yaml
 - image: 080196/hello-cm
     name: hello-cm
     ports:
@@ -1526,7 +1526,7 @@ Reference:
 ```
 
 Map as volume:
-```
+```yaml
 apiVersion: v1
 kind: Pod
 metadata:
@@ -1546,7 +1546,7 @@ spec:
 ```
 
 Other way to map as volume:
-```
+```yaml
 ...
   volumes:
     - name: config
@@ -1557,7 +1557,7 @@ Other way to map as volume:
             path: gzip.conf # change name of file from my-nginx-config.conf to gzip.conf
 ```
 
-```
+```yaml
 ...
   containers:
     - image: nginx:alpine
@@ -1570,7 +1570,7 @@ Other way to map as volume:
 ...
 ```
 
-```
+```yaml
 ...
   containers:
     - image: nginx:alpine
@@ -1582,7 +1582,7 @@ Other way to map as volume:
           readOnly: true
 ...
 ```
-```
+```yaml
 ...
   volumes:
     - name: config # volume use configmap as content
@@ -1607,7 +1607,7 @@ it’s imperative you properly choose when to use a Secret or a ConfigMap. Choos
 
 ### 2. Introducing the default token Secret
 You’ll start learning about Secrets by examining a Secret `that’s mounted into every container you run`. You may have noticed it when using kubectl describe on a pod. The `command’s output` has always contained something like this:
-```
+```bash
 kubectl get secrets
 ```
  
@@ -1616,15 +1616,15 @@ You can also use `kubectl describe` to learn a bit more about it
 * You can see that the Secret contains three entries `ca.crt`, `namespace`, and `token` which represent everything you need to securely talk to the Kubernetes API server from within your pods, should you need to do that. Although ideally you want your application to be completely Kubernetes-agnostic, when there’s no alternative other than to talk to Kubernetes directly, you’ll use the `files` provided through `this secret volume`. 
 
 The kubectl describe pod command shows where the secret volume is mounted
-```
+```yaml
 Mounts:
   /var/run/secrets/kubernetes.io/serviceaccount from default-token-xxxxx
 ```
 * By `default`, the `default-token` Secret is `mounted` into `every container`, but you can `disable` that in each pod by `setting` the `automountServiceAccountToken field` in the `pod spec` to `false` or by setting it to `false` on the `service account` the pod is using.
-```
+```bash
 kubectl exec mypod ls /var/run/secrets/kubernetes.io/serviceaccount/
 ```
-```
+```bash
 ca.crt
 namespace
 token
@@ -1632,13 +1632,13 @@ token
 
 ### 3. Create secret
 * First, generate the certificate and private key files:
-```
+```bash
 openssl genrsa -out https.key 2048
 openssl req -new -x509 -key https.key -out https.cert -days 3650 -subj /CN=www.kubia-example.com
 ```
 
 Now you can use kubectl create secret to create a Secret from the three files
-```
+```bash
 kubectl create secret generic fortune-https --from-file=https.key --from-file=https.cert --from-file=foo
 ```
 
@@ -1650,7 +1650,7 @@ kubectl create secret generic fortune-https --from-file=https.key --from-file=ht
 * You can use Secrets even for `non-sensitive` `binary data`, but be aware that the `maximum size` of a Secret is limited to `1MB`
 
 ### 6. introducing the stringdata field
-```
+```yaml
 kind: Secret
 apiVersion: v1
 stringData:
@@ -1658,7 +1658,7 @@ stringData:
 ```
 
 ### 7. Using the Secret in a pod
-```
+```yaml
 apiVersion: v1
 kind: Pod
 metadata:
@@ -1706,7 +1706,7 @@ spec:
 ```
 
 ### 8. exposing a secret’s entries through environment variables
-```
+```yaml
 env:
 - name: FOO_SECRET
   valueFrom:
@@ -1716,14 +1716,14 @@ env:
 ```
 
 ### 9. creating a secret for authenticating with a docker registry
-```
+```bash
 kubectl create secret docker-registry mydockerhubsecret \
 --docker-username=myusername --docker-password=mypassword \ 
 --docker-email=my.email@provider.com
 ```
 
 ### 10. creating a secret for authenticating with a docker registry
-```
+```yaml
 apiVersion: v1
 kind: Pod
 metadata:
@@ -1740,12 +1740,12 @@ spec:
 * Image pull Secrets can be added to all your pods `automatically` if you add the `Secrets` to a `ServiceAccount`.
 
 literal:
-```
+```bash
 kubectl create secret generic postgres-config --from-literal=DB=postgres --from-literal=USER=postgres --from-literal=PASSWORD=postgres
 ```
 
 yaml:
-```
+```yaml
 apiVersion: v1
 kind: Secret
 metadata:
@@ -1755,7 +1755,7 @@ data:
 ```
 ## 16. StorageClass
 yaml:
-```
+```yaml
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
@@ -1791,7 +1791,7 @@ parameters:
 * An `emptyDir volume` is especially useful for `sharing files` between containers running in the `same pod`. But it can also be used by a `single container` for when a container needs to `write data` to `disk temporarily`, such as when `performing a sort operation` on a `large dataset`, which `can’t fit` into the `available memory`. The data could also be `written` to the `container’s filesystem` itself
 
 #### 2. using an emptydir volume in a pod
-```
+```yaml
 apiVersion: v1
 kind: Pod
 metadata:
@@ -1820,7 +1820,7 @@ volumes:
 
 #### 3. specifying the medium to use for the emptydir
 * The `emptyDir` you used as the `volume was created` on the `actual disk` of the `worker node` hosting your pod, so its performance depends on the type of the `node’s disks`. But you can tell Kubernetes to create the emptyDir on a `tmpfs filesystem` (`in memory` instead of `on disk`). To do this, set the `emptyDir’s medium` to `Memory` like this:
-```
+```yaml
 volumes:
   - name: html
     emptyDir:
@@ -1829,7 +1829,7 @@ volumes:
 
 #### 4. GitRepo
 * When you create the pod, the volume is first initialized as an `empty directory` and then the `specified Git repository` is `cloned into it`. If you hadn’t set the `directory` to `. (dot)`, the repository would have been `cloned into` the `kubia-website-example` subdirectory, which isn’t what you want. You want the repo to be `cloned into the root` directory of your volume. Along with the repository, you also specified you want Kubernetes to check out whatever revision the `master branch` is pointing to at the time the `volume is created`. 
-```
+```yaml
 apiVersion: v1
 kind: Pod
 metadata:
@@ -1870,7 +1870,7 @@ volumes:
   * User creates a pod with a volume referencing the PVC
 
 ### 5. Creating a PersistentVolume
-```
+```yaml
 apiVersion: v1
 kind: PersistentVolume
 metadata:
@@ -1888,7 +1888,7 @@ spec:
 ```
 
 Referencing a GCE PD in a pod’s volume:
-```
+```yaml
 spec:
   volumes:
   - name: mongodb-data
@@ -1898,13 +1898,13 @@ spec:
 ...
 ```
 After you create the `PersistentVolume` with the `kubectl create` command, it should be `ready to be claimed`. See if it is by `listing all PersistentVolumes:`
-```
+```bash
 kubectl get pv
 ```
 * PersistentVolumes, like `cluster Nodes`, `don’t belong` to `any namespace`, unlike pods and `PersistentVolumeClaims`.
 
 Claim PersistentVolume:
-```
+```yaml
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -1918,7 +1918,7 @@ spec:
   storageClassName:
 ```
 * As soon as you create the claim, Kubernetes finds the `appropriate PersistentVolume` and `binds it` to the claim. The `PersistentVolume’s capacity` must be `large enough` to `accommodate` what the `claim requests`. Additionally, the `volume’s access modes` must include the `access modes` requested by the claim. In your case, the claim `requests 1 GiB` of storage and a `ReadWriteOnce access mode`. The `PersistentVolume you created` earlier `matches those two requirements` so it is `bound to your claim`. You can see this by inspecting the claim.
-```
+```bash
 kubectl get pvc
 ```
 
@@ -1939,7 +1939,7 @@ You told Kubernetes you wanted your PersistentVolume to behave like this when yo
 ### 7. Dynamic provisioning of PersistentVolumes
 * You’ve seen how using PersistentVolumes and PersistentVolumeClaims makes it easy to obtain persistent storage without the developer having to deal with the actual storage technology used underneath. But this still requires a cluster administrator to provision the actual storage up front. Luckily, Kubernetes can also perform this job automatically through dynamic provisioning of PersistentVolumes.
 * The cluster admin, instead of creating PersistentVolumes, can deploy a PersistentVolume provisioner and define one or more StorageClass objects to let users choose what type of PersistentVolume they want. The users can refer to the StorageClass in their PersistentVolumeClaims and the provisioner will take that into account when provisioning the persistent storage. 
-```
+```yaml
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
@@ -1952,7 +1952,7 @@ parameters:
 
 ### 8. Requesting the STORAGE CLASS in a PersistentVolumeClaim
 After the StorageClass resource is created, users can refer to the storage class by name in their PersistentVolumeClaims. 
-```
+```yaml
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -1966,7 +1966,7 @@ spec:
     - ReadWriteOnce
 ```
 * Apart from specifying the size and access modes, your PersistentVolumeClaim now also specifies the class of storage you want to use. When you create the claim, the PersistentVolume is created by the provisioner referenced in the fast StorageClass resource. The provisioner is used even if an existing manually provisioned PersistentVolume matches the PersistentVolumeClaim.
-```
+```bash
 kubectl get pvc mongodb-pvc
 ```
 The VOLUME column shows the PersistentVolume that’s `bound to this claim` (the actual name is longer than what’s shown above). You can try listing PersistentVolumes now to see that a new PV has indeed been created automatically:
@@ -1977,13 +1977,13 @@ The VOLUME column shows the PersistentVolume that’s `bound to this claim` (the
 
 ### 10. Dynamic provisioning without specifying a storage class
 List storage class:
-```
+```bash
 kubectl get sc
 ```
 * Beside the `fast` `storage class`, which you created yourself, a standard storage class exists and is marked as `default`. You’ll learn what that means in a moment.
 
 ### 11. examining the default storage class
-```
+```yaml
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
@@ -2003,7 +2003,7 @@ provisioner: kubernetes.io/gce-pd
 ```
 
 ### 12. PVC with no storage class defined: mongodb-pvc-dp-nostorageclass.yaml
-```
+```yaml
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -2018,7 +2018,7 @@ spec:
 * This `PVC definition` includes only the `storage size request` and the desired access modes, but `no storage class`. When you create the PVC, `whatever storage class` is marked as `default` will be used. You can confirm that’s the case:
 
 ### 13. forcing a persistentvolumeclaim to be bound to one of the pre-provisioned persistentvolumes
-```
+```yaml
 kind: PersistentVolumeClaim
 spec:
   storageClassName: ""      
@@ -2034,7 +2034,7 @@ spec:
 * Provisioner provisions the actual storage, creates a PersistentVolume, and binds it to the PVC
 * User creates a pod with a volume referencing the PVC by name
 
-```
+```yaml
 apiVersion: v1
 kind: Pod
 metadata:
@@ -2056,7 +2056,7 @@ volumes:
 ```
 
 yaml:
-```
+```yaml
 apiVersion: v1
 kind: PersistentVolume
 metadata:
@@ -2079,7 +2079,7 @@ spec:
 
 ## 18. Persistence Volume Claim
 yaml:
-```
+```yaml
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -2106,7 +2106,7 @@ spec:
 * An example of such a job would be if you had `data stored` somewhere and you needed to `transform` and `export` it somewhere.
 
 yaml:
-```
+```yaml
 apiVersion: batch/v1
 kind: Job
 metadata:
@@ -2123,7 +2123,7 @@ spec:
 ```
 
 Parallel and completion:
-```
+```yaml
 spec:
  completions: 5
  parallelism: 2
@@ -2134,7 +2134,7 @@ spec:
 
 Scale a job:
 * You can even change a `Job’s parallelism property` while the Job is `running`. This is `similar` to scaling a `ReplicaSet` or `ReplicationController`, and can be done with the `kubectl scale` command:
-```
+```bash
 kubectl scale job multi-completion-batch-job --replicas 3
 ```
 
@@ -2146,7 +2146,7 @@ Retry limit:
 
 ## 20. CronJob
 yaml:
-```
+```yaml
 apiVersion: batch/v1
 kind: CronJob
 metadata:
@@ -2170,7 +2170,7 @@ spec:
 
 Start time limit
 * You may have a `hard requirement` for the job to not be started `too far over the scheduled time`. In that case, you can specify a `deadline` by specifying the `startingDeadlineSeconds` field in the CronJob specification as shown in the following listing.
-```
+```yaml
 apiVersion: batch/v1beta1
 kind: CronJob
 spec:
@@ -2182,7 +2182,7 @@ spec:
 * Kubernetes namespaces provide a `scope for objects names`. Instead of having `all your resources in one single namespace`, you can split them into `multiple namespaces`, which also allows you to use the `same resource names multiple times` (across different namespaces).
 * Resource names only need to be `unique within a namespace`. Two `different namespaces` can contain `resources of the same name`. But, while `most types of resources are namespaced`, a `few aren’t`. One of them is the `Node resource`, which is `global` and not tied to a `single namespace`
 
-```
+```yaml
 apiVersion: v1
 kind: Namespace
 metadata:
@@ -2193,7 +2193,7 @@ metadata:
 
 ## 22. Network Policy
 ### 1. Overview
-```
+```yaml
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
@@ -2212,7 +2212,7 @@ spec:
 ```
 
 ### 2. Isolating the network between Kubernetes namespaces
-```
+```yaml
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
@@ -2231,7 +2231,7 @@ spec:
 ```
 
 ### 3. Isolating using CIDR notation
-```
+```yaml
 ingress:
 - from:
   - ipBlock:
@@ -2239,7 +2239,7 @@ ingress:
 ```
 
 ### 4. Limiting the outbound traffic of a set of pods
-```
+```yaml
 pec:
   podSelector:
     matchLabels:
@@ -2268,7 +2268,7 @@ The `Downward API` enables you to expose the `pod’s own metadata` to the proce
 * The pod’s annotations
 
 ### 2. Exposing metadata through environment variables
-```
+```yaml
 apiVersion: v1
 kind: Pod
 metadata:
@@ -2319,12 +2319,12 @@ spec:
 ```
 
 Check environment variable:
-```
+```yaml
 kubectl exec downward env
 ```
  
 ### 3. Passing metadata through files in a downwardAPI volume
-```
+```yaml
 apiVersion: v1
 kind: Pod
 metadata:
@@ -2381,17 +2381,17 @@ volumes:
 ```
 
 Check volume:
-```
+```bash
 kubectl exec downward ls -lL /etc/downward
 ```
 
 Examples:
-```
+```bash
 kubectl exec downward cat /etc/downward/labels
 foo="bar"
 ```
 
-```
+```bash
 kubectl exec downward cat /etc/downward/annotations
 key1="value1"
 key2="multi\nline\nvalue\n"
@@ -2403,7 +2403,7 @@ kubernetes.io/config.source="api"
 * You may remember that `labels` and `annotations` can be modified while a pod is running. As you might expect, when they change, Kubernetes updates the `files holding them`, allowing the pod to always see `up-to-date` data. This also explains why labels and annotations `can’t be exposed` through `environment variables`. Because `environment variable values` can’t be updated afterward, if the labels or annotations of a pod were exposed through environment variables, `there’s no way` to expose the `new values` after `they’re modified`.
 
 ### 5. referring to container-level metadata in the volume specification
-```
+```yaml
 spec:
   volumes:
   - name: downward
@@ -2418,41 +2418,41 @@ spec:
 
 ### 6. Talking to the Kubernetes API server
 Get IP info:
-```
+```bash
 kubectl cluster-info
 ```
 
-```
+```bash
 curl https://IP:8443 -k
 ```
 
 ### 7. accessing the api server through kubectl proxy 
 * The `kubectl proxy` command runs a `proxy server` that `accepts HTTP connections` on your `local machine` and `proxies` them to the API server while `taking care of authentication`, so you `don’t need to pass` the `authentication token` in `every request`. It also makes sure you’re talking to the `actual API server` and not a man in the middle (by verifying the server’s certificate on each request).
 
-```
+```bash
 kubectl proxy
 ```
 
-```
+```bash
 curl localhost:8001
 ```
 
 ### 8. exploring the batch api group’s rest endpoint
-```
+```bash
 curl http://localhost:8001/apis/batch
 ```
 
-```
+```bash
 curl http://localhost:8001/apis/batch/v1
 ```
 
 ### 9. listing all job instances in the cluster
-```
+```bash
 curl http://localhost:8001/apis/batch/v1/jobs
 ```
 
 ### 10. retrieving a specific job instance by name
-```
+```bash
 curl http://localhost:8001/apis/batch/v1/namespaces/default/jobs/my-job
 ```
 
@@ -2463,7 +2463,7 @@ You’ve learned how to talk to the API server from your `local machine`, using 
 * `Authenticate` with the server; otherwise it won’t let you `see` or `do` `anything`.
 
 ### 12. running a pod to try out communication with the api server
-```
+```yaml
 apiVersion: v1
 kind: Pod
 metadata:
@@ -2476,58 +2476,58 @@ spec:
 ```
 
 Then:
-```
+```bash
 kubectl exec -it curl bash
 ```
 
 Finding API server address ( localhost ):
-```
+```bash
 kubectl get svc
 ```
 
 Finding API server address ( container ):
-```
+```bash
 env | grep KUBERNETES_SERVICE
 ```
 
 Curl:
-```
+```bash
 curl https://kubernetes
 ```
 
-```
+```bash
 curl: (60) SSL certificate problem: unable to get local issuer certificate
 ...
 If you'd like to turn off curl's verification of the certificate, use  the -k (or --insecure) option.
 ```
 
 Curl with cacert:
-```
+```bash
 curl --cacert /var/run/secrets/kubernetes.io/serviceaccount/ca.crt https://kubernetes
 ```
 
 Export env:
-```
+```bash
 export CURL_CA_BUNDLE=/var/run/secrets/kubernetes.io/serviceaccount/ca.crt
 ```
 
-```
+```bash
 curl https://kubernetes
 ```
 
 ### 13. authenticating with the api server
 Set `env` for `token`:
-```
+```bash
 TOKEN=$(cat /var/run/secrets/kubernetes.io/serviceaccount/token)
 ```
 
 Curl with `cert` and `token`:
-```
+```bash
 curl -H "Authorization: Bearer $TOKEN" https://kubernetes
 ```
 
 ### 14. Disabling role-based access control (RBAC)
-```
+```bash
 kubectl create clusterrolebinding permissive-binding \
 --clusterrole=cluster-admin \
 --group=system:serviceaccounts
@@ -2537,12 +2537,12 @@ kubectl create clusterrolebinding permissive-binding \
 
 ### 15. getting the namespace the pod is running in
 Export namespace env:
-```
+```bash
 NS=$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace)
 ```
 
 Curl namespace with cert and token:
-```
+```bash
 curl -H "Authorization: Bearer $TOKEN" https://kubernetes/api/v1/namespaces/$NS/pods
 ```
 
@@ -2552,7 +2552,7 @@ curl -H "Authorization: Bearer $TOKEN" https://kubernetes/api/v1/namespaces/$NS/
 * The `namespace file` should be used to pass `the namespace` to the `API server` when performing `CRUD operations` on API objects inside the `pod’s namespace`.
 
 ### 18. introducing the ambassador container pattern
-```
+```yaml
 apiVersion: v1
 kind: Pod
 metadata:
@@ -2567,12 +2567,12 @@ spec:
 ```
 
 Exec to `main` container:
-```
+```bash
 kubectl exec -it curl-with-ambassador -c main bash
 ```
 
 Curl inside `main` container:
-```
+```bash
 curl localhost:8001
 ```
 
@@ -2594,37 +2594,37 @@ curl localhost:8001
 ### 1. Label
 #### 1. Nodes
 get nodes with labels:
-```
+```bash
 kubectl get nodes --show-labels
 ```
 
 label a node:
-```
+```bash
 kubectl label nodes <node-name> <key>=<value>
 ```
 
 Example:
-```
+```bash
 kubectl label nodes worker-01 disktype=ssd
 ```
 
 #### 2. Pods ( Other resources type are same )
 get pods with labels:
-```
+```bash
 kubectl get pods --show-labels
 ```
 
 label a node:
-```
+```bash
 kubectl label pod <node-name> <key>=<value>
 ```
 
 Example:
-```
+```bash
 kubectl label pod firstpod admin=true
 ```
 
-```
+```bash
 kubectl get pod -l app=pc,rel=beta
 ```
 
@@ -2647,7 +2647,7 @@ The node with `NoExecute taint` will `not allow pod to shedule` to and `evict al
 
 ### 3. Toleration
 Example:
-```
+```yaml
 tolerations:
   - key: node-type
     Operator: Equal
@@ -2657,7 +2657,7 @@ tolerations:
 
 ## Liveness probe and readiness
 ### 1. Liveness probe
-```
+```yaml
 spec:
  containers:
  - image: luksa/kubia-unhealthy
@@ -2670,18 +2670,18 @@ spec:
 
 ## Metadata
 ### 1. Creation timestamp
-```
+```yaml
 creationTimestamp: 2023-03-18T12:37:50Z
 ```
 
 ### 2. Generate name
-```
+```yaml
 generateName: kubia-
 ```
 
 ## SECURITY
 ### 1. hostNetwork: true  
-```
+```yaml
 apiVersion: v1
 kind: Pod
 metadata:
@@ -2694,12 +2694,12 @@ spec:
     command: ["/bin/sleep", "999999"]
 ```
 * After you run the pod, you can use the following command to see that it’s indeed using the host’s network namespace (it sees all the host’s network adapters, for example).
-```
+```bash
 kubectl exec pod-with-host-network ifconfig
 ```
 
 ### 2. Binding to a host port without using the host’s network namespace
-```
+```yaml
 apiVersion: v1
 kind: Pod
 metadata:
@@ -2717,7 +2717,7 @@ spec:
 
 ### 3. Using the node’s PID and IPC namespaces
 * Similar to the hostNetwork option are the hostPID and hostIPC pod spec properties. When you set them to true, the pod’s containers will use the node’s PID and IPC namespaces, allowing processes running in the containers to see all the other processes on the node or communicate with them through IPC, respectively. See the following listing for an example.
-```
+```yaml
 apiVersion: v1
 kind: Pod
 metadata:
@@ -2731,7 +2731,7 @@ spec:
     command: ["/bin/sleep", "999999"]
 ```
 * You’ll remember that pods usually see only their own processes, but if you run this pod and then list the processes from within its container, you’ll see all the processes running on the host node, not only the ones running in the container, as shown in the following listing.
-```
+```bash
 kubectl exec pod-with-host-pid-and-ipc ps aux
 ```
 
@@ -2745,7 +2745,7 @@ Configuring the security context allows you to do various things:
 * Prevent the process from writing to the `container’s filesystem`.
 
 ### 5. Running a container as a specific user
-```
+```yaml
 apiVersion: v1
 kind: Pod
 metadata:
@@ -2759,12 +2759,12 @@ spec:
       runAsUser: 405     
 ```
 
-```
+```bash
 kubectl exec pod-as-user-guest id
 ```
 
 ### 6. Preventing a container from running as root
-```
+```yaml
 apiVersion: v1
 kind: Pod
 metadata:
@@ -2779,14 +2779,14 @@ spec:
 ```
 
 If you deploy this pod, it gets scheduled, but is not allowed to run:
-```
+```bash
 kubectl get po pod-run-as-non-root
 ```
 
 ### 7. Running pods in privileged mode
 * Sometimes pods need to do `everything` that the `node they’re running on can do`, such as use `protected system devices` or other `kernel features`, which `aren’t accessible` to regular containers. 
 * An example of such a pod is the `kube-proxy` pod, which needs to modify the `node’s iptables` rules to make `services work`,
-```
+```yaml
 apiVersion: v1
 kind: Pod
 metadata:
@@ -2801,12 +2801,12 @@ spec:
 ```
 
 Non previliged mode:
-```
+```bash
 kubectl exec -it pod-with-defaults ls /dev
 ```
 
 Previliged mode:
-```
+```bash
 kubectl exec -it pod-privileged ls /dev
 ```
 
@@ -2815,11 +2815,11 @@ kubectl exec -it pod-privileged ls /dev
 * Instead of making a container `privileged` and giving it `unlimited permissions`, a much `safer method` (from a `security perspective`) is to give it access `only` to the `kernel features` it `really requires`. Kubernetes allows you to `add capabilities` to each container or `drop part` of them, which allows you to `fine-tune` the `container’s permissions` and `limit` the `impact` of a potential intrusion by an attacker.
 
 Modify date format without capabilities:
-```
+```bash
 kubectl exec -it pod-with-defaults -- date +%T -s "12:00:00"
 ```
 
-```
+```yaml
 apiVersion: v1
 kind: Pod
 metadata:
@@ -2836,17 +2836,17 @@ spec:
 ```
 
 Modify date format with capabilities:
-```
+```bash
 kubectl exec -it pod-add-settime-capability -- date +%T -s "12:00:00"
 ```
 
 date:
-```
+```bash
 kubectl exec -it pod-add-settime-capability -- date
 ```
 
 check node's date format as well:
-```
+```bash
 date
 ```
 
@@ -2854,12 +2854,12 @@ date
 * You’ve seen how to add capabilities, but you can also `drop capabilities` that may otherwise be `available` to the container. For example, the `default capabilities` given to a container include the `CAP_CHOWN` capability, which allows `processes` to change the `ownership of files` in `the filesystem`. 
 
 Change owner with default capabilities:
-```
+```bash
 kubectl exec pod-with-defaults chown guest /tmp
 kubectl exec pod-with-defaults -- ls -la / | grep tmp
 ```
 
-```
+```yaml
 apiVersion: v1
 kind: Pod
 metadata:
@@ -2876,12 +2876,12 @@ spec:
 ```
 
 Change owner without capabilities:
-```
+```bash
 kubectl exec pod-drop-chown-capability chown guest /tmp
 ```
 
 ### 10. Preventing processes from writing to the container’s filesystem
-```
+```yaml
 apiVersion: v1
 kind: Pod
 metadata:
@@ -2903,12 +2903,12 @@ spec:
 ```
 
 Write file without permission:
-```
+```bash
 kubectl exec -it pod-with-readonly-filesystem touch /new-file
 ```
 
 On the other hand, writing to the mounted volume is allowed:
-```
+```bash
 kubectl exec -it pod-with-readonly-filesystem touch /volume/newfile
 kubectl exec -it pod-with-readonly-filesystem -- ls -la /volume/newfile
 ```
@@ -2918,7 +2918,7 @@ kubectl exec -it pod-with-readonly-filesystem -- ls -la /volume/newfile
 * If those two containers use a volume to `share files`, they may `not necessarily` be `able` to `read` or `write files` of `one another`. 
 * fsGroup
 * supplementalGroups
-```
+```yaml
 apiVersion: v1
 kind: Pod
 metadata:
@@ -2952,26 +2952,26 @@ spec:
 ```
 
 First container:
-```
+```bash
 kubectl exec -it pod-with-shared-volume-fsgroup -c first sh
 ```
 
-```
+```bash
 ls -l / | grep volume
 ```
 
-```
+```bash
 echo foo > /volume/foo
 ls -l /volume
 ```
 
-```
+```bash
 echo foo > /tmp/foo
 ls -l /tmp
 ```
 
 Second container:
-```
+```bash
 kubectl exec -it pod-with-shared-volume-fsgroup -c second sh
 ```
 
@@ -2987,7 +2987,7 @@ A `PodSecurityPolicy` resource defines things like the following:
 * Whether a container can use a writable root filesystem or not
 * Which filesystem groups the container can run as
 * Which volume types a pod can use
-```
+```yaml
 apiVersion: extensions/v1beta1
 kind: PodSecurityPolicy
 metadata:
@@ -3018,7 +3018,7 @@ spec:
 #### 2. Understanding runAsUser, fsGroup, and supplementalGroups policies
 using the mustrunas rule:
 
-```
+```yaml
 runAsUser:
   rule: MustRunAs
   ranges:
@@ -3041,12 +3041,12 @@ supplementalGroups:
 ```
 
 deploying a pod with runasuser outside of the policy’s range:
-```
+```bash
 kubectl create -f pod-as-user-guest.yaml
 ```
 
 #### 3. Configuring allowed, default, and disallowed capabilities
-```
+```yaml
 apiVersion: extensions/v1beta1
 kind: PodSecurityPolicy
 spec:
@@ -3065,7 +3065,7 @@ spec:
 * `requiredDropCapabilities`: Require containers to drop the `SYS_ADMIN` and SYS_MODULE capabilities.
 
 #### 4. Constraining the types of volumes pods can use
-```
+```yaml
 kind: PodSecurityPolicy
 spec:
   volumes:
@@ -3077,7 +3077,7 @@ spec:
 ```
 
 #### 5. creating a podsecuritypolicy allowing privileged containers to be deployed
-```
+```yaml
 apiVersion: extensions/v1beta1
 kind: PodSecurityPolicy
 metadata:
@@ -3097,29 +3097,29 @@ spec:
 ```
 
 Get pod security policy:
-```
+```bash
 kubectl get psp
 ```
 
 #### 6. using rbac to assign different podsecuritypolicies to different users
-```
+```bash
 kubectl create clusterrole psp-default --verb=use --resource=podsecuritypolicies --resource-name=default
 ```
 
-```
+```bash
 kubectl create clusterrole psp-privileged --verb=use --resource=podsecuritypolicies --resource-name=privileged
 ```
 
-```
+```bash
 kubectl create clusterrolebinding psp-all-users --clusterrole=psp-default --group=system:authenticated
 ```
 
-```
+```bash
 kubectl create clusterrolebinding psp-bob --clusterrole=psp-privileged --user=bob
 ```
 
 #### 7. creating additional users for kubectl
-```
+```bash
 kubectl config set-credentials alice --username=alice --password=password
 ```
 
@@ -3138,7 +3138,7 @@ Only supported resource:
 * StatefulSets
 
 Example:
-```
+```yaml
 apiVersion: autoscaling/v2beta1
 kind: HorizontalPodAutoscaler
 metadata:
@@ -3163,7 +3163,7 @@ status:
 ```
 
 ### 2. modifying the target metric value on an existing hpa object
-```
+```yaml
 spec:
   maxReplicas: 5
   metrics:
@@ -3179,7 +3179,7 @@ As you can see, the `metrics field` allows you to `define` more than `one metric
 * Object
 
 ### 3. Reffering to a metric of a different object in the HPA
-```
+```yaml
 spec:
   metrics:
   - type: Object
@@ -3199,7 +3199,7 @@ spec:
 
 ## 23. PodDisruptionBudget
 Limiting service disruption during cluster scale-down
-```
+```yaml
 apiVersion: policy/v1beta1
 kind: PodDisruptionBudget
 metadata:
@@ -3213,19 +3213,19 @@ spec:
 
 ## AFFINITY AND CPU, RAM
 ### 1. Show node resources
-```
+```bash
 kubectl describe nodes
 ```
 * Capacity
 * Allocatable
 
-```
+```bash
 kubectl describe node
 ```
 
 ### 2. Request
 #### 1. Example
-```
+```yaml
 resources:
   requests:
     cpu: 200m
@@ -3244,7 +3244,7 @@ resources:
 
 ### 3. Limit
 #### 1. Example
-```
+```yaml
 spec:
  containers:
  - image: busybox
@@ -3276,7 +3276,7 @@ Obviously, `it depends`. Kubernetes `can’t make` a `proper decision` on its ow
 * Guaranteed (the highest)
 
 ### 5. LimitRange
-```
+```yaml
 apiVersion: v1
 kind: LimitRange
 metadata:
@@ -3312,7 +3312,7 @@ spec:
 
 ### 6. creating a resourcequota for cpu and memory
 #### 1. Specifying a quota for persistent storage
-```
+```yaml
 apiVersion: v1
 kind: ResourceQuota
 metadata:
@@ -3327,7 +3327,7 @@ spec:
 * `LimitRanges` apply to `individual pods`; `ResourceQuotas` apply to `all pods` in the `namespace`.
 
 #### 2. Specifying a quota for persistent storage
-```
+```yaml
 apiVersion: v1
 kind: ResourceQuota
 metadata:
@@ -3350,7 +3350,7 @@ Object count quotas can currently be set for the following objects:
 * PersistentVolumeClaims
 * Service ( Loadbalancer, Nodeport )
 
-```
+```yaml
 apiVersion: v1
 kind: ResourceQuota
 metadata:
@@ -3369,7 +3369,7 @@ spec:
 ```
 
 #### 4. Specifying quotas for specific pod states and/or QoS classes
-```
+```yaml
 apiVersion: v1
 kind: ResourceQuota
 metadata:
@@ -3384,7 +3384,7 @@ spec:
 
 ## Affinity
 ### 1. Using node affinity to attract pods to certain nodes
-```
+```yaml
 apiVersion: v1
 kind: Pod
 metadata:
@@ -3408,7 +3408,7 @@ spec:
 
 * The biggest benefit of the newly introduced node affinity feature is the ability to specify which nodes the Scheduler should prefer when scheduling a specific pod. This is done through the `preferredDuringSchedulingIgnoredDuringExecution` 
 
-```
+```yaml
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
@@ -3440,7 +3440,7 @@ spec:
 ### 1. Starting pods in a specific order
 
 adding an init container to a pod:
-```
+```yaml
 spec:
   initContainers:
   - name: init
@@ -3454,7 +3454,7 @@ spec:
 ### 2. Adding lifecycle hooks
 
 PostStart:
-```
+```yaml
 apiVersion: v1
 kind: Pod
 metadata:
@@ -3473,7 +3473,7 @@ spec:
 ```
 
 Prestop:
-```
+```yaml
 lifecycle:
   preStop:
     httpGet:
@@ -3482,7 +3482,7 @@ lifecycle:
 ```
 
 Termination message:
-```
+```yaml
 apiVersion: v1
 kind: Pod
 metadata:
@@ -3501,130 +3501,130 @@ spec:
 ## COMMANDS
 ## 1 Backup
 #### 1. Get certs locations
-```
+```bash
 kubectl -n kube-system get pod kube-apiserver-$(hostname) -o=jsonpath='{.spec.containers[0].command}' |jq |grep etcd
 ```
 #### 2. Backup
 Replace `$location` with your desire:
-```
+```bash
 ETCDCTL_API=3 etcdctl --endpoints=https://127.0.0.1:2379 --cacert /etc/kubernetes/pki/etcd/ca.crt --cert /etc/kubernetes/pki/etcd/server.crt --key /etc/kubernetes/pki/etcd/server.key snapshot save $location
 ```
 #### 3. Create data directory
 Replace `$datadir` and `$snapshotdir` with your desire:
-```
+```bash
 etcdutl snapshot restore --data-dir $datadir $snapshotdir
 ```
 
 #### 4. Restore
-```
+```bash
 mv /etc/kubernetes/manifests/* /etc/kubernetes/
 ```
-```
+```bash
 vi /etc/kubernetes/etcd.yaml
 ```
 At `volume`->> `hostPath`->> `etcd-data`
 
 Change `/var/lib/etcd` with your desire `$datadir`
-```
+```bash
 mv /etc/kubernetes/*.yaml /etc/kubernetes/manifests
 ```
 #### 5. Wait a little bit to see result
 ## 2 Upgrade ( Centos 9 )
 #### 1. Check version
-```
+```bash
 kubeadm version
 kubectl version
 kubelet --version
 ```
 
 #### 2. Check kubedm yum package version
-```
+```bash
 sudo yum list --showduplicates kubeadm --disableexcludes=kubernetes
 ```
 
 #### 3. Install newer kubeadm version
-```
+```bash
 sudo yum install -y kubeadm-'1.29.x-*' --disableexcludes=kubernetes
 ```
 
 #### 4. Check upgrade plan
-```
+```bash
 sudo kubeadm upgrade apply $version
 ```
 
 #### 5. Drain node ( mark node unschedulable and evicting the workloads )
-```
+```bash
 kubectl drain <node-to-drain> --ignore-daemonsets
 ```
 
 #### 6. Upgrade kubectl and kubelet
-```
+```bash
 sudo yum install -y kubelet-'1.29.x-*' kubectl-'1.29.x-*' --disableexcludes=kubernetes
 ```
 
 #### 7. Reload 
-```
+```bash
 sudo systemctl daemon-reload
 sudo systemctl restart kubelet
 ```
 
 #### 8. Uncordon node ( mark node schedulable )
-```
+```bash
 kubectl uncordon <node-to-uncordon>
 ```
 ## 3 RBAC
 #### 1. Create user
-```
+```bash
 sudo useradd -m -G sudo -s /bin/bash/$NEWUSER
 ```
-```
+```bash
 sudo passwd $NEWUSER
 ```
-```
+```bash
 su - $NEWUSER
 ```
 #### 2. Generate and sign key
-```
+```bash
 openssl genrsa -out $NEWUSER.key 2048
 ```
-```
+```bash
 openssl req -new -key $NEWUSER.key -out $NEWUSER.csr -subj "/CN=$NEWUSER/O=k8s"
 ```
-```
+```bash
 sudo openssl x509 -req -in $NEWUSER.csr -CA /etc/kubernetes/pki/ca.crt -CAkey /etc/kubernetes/pki/ca.key -CAcreateserial -out $NEWUSER.crt -days 1800
 ```
 #### 3. Configure kubeconfig
-```
+```bash
 mkdir -p /home/$NEWUSER/.kube
 ```
-```
+```bash
 sudo cp -i /etc/kubernetes/admin.conf /home/$NEWUSER/.kube/config
 ```
-```
+```bash
 sudo chown -R $NEWUSER:$NEWUSER /home/$NEWUSER/.kube
 ```
-```
+```bash
 kubectl config set-credentials $NEWUSER --client-certificate=/home/$NEWUSER/$NEWUSER.crt --client-key=/home/$NEWUSER/$NEWUSER.key
 ```
 #### 4. Configure context
-```
+```bash
 kubectl config set-context $NEWUSER-context --cluster=kubernetes --namespace=$NAMESPACE --user=$NEWUSER
 ```
-```
+```bash
 kubectl config use-context $NEWUSER-context
 ```
 This is command will fail because there is no `Roles` or `ClusterRole` bind to `$NEWUSER`
-```
+```bash
 kubectl get pods
 ```
-```
+```bash
 kubectl config get-context
 ```
 #### 5. Configure role bind to user
 Switch back to `kubernetes-admin` user
 
 Apply `Role`:
-```
+```yaml
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
@@ -3637,7 +3637,7 @@ rules:
 
 ```
 Apply `RoleBind`:
-```
+```yaml
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
@@ -3653,13 +3653,13 @@ roleRef:
   apiGroup: ""
 ```
 Try to get pods again:
-```
+```bash
 kubectl get pods
 ```
 #### 6. Configure role bind to group contain users
 Switch back to `kubernetes-admin` user
 Apply `Role`:
-```
+```yaml
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
@@ -3671,7 +3671,7 @@ rules:
 
 ```
 Apply `RoleBind`:
-```
+```yaml
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
@@ -3687,40 +3687,40 @@ roleRef:
   apiGroup: ""
 ```
 Try to get pods again:
-```
+```bash
 kubectl get pods
 ```
 
 Test other user power when in `kubebernetes-admin`:
 eg:
-```
+```bash
 kubectl get pods --as system:basic-user
 ```
 ## 5 Verify image with kyverno, cosign, trivy
 #### 1. Generate keypair 
-```
+```bash
 cosign generate-key-pair
 ```
-```
+```bash
 docker image ls --digests
 ```
 #### 2. Sign 
-```
+```bash
 cosign sign --key cosign.key docker.io/$USERNAME/$IMAGENAME@$HASH
 ```
 #### 3. Scan
-```
+```bash
 trivy image --ignore-unfixed  --format cosign-vuln --output vuln.json docker.io/$USERNAME/$IMAGENAME@$HASH
 ```
 #### 4. Attest
-```
+```bash
 cosign attest --key cosign.key --type vuln --predicate vuln.json docker.io/$USERNAME/$IMAGENAME@$HASH
 ```
-```
+```bash
 cosign verify-attestation --key cosign.pub --type vuln $USERNAME/$IMAGENAME@$HASH
 ```
 #### 5. Kyverno policy
-```
+```yaml
 apiVersion: kyverno.io/v1 
 kind: ClusterPolicy 
 metadataá: 
@@ -3763,18 +3763,18 @@ kubectl apply –f policy.yaml
 ## TRICKS
 ### 1. Aliases
 Write to `$HOME/.bashrc`
-```
+```bash
 aliases kgp=kubectl get pod
 ```
 
 ## DEEP DIVE
 Get kubeproxy mode:
-```
+```bash
 curl localhost:10249/proxyMode
 ```
 Modes include: iptables, ipvs, nftables
 
 list ip table rules:
-```
+```bash
 sudo iptables -S  # List all iptables rules
 ```

@@ -89,7 +89,7 @@ Some common commands:
 * gcloud + component + entity + operation + positional arguments + flags
 
 Installation ( version `455.0.0` ):
-```
+```bash
 #!/bin/bash
 
 export VER="455.0.0"
@@ -104,51 +104,51 @@ cd -
 ```
 
 Init account and configuration:
-```
+```bash
 gcloud init
 ```
 Authenticate current account:
-```
+```bash
 gcloud auth login
 ```
 List authenticated accounts:
-```
+```bash
 gcloud auth list
 ```
 
 Set authenticated account:
-```
+```bash
 gcloud config set account $EMAIL
 ```
 
 Get configuration of current authenticated account:
-```
+```bash
 gcloud config list
 ```
 
 Set configuration to default:
-```
+```bash
 gcloud config configurations activate default
 ```
 
 Describe configuration ( example for default ):
-```
+```bash
 gcloud config configurations describe default
 ```
 
 Set compute zone [ Tokyo A ]:
-```
+```bash
 gcloud config compute/zone $ZONE
 gcloud config compute/zone asia-northeast1-a
 ```
 
 Install components [ beta ]:
-```
+```bash
 gcloud components install beta
 ```
 
 Use components [ beta ]:
-```
+```bash
 gcloud beta interactive
 ```
 
@@ -232,7 +232,7 @@ Which resources ( policy ):
 * Eg: `Google account`, `Service account`, `Google group`,...
 
 Timestamp based:
-```
+```yaml
 bindings:
 - members:
   - user: wwwdatha543@gmail.com
@@ -248,7 +248,7 @@ version: 3
 ```
 
 Time based:
-```
+```yaml
 bindings:
 - members:
   - user: wwwdatha543@gmail.com
@@ -267,7 +267,7 @@ version: 3
 ```
 
 Resource based:
-```
+```yaml
 bindings:
 - members:
   - user: wwwdatha543@gmail.com
@@ -292,7 +292,7 @@ Note:
 * `20 roles` bindings for `same role` or `same member`
 
 ###### 4. AuditConfig logs
-```
+```yaml
 auditConfigs:
 - auditConfigs:
   - logType: DATA_READ
@@ -308,12 +308,12 @@ auditConfigs:
 
 ###### 5. AuditConfig logs
 Get IAM policy base on project name:
-```
+```bash
 gcloud project get-iam-policy PROJECT_NAME
 ```
 
 Set IAM policy base on project name:
-```
+```bash
 gcloud project get-iam-policy PROJECT_NAME iam.yaml
 ```
 
@@ -326,7 +326,7 @@ Test added gmail:
 
 ###### 7. Add role to other Gmail
 Add role to other gmail account:
-```
+```bash
 gcloud project add-iam-policy-binding $PROJECT_NAME --member user:$OTHER_GMAIL --role roles/storage.admin
 ```
 
@@ -356,15 +356,15 @@ Testing a service account:
 * Storage > Read only
 * SSH to VM instance
 * View service account condig
-```
+```bash
 gcloud config list
 ```
 * View storage object ( need to have a storage with objects first )
-```
+```bash
 gsutil ls gs://STORAGE_NAME
 ```
 * Copy object to storage ( Will be forbid )
-```
+```bash
 gsutil cp FILE  gs://STORAGE_NAME
 ```
 
@@ -381,31 +381,31 @@ Test user created service account:
 * Storage > Read only
 * SSH to VM instance
 * View service account condig
-```
+```bash
 gcloud config list
 ```
 * View storage object ( need to have a storage with objects first )
-```
+```bash
 gsutil ls gs://STORAGE_NAME
 ```
 * Copy object to storage
-```
+```bash
 gsutil cp FILE  gs://STORAGE_NAME
 ```
 
 Create user managed service account with command line:
 * List service account
-```
+```bash
 gcloud iam service-accounts list
 ```
 
 * Create service account
-```
+```bash
 gcloud iam service-accounts create MAME --display-name 'NAME'
 ```
 
 * Attach role to service account
-```
+```bash
 gcloud project add-iam-policy-binding PROJECT --member 'SERVICEACCOUNT' --role 'roles/storage.objectviewer'
 ```
 

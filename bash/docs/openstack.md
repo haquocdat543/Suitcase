@@ -22,14 +22,14 @@ Openstack vs AWS:
 ### Configuration
 #### Client
 Ensure credential:
-```
+```bash
 source ~/my-cloud-openrc.sh
 ```
 
 #### Server
 In OpenStack, configuration files are used to define settings and parameters for various services (such as Nova, Neutron, Cinder, Keystone, etc.). These files are typically found on each OpenStack node and contain service-specific configurations, authentication details, and networking parameters. The configuration files are usually located in /etc/<service_name>/ directory on each server.
 ##### 1. nova.conf
-```
+```toml
 [DEFAULT]
 # General settings for the Nova service
 debug = true
@@ -77,7 +77,7 @@ enabled_apis = osapi_compute,metadata
 ```
 
 ##### 2. neutron.conf
-```
+```toml
 [DEFAULT]
 # General settings for the Neutron service
 debug = true
@@ -120,23 +120,23 @@ bridge_mappings = physnet1:br-ex
 
 ### Nova
 List machine types:
-```
+```bash
 openstack flavor list
 ```
 It will return a list of `m1.small`, `m1.medium`
 
 
 List of VMI:
-```
+```bash
 openstack image list
 ```
 
 Create new Nova instance:
-```
+```bash
 openstack server create --flavor m1.small --image Ubuntu-20.04 --network public --key-name my-key my-instance
 ```
 
 List of instances:
-```
+```bash
 openstack server list
 ```

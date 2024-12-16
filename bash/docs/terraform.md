@@ -20,7 +20,7 @@
 * *Menu* > *Module* > *Select Repo* > *Publish*
 
 Use module:
-```
+```terraform
 module "name" {
   source  = "GITHUB_USER/NAME/PROVIDER"
   ...

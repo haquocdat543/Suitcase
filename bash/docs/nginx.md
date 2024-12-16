@@ -12,13 +12,13 @@
 
 Install using manifest from internet:
 
-```
+```bash
 kubectl apply -f https://raw.githubusercontent.com/nginxinc/kubernetes-ingress/v3.5.0/deploy/crds.yaml
 ```
 
 Delete using manifest from internet:
 
-```
+```bash
 kubectl delete -f https://raw.githubusercontent.com/nginxinc/kubernetes-ingress/v3.5.0/deploy/crds.yaml
 ```
 
@@ -31,7 +31,7 @@ that show:
 - Date
 - URI
 
-```
+```bash
 docker run -p 80:80 -d nginxdemos/hello"
 ```
 
@@ -44,7 +44,7 @@ that show:
 
 Dockerfile:
 
-```
+```bash
 # Dockerfile
 FROM nginx:alpine
 
@@ -55,7 +55,7 @@ EXPOSE 80
 
 nginx.conf:
 
-```
+```bash
 # nginx.conf
 events {}
 
@@ -72,25 +72,25 @@ location / {
 
 build image:
 
-```
+```bash
 docker build -t custom-nginx .
 ```
 
 Run nginx from built image:
 
-```
+```bash
 docker run -d -p 80:80 custom-nginx
 ```
 
 Run nginx without build:
 
-```
+```bash
 docker run -d -p 80:80 --name custom-nginx -v $(pwd)/nginx.conf:/etc/nginx/nginx.conf:ro nginx:alpine
 ```
 
 check result:
 
-```
+```bash
 curl http://localhost
 ```
 
@@ -98,7 +98,7 @@ curl http://localhost
 
 Kubernetes:
 
-```
+```bash
 kind: Ingress
 metadata:
   name: ingress-ghxv-backend
@@ -114,14 +114,14 @@ spec:
 
 ## 5. Certbot renewal
 
-```
+```bash
 DOMAIN="*.icapasia.com"
 certbot --nginx -d ${DOMAIN} --non-interactive --agree-tos --email wwwdatha543@gmail.com --redirect
 ```
 
 ## 6. Configure domain use ssl certification
 
-```
+```bash
 server {
     listen 443 ssl;
     server_name <domain>;
@@ -144,13 +144,13 @@ server {
 
 - Default is 1MB
 
-```
+```bash
 client_max_body_size 100M;
 ```
 
 ## 8. Configure whitelist for ip address
 
-```
+```bash
 # Allow access from specific IP address
 allow 203.0.113.1;
 
@@ -161,7 +161,7 @@ deny all;
 ```
 
 ## 9. SSL configuration
-```
+```bash
 listen 443 ssl; # managed by Certbot
 ssl_certificate /etc/letsencrypt/live/domain/fullchain.pem; # managed by Certbot
 ssl_certificate_key /etc/letsencrypt/live/domain/privkey.pem; # managed by Certbot
@@ -169,7 +169,7 @@ include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
 ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
 ```
 
-```
+```bash
 server {
     if ($host = <domain>) {
         return 301 https://$host$request_uri;
@@ -186,12 +186,12 @@ server {
 
 ## 10. Cronjob for nginx
 Every month:
-```
+```bash
 0 0 1 * * /usr/bin/certbot renew --quiet --nginx
 ```
 
 ## 11. Redirect domain
-```
+```bash
 server {
     listen 80;
     listen 443 ssl;

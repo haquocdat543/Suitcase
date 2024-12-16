@@ -1,7 +1,7 @@
 # APACHE AIRFLOW
 
 ## Docker compose
-```
+```yaml
 version: '3'
 services:
   postgres:

@@ -12,7 +12,7 @@ labels:
 ```
 
 ## 2. Docker compose [ traefik ]
-```
+```toml
 defaultEntryPoints = ["http", "https"]
 
 logLevel = "ERROR"

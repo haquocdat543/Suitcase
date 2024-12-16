@@ -3,35 +3,35 @@
 #### 1. Preqrequisite
 * gcc ( you need a chicken to have an egg =)) )
 * dependencies
-```
+```bash
 yum -y install pkgconfig automake gcc zlib-devel pcre-devel xz-devel
 yum -y groupinstall "Development Tools"
 yum -y install pcre-devel xz-devel zlib-devel
 ```
 #### 2. Build
-```
+```bash
 ./contrib/download_prerequisites
 ```
 
-```
+```bash
 ./configure --prefix=/usr/local/bin --disable-multilib
 ```
 Only C
-```
+```bash
 ./configure --prefix=/usr/local/bin --disable-multilib --enable-languages=c
 ```
 make
-```
+```bash
 make
 ```
 or
-```
+```bash
 make -j6
 ```
 `-j6` mean six processes run parallel. You can replace `6` with any number you want.
 
 install
-```
+```bash
 make install
 ```
 #### 3. Result
@@ -107,40 +107,40 @@ The build process took me approx `one and half an hour`
 * -Wl ( Pass option linker )
 * -save-temps ( preserve .o .i .s files )
 ### 2. Target architecture
-```
+```bash
 gcc -march=x86-64 -mtune=generic -o output_file source_file.c
 ```
 * mtune values can be: generic, native, core2, corei7, athlon 
 
 ### 3. Target architecture
 * For x86 architecture:
-```
+```bash
 gcc -march=i386
 ```
 * For x86-64 architecture:
-```
+```bash
 gcc -march=x86-64
 ```
 * For ARM architecture:
-```
+```bash
 gcc -march=armv7-a
 ```
 * For AArch64 architecture:
-```
+```bash
 gcc -march=armv8-a
 ```
 * For sparc architecture:
-```
+```bash
 gcc -march=sparc -o output_file source_file.c
 gcc -march=sparc64 -o output_file source_file.c
 ```
 * For powerc architecture:
-```
+```bash
 gcc -march=powerpc -o output_file source_file.c
 gcc -march=powerpc64 -o output_file source_file.c
 ```
 * For mips architecture:
-```
+```bash
 gcc -march=mips1 -o output_file source_file.c
 gcc -march=mips2 -o output_file source_file.c
 gcc -march=mips32 -o output_file source_file.c
@@ -150,13 +150,13 @@ gcc -march=mips64r2 -o output_file source_file.c
 gcc -march=mips64r6 -o output_file source_file.c
 ```
 More info
-```
+```bash
 gcc --help=target
 ```
 ## Autotools
 ### 1. Prerequisites
 * configure.ac in main directory
-```
+```bash
 ~/amhello % cat configure.ac
 AC_INIT([amhello], [1.0], [bug-automake@gnu.org])
 AM_INIT_AUTOMAKE([-Wall -Werror foreign])
@@ -169,12 +169,12 @@ AC_CONFIG_FILES([
 AC_OUTPUT
 ```
 * Makefile.am in main directory
-```
+```bash
 SUBDIRS = src
 dist_doc_DATA = READMEé
 ```
 * Makefile.am in sub directory
-```
+```bash
 bin_PROGRAMS = hello
 hello_SOURCES = main.cé
 ```

@@ -1,18 +1,18 @@
 # Vault 
 
 ### 1. Installation
-```
+```bash
 https://developer.hashicorp.com/vault/docs/install
 ```
 
 ### 2. Initialization
 Development environment:
-```
+```bash
 vault server -dev -dev-listen-address="0.0.0.0:8200"
 ```
 
 Production environment:
-```
+```bash
 vault server -prod -prod-listen-address="0.0.0.0:8200"
 ```
 
@@ -21,7 +21,7 @@ vault server -prod -prod-listen-address="0.0.0.0:8200"
 
 ### 3. Create policy & role
 terraform policy:
-```
+```bash
 vault policy write terraform - <<EOF 
 path "*" {
   capabilities = ["list", "read"]
@@ -46,7 +46,7 @@ EOF
 ```
 
 terraform role:
-```
+```bash
 vault write auth/approle/role/terraform \
 secret_id_ttl=10m \
 token_num_uses=10 \
@@ -57,18 +57,18 @@ token_policies=terraform
 ```
 
 ### 4. Read value
-```
+```bash
 vault read auth/approle/role/terraform/role-id
 ```
 
 ### 5. Write value
-```
+```bash
 vault write -f auth/approle/role/terraform/secret-id
 ```
 
 ### 6. Provider & secret
 Configure provider:
-```
+```bash
 provider "vault" {
   address = "http://server_ip:8200"
   skip_child_token = true
@@ -85,7 +85,7 @@ provider "vault" {
 ```
 
 Get secret value:
-```
+```bash
 data "vault_kv_secret_v2" "server_name" {
   mount = "kv"
   name = "servername"
@@ -93,6 +93,6 @@ data "vault_kv_secret_v2" "server_name" {
 ```
 
 Example usage:
-```
+```bash
 name         = data.vault_kv_secret_v2.server_name.data["servername"]
 ```

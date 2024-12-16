@@ -6,17 +6,17 @@
 * ServiceEntry
 
 If you want to inject `side car` to pod in a `namespace` [ ensure that namespace has `istio-injection=enabled` label ]:
-```
+```bash
 kubectl get namespace --show-labels
 ```
 
-```
+```bash
 kubectl label namespace <NAMESPACE> istio-injection=enabled
 ```
 
 ### 1 Traffic routing
 VirtualService:
-```
+```yaml
 apiVersion: networking.istio.io/v1beta1
 kind: VirtualService
 metadata:
@@ -33,7 +33,7 @@ spec:
 ```
 
 DestinationRule:
-```
+```yaml
 apiVersion: networking.istio.io/v1beta1
 kind: DestinationRule
 metadata:
@@ -54,7 +54,7 @@ spec:
 
 ### 2 Expose service to internet
 VirtualService:
-```
+```yaml
 apiVersion: networking.istio.io/v1beta1
 kind: VirtualService
 metadata:
@@ -82,7 +82,7 @@ spec:
 ```
 
 Gateway:
-```
+```yaml
 apiVersion: networking.istio.io/v1beta1
 kind: Gateway
 metadata:

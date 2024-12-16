@@ -1,7 +1,7 @@
 # KUBECTL PLUGINI
 
 ## 1.Kubectl plugin
-```
+```bash
 #!/bin/bash
 
 # optional argument handling

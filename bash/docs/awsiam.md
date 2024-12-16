@@ -2,7 +2,7 @@
 
 ### Practices
 #### 1. Allow create resources with only specific tag
-```
+```json
 {
   "Version": "2012-10-17",
   "Statement": [

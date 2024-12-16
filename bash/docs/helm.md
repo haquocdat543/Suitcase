@@ -6,12 +6,12 @@
   * Prom-repo   https://prometheus-community.github.io/helm-charts
 ### 2. Generate helm
 #### 1. Generate helm folder
-```
+```bash
 helm create <helm-name>
 ```
 
 #### 2. Generate helm folder
-```
+```bash
 tree <helm-name>
 ```
 <helm-name>/
@@ -45,12 +45,12 @@ If you know Terraform already. Helm is just a `bunch` of `manifest files` **temp
 
 #### 4. Variables
 values.yaml
-```
+```yaml
 replicaCount: 1
 ```
 
 templates/deployment.yaml
-```
+```yaml
 spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
@@ -59,40 +59,40 @@ spec:
 
 ### 3. ELK with Helm
 Add helm repo:
-```
+```bash
 helm repo add elastic https://Helm.elastic.co
 ```
 
 Search helm repo:
-```
+```bash
 helm search repo elastic/elasticsearch
 ```
 
 Export variable:
-```
+```bash
 export VERSION=
 ```
 
-```
+```bash
 export NAMESPACE=
 ```
 
 Pull down ELK repo:
-```
+```bash
 helm pull elastic/elasticsearch --version $VERSION
 ```
 
 Extract ELK:
-```
+```bash
 tar -xzf elasticsearch-$VERSION.tgz
 ```
 
 Edit values:
-```
+```bash
 vim elasticsearch/values.yaml
 ```
 
 Deploy:
-```
+```bash
 helm -n $NAMESPACE install elasticsearch -f elasticsearch/values.yaml elasticsearch
 ```

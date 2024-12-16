@@ -1,7 +1,7 @@
 # BAT in Windows
 
 ## 1. Loop
-```
+```batch
 @echo off
 setlocal enabledelayedexpansion
 

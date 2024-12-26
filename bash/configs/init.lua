@@ -45,12 +45,32 @@ vim.keymap.set('n', '<leader>sp', '<cmd>lua require("spectre").open_file_search(
 	desc = "Search on current file",
 })
 
+-- Terminal
+keymap.set('n', '<leader>tn', ':split<CR><C-w>w:term<CR>i')
+keymap.set('n', '<leader>tm', ':split<CR><C-w>w:horizontal resize -10<CR>:term<CR>i')
+
+-- Diff
+keymap.set('n', '<leader>dd', ':windo diffthis<CR>')
+keymap.set('n', '<leader>do', ':diffoff!<CR>')
+
+-- Snippet
+keymap.set('n', '<leader>sg', ':Snippets<CR>') -- sg = Suggest
+
 -- Query { Rest API ]
 keymap.set('n', ',xr', ':call VrcQuery()<CR>')
+
+-- Markdown
+keymap.set('n', '<leader>md', ':MarkdownPreview<CR>')
+
+-- Kubernetes
+keymap.set('n', '<leader>kk', '<cmd>lua require("kubectl").toggle()<CR>')
 
 -- System
 keymap.set('n', '<leader>pa', '"*p')
 keymap.set('n', '<leader>ya', 'gg"*yG\'\'')
+keymap.set('n', '<leader>yy', '"*yy')
+keymap.set('n', '<leader>el', 'yypC')
+keymap.set('n', '<leader>eL', 'yyPC')
 
 -- System
 keymap.set('n', ',ch', ':checkhealth ')
@@ -85,14 +105,14 @@ keymap.set('n', '<leader>nn', ':set nopaste<CR>')
 keymap.set('n', '<leader>nm', ':set paste<CR>')
 
 -- System - navigation
-keymap.set('n', 'ss', ':split<CR><C-w>w')
+keymap.set('n', 'ss', ':split<CR>C-w>w')
 keymap.set('n', 'sv', ':vsplit<CR><C-w>w')
 keymap.set('n', 'sx', ':close<CR>')
-keymap.set('n', 'sw', '<C-w>w')
-keymap.set('n', 'sh', '<C-w>h')
-keymap.set('n', 'sj', '<C-w>j')
-keymap.set('n', 'sk', '<C-w>k')
-keymap.set('n', 'sl', '<C-w>l')
+keymap.set('n', 'sw', ':wincmd w<CR>')
+keymap.set('n', 'sl', ':wincmd l<CR>')
+keymap.set('n', 'sh', ':wincmd h<CR>')
+keymap.set('n', 'sj', ':wincmd j<CR>')
+keymap.set('n', 'sk', ':wincmd k<CR>')
 
 -- System - tab navigation
 keymap.set('n', '<leader>te', ':tabedit ')
@@ -181,8 +201,95 @@ keymap.set('n', '<leader>nc', ':NvimTreeFocus<CR>')
 -- keymap.set('n','<leader>nt',':NERDTreeToggle<CR>')
 keymap.set('n', '<leader>db', ':Dashboard<CR>')
 keymap.set('n', '<leader>tl', ':Telescope<CR>')
+keymap.set('n', '<leader><leader>4', ':Telescope projects<CR>')
+keymap.set('n', '<leader><leader>5', ':Telescope telescope-tabs list_tabs<CR>')
 
 local plugins = {
+	'LukasPietzschmann/telescope-tabs',
+	'ahmedkhalf/project.nvim',
+	{
+		'nvim-orgmode/orgmode',
+		event = 'VeryLazy',
+		ft = { 'org' },
+		config = function()
+			-- Setup orgmode
+			require('orgmode').setup({
+				org_agenda_files = '~/orgfiles/**/*',
+				org_default_notes_file = '~/orgfiles/refile.org',
+			})
+
+			-- NOTE: If you are using nvim-treesitter with ~ensure_installed = "all"~ option
+			-- add ~org~ to ignore_install
+			-- require('nvim-treesitter.configs').setup({
+			-- sure_installed = 'all',
+			-- ignore_install = { 'org' },
+			-- })
+		end,
+	},
+	{
+		"mikavilpas/yazi.nvim",
+		event = "VeryLazy",
+		keys = {
+			-- 👇 in this section, choose your own keymappings!
+			{
+				"<leader>-",
+				"<cmd>Yazi<cr>",
+				desc = "Open yazi at the current file",
+			},
+			{
+				-- Open in the current working directory
+				"<leader>cw",
+				"<cmd>Yazi cwd<cr>",
+				desc = "Open the file manager in nvim's working directory",
+			},
+			{
+				-- NOTE: this requires a version of yazi that includes
+				-- https://github.com/sxyazi/yazi/pull/1305 from 2024-07-18
+				'<c-up>',
+				"<cmd>Yazi toggle<cr>",
+				desc = "Resume the last yazi session",
+			},
+		},
+		opts = {
+			-- if you want to open yazi instead of netrw, see below for more info
+			open_for_directories = false,
+			keymaps = {
+				show_help = '<f1>',
+			},
+		},
+	},
+	{
+		"sphamba/smear-cursor.nvim",
+		opts = {
+			-- Smear cursor color. Defaults to Cursor GUI color if not set.
+			-- Set to "none" to match the text color at the target cursor position.
+			cursor_color = "#d3cdc3",
+
+			-- Background color. Defaults to Normal GUI background color if not set.
+			normal_bg = "#282828",
+
+			-- Smear cursor when switching buffers or windows.
+			smear_between_buffers = true,
+
+			-- Smear cursor when moving within line or to neighbor lines.
+			smear_between_neighbor_lines = true,
+
+			-- Set to `true` if your font supports legacy computing symbols (block unicode symbols).
+			-- Smears will blend better on all backgrounds.
+			legacy_computing_symbols_support = false,
+		},
+	},
+	"tpope/vim-dadbod",
+	"kristijanhusak/vim-dadbod-ui",
+	"Ramilito/kubectl.nvim",
+	{
+		{
+			"ramilito/kubectl.nvim",
+			config = function()
+				require("kubectl").setup()
+			end,
+		},
+	},
 	"fsouza/prettierd",
 	"jose-elias-alvarez/null-ls.nvim",
 	"p00f/nvim-ts-rainbow",
@@ -291,6 +398,12 @@ if not status then
 	return
 end
 
+require("project_nvim").setup {
+-- your configuration comes here
+-- or leave it empty to use the default settings
+-- refer to the configuration section below
+}
+
 -- shfmt configuration for Bash
 local shfmt = {
 	formatCommand = "shfmt -i 2 -ci -s",
@@ -299,14 +412,14 @@ local shfmt = {
 
 -- gofmt configuration for Go
 local gofmt = {
-    formatCommand = "gofmt",
-    formatStdin = true
+	formatCommand = "gofmt",
+	formatStdin = true
 }
 
 -- rustfmt configuration for Rust
 local rustfmt = {
-    formatCommand = "rustfmt",
-    formatStdin = true
+	formatCommand = "rustfmt",
+	formatStdin = true
 }
 
 -- Prettier configuration
@@ -410,6 +523,8 @@ require('tabnine').setup({
 -- })
 --
 require('spectre').setup()
+
+require('telescope').load_extension('projects')
 
 local status_ok, telescope = pcall(require, "telescope")
 if not status_ok then
@@ -549,6 +664,7 @@ require("nvim-tree").setup({
 	update_focused_file = {
 		enable = true, -- Enable updating the focused file
 		update_cwd = true, -- Change the root directory of the tree to the current file's directory
+		update_root = true, -- Change the root directory of the tree to the current file's directory
 		ignore_list = {}
 	},
 	sort = {
@@ -801,28 +917,28 @@ require("tokyonight").setup({
 require 'hop'.setup()
 
 -- get lualine nightfly theme
-local lualine_nightfly = require("lualine.themes.nightfly")
+local lualine_nightfly = require("lualine.themes.catppuccin")
 
 -- new colors for theme
-local new_colors = {
-	blue = "#65D1FF",
-	green = "#3EFFDC",
-	violet = "#FF61EF",
-	yellow = "#FFDA7B",
-	black = "#000000",
-}
+-- local new_colors = {
+-- blue = "#65D1FF",
+-- green = "#3EFFDC",
+-- violet = "#FF61EF",
+-- yellow = "#FFDA7B",
+-- black = "#000000",
+-- }
 
 -- change nightlfy theme colors
-lualine_nightfly.normal.a.bg = new_colors.blue
-lualine_nightfly.insert.a.bg = new_colors.green
-lualine_nightfly.visual.a.bg = new_colors.violet
-lualine_nightfly.command = {
-	a = {
-		gui = "bold",
-		bg = new_colors.yellow,
-		fg = new_colors.black, -- black
-	},
-}
+-- lualine_nightfly.normal.a.bg = new_colors.blue
+-- lualine_nightfly.insert.a.bg = new_colors.green
+-- lualine_nightfly.visual.a.bg = new_colors.violet
+-- lualine_nightfly.command = {
+-- a = {
+-- gui = "bold",
+-- bg = new_colors.yellow,
+-- fg = new_colors.black, -- black
+-- },
+-- }
 
 -- configure lualine with modified theme
 lualine.setup({
@@ -970,12 +1086,6 @@ lspconfig["gopls"].setup({
 	on_attach = on_attach,
 })
 
--- configure tailwindcss server
-lspconfig["bufls"].setup({
-	capabilities = capabilities,
-	on_attach = on_attach,
-})
-
 -- configure jsonls server
 lspconfig["jsonls"].setup({
 	capabilities = capabilities,
@@ -1041,11 +1151,9 @@ require 'lspconfig'.efm.setup {
 	}
 }
 
-require'lspconfig'.bashls.setup{}
+require 'lspconfig'.bashls.setup {}
 
-require'lspconfig'.sqlls.setup{}
-
-require 'lspconfig'.bufls.setup {}
+require 'lspconfig'.sqlls.setup {}
 
 require 'lspconfig'.pyright.setup {}
 
@@ -1250,55 +1358,18 @@ vim.cmd([[let g:lazygit_config_file_path = '' " custom config file path ]])
 vim.cmd([[set viminfo='100,<1000000,s100000,h]])
 vim.cmd([[autocmd FileType markdown let g:indentLine_enabled=0]])
 
-vim.cmd [[autocmd BufEnter * lcd %:p:h]]
--- vim.cmd[[autocmd VimEnter * NERDTree | wincmd p]]
--- vim.cmd[[autocmd bufenter * if (winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree()) | q | endif]]
--- vim.cmd[[autocmd VimEnter * if argc() == 0 | NERDTree | endif]]
+vim.api.nvim_create_augroup('TestBufEnterCondition', { clear = true })
 
--- Auto open nvim-tree on startup
-vim.cmd [[autocmd VimEnter * NvimTreeOpen | wincmd p]]
-vim.cmd [[autocmd bufenter * if (winnr("$") == 1 && &filetype == "nerdtree") | q | endif]]
-
-vim.cmd([[
-  augroup NvimTree
-    autocmd!
-    autocmd VimEnter * ++nested if argc() == 0 | NvimTreeOpen | endif
-    autocmd BufEnter * ++nested if winnr('$') == 1 && bufname() == '' | NvimTreeOpen | wincmd p | endif
-  augroup end
-]])
-
--- Auto close nvim-tree if it's the last window
-vim.cmd [[ autocmd BufEnter * if winnr('$') == 1 && bufname() == 'NvimTree_' . tabpagenr() | quit | endif ]]
-
-vim.cmd [[
-
-augroup Mkdir
-  autocmd!
-  autocmd BufWritePre * call mkdir(expand("<afile>:p:h"), "p")
-augroup END
-
-]]
-
-vim.cmd [[augroup filetypedetect
-autocmd BufNewFile,BufRead *.tmpl, if search('{{.\+}}', 'nw') | setlocal filetype=gotmpl | endif
-augroup END]]
+vim.api.nvim_create_autocmd('VimEnter', {
+  group = 'TestBufEnterCondition',
+  callback = function()
+    -- Open NvimTree
+    vim.cmd('NvimTreeOpen')
+    vim.cmd('wincmd w')
+  end,
+})
 
 vim.g.vim_k8s_toggle_key_map = ',kk'
-
-vim.cmd [[function DisplayName(name)
-  echom "Hello!  My name is:"
-  echom a:name
-endfunction]]
-vim.cmd [[function ReplaceAll(old_text, new_text)
-  execute '%s/' . a:old_text . '/' . a:new_text . '/gc | update'
-endfunction]]
-
-vim.g.vrc_set_default_mapping = 0
-vim.g.vrc_response_default_content_type = 'application/json'
-vim.g.vrc_output_butter_name = '_OUTPUT.json'
-vim.g.vrc_auto_format_response_patterns = {
-	json = 'jq'
-}
 
 -- vim.cmd[[colorscheme gruvbox]]
 -- vim.cmd[[colorscheme tokyonight-night]]
@@ -1313,11 +1384,6 @@ vim.cmd [[
     highlight RainbowDelimiterViolet guifg=#7dcfff ctermfg=White
     highlight RainbowDelimiterCyan guifg=#f4ca0d ctermfg=White
 ]]
-
--- Automatically open Nvim Tree when a directory is opened
-vim.cmd([[
-  autocmd BufEnter * if &ft ==# 'netrw' | silent! lua require'nvim-tree'.find_file(true) | endif
-]])
 
 -- Enable concealment for markdown files
 vim.api.nvim_create_autocmd("FileType", {

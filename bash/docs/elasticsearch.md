@@ -234,3 +234,80 @@ POST my-index-000001/_update/1
   }
 }
 ```
+
+## PRACTICE
+### UPDATE SETTING
+#### Get setting of an index
+```bash
+GET /production/_settings
+```
+
+#### Increase replicas of an index
+You can increase replicas number of an index directly:
+```bash
+PUT /production/_settings
+{
+  "settings": {
+    "number_of_replicas": 2
+  }
+}
+```
+
+Check the result:
+```bash
+GET /production/_settings
+```
+
+#### Increase shards of an index
+The number of primary shards is set at the time of index creation and cannot be modified after the index is created.
+You cannot increase shards number of an index directly:
+
+Create new index:
+```bash
+PUT /production_v2
+{
+  "settings": {
+    "number_of_shards": 5,
+    "number_of_replicas": 2
+  }
+}
+
+```
+
+Copy data from `first` index to `second` index:
+```bash
+POST /_reindex
+{
+  "source": {
+    "index": "production"
+  },
+  "dest": {
+    "index": "production_v2"
+  }
+}
+```
+
+Then create new alias `production` for second index:
+```bash
+POST /_aliases
+{
+  "actions": [
+    {
+      "remove_index": {
+        "index": "production"
+      }
+    },
+    {
+      "add": {
+        "index": "production_v2",
+        "alias": "production"
+      }
+    }
+  ]
+}
+```
+
+Delete old index ( optional ):
+```bash
+DELETE /production
+```

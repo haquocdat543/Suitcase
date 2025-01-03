@@ -166,7 +166,11 @@ sensitive:
 fmt:
 	@echo "Running terragrunt fmthcl"
 	terragrunt hclfmt
+
 format: fmt
+renjs:
+	@echo "Running render json"
+	terragrunt render-json
 endsnippet
 
 snippet service-discovery "AWS service discovery [CloudMap]" b

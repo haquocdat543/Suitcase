@@ -169,6 +169,38 @@ fmt:
 format: fmt
 endsnippet
 
+snippet service-discovery "AWS service discovery [CloudMap]" b
+NAMESPACE=
+SVC_NAME=
+
+VPC_ID=
+NAMESPACE_ID=
+SVC_ID=
+
+list-ns:
+	aws servicediscovery list-namespaces
+create-ns:
+	aws servicediscovery create-private-dns-namespace \
+		--name "$(NAMESPACE)" \
+		--vpc $(VPC_ID)
+create-svc:
+	aws servicediscovery create-service \
+		--name "$(SVC_NAME)" \
+		--dns-config "NamespaceId=$(NAMESPACE_ID),DnsRecords=[{Type=A,TTL=60}]" \
+		--health-check-custom-config FailureThreshold=1 \
+		--namespace-id $(NAMESPACE_ID)
+list-instance:
+	aws servicediscovery list-instances \
+                --service-id $(SVC_ID)
+register-instance:
+	aws servicediscovery register-instance \
+		--service-id $(SVC_ID)
+discover-instance:
+	aws servicediscovery discover-instances \
+		--namespace-name stage \
+		--service-name console
+endsnippet
+
 snippet pn "Phony ( avoid same command and file name )" b
 .PHONY: $1
 endsnippet

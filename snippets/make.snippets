@@ -174,25 +174,27 @@ renjs:
 endsnippet
 
 snippet service-discovery "AWS service discovery [CloudMap]" b
+VPC_NAME=
 NAMESPACE=
 SVC_NAME=
 
-VPC_ID=
-NAMESPACE_ID=
-SVC_ID=
+NS_ID=$(shell aws servicediscovery list-namespaces --query "Namespaces[?Name=='$(NAMESPACE)'].Id | [0]")
+VPC_ID=$(shell aws ec2 describe-vpcs --filters "Name=tag:Name,Values='$(VPC_NAME)'" --query "Vpcs[*].VpcId | [0]")
 
 list-ns:
-	aws servicediscovery list-namespaces
+	aws servicediscovery list-namespaces --query "Namespaces[?Name=='$(NAMESPACE)'].Id | [0]"
 create-ns:
 	aws servicediscovery create-private-dns-namespace \
 		--name "$(NAMESPACE)" \
 		--vpc $(VPC_ID)
+list-svc:
+	aws servicediscovery list-services
 create-svc:
 	aws servicediscovery create-service \
 		--name "$(SVC_NAME)" \
-		--dns-config "NamespaceId=$(NAMESPACE_ID),DnsRecords=[{Type=SRV,TTL=60}]" \
+		--dns-config "NamespaceId=$(NS_ID),DnsRecords=[{Type=SRV,TTL=60}]" \
 		--health-check-custom-config FailureThreshold=1 \
-		--namespace-id $(NAMESPACE_ID)
+		--namespace-id $(NS_ID)
 list-instance:
 	aws servicediscovery list-instances \
                 --service-id $(SVC_ID)

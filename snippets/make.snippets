@@ -190,7 +190,7 @@ create-ns:
 create-svc:
 	aws servicediscovery create-service \
 		--name "$(SVC_NAME)" \
-		--dns-config "NamespaceId=$(NAMESPACE_ID),DnsRecords=[{Type=A,TTL=60}]" \
+		--dns-config "NamespaceId=$(NAMESPACE_ID),DnsRecords=[{Type=SRV,TTL=60}]" \
 		--health-check-custom-config FailureThreshold=1 \
 		--namespace-id $(NAMESPACE_ID)
 list-instance:

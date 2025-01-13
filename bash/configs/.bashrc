@@ -736,6 +736,12 @@ alias slspr='sls print'
 alias slsdds='sls deploy --stage dev --region ap-southeast-2'
 alias slsrds='sls remove --stage dev --region ap-southeast-2'
 
+### Firebase
+alias fbu='firebase use' # firebase use <ProjectID>
+alias fbfl='firebase functions:list'
+alias fbfd='firebase functions:delete' # firebase function:delete <FunctionName>
+alias fbflc='firebase functions:location set' # firebase function:location set <RegionId>
+
 ### S3 command
 alias s3cf='s3cmd --configure'
 alias s3l='s3cmd ls'

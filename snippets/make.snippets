@@ -87,6 +87,15 @@ upgrade:
 	helm upgrade $(RELEASE) $(CHART) --values $(VALUE) --namespace $(NAMESPACE)
 upgrade-dry-run:
 	helm upgrade $(RELEASE) $(CHART) --values $(VALUE) --namespace $(NAMESPACE) --dry-run
+upgrade-diff:
+	# Note that this is helm plugin
+	# https://github.com/databus23/helm-diff
+	# Install with command:
+	# ```
+	# helm plugin install https://github.com/databus23/helm-diff
+	# ```
+	# Note: it just show the differences between old and new [ Not apply ]
+	helm diff upgrade $(RELEASE) $(CHART) --values $(VALUE) --namespace $(NAMESPACE)
 uninstall:
 	helm uninstall $(RELEASE) --namespace $(NAMESPACE)
 uninstall-dry-run:

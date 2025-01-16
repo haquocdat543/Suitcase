@@ -110,9 +110,9 @@ uninstall-dry-run:
 history:
 	helm history --namespace $(NAMESPACE) $(RELEASE)
 value-revision:
-	helm get values --revision=$(VALUE_REVISION) $(RELEASE)
+	helm get values --revision=$(VALUE_REVISION) --namespace $(NAMESPACE) $(RELEASE)
 value-revision-file:
-	helm get values --revision=$(VALUE_REVISION) $(RELEASE) > $(VALUE_REVISION_FILE)
+	helm get values --revision=$(VALUE_REVISION) --namespace $(NAMESPACE) $(RELEASE) > $(VALUE_REVISION_FILE)
 rollback:
 	helm rollback --namespace $(NAMESPACE) $(RELEASE)
 rollback-dry-run:
@@ -122,8 +122,12 @@ rollback-diff:
 template:
 	helm template $(RELEASE) $(REPO) -f $(VALUE) > $(TEMPLATE)
 value:
-	helm show values $(REPO) > values.yaml
+	helm show values $(REPO)
 chart:
+	helm show chart $(REPO)
+value-file:
+	helm show values $(REPO) > values.yaml
+chart-file:
 	helm show chart $(REPO) > Chart.yaml
 list-all:
 	helm list -A

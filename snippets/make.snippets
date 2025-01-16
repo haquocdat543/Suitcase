@@ -112,6 +112,38 @@ chart:
 	helm show chart $(REPO) > Chart.yaml
 list-all:
 	helm list -A
+list-default:
+	helm list -n default
+list-development:
+	helm list -n development
+list-production:
+	helm list -n production
+list-keda:
+	helm list -n keda
+list-argocd:
+	helm list -n argocd
+list-monitoring:
+	helm list -n monitoring
+list-istio-system:
+	helm list -n istio-system
+list-istio-gateway:
+	helm list -n istio-gateway
+list-elastic-system:
+	helm list -n elastic-system
+list-rabbitmq:
+	helm list -n rabbitmq
+list-kafka:
+	helm list -n redis
+list-harbor:
+	helm list -n harbor
+list-vault:
+	helm list -n vault
+list-external-secret:
+	helm list -n external-secret
+list-sonarqube:
+	helm list -n sonarqube
+list-jenkins:
+	helm list -n jenkins
 endsnippet
 
 snippet terraform "Terraform" b

@@ -110,6 +110,8 @@ value:
 	helm show values $(REPO) > values.yaml
 chart:
 	helm show chart $(REPO) > Chart.yaml
+list-all:
+	helm list -A
 endsnippet
 
 snippet terraform "Terraform" b

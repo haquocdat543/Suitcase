@@ -79,6 +79,10 @@ REPO="${5:jenkins/jenkins}" # jenkins/jenkins or . [ local template ]
 ## Template
 TEMPLATE="${6:template.yaml}"
 
+## History
+VALUE_REVISION=19
+VALUE_REVISION_FILE="value-revision-$(VALUE_REVISION).yaml"
+
 ## Rollback
 ROLLBACK_REVISION=19
 
@@ -103,6 +107,12 @@ uninstall:
 	helm uninstall $(RELEASE) --namespace $(NAMESPACE)
 uninstall-dry-run:
 	helm uninstall $(RELEASE) --namespace $(NAMESPACE) --dry-run
+history:
+	helm history --namespace $(NAMESPACE) $(RELEASE)
+value-revision:
+	helm get values --revision=$(VALUE_REVISION) $(RELEASE)
+value-revision-file:
+	helm get values --revision=$(VALUE_REVISION) $(RELEASE) > $(VALUE_REVISION_FILE)
 rollback:
 	helm rollback --namespace $(NAMESPACE) $(RELEASE)
 rollback-dry-run:

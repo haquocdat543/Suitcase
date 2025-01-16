@@ -81,12 +81,20 @@ TEMPLATE="${6:template.yaml}"
 
 install:
 	helm install $(RELEASE) $(CHART) --values $(VALUE) --namespace $(NAMESPACE)
+install-dry-run:
+	helm install $(RELEASE) $(CHART) --values $(VALUE) --namespace $(NAMESPACE) --dry-run
 upgrade:
 	helm upgrade $(RELEASE) $(CHART) --values $(VALUE) --namespace $(NAMESPACE)
+upgrade-dry-run:
+	helm upgrade $(RELEASE) $(CHART) --values $(VALUE) --namespace $(NAMESPACE) --dry-run
 uninstall:
 	helm uninstall $(RELEASE) --namespace $(NAMESPACE)
+uninstall-dry-run:
+	helm uninstall $(RELEASE) --namespace $(NAMESPACE) --dry-run
 rollback:
 	helm rollback $(RELEASE)
+rollback-dry-run:
+	helm rollback $(RELEASE) --dry-run
 template:
 	helm template $(RELEASE) $(REPO) -f $(VALUE) > $(TEMPLATE)
 value:

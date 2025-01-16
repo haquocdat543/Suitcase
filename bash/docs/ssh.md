@@ -57,3 +57,10 @@ After setup configuration for jump server [ with specific destination host port 
 ```bash
 ssh -J <Jump-Name> <Remote-Username>@<Remote-IP> -p <Remote-Port>
 ```
+
+## 4. Config
+### 1. Both private key and password at the same time
+```bash
+AuthenticationMethods "publickey,password"
+AuthenticationMethods "publickey,keyboard-interactive"
+```

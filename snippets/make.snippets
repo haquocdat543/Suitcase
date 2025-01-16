@@ -69,6 +69,10 @@ login:
 endsnippet
 
 snippet helm "Helm operation" b
+####################################################################################################
+# VARIABLES
+####################################################################################################
+
 ## Basic configuration
 VALUE="${1:override.yaml}"
 RELEASE="${2:jenkins}"
@@ -86,10 +90,19 @@ VALUE_REVISION_FILE="value-revision-$(VALUE_REVISION).yaml"
 ## Rollback
 ROLLBACK_REVISION=19
 
+####################################################################################################
+# INSTALL
+####################################################################################################
+
 install:
 	helm install $(RELEASE) $(CHART) --values $(VALUE) --namespace $(NAMESPACE)
 install-dry-run:
 	helm install $(RELEASE) $(CHART) --values $(VALUE) --namespace $(NAMESPACE) --dry-run
+
+####################################################################################################
+# UPGRADE
+####################################################################################################
+
 upgrade:
 	helm upgrade $(RELEASE) $(CHART) --values $(VALUE) --namespace $(NAMESPACE)
 upgrade-dry-run:
@@ -103,16 +116,26 @@ upgrade-diff:
 	# ```
 	# Note: it just show the differences between old and new [ Not apply ]
 	helm diff upgrade $(RELEASE) $(CHART) --values $(VALUE) --namespace $(NAMESPACE)
+
+####################################################################################################
+# UNINSTALL
+####################################################################################################
+
 uninstall:
 	helm uninstall $(RELEASE) --namespace $(NAMESPACE)
 uninstall-dry-run:
 	helm uninstall $(RELEASE) --namespace $(NAMESPACE) --dry-run
+
+####################################################################################################
+# HISTORY
+####################################################################################################
+
 history:
 	helm history --namespace $(NAMESPACE) $(RELEASE)
 value-revision:
-	helm get values --revision=$(VALUE_REVISION) --namespace $(NAMESPACE) $(RELEASE)
+	helm get values --revision $(VALUE_REVISION) --namespace $(NAMESPACE) $(RELEASE)
 value-revision-file:
-	helm get values --revision=$(VALUE_REVISION) --namespace $(NAMESPACE) $(RELEASE) > $(VALUE_REVISION_FILE)
+	helm get values --revision $(VALUE_REVISION) --namespace $(NAMESPACE) $(RELEASE) > $(VALUE_REVISION_FILE)
 rollback:
 	helm rollback --namespace $(NAMESPACE) $(RELEASE)
 rollback-dry-run:
@@ -121,6 +144,11 @@ rollback-diff:
 	helm diff rollback --namespace $(NAMESPACE) $(RELEASE) $(ROLLBACK_REVISION)
 template:
 	helm template $(RELEASE) $(REPO) -f $(VALUE) > $(TEMPLATE)
+
+####################################################################################################
+# INFO
+####################################################################################################
+
 value:
 	helm show values $(REPO)
 chart:
@@ -129,6 +157,11 @@ value-file:
 	helm show values $(REPO) > values.yaml
 chart-file:
 	helm show chart $(REPO) > Chart.yaml
+
+####################################################################################################
+# LIST
+####################################################################################################
+
 list-all:
 	helm list -A
 list-default:

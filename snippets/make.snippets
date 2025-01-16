@@ -79,6 +79,9 @@ REPO="${5:jenkins/jenkins}" # jenkins/jenkins or . [ local template ]
 ## Template
 TEMPLATE="${6:template.yaml}"
 
+## Rollback
+ROLLBACK_REVISION=19
+
 install:
 	helm install $(RELEASE) $(CHART) --values $(VALUE) --namespace $(NAMESPACE)
 install-dry-run:
@@ -101,9 +104,11 @@ uninstall:
 uninstall-dry-run:
 	helm uninstall $(RELEASE) --namespace $(NAMESPACE) --dry-run
 rollback:
-	helm rollback $(RELEASE)
+	helm rollback --namespace $(NAMESPACE) $(RELEASE)
 rollback-dry-run:
-	helm rollback $(RELEASE) --dry-run
+	helm rollback --namespace $(NAMESPACE) $(RELEASE) --dry-run
+rollback-diff:
+	helm diff rollback --namespace $(NAMESPACE) $(RELEASE) $(ROLLBACK_REVISION)
 template:
 	helm template $(RELEASE) $(REPO) -f $(VALUE) > $(TEMPLATE)
 value:

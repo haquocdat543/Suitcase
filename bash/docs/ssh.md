@@ -64,3 +64,11 @@ ssh -J <Jump-Name> <Remote-Username>@<Remote-IP> -p <Remote-Port>
 AuthenticationMethods "publickey,password"
 AuthenticationMethods "publickey,keyboard-interactive"
 ```
+
+## 5. Tips
+### 1. Generate public key from private key
+```
+PRIVATE_KEY_PATH="~/.ssh/id_rsa"
+PUBLIC_KEY_PATH="~/.ssh/id_rsa.pub"
+ssh-keygen -y -f ${PRIVATE_KEY_PATH} > ${PUBLIC_KEY_PATH}
+```

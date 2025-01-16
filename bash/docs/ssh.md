@@ -67,7 +67,7 @@ AuthenticationMethods "publickey,keyboard-interactive"
 
 ## 5. Tips
 ### 1. Generate public key from private key
-```
+```bash
 PRIVATE_KEY_PATH="~/.ssh/id_rsa"
 PUBLIC_KEY_PATH="~/.ssh/id_rsa.pub"
 ssh-keygen -y -f ${PRIVATE_KEY_PATH} > ${PUBLIC_KEY_PATH}

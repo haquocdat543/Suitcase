@@ -151,6 +151,7 @@ alias hoi='hostname -i'
 alias hos='hostname -s'
 alias hs='hostnamectl status'
 alias oexp='openssl x509 -noout -text -in'
+alias genjwt="openssl rand -base64 32"
 alias histf='export HISTTIMEFORMAT="%F %T "'
 alias hi='history'
 alias psx='ps aux'

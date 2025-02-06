@@ -21,8 +21,7 @@ backend postgres_backend
 ```
 frontend postgres_front
     bind *:5432
-    acl allowed_ips src 192.168.1.100 192.168.1.101 10.0.0.0/24  # Allowed IPs
-    http-request deny if !allowed_ips  # Deny if IP is NOT in the list
+    tcp-request content reject if !{ src 113.192.6.210 192.168.1.100 203.0.113.5 }  # Allow multiple IPs
     default_backend postgres_backend
 
 backend postgres_backend

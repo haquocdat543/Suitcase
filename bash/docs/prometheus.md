@@ -89,6 +89,17 @@ receivers:
 ### 3. Prometheus metrics
 #### 1. Types
 ##### 1. Gauge
+* Metrics from source format:
+```bash
+# HELP metric_name description
+# HELP metric_name gauge
+metric_name value
+```
+
+* Example:
+- CPU
+- Memory
+
 * method to change value:
 ```bash
 Set(0) # set value to 0
@@ -98,13 +109,55 @@ Add(32) # add 32 unit to value
 Sub(4) # subtract 4 unit to value
 ```
 ##### 2. Counter
+* Metrics from source format:
+```bash
+# HELP metric_name description
+# HELP metric_name counter
+metric_name value
+```
+
 * method to change value:
 ```bash
 Reset()
 Inc() # set increase value by 1
 Add(32) # add 32 unit to value
 ```
-##### 3. Histogram
+##### 3. Summary
+* Metrics from source format:
+```bash
+# HELP metric_name description
+# HELP metric_name summary
+metric_name{quantile="0.5"} value
+metric_name{quantile="0.90"} value
+metric_name{quantile="0.99"} value
+metric_name_sum value
+metric_name_count value
+
+```
+
+You can thintk summary is collection of gauges and counters
+
 * method to change value:
-##### 4. Summary
+
+Note: unable to avg()
+
+##### 4. Histogram
+* Metrics from source format:
+```bash
+# HELP metric_name description
+# HELP metric_name histogram
+metric_name{le="0.05"} value
+metric_name{le="0.1"} value
+metric_name{le="0.25"} value
+metric_name{le="0.5"} value
+metric_name{le="1"} value
+metric_name{le="2.5"} value
+metric_name{le="5"} value
+metric_name{le="+Inf"} value
+metric_name_sum value
+metric_name_count value
+
+```
 * method to change value:
+
+* Note: there are 2 types of history [normal, accumulative]

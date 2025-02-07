@@ -1,5 +1,32 @@
 # PROMETHEUS
 
+## 1. Installation and setup
+```bash
+./prometheus \
+--config.file="prometheus.yaml" \
+--storage.tsdb.path="data/" \
+--web.listen-address="0.0.0.0:9090"
+```
+
+basic configuration (prometheus.yaml):
+
+```yaml
+global:
+  scrape_interval: 5s
+
+  scrape_configs:
+  - job_name: "prometheus"
+    static_configs:
+    - targets:
+      - localhost:9090
+  - job_name: "demo"
+    static_configs:
+    - targets:
+      - demo.promlabs.com:10000
+      - demo.promlabs.com:10001
+      - demo.promlabs.com:10002
+```
+
 ### 1. Prometheus rule
 
 There are 2 type of rule:

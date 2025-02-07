@@ -85,3 +85,26 @@ receivers:
   - to: 'team-X@example.com'
     text: '{{ range .Alerts }}{{ .Annotations.summary }}\n{{ end }}'
 ```
+
+### 3. Prometheus metrics
+#### 1. Types
+##### 1. Gauge
+* method to change value:
+```bash
+Set(0) # set value to 0
+Inc() # set increase value by 1
+Dec() # decrease value by 1
+Add(32) # add 32 unit to value
+Sub(4) # subtract 4 unit to value
+```
+##### 2. Counter
+* method to change value:
+```bash
+Reset()
+Inc() # set increase value by 1
+Add(32) # add 32 unit to value
+```
+##### 3. Histogram
+* method to change value:
+##### 4. Summary
+* method to change value:

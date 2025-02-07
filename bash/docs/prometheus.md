@@ -149,6 +149,13 @@ Reset()
 Inc() # set increase value by 1
 Add(32) # add 32 unit to value
 ```
+* other methods:
+```bash
+rate()
+irate()
+increase()
+```
+
 ##### 3. Summary
 * Metrics from source format:
 ```bash

@@ -20,8 +20,13 @@ COLLECTION_NAME=""
 DIRECTORY="/backup"
 docker run -it --rm -v $(pwd)/mongo-backup:/backup:rw mongo mongodump --uri="${URI}" --db ${DB_NAME} --collection ${COLLECTION_NAME} --out ${DIRECTORY}
 ```
+## 2. Connect
+Remeber to surround URI by double quotes:
+```bash
+mongosh "${URI}"
+```
 
-## 2. Installation
+## 3. Installation
 ### 3. ALPINE
 ```bash
 echo 'http://dl-cdn.alpinelinux.org/alpine/v3.9/main' >> /etc/apk/repositories

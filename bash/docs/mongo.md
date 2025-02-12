@@ -93,6 +93,7 @@ db.collectionName.drop()
 
 ### 5. Delete database
 Drop database:
+* Note: this is dangerous operation [ Need to backup database first ]
 ```js
 use yourDatabaseName
 db.dropDatabase()

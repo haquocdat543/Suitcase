@@ -1256,6 +1256,7 @@ alias grm='git rm'
 ### Git config
 alias gcn='git config --global user.name'
 alias gce='git config --global user.email'
+alias gcpasr="git config --global push.autoSetupRemote true"
 alias gcus='git config --global user.signingkey'
 alias gccmgpg='git config --global commit.gpgsign'
 alias gccmgpgt='git config --global commit.gpgsign true'

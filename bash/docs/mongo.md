@@ -26,7 +26,79 @@ Remeber to surround URI by double quotes:
 mongosh "${URI}"
 ```
 
-## 3. Installation
+## 3. Operation
+### 1. List databases
+```bash
+show dbs
+```
+
+```bash
+show databases
+```
+
+```bash
+use yourDatabaseName
+```
+
+### 2. List collections
+```bash
+show collections
+```
+
+```js
+db.getCollectionNames()
+```
+
+### 3. Get collection data
+```js
+db.collectionName.find()
+```
+
+With pretty mode:
+```js
+db.collectionName.find().pretty()
+```
+
+With limits:
+```js
+db.collectionName.find().limit(5)
+```
+
+With specific fields:
+```js
+db.collectionName.find({}, { fieldName: 1 })
+```
+```js
+db.collectionName.find({ fieldName: "value" })
+```
+
+```js
+db.collectionName.findOne()
+```
+
+```js
+db.collectionName.find().sort({ fieldName: 1 })  // Ascending
+db.collectionName.find().sort({ fieldName: -1 }) // Descending
+```
+
+### 4. Delete collection data
+```js
+db.collectionName.deleteMany({})
+```
+
+Drop entire collection ( indexing include ):
+```js
+db.collectionName.drop()
+```
+
+### 5. Delete database
+Drop database:
+```js
+use yourDatabaseName
+db.dropDatabase()
+```
+
+## 4. Installation
 ### 3. ALPINE
 ```bash
 echo 'http://dl-cdn.alpinelinux.org/alpine/v3.9/main' >> /etc/apk/repositories

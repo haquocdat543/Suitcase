@@ -2140,6 +2140,7 @@ alias kepsp='kubectl edit podsecuritypolicy'
 alias kge='kubectl get event'
 alias kgea='kubectl get event -A'
 alias kgeas='kubectl get event -A --sort-by'
+alias kgelts="kubectl get events --sort-by='.lastTimestamp'"
 alias kttn='kubectl taint node'
 
 alias kdb='kubectl debug'

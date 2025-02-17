@@ -1,4 +1,5 @@
 ## User specific aliases and functios
+
 alias rm='rm -f'
 alias cp='cp -rf'
 alias mv='mv -f'
@@ -1098,6 +1099,8 @@ alias vd='vimdiff'
 alias gv='git version'
 alias gd='git diff'
 alias gds='git diff --staged'
+alias gduc="git diff @{u} $(git branch --show-current)"
+alias gdcu="git diff $(git branch --show-current) @{u}"
 alias gdt='git log --diff-filter=A --follow --format=%aD -1 --' # Find date/time a file/folder was first added to a Git repository
 alias gle='git log -1 --pretty="format:%aD"' # Find date/time a file/folder was last edit to a Git repository
 alias glbc='. $HOME/preconfig/Suitcase/bash/scripts/getLatestBranchCommit.sh'

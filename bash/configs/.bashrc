@@ -1099,8 +1099,8 @@ alias vd='vimdiff'
 alias gv='git version'
 alias gd='git diff'
 alias gds='git diff --staged'
-alias gduc="git diff @{u} $(git branch --show-current)"
-alias gdcu="git diff $(git branch --show-current) @{u}"
+alias gdcu="git diff @{u} $(git branch --show-current)"
+alias gduc="git diff $(git branch --show-current) @{u}"
 alias gdt='git log --diff-filter=A --follow --format=%aD -1 --' # Find date/time a file/folder was first added to a Git repository
 alias gle='git log -1 --pretty="format:%aD"' # Find date/time a file/folder was last edit to a Git repository
 alias glbc='. $HOME/preconfig/Suitcase/bash/scripts/getLatestBranchCommit.sh'
@@ -1212,6 +1212,8 @@ alias grbc='git rebase --continue'
 alias grbs='git rebase --skip'
 alias grba='git rebase --abort'
 alias grbq='git rebase --quit'
+alias grbkb='git rebase --keep-base'
+alias grbo='git rebase --onto'
 alias gl='git log'
 alias glo='git log --oneline'
 alias glo10='git log -n 10 --oneline'

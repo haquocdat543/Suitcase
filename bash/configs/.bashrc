@@ -1204,11 +1204,17 @@ alias gckn='. $HOME/preconfig/Suitcase/bash/scripts/gckNumber.sh'
 alias gcknm='. $HOME/preconfig/Suitcase/bash/scripts/gckNumberMerge.sh'
 alias gck1='git checkout `git rev-list --max-parents=0 HEAD | tail -n 1`'
 alias grb='git rebase'
-alias gsq='git rebase -i'
+alias grbi='git rebase -i'
+alias grbc='git rebase --continue'
+alias grbs='git rebase --skip'
+alias grba='git rebase --abort'
+alias grbq='git rebase --quit'
 alias gl='git log'
 alias glo='git log --oneline'
 alias glo10='git log -n 10 --oneline'
 alias gl10='git log -n 10'
+alias glu="git log --oneline @{u} --not $(git branch --show-current)"
+alias glc="git log --oneline $(git branch --show-current) --not @{u}"
 alias glog='git log --oneline --graph'
 alias glop="git log --graph --abbrev-commit --decorate --color --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%ai%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%n'"
 alias glau="git log --format='%aN' | sort | uniq"

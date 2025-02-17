@@ -1206,8 +1206,8 @@ alias gl='git log'
 alias glo='git log --oneline'
 alias glo10='git log -n 10 --oneline'
 alias gl10='git log -n 10'
-alias glu="git log --oneline @{u} --not $(git branch --show-current)"
-alias glc="git log --oneline $(git branch --show-current) --not @{u}"
+alias gluc="git log --oneline @{u} --not $(git branch --show-current)"
+alias glcu="git log --oneline $(git branch --show-current) --not @{u}"
 alias glog='git log --oneline --graph'
 alias gdt='git log --diff-filter=A --follow --format=%aD -1 --' # Find date/time a file/folder was first added to a Git repository
 alias gle='git log -1 --pretty="format:%aD"' # Find date/time a file/folder was last edit to a Git repository

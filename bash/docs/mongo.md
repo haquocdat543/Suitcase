@@ -20,6 +20,16 @@ COLLECTION_NAME=""
 DIRECTORY="/backup"
 docker run -it --rm -v $(pwd)/mongo-backup:/backup:rw mongo mongodump --uri="${URI}" --db ${DB_NAME} --collection ${COLLECTION_NAME} --out ${DIRECTORY}
 ```
+
+- Import json data
+```bash
+URI=""
+DB_NAME=""
+COLLECTION_NAME=""
+JSON_FILE_NAME=""
+mongoimport --uri=${URI} --db ${DB_NAME} --collection ${COLLECTION_NAME} --file ${JSON_FILE_NAME} --jsonArray
+```
+
 ## 2. Connect
 Remeber to surround URI by double quotes:
 ```bash

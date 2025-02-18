@@ -394,6 +394,7 @@ alias datagithub='vim -m $HOME/preconfig/Suitcase/bash/data/github.txt'
 alias datastex='vim -m $HOME/preconfig/Suitcase/bash/data/stackexchange.txt'
 
 ### Documentation
+alias docprisma='vim -m $HOME/preconfig/Suitcase/bash/docs/prisma.md'
 alias doccookie='vim -m $HOME/preconfig/Suitcase/bash/docs/cookie.md'
 alias docairflow='vim -m $HOME/preconfig/Suitcase/bash/docs/airflow.md'
 alias docsftp='vim -m $HOME/preconfig/Suitcase/bash/docs/sftp.md'

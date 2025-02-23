@@ -394,6 +394,7 @@ alias datagithub='vim -m $HOME/preconfig/Suitcase/bash/data/github.txt'
 alias datastex='vim -m $HOME/preconfig/Suitcase/bash/data/stackexchange.txt'
 
 ### Documentation
+alias docjs='vim -m $HOME/preconfig/Suitcase/bash/docs/javascript.md'
 alias docprisma='vim -m $HOME/preconfig/Suitcase/bash/docs/prisma.md'
 alias doccookie='vim -m $HOME/preconfig/Suitcase/bash/docs/cookie.md'
 alias docairflow='vim -m $HOME/preconfig/Suitcase/bash/docs/airflow.md'
@@ -743,7 +744,7 @@ alias slsrds='sls remove --stage dev --region ap-southeast-2'
 ### Firebase
 alias fbu='firebase use' # firebase use <ProjectID>
 alias fbfl='firebase functions:list'
-alias fbfd='firebase functions:delete' # firebase function:delete <FunctionName>
+alias fbfd='firebase functions:delete'        # firebase function:delete <FunctionName>
 alias fbflc='firebase functions:location set' # firebase function:location set <RegionId>
 
 ### S3 command
@@ -869,7 +870,7 @@ alias a2cdla='aws codedeploy list-applications'
 alias a2cdld='aws codedeploy list-deployments'
 alias a2cdcd='aws codedeploy create-deployment --application-name'
 alias a2cdda='aws codedeploy delete-application --application-name'
- 
+
 ### AWS Pipeline
 alias a2cpllp='aws codepipeline list-pipelines'
 alias a2cpllp='aws codepipeline create-pipeline --pipeline'
@@ -1080,9 +1081,9 @@ alias ghrl='gh repo list'
 alias ghrf='gh repo fork'
 alias ghrr='gh repo rename'
 alias ghrc='gh repo create'
-alias ghrd='gh repo delete' # You must inside to that repo
-alias ghev='gh repo edit --visibility' # You must inside to that repo
-alias ghevpu='gh repo edit --visibility public' # You must inside to that repo
+alias ghrd='gh repo delete'                      # You must inside to that repo
+alias ghev='gh repo edit --visibility'           # You must inside to that repo
+alias ghevpu='gh repo edit --visibility public'  # You must inside to that repo
 alias ghevpr='gh repo edit --visibility private' # You must inside to that repo
 alias ghrv='gh repo view'
 alias ghre='gh repo edit'
@@ -1169,7 +1170,7 @@ alias gsd='git stash drop'
 alias gssh='git stash show'
 
 ### Git command [commit]
-alias gtg='git commit --allow-empty -m "chore: trigger"' # Trigger
+alias gtg='git commit --allow-empty -m "chore: trigger"'   # Trigger
 alias gfg='git commit --allow-empty -m "feature: trigger"' # Release
 alias gcae="git commit --allow-empty -m"
 alias gcam='git commit --amend'
@@ -1211,7 +1212,7 @@ alias gluc="git log --oneline @{u} --not $(git branch --show-current)"
 alias glcu="git log --oneline $(git branch --show-current) --not @{u}"
 alias glog='git log --oneline --graph'
 alias gdt='git log --diff-filter=A --follow --format=%aD -1 --' # Find date/time a file/folder was first added to a Git repository
-alias gle='git log -1 --pretty="format:%aD"' # Find date/time a file/folder was last edit to a Git repository
+alias gle='git log -1 --pretty="format:%aD"'                    # Find date/time a file/folder was last edit to a Git repository
 alias glau="git log --format='%aN' | sort | uniq"
 
 ### Git command [rebase]
@@ -1752,10 +1753,10 @@ alias kcli='kubectl cluster-info'
 alias kclid='kubectl cluster-info dump'
 alias kx='kubectl exec -it'
 alias kxb='. $HOME/preconfig/Suitcase/bash/scripts/kubeExec.sh /bin/bash' # <pod-name> [container-name]
-alias kxs='. $HOME/preconfig/Suitcase/bash/scripts/kubeExec.sh /bin/sh' # <pod-name> [container-name]
-alias kxo='. $HOME/preconfig/Suitcase/bash/scripts/kubeExec.sh' # <command> <pod-name> [container-name]
-alias klcp='. $HOME/preconfig/Suitcase/bash/scripts/kubeLocalCopy.sh' # <pod-name> <container-path> <local-path> [container-name]
-alias kscp='. $HOME/preconfig/Suitcase/bash/scripts/kubeServerCopy.sh' # <local-path> <pod-name> <container-path> [container-name]
+alias kxs='. $HOME/preconfig/Suitcase/bash/scripts/kubeExec.sh /bin/sh'   # <pod-name> [container-name]
+alias kxo='. $HOME/preconfig/Suitcase/bash/scripts/kubeExec.sh'           # <command> <pod-name> [container-name]
+alias klcp='. $HOME/preconfig/Suitcase/bash/scripts/kubeLocalCopy.sh'     # <pod-name> <container-path> <local-path> [container-name]
+alias kscp='. $HOME/preconfig/Suitcase/bash/scripts/kubeServerCopy.sh'    # <local-path> <pod-name> <container-path> [container-name]
 alias kq='kubectl describe quota'
 alias kar='kubectl api-resources'
 alias kgmesh='kubectl get pods --all-namespaces -L istio.io/rev'
@@ -1951,7 +1952,7 @@ alias kgsaw='kubectl get serviceaccount -w'
 alias kgpspw='kubectl get podsecuritypolicies -w'
 alias kgcrdw='kubectl get crds -w'
 
-alias kgpra='kubectl get policyreport -A' 
+alias kgpra='kubectl get policyreport -A'
 alias kgpra='kubectl get policyreport -A'
 alias kgcpa='kubectl get clusterpolicy -A'
 alias kgpa='kubectl get pod -A'
@@ -1980,7 +1981,7 @@ alias kgsaa='kubectl get serviceaccount -A'
 alias kgpspa='kubectl get podsecuritypolicies -A'
 alias kgcrda='kubectl get crds -A'
 
-alias kgpraw='kubectl get policyreport -A -w' 
+alias kgpraw='kubectl get policyreport -A -w'
 alias kgpraw='kubectl get policyreport -A -w'
 alias kgcpaw='kubectl get clusterpolicy -A -w'
 alias kgpaw='kubectl get pod -A -w'
@@ -2286,10 +2287,10 @@ alias kzfn='kustomize fn'
 
 ### Helm command
 alias vicy='vim ./Chart.yaml'
-alias hmcr='helm create' # Create new chart
-alias hms='helm search' # Search <repository-name>
+alias hmcr='helm create'     # Create new chart
+alias hms='helm search'      # Search <repository-name>
 alias hmsh='helm search hub' # Search for repository on Artifact Hub [ https://artifacthub.io/ ]
-alias hmra='helm repo add' 
+alias hmra='helm repo add'
 alias hmrs='helm repo search'
 alias hmrastb='helm repo add stable https://charts.helm.sh/stable '
 alias hmrabnm='helm repo add bitnami https://charts.bitnami.com/bitnami'
@@ -2535,21 +2536,21 @@ alias brieps='brew install espanso'
 alias brinavi='brew install navi'
 alias brigitleaks='brew install gitleaks'
 
-### Java command 
+### Java command
 alias jv='java'
 alias jvv='java -version'
 
-### PHP command 
+### PHP command
 alias p2='php'
 alias p2v='php -v'
 
-### Ceph command 
+### Ceph command
 alias c3='ceph'
 alias c3sts='ceph status'
 alias c3stt='ceph start'
 alias c3stp='ceph stop'
 
-### Hcloud command 
+### Hcloud command
 alias hc='hcloud'
 alias hcv='hcloud version'
 alias hcsl='hcloud server list'
@@ -2669,7 +2670,7 @@ alias cblb='cabal build'
 alias cblii='cabal init --interactive'
 
 ### Rust command [ Rust ]
-alias rs='rustc' # Eg: rustc main.rs
+alias rs='rustc'            # Eg: rustc main.rs
 alias rse='rustc --explain' # Eg: rustc --explain E0384
 
 ### Rustup
@@ -2744,7 +2745,7 @@ alias uspa='. $HOME/preconfig/Suitcase/bash/scripts/userAndPassword.sh'
 alias osm='osmosisd'
 alias osmcf='osmosisd config'
 
-### gm 
+### gm
 alias gmv='gm version'
 alias gmstt='gm start'
 alias gmstp='gm stop'
@@ -2769,7 +2770,7 @@ alias gmepst='gm explorer status'
 alias gmepcf='gm explorer config'
 alias gmepi='gm explorer init'
 
-### hermes 
+### hermes
 alias hrmcl='hermes clear'
 alias hrmclp='hermes clear packets'
 alias hrmucl='hermes update client'
@@ -2815,7 +2816,7 @@ alias tdu='. $HOME/preconfig/Suitcase/bash/scripts/todo update'
 alias tdp='. $HOME/preconfig/Suitcase/bash/scripts/todo push'
 alias tdpl='. $HOME/preconfig/Suitcase/bash/scripts/todo pull'
 
-### KeepIdea 
+### KeepIdea
 alias kid='. $HOME/preconfig/Suitcase/bash/scripts/keepidea'
 alias kidl='. $HOME/preconfig/Suitcase/bash/scripts/keepidea list'
 alias kida='. $HOME/preconfig/Suitcase/bash/scripts/keepidea add'
@@ -2876,28 +2877,28 @@ alias wgetgh='. $HOME/preconfig/Suitcase/bash/scripts/wgetGithub.sh'
 alias a2sm='. $HOME/preconfig/Suitcase/bash/scripts/awsSessionManager.sh'
 alias lnsvbm='. $HOME/preconfig/Suitcase/bash/scripts/linux-server-benchmark.sh'
 alias argopw='. $HOME/preconfig/Suitcase/bash/scripts/getArgoCDPassword.sh'
-alias kgpon='. $HOME/preconfig/Suitcase/bash/scripts/getPodOnNode.sh' # <node-name>
-alias kgpron='. $HOME/preconfig/Suitcase/bash/scripts/getPodResourceOnNode.sh' # <node-name>
-alias kgprons='. $HOME/preconfig/Suitcase/bash/scripts/getPodResourceOnNamespace.sh' # <namespace>
-alias kgnpns='. $HOME/preconfig/Suitcase/bash/scripts/getNodeOfPodInNamespace.sh' # <namespace>
+alias kgpon='. $HOME/preconfig/Suitcase/bash/scripts/getPodOnNode.sh'                      # <node-name>
+alias kgpron='. $HOME/preconfig/Suitcase/bash/scripts/getPodResourceOnNode.sh'             # <node-name>
+alias kgprons='. $HOME/preconfig/Suitcase/bash/scripts/getPodResourceOnNamespace.sh'       # <namespace>
+alias kgnpns='. $HOME/preconfig/Suitcase/bash/scripts/getNodeOfPodInNamespace.sh'          # <namespace>
 alias kgpsans='. $HOME/preconfig/Suitcase/bash/scripts/getPodServiceAccountInNamespace.sh' # <namespace>
 alias kgdm='. $HOME/preconfig/Suitcase/bash/scripts/getServiceDomain.sh'
-alias kgpc='. $HOME/preconfig/Suitcase/bash/scripts/getPodContainer.sh' # <pod-name>
-alias kgry='. $HOME/preconfig/Suitcase/bash/scripts/getRoleYaml.sh' # <role-name>
-alias kgcry='. $HOME/preconfig/Suitcase/bash/scripts/getClusterRoleYaml.sh' # <clusterrole-name>
-alias kapvis='. $HOME/preconfig/Suitcase/bash/scripts/postgresVisor.sh apply' # <operation> (apply/delete)
-alias kdpvis='. $HOME/preconfig/Suitcase/bash/scripts/postgresVisor.sh delete' # <operation> (apply/delete)
-alias kavis='. $HOME/preconfig/Suitcase/bash/scripts/visor.sh apply' # <operation> (apply/delete)
-alias kdvis='. $HOME/preconfig/Suitcase/bash/scripts/visor.sh delete' # <operation> (apply/delete)
-alias gippvd='. $HOME/preconfig/Suitcase/bash/scripts/getIpCloudProvider.sh' # <operation> (apply/delete)
+alias kgpc='. $HOME/preconfig/Suitcase/bash/scripts/getPodContainer.sh'           # <pod-name>
+alias kgry='. $HOME/preconfig/Suitcase/bash/scripts/getRoleYaml.sh'               # <role-name>
+alias kgcry='. $HOME/preconfig/Suitcase/bash/scripts/getClusterRoleYaml.sh'       # <clusterrole-name>
+alias kapvis='. $HOME/preconfig/Suitcase/bash/scripts/postgresVisor.sh apply'     # <operation> (apply/delete)
+alias kdpvis='. $HOME/preconfig/Suitcase/bash/scripts/postgresVisor.sh delete'    # <operation> (apply/delete)
+alias kavis='. $HOME/preconfig/Suitcase/bash/scripts/visor.sh apply'              # <operation> (apply/delete)
+alias kdvis='. $HOME/preconfig/Suitcase/bash/scripts/visor.sh delete'             # <operation> (apply/delete)
+alias gippvd='. $HOME/preconfig/Suitcase/bash/scripts/getIpCloudProvider.sh'      # <operation> (apply/delete)
 alias hmptu='. $HOME/preconfig/Suitcase/bash/scripts/helmPullTemplate.sh --untar' # <operation> Eg: --untar
-alias hmara='. $HOME/preconfig/Suitcase/bash/data/helm/helm.sh' # Add all helm repo in script
-alias dc64='. $HOME/preconfig/Suitcase/bash/scripts/decodeBase64.sh' # <base64-encoded-text>
+alias hmara='. $HOME/preconfig/Suitcase/bash/data/helm/helm.sh'                   # Add all helm repo in script
+alias dc64='. $HOME/preconfig/Suitcase/bash/scripts/decodeBase64.sh'              # <base64-encoded-text>
 alias kgim='. $HOME/preconfig/Suitcase/bash/scripts/getAllImagesOnK8s.sh'
 alias sshfw='. $HOME/preconfig/Suitcase/bash/scripts/sshForward.sh'
 alias baca='. $HOME/preconfig/Suitcase/bash/scripts/BasicCalculator.sh'
 alias ecsexec='. $HOME/preconfig/Suitcase/bash/scripts/ecsExec.sh' # <Cluster-name> <Task-id> <Container-name> <CMD> # Service need to set enable-execute-command to true # Service role and exec role must have enough permission [ ssmmessages:*, ssm:UpdateInstanceInformation, ecs:ExecuteCommand, kms:Decrypt ]
-alias dif='. $HOME/preconfig/Suitcase/bash/scripts/diff.sh' # <FIRST_STRING> <SECOND_STRING>
+alias dif='. $HOME/preconfig/Suitcase/bash/scripts/diff.sh'        # <FIRST_STRING> <SECOND_STRING>
 alias shn='sudo scutil --set HostName'
 alias slhn='sudo scutil --set LocalHostName'
 alias scn='sudo scutil --set ComputerName'
@@ -3081,7 +3082,7 @@ alias ylib3='yum -y install gcc gcc-c++ gmp gmp-devel make ncurses ncurses-compa
 alias ytool='yum -y groupinstall "Development Tools"'
 alias ybu='yum -y install bind-utils'
 alias yn='yum install nodejs -y'
-alias ynpm='yum install npm -y' 
+alias ynpm='yum install npm -y'
 alias yg='yum install git -y'
 alias yr='yum remove -y'
 alias yu='yum update -y'

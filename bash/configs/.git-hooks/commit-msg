@@ -1,0 +1,17 @@
+#!/bin/bash
+COMMIT_MSG_FILE=$1
+COMMIT_MSG=$(cat "$COMMIT_MSG_FILE")
+
+# Enforce a commit message format (e.g., must start with a capital letter and be at least 10 characters long)
+if ! [[ "$COMMIT_MSG" =~ ^[A-Z] && ${#COMMIT_MSG} -ge 10 ]]; then
+    echo "❌ Commit message must start with a capital letter and be at least 10 characters long."
+    exit 1
+fi
+
+# Enforce conventional commit format (optional)
+if ! [[ "$COMMIT_MSG" =~ ^(feat|fix|docs|style|refactor|test|chore)\(.*\):\ .+ ]]; then
+    echo "❌ Commit message must follow Conventional Commits format (e.g., feat(scope): message)."
+    exit 1
+fi
+
+exit 0

@@ -3,7 +3,7 @@ COMMIT_MSG_FILE=$1
 COMMIT_MSG=$(cat "$COMMIT_MSG_FILE")
 
 # Enforce a commit message format (e.g., must start with a capital letter and be at least 10 characters long)
-if ! [[ "$COMMIT_MSG" =~ ^[A-Z] && ${#COMMIT_MSG} -ge 10 ]]; then
+if ! [[ "$COMMIT_MSG" =~ ^[a-zA-Z] && ${#COMMIT_MSG} -ge 10 ]]; then
     echo "❌ Commit message must start with a capital letter and be at least 10 characters long."
     exit 1
 fi

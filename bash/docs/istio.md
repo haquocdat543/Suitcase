@@ -14,6 +14,11 @@ kubectl get namespace --show-labels
 kubectl label namespace <NAMESPACE> istio-injection=enabled
 ```
 
+get default istio-proxy envoy config:
+```
+curl -s http://localhost:15000/config_dump
+```
+
 ### 1 Traffic routing
 VirtualService:
 ```yaml

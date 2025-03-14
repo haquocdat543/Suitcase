@@ -1215,6 +1215,9 @@ alias gdt='git log --diff-filter=A --follow --format=%aD -1 --' # Find date/time
 alias gle='git log -1 --pretty="format:%aD"'                    # Find date/time a file/folder was last edit to a Git repository
 alias glau="git log --format='%aN' | sort | uniq"
 
+### Git command [merge]
+alias gmfo='git merge --ff-only'
+
 ### Git command [rebase]
 alias grb='git rebase'
 alias grbi='git rebase -i'

@@ -1168,6 +1168,7 @@ alias gss='git stash save'
 alias gsa='git stash apply'
 alias gsd='git stash drop'
 alias gssh='git stash show'
+alias gsshp='git stash show -p'
 
 ### Git command [commit]
 alias gtg='git commit --allow-empty -m "chore: trigger"'   # Trigger

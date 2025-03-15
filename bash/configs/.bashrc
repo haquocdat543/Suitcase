@@ -1145,6 +1145,7 @@ alias gclrm='git clone --recurse-submodules'
 
 ### Git command [status]
 alias gs='git status'
+alias gsp='git status --porcelain'
 
 ### Git command [diff]
 alias gsh='git show'

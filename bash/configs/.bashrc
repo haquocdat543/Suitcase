@@ -1207,6 +1207,7 @@ alias g6='git revert HEAD'
 ### Git command [log]
 alias gl='git log'
 alias glo='git log --oneline'
+alias gloo='git log --oneline -n 20'
 alias glo10='git log -n 10 --oneline'
 alias gl10='git log -n 10'
 alias gluc="git log --oneline @{u} --not $(git branch --show-current)"
